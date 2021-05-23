@@ -9,13 +9,13 @@ class Sportsman(models.Model):
     address = models.TextField(blank=False, verbose_name="Адрес прописки") 
     sex = models.ForeignKey(blank=False, verbose_name="Наименование пола")
     main_document = models.ImageField(blank=False, verbose_name="Фото подтверждающего документа") 
-    city = models.ForeignKey(city, on_delete=models.CASCADE, verbose_name="Город") 
-    trainer = models.ForeignKey(trainer, on_delete=models.CASCADE, verbose_name="Тренер спортсмена")
-    club = models.ForeignKey(club, on_delete=models.CASCADE, verbose_name="Наименование клуба")
-    insurance = models.ForeignKey(insurance, on_delete=models.CASCADE, verbose_name="Страховка")
-    rank = models.ForeignKey(rank, on_delete=models.CASCADE, verbose_name="Наименование ранга")
+    city = models.ForeignKey(City, on_delete=models.CASCADE, verbose_name="Город") 
+    trainer = models.ForeignKey(Trainer, on_delete=models.CASCADE, verbose_name="Тренер спортсмена")
+    club = models.ForeignKey(Club, on_delete=models.CASCADE, verbose_name="Наименование клуба")
+    insurance = models.ForeignKey(Insurance, on_delete=models.CASCADE, verbose_name="Страховка")
+    rank = models.ForeignKey(Rank, on_delete=models.CASCADE, verbose_name="Наименование ранга")
     rusada = models.ImageField(blank=False, verbose_name="Изображение антидопингового сертификата")
-    duan_czi = models.ForeignKey(duan_czi, on_delete=models.CASCADE, verbose_name="Ранг Дуань Цзи")
+    duan_czi = models.ForeignKey(Duan_Czi, on_delete=models.CASCADE, verbose_name="Ранг Дуань Цзи")
     class Meta():
         verbose_name = "Спортсмен"
         verbose_name_plural = "Спортсмены"
@@ -28,7 +28,7 @@ class Sex(models.Model):
 
 class City(models.Model):
     city = models.TextField(primary_key=True, blank=False, verbose_name="Название населённого пункта")
-    region = models.ForeignKey(region, on_delete=models.CASCADE, verbose_name="Название округа/области/края")
+    region = models.ForeignKey(Region, on_delete=models.CASCADE, verbose_name="Название округа/области/края")
     class Meta():
         verbose_name = "Список населённых пунктов"
         verbose_name_plural = "Список населённых пунктов"
@@ -41,7 +41,7 @@ class Federal_region(models.Model):
 
 class Region(models.Model):
     region_name = models.TextField(primary_key=True, blank=False, verbose_name="Название округа/области/края")
-    federal_region = models.ForeignKey(federal_region, blank=False, verbose_name="Название федерального округа")
+    federal_region = models.ForeignKey(Federal_region, blank=False, verbose_name="Название федерального округа")
     country = models.TextField(verbose_name="Название страны")
     class Meta():
         verbose_name = "Список округов/областей/краев"
@@ -78,16 +78,16 @@ class Duan_Czi(models.Model):
         verbose_name_plural = "Список рангов Дуань Цзи"
 
 class Rank_history(models.Model):
-    sportsman = models.ForeignKey(sportsman, on_delete=models.CASCADE, blank=False, verbose_name="Спортсмен")
-    new_rank = models.ForeignKey(rank, on_delete=models.CASCADE, blank=False, verbose_name="Новый ранг спортсмена")
+    sportsman = models.ForeignKey(Sportsman, on_delete=models.CASCADE, blank=False, verbose_name="Спортсмен")
+    new_rank = models.ForeignKey(Rank, on_delete=models.CASCADE, blank=False, verbose_name="Новый ранг спортсмена")
     date = models.DateField(blank=False, verbose_name="Дата выпуска приказа")
     order = models.ImageField(verbose_name="Скан приказа об изменении ранга")
     class Meta():
         verbose_name = "История изменения рангов спортсменов"
         verbose_name_plural = "История изменения рангов спортсменов"
 class Trainer_history(models.Model):
-    sportsman = models.ForeignKey(sportsman, on_delete=models.CASCADE, blank=False, verbose_name="Спортсмены")
-    new_trainer = models.ForeignKey(trainer, blank=False, on_delete=models.CASCADE, verbose_name="Новый тренер")
+    sportsman = models.ForeignKey(Sportsman, on_delete=models.CASCADE, blank=False, verbose_name="Спортсмены")
+    new_trainer = models.ForeignKey(Trainer, blank=False, on_delete=models.CASCADE, verbose_name="Новый тренер")
     date = models.DateField(blank=False, verbose_name="Дата смены тренера")
     class Meta():
         verbose_name = "История смены тренеров"
