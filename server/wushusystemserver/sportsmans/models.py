@@ -12,7 +12,7 @@ class Gender(models.Model):
 
 
 class Region(models.Model):
-    region = models.TextField(blank=False,
+    name_region = models.TextField(blank=False,
                               verbose_name="Название округа/области/края/республики")
     federal_region_name = models.TextField(
         blank=False, verbose_name="Название федерального округа")
@@ -20,7 +20,7 @@ class Region(models.Model):
 
 
 class City (models.Model):
-    city = models.TextField(
+    name_city = models.TextField(
         primary_key=True, verbose_name="Наименование города")
     region = models.ForeignKey(
         Region, blank=False, on_delete=models.CASCADE, verbose_name="Название округа/области/края/республики")
@@ -31,12 +31,14 @@ class Trainer(models.Model):
     surname = models.TextField(verbose_name="Фамилия тренера")
     patronymics = models.TextField(verbose_name="Отчество тренера")
     photo = models.ImageField(verbose_name="Фотография тренера")
-    gender = models.ForeignKey(Gender, on_delete=models.CASCADE, verbose_name="Наименование пола")
+    gender = models.ForeignKey(
+        Gender, on_delete=models.CASCADE, verbose_name="Наименование пола")
     date_birth = models.DateField(verbose_name="Дата рождения тренера")
 
     class Meta():
         verbose_name = "Список тренеров"
         verbose_name_plural = "Список тренеров"
+
 
 class Federation(models.Model):
     name_federation = models.TextField(
@@ -44,14 +46,13 @@ class Federation(models.Model):
     Region = models.ForeignKey(
         Region, on_delete=models.CASCADE, verbose_name="Название округа/области/края/республики в которой находится федерация")
 
+
 class Club(models.Model):
     id = models.AutoField(primary_key=True)
     name_club = models.TextField(
         blank=False, verbose_name="Наименование клуба")
     federation = models.ForeignKey(Federation,
-        on_delete=models.CASCADE, verbose_name="Федерация, к которой привязан клуб")
-
-
+                                   on_delete=models.CASCADE, verbose_name="Федерация, к которой привязан клуб")
 
 
 class Insurance(models.Model):
@@ -83,7 +84,6 @@ class Duan_Czi(models.Model):
         verbose_name_plural = "Список рангов Дуань Цзи"
 
 
-
 class Sportsman(models.Model):
     name = models.TextField(blank=False, verbose_name="Имя спортсмена")
     surname = models.TextField(blank=False, verbose_name="Фамилия спортсмена")
@@ -91,7 +91,8 @@ class Sportsman(models.Model):
     photo = models.ImageField(verbose_name="Фотография спортсмена")
     date_of_birth = models.DateField(blank=False, verbose_name="Дата рождения")
     address = models.TextField(verbose_name="Адрес прописки")
-    gender = models.ForeignKey(Gender, on_delete=models.CASCADE, blank=False, verbose_name="Наименование пола")
+    gender = models.ForeignKey(
+        Gender, on_delete=models.CASCADE, blank=False, verbose_name="Наименование пола")
     main_document = models.ImageField(
         verbose_name="Фото подтверждающего документа")
     city = models.TextField(verbose_name="Название города")
@@ -112,6 +113,7 @@ class Sportsman(models.Model):
     class Meta():
         verbose_name = "Спортсмен"
         verbose_name_plural = "Спортсмены"
+
 
 class Rank_history(models.Model):
     sportsman = models.ForeignKey(
