@@ -30,6 +30,7 @@ class Trainer(models.Model):
     name = models.TextField(blank=False, verbose_name="Имя тренера")
     surname = models.TextField(verbose_name="Фамилия тренера")
     patronymics = models.TextField(verbose_name="Отчество тренера")
+    photo = models.ImageField(verbose_name="Фотография тренера")
     gender = models.ForeignKey(Gender, on_delete=models.CASCADE, verbose_name="Наименование пола")
     date_birth = models.DateField(verbose_name="Дата рождения тренера")
 
@@ -87,6 +88,7 @@ class Sportsman(models.Model):
     name = models.TextField(blank=False, verbose_name="Имя спортсмена")
     surname = models.TextField(blank=False, verbose_name="Фамилия спортсмена")
     patronymic = models.TextField(verbose_name="Отчество спортсмена")
+    photo = models.ImageField(verbose_name="Фотография спортсмена")
     date_of_birth = models.DateField(blank=False, verbose_name="Дата рождения")
     address = models.TextField(verbose_name="Адрес прописки")
     gender = models.ForeignKey(Gender, on_delete=models.CASCADE, blank=False, verbose_name="Наименование пола")
