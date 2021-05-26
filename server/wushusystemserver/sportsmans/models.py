@@ -13,10 +13,14 @@ class Gender(models.Model):
 
 class Region(models.Model):
     name_region = models.TextField(blank=False,
-                              verbose_name="Название округа/области/края/республики")
+                                   verbose_name="Название округа/области/края/республики")
     federal_region_name = models.TextField(
         blank=False, verbose_name="Название федерального округа")
     country = models.TextField(blank=False, verbose_name="Название страны")
+
+    class Meta():
+        verbose_name = "Список округов/областей/краёв/республик"
+        verbose_name_plural = "Список округов/областей/краёв/республик"
 
 
 class City (models.Model):
@@ -24,6 +28,10 @@ class City (models.Model):
         primary_key=True, verbose_name="Наименование города")
     region = models.ForeignKey(
         Region, blank=False, on_delete=models.CASCADE, verbose_name="Название округа/области/края/республики")
+
+    class Meta():
+        verbose_name = "Список городов"
+        verbose_name_plural = "Список городов"
 
 
 class Trainer(models.Model):
@@ -46,6 +54,10 @@ class Federation(models.Model):
     Region = models.ForeignKey(
         Region, on_delete=models.CASCADE, verbose_name="Название округа/области/края/республики в которой находится федерация")
 
+    class Meta():
+        verbose_name = "Список федераций Ушу"
+        verbose_name_plural = "Список федераций Ушу"
+
 
 class Club(models.Model):
     id = models.AutoField(primary_key=True)
@@ -53,6 +65,10 @@ class Club(models.Model):
         blank=False, verbose_name="Наименование клуба")
     federation = models.ForeignKey(Federation,
                                    on_delete=models.CASCADE, verbose_name="Федерация, к которой привязан клуб")
+
+    class Meta():
+        verbose_name = "Список клубов"
+        verbose_name_plural = "Список клубов"
 
 
 class Insurance(models.Model):
