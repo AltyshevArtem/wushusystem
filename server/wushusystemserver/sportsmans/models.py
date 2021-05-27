@@ -63,7 +63,7 @@ class Trainer(models.Model):
 class Federation(models.Model):
     name_federation = models.TextField(
         primary_key=True, verbose_name="Название федерации")
-    Region = models.ForeignKey(
+    region = models.ForeignKey(
         Region, on_delete=models.CASCADE, verbose_name="Название округа/области/края/республики в которой находится федерация")
 
     def __str__(self):
