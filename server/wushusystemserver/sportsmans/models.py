@@ -6,6 +6,9 @@ class Gender(models.Model):
     name_gender = models.TextField(
         primary_key=True, blank=False, verbose_name="Наименование пола")
 
+    def __str__(self):
+        return "%s" %(self.name_gender)
+
     class Meta():
         verbose_name = "Список доступных полов"
         verbose_name_plural = "Список доступных полов"
@@ -18,6 +21,9 @@ class Region(models.Model):
         blank=False, verbose_name="Название федерального округа")
     country = models.TextField(blank=False, verbose_name="Название страны")
 
+    def __str__(self):
+         return "%s" % self.name_region
+
     class Meta():
         verbose_name = "Список округов/областей/краёв/республик"
         verbose_name_plural = "Список округов/областей/краёв/республик"
@@ -28,6 +34,9 @@ class City (models.Model):
         primary_key=True, verbose_name="Наименование города")
     region = models.ForeignKey(
         Region, blank=False, on_delete=models.CASCADE, verbose_name="Название округа/области/края/республики")
+
+    def __str__(self):
+        return "%s" %(self.name_city)
 
     class Meta():
         verbose_name = "Список городов"
@@ -43,6 +52,9 @@ class Trainer(models.Model):
         Gender, on_delete=models.CASCADE, verbose_name="Наименование пола")
     date_birth = models.DateField(verbose_name="Дата рождения тренера")
 
+    def __str__(self):
+         return "%s %s %s" %(self.surname, self.name, self.patronymics)
+
     class Meta():
         verbose_name = "Список тренеров"
         verbose_name_plural = "Список тренеров"
@@ -53,6 +65,9 @@ class Federation(models.Model):
         primary_key=True, verbose_name="Название федерации")
     Region = models.ForeignKey(
         Region, on_delete=models.CASCADE, verbose_name="Название округа/области/края/республики в которой находится федерация")
+
+    def __str__(self):
+         return "%s" % self.name_federation
 
     class Meta():
         verbose_name = "Список федераций Ушу"
@@ -66,6 +81,9 @@ class Club(models.Model):
     federation = models.ForeignKey(Federation,
                                    on_delete=models.CASCADE, verbose_name="Федерация, к которой привязан клуб")
 
+    def __str__(self):
+        return "%s" %(self.name_club)
+
     class Meta():
         verbose_name = "Список клубов"
         verbose_name_plural = "Список клубов"
@@ -78,6 +96,9 @@ class Insurance(models.Model):
     img_insurance = models.FileField(
         blank=False, verbose_name="Фотография страховки")
 
+    def __str__(self):
+        return "%s" %(self.img_insurance)
+
     class Meta():
         verbose_name = "Список страховок"
         verbose_name_plural = "Список страховок"
@@ -85,6 +106,9 @@ class Insurance(models.Model):
 
 class Rank(models.Model):
     name_rank = models.TextField(blank=False, verbose_name="Имя ранга")
+
+    def __str__(self):
+        return "%s" %(self.name_rank)
 
     class Meta():
         verbose_name = "Список рангов"
@@ -94,6 +118,9 @@ class Rank(models.Model):
 class Duan_Czi(models.Model):
     name_rank = models.TextField(
         blank=False, verbose_name="Название степени сертификата")
+
+    def __str__(self):
+        return "%s" %(self.name_rank)
 
     class Meta():
         verbose_name = "Список рангов Дуань Цзи"
