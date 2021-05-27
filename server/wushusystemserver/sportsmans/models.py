@@ -38,7 +38,7 @@ class Trainer(models.Model):
     name = models.TextField(blank=False, verbose_name="Имя тренера")
     surname = models.TextField(verbose_name="Фамилия тренера")
     patronymics = models.TextField(verbose_name="Отчество тренера")
-    photo = models.ImageField(verbose_name="Фотография тренера")
+    photo = models.FileField(verbose_name="Фотография тренера")
     gender = models.ForeignKey(
         Gender, on_delete=models.CASCADE, verbose_name="Наименование пола")
     date_birth = models.DateField(verbose_name="Дата рождения тренера")
@@ -75,7 +75,7 @@ class Insurance(models.Model):
     date_start = models.DateField(verbose_name="Дата начала страхования")
     date_end = models.DateField(
         blank=False, verbose_name="Дата окончания страхования")
-    img_insurance = models.ImageField(
+    img_insurance = models.FileField(
         blank=False, verbose_name="Фотография страховки")
 
     class Meta():
@@ -109,7 +109,7 @@ class Sportsman(models.Model):
     address = models.TextField(verbose_name="Адрес прописки")
     gender = models.ForeignKey(
         Gender, on_delete=models.CASCADE, blank=False, verbose_name="Наименование пола")
-    main_document = models.ImageField(
+    main_document = models.FileField(
         verbose_name="Фото подтверждающего документа")
     city = models.TextField(verbose_name="Название города")
     region = models.ForeignKey(Region, blank=False,  on_delete=models.CASCADE,
@@ -121,7 +121,7 @@ class Sportsman(models.Model):
     insurance = models.ForeignKey(
         Insurance, on_delete=models.CASCADE, verbose_name="Страховка")
     rank = models.TextField(verbose_name="Наименование ранга")
-    rusada = models.ImageField(
+    rusada = models.FileField(
         verbose_name="Изображение антидопингового сертификата")
     duan_czi = models.ForeignKey(
         Duan_Czi, on_delete=models.CASCADE, verbose_name="Ранг Дуань Цзи")
@@ -137,7 +137,7 @@ class Rank_history(models.Model):
     new_rank = models.ForeignKey(
         Rank, on_delete=models.CASCADE, blank=False, verbose_name="Новый ранг спортсмена")
     date = models.DateField(blank=False, verbose_name="Дата выпуска приказа")
-    order = models.ImageField(verbose_name="Скан приказа об изменении ранга")
+    order = models.FileField(verbose_name="Скан приказа об изменении ранга")
 
     class Meta():
         verbose_name = "История изменения рангов спортсменов"
@@ -162,7 +162,7 @@ class Duan_Czi_history(models.Model):
     new_duan_czi = models.ForeignKey(
         Duan_Czi, on_delete=models.CASCADE, blank=False, verbose_name="Новый ранг спортсмена Дуань Цзи")
     date = models.DateField(blank=False, verbose_name="Дата выпуска приказа")
-    order = models.ImageField(verbose_name="Скан приказа об изменении ранга")
+    order = models.FileField(verbose_name="Скан приказа об изменении ранга")
 
     class Meta():
         verbose_name = "История изменения рангов  Дуань Цзи спортсменов"
