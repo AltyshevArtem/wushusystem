@@ -1,11 +1,19 @@
 <template>
-    <div id="nav">
-        <router-link to="/">Home</router-link> |
-        <router-link to="/about">About</router-link>
+    <div id="app">
+        <DefaultLayout />
     </div>
     <router-view />
 </template>
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import DefaultLayout from '@/layouts/Default.vue';
 
+@Options({
+    name: 'App',
+    component: { DefaultLayout },
+})
+export default class App extends Vue {}
+</script>
 <style>
 #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
