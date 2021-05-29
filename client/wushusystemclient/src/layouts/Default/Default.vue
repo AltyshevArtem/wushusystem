@@ -1,7 +1,9 @@
 <template>
     <div class="defaultLayout">
         <Header />
-        <slot></slot>
+        <main>
+            <slot />
+        </main>
         <Footer />
     </div>
 </template>
@@ -18,4 +20,13 @@ import Footer from '@/components/Footer/Footer.vue';
 export default class DefaultLayout extends Vue {}
 </script>
 
-<style></style>
+<style>
+.defaultLayout {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+main {
+    flex: 1;
+}
+</style>
