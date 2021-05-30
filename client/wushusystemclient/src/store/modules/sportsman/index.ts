@@ -9,10 +9,8 @@ export const state: SportsmanState = {
     error: false,
 };
 
-const namespaced = true;
-
-export const Sportsman: Module<SportsmanState, null> = {
-    namespaced,
+export const sportsman: Module<SportsmanState, null> = {
+    namespaced: true,
     state,
     actions,
     mutations,

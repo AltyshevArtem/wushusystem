@@ -1,8 +1,8 @@
 import { createStore } from 'vuex';
-import { Sportsman } from './modules/sportsman/index';
+import { sportsman } from './modules/sportsman/index';
 
 export default createStore({
     modules: {
-        Sportsman
+        sportsman,
     },
 });

@@ -9,5 +9,5 @@ export const mutations: MutationTree<SportsmanState> = {
     getSportsmansError(state) {
         state.error = true;
         state.sportsmans = '';
-    }
-}
+    },
+};

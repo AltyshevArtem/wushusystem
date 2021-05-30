@@ -3,16 +3,16 @@ import axios from 'axios';
 import { SportsmanState } from './types';
 
 export const actions: ActionTree<SportsmanState, null> = {
-    fetchData({commit}): any {
+    fetchData({ commit }): any {
         axios
             .get('/api/sportsmans/')
             .then((response) => {
-                const payload: SportsmanState = response.data.results;
+                const payload: SportsmanState = response && response.data.results;
                 commit('getSportsmans', payload);
             })
             .catch((error) => {
                 console.log(error);
                 commit('getSportsmansError');
             });
-    }
+    },
 };
