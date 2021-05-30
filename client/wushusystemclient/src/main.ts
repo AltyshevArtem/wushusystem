@@ -1,7 +1,17 @@
 import { createApp } from 'vue';
 import App from './App.vue';
+import { devtools } from './devtools';
 import router from './router';
 import store from './store';
 import '@/styles.css';
 
-createApp(App).use(store).use(router).mount('#app');
+declare global{
+    interface Window {
+        __VUE_DEVTOOLS_GLOBAL_HOOK__?: any;
+    }
+}
+
+createApp(App).use(devtools).use(store).use(router).mount('#app');
+
+
+

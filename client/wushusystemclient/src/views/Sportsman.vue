@@ -1,17 +1,24 @@
 <template>
     <div class="sportsman">
-        <h1>Sportsman</h1>
+        <div v-for="sportsman in sportsmans" :key="sportsman.key">{{ sportsman }}</div>
     </div>
 </template>
 
-<script>
-import { Options, Vue } from 'vue-class-component';
+<script lang="ts">
+import { Vue } from 'vue-class-component';
+import { State, Action } from 'vuex-class';
+import { SportsmanState } from '../store/modules/sportsman/types';
 
-@Options({
-    name: 'Sportsman',
-    components: {},
-})
-export default class Sportsman extends Vue {}
+const namespace = 'sportsman';
+
+export default class Sportsman extends Vue {
+    @State('sportsman') sportsmans!: SportsmanState;
+    @Action('fetchData', { namespace }) fetchData: any;
+
+    mounted() {
+        this.fetchData();
+    }
+}
 </script>
 
-<style></style>
+<style scoped></style>
