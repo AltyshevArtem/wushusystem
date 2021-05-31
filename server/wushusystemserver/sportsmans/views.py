@@ -59,7 +59,6 @@ class RegionViewSet(viewsets.ModelViewSet):
 
 class PaginatorSportsman(PageNumberPagination):
     page_size = 50
-
     def get_paginated_response(self, data):
         return Response({
             'links': {
@@ -72,27 +71,24 @@ class PaginatorSportsman(PageNumberPagination):
 # Дату фильтровать через DateFilter
 class SportsmanSetFilter(FilterSet):
     search = CharFilter(method="get_search")
-    def get_search(self, queryset, value):
+    print(search)
+    def get_search(self, queryset, name, value):
         if value:
             queryset = queryset.filter(
                 Q(name__icontains=value)|
                 Q(surname__icontains=value)|
                 Q(patronymic__icontains=value)|
-                Q(date_of_birth__icontains=value)|
-                Q(city__city__icontains=value)|
-                Q(region__name_of_region__icontains=value)|
-                Q(region__federal_region_name__icontains=value)|
-                Q(region__country__icontains=value)|
-                Q(trainer__name__icontains=value)|
-                Q(trainer__surname__icontains=value)|
-                Q(trainer__patronymic__icontains=value)|
-                Q(trainer__date_of_birth__icontains=value)|
-                Q(club__name__icontains=value)|
-                Q(club__federation__icontains=value)|
-                Q(rank__name__icontains=value)|
-                Q(duan_czi__name__icontains=value)
+                Q(city__name_of_city__icontains=value)
             )
         return queryset
+# что будет в чекбоксе:
+    # пол
+    # клуб
+    # дата рождения(не через чекбокс, но я пока убрал, хз как искать)
+    # округ(в city модели он)
+    # клуб
+    # ранг обычный
+    # ранг дуан цзи
 
 class SportsmanViewSet(viewsets.ModelViewSet):
     queryset = Sportsman.objects.all()
