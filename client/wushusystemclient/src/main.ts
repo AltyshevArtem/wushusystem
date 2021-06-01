@@ -4,6 +4,8 @@ import { devtools } from './devtools';
 import router from './router';
 import store from './store';
 import '@/styles.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap";
 
 declare global{
     interface Window {
