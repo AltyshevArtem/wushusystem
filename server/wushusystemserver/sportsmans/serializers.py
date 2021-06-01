@@ -28,14 +28,14 @@ class TrainerSerialize(serializers.ModelSerializer):
 
 
 class FederationSerialize(serializers.ModelSerializer):
-    region = RegionSerialize()
+    name_of_region = RegionSerialize()
     class Meta:
         model = Federation
         fields = "__all__"
 
 
 class ClubSerialize(serializers.ModelSerializer):
-    federation = FederationSerialize()
+    name_of_federation = FederationSerialize()
     class Meta:
         model = Club
         fields = "__all__"
@@ -61,7 +61,7 @@ class Duan_CziSerialize(serializers.ModelSerializer):
 
 class SportsmanSerialize(serializers.ModelSerializer):
     gender = GenderSerialize()
-    region = RegionSerialize()
+    city = CitySerialize()
     trainer = TrainerSerialize()
     insurance = InsuranceSerialize()
     duan_czi = Duan_CziSerialize()
@@ -70,6 +70,7 @@ class SportsmanSerialize(serializers.ModelSerializer):
     class Meta:
         model = Sportsman
         fields = "__all__"
+    #тут надо будет убрать фотки наверное, нафига они в списке общих спортсменов
 
 
 class Rank_historySerialize(serializers.ModelSerializer):

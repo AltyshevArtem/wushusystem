@@ -1,13 +1,14 @@
 from django.db import models
+from django.db.models.fields import TextField
 from django.db.models.fields.related import ForeignKey
 
 
 class Gender(models.Model):
-    name_gender = models.TextField(
+    name_of_gender = models.TextField(
         primary_key=True, blank=False, verbose_name="Наименование пола")
 
     def __str__(self):
-        return "%s" %(self.name_gender)
+        return "%s" % (self.name_of_gender)
 
     class Meta():
         verbose_name = "Список доступных полов"
@@ -15,14 +16,15 @@ class Gender(models.Model):
 
 
 class Region(models.Model):
-    name_region = models.TextField(blank=False,
-                                   verbose_name="Название округа/области/края/республики")
-    federal_region_name = models.TextField(
+    name_of_region = models.TextField(blank=False, primary_key=True,
+                                      verbose_name="Название округа/области/края/республики")
+    name_of_federal_region = models.TextField(
         blank=False, verbose_name="Название федерального округа")
-    country = models.TextField(blank=False, verbose_name="Название страны")
+    name_of_country = models.TextField(
+        blank=False, verbose_name="Название страны")
 
     def __str__(self):
-         return "%s" % self.name_region
+        return "%s" % (self.name_of_region)
 
     class Meta():
         verbose_name = "Список округов/областей/краёв/республик"
@@ -30,13 +32,13 @@ class Region(models.Model):
 
 
 class City (models.Model):
-    name_city = models.TextField(
-        primary_key=True, verbose_name="Наименование города")
-    region = models.ForeignKey(
+    name_of_city = models.TextField(
+        primary_key=True, blank=False, verbose_name="Наименование города")
+    name_of_region = models.ForeignKey(
         Region, blank=False, on_delete=models.CASCADE, verbose_name="Название округа/области/края/республики")
 
     def __str__(self):
-        return "%s" %(self.name_city)
+        return "%s" % (self.name_of_city)
 
     class Meta():
         verbose_name = "Список городов"
@@ -46,14 +48,14 @@ class City (models.Model):
 class Trainer(models.Model):
     name = models.TextField(blank=False, verbose_name="Имя тренера")
     surname = models.TextField(verbose_name="Фамилия тренера")
-    patronymics = models.TextField(verbose_name="Отчество тренера")
-    photo = models.FileField(verbose_name="Фотография тренера")
+    patronymic = models.TextField(verbose_name="Отчество тренера")
+    photo = models.ImageField(verbose_name="Фотография тренера")
     gender = models.ForeignKey(
         Gender, on_delete=models.CASCADE, verbose_name="Наименование пола")
-    date_birth = models.DateField(verbose_name="Дата рождения тренера")
+    date_of_birth = models.DateField(verbose_name="Дата рождения тренера")
 
     def __str__(self):
-         return "%s %s %s" %(self.surname, self.name, self.patronymics)
+        return "%s %s %s" % (self.surname, self.name, self.patronymic)
 
     class Meta():
         verbose_name = "Список тренеров"
@@ -61,13 +63,13 @@ class Trainer(models.Model):
 
 
 class Federation(models.Model):
-    name_federation = models.TextField(
-        primary_key=True, verbose_name="Название федерации")
-    region = models.ForeignKey(
-        Region, on_delete=models.CASCADE, verbose_name="Название округа/области/края/республики в которой находится федерация")
+    name_of_federation = models.TextField(
+        primary_key=True, blank=False, verbose_name="Название федерации")
+    name_of_region = models.ForeignKey(
+        Region, blank=False, on_delete=models.CASCADE, verbose_name="Название округа/области/края/республики в которой находится федерация")
 
     def __str__(self):
-         return "%s" % self.name_federation
+        return "%s" % (self.name_of_federation)
 
     class Meta():
         verbose_name = "Список федераций Ушу"
@@ -76,13 +78,17 @@ class Federation(models.Model):
 
 class Club(models.Model):
     id = models.AutoField(primary_key=True)
-    name_club = models.TextField(
+    name_of_club = models.TextField(
         blank=False, verbose_name="Наименование клуба")
-    federation = models.ForeignKey(Federation,
-                                   on_delete=models.CASCADE, verbose_name="Федерация, к которой привязан клуб")
+    name_of_owner = models.TextField(
+        blank=True, verbose_name="ФИО владельца клуба")
+    address = models.TextField(
+        blank=True, verbose_name="Адрес регистрации клуба")
+    name_of_federation = models.ForeignKey(Federation,
+                                           on_delete=models.CASCADE, verbose_name="Федерация, к которой привязан клуб")
 
     def __str__(self):
-        return "%s" %(self.name_club)
+        return "%s" % (self.name_of_club)
 
     class Meta():
         verbose_name = "Список клубов"
@@ -93,11 +99,11 @@ class Insurance(models.Model):
     date_start = models.DateField(verbose_name="Дата начала страхования")
     date_end = models.DateField(
         blank=False, verbose_name="Дата окончания страхования")
-    img_insurance = models.FileField(
+    file_insurance = models.FileField(
         blank=False, verbose_name="Фотография страховки")
 
     def __str__(self):
-        return "%s" %(self.img_insurance)
+        return "%s" % (self.file_insurance)
 
     class Meta():
         verbose_name = "Список страховок"
@@ -105,10 +111,11 @@ class Insurance(models.Model):
 
 
 class Rank(models.Model):
-    name_rank = models.TextField(blank=False, verbose_name="Имя ранга")
+    name_of_rank = models.TextField(
+        blank=False, primary_key=True, verbose_name="Имя ранга")
 
     def __str__(self):
-        return "%s" %(self.name_rank)
+        return "%s" % (self.name_of_rank)
 
     class Meta():
         verbose_name = "Список рангов"
@@ -116,11 +123,11 @@ class Rank(models.Model):
 
 
 class Duan_Czi(models.Model):
-    name_rank = models.TextField(
-        blank=False, verbose_name="Название степени сертификата")
+    name_of_rank = models.TextField(
+        blank=False, primary_key=True, verbose_name="Название степени сертификата")
 
     def __str__(self):
-        return "%s" %(self.name_rank)
+        return "%s" % (self.name_of_rank)
 
     class Meta():
         verbose_name = "Список рангов Дуань Цзи"
@@ -136,18 +143,18 @@ class Sportsman(models.Model):
     address = models.TextField(verbose_name="Адрес прописки")
     gender = models.ForeignKey(
         Gender, on_delete=models.CASCADE, blank=False, verbose_name="Наименование пола")
-    main_document = models.FileField(
+    file_main_document = models.FileField(
         verbose_name="Фото подтверждающего документа")
-    city = models.TextField(verbose_name="Название города")
-    region = models.ForeignKey(Region, blank=False,  on_delete=models.CASCADE,
-                               verbose_name="Название округа/области/края/республики")
+    city = models.ForeignKey(
+        City, on_delete=models.CASCADE, verbose_name="Название города")
     trainer = models.ForeignKey(
         Trainer, on_delete=models.CASCADE, verbose_name="Тренер спортсмена")
     club = models.ForeignKey(
         Club, on_delete=models.CASCADE, verbose_name="Наименование клуба")
     insurance = models.ForeignKey(
         Insurance, on_delete=models.CASCADE, verbose_name="Страховка")
-    rank = models.TextField(verbose_name="Наименование ранга")
+    rank = models.ForeignKey(
+        Rank, on_delete=models.CASCADE, verbose_name="Наименование ранга")
     rusada = models.FileField(
         verbose_name="Изображение антидопингового сертификата")
     duan_czi = models.ForeignKey(
@@ -164,7 +171,8 @@ class Rank_history(models.Model):
     new_rank = models.ForeignKey(
         Rank, on_delete=models.CASCADE, blank=False, verbose_name="Новый ранг спортсмена")
     date = models.DateField(blank=False, verbose_name="Дата выпуска приказа")
-    order = models.FileField(verbose_name="Скан приказа об изменении ранга")
+    file_order = models.FileField(
+        verbose_name="Скан приказа об изменении ранга")
 
     class Meta():
         verbose_name = "История изменения рангов спортсменов"
@@ -189,7 +197,8 @@ class Duan_Czi_history(models.Model):
     new_duan_czi = models.ForeignKey(
         Duan_Czi, on_delete=models.CASCADE, blank=False, verbose_name="Новый ранг спортсмена Дуань Цзи")
     date = models.DateField(blank=False, verbose_name="Дата выпуска приказа")
-    order = models.FileField(verbose_name="Скан приказа об изменении ранга")
+    file_order = models.FileField(
+        verbose_name="Скан приказа об изменении ранга")
 
     class Meta():
         verbose_name = "История изменения рангов  Дуань Цзи спортсменов"
