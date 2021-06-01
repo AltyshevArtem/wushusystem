@@ -15,7 +15,7 @@ export const actions: ActionTree<SportsmanState, null> = {
                 commit('getSportsmansError');
             });
     },
-    searchData({commit}, search): any {
+    searchData({commit}, search: string): any {
         axios
                 .get('/api/sportsmans/', { params: { search: search } })
                 .then((response) => {

@@ -1,6 +1,6 @@
 <template>
     <div class="sportsman">
-        <input placeholder="Поиск" class="form-control" v-model="search"/>
+        <input placeholder="Поиск" class="form-control" v-model="search" />
         <div v-for="sportsman in sportsmans" :key="sportsman.key">{{ sportsman }}</div>
     </div>
 </template>
@@ -14,22 +14,24 @@ import { SportsmanState } from '../store/modules/sportsman/types';
 const namespace = 'sportsman';
 
 export default class Sportsman extends Vue {
+    search = '';
 
-    @State('sportsman') sportsmans!: SportsmanState;
-    @Action('fetchData', { namespace }) fetchData: any;
-    @Action('searchData', {namespace, search:this.search }) searchData: any;
+    @State('sportsman')
+    sportsmans!: SportsmanState;
+    @Action('fetchData', { namespace })
+    fetchData: any;
+    @Action('searchData', { namespace })
+    searchData: any;
 
-    search : string = "";
-
-    mounted() {
+    mounted(): void {
         this.fetchData();
     }
-    @Watch('search', {search: this.search}) {
-        this.searchData();
-    },
-};
 
-
+    @Watch('search')
+    changeData(): void {
+        this.searchData(this.search);
+    }
+}
 </script>
 
 <style scoped></style>
