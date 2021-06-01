@@ -15,4 +15,17 @@ export const actions: ActionTree<SportsmanState, null> = {
                 commit('getSportsmansError');
             });
     },
+    searchData({commit}, search: string): any {
+        axios
+                .get('/api/sportsmans/', { params: { search: search } })
+                .then((response) => {
+                    const payload: SportsmanState = response && response.data.results;
+                    commit('getSportsmans', payload);
+                })
+                .catch((error) => {
+                    console.log(error);
+                    commit('getSportsmansError');
+                });
+
+    }
 };
