@@ -3,6 +3,33 @@
         <input placeholder="Поиск" class="form-control" v-model="search" />
         <div v-for="sportsman in sportsmans" :key="sportsman.key">{{ sportsman }}</div>
     </div>
+    <table class="table table-striped" >
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Отчество</th>
+                <th scope="col">Пол</th>
+                <th scope="col">Федеральный округ/Республика</th>
+                <th scope="col">Город</th>
+                <th scope="col">Разряд</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr v-for="sportsman in sportsmans.sportsmans" :key="sportsman.key">
+                <th scope="row">{{sportsman.id}}</th>
+                <td>{{sportsman.surname}}</td>
+                <td>{{ sportsman.name }}</td>
+                <td>{{ sportsman.patronymic }}</td>
+                <td>{{ sportsman.gender.name_of_gender }}</td>
+                <td>{{ sportsman.city.name_of_region }}</td>
+                <td>{{ sportsman.city.name_of_city }}</td>
+                <td>{{ sportsman.rank }}</td>
+
+            </tr>
+        </tbody>
+    </table>
 </template>
 
 <script lang="ts">
