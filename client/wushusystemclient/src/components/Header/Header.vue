@@ -18,8 +18,13 @@
                     </svg>
                 </a>
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <!-- TODO: hover, focus для линков в навигации -->
                     <li><a href="#" class="nav-link px-2 text-white">Соревнования</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Спортсмены</a></li>
+                    <li>
+                        <router-link to="/sportsmans" class="nav-link px-2 text-white"
+                            >Спортсмены</router-link
+                        >
+                    </li>
                     <li><a href="#" class="nav-link px-2 text-white">Судейство</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Опубликовать</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Информационные экран</a></li>
@@ -42,6 +47,7 @@ export default class Header extends Vue {}
 </script>
 
 <style scoped>
-svg{
+svg {
     background: url('../../assets/cake.icon.png') no-repeat left;
-}</style>
+}
+</style>

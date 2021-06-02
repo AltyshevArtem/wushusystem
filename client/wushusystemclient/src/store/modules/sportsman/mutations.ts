@@ -1,13 +1,13 @@
 import { MutationTree } from 'vuex';
-import { SportsmanState } from './types';
+import { listSportsmanState } from './types';
 
-export const mutations: MutationTree<SportsmanState> = {
+export const mutations: MutationTree<listSportsmanState> = {
     getSportsmans(state, payload: string) {
         state.error = false;
-        state.sportsmans = payload;
+        state.listSportsmans = payload;
     },
     getSportsmansError(state) {
         state.error = true;
-        state.sportsmans = '';
+        state.listSportsmans = '';
     },
 };

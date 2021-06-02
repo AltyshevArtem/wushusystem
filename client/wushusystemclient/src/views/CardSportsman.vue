@@ -2,7 +2,6 @@
     <div class="container-sm">
         <div class="sportsman">
             <input placeholder="Поиск" class="form-control" v-model="search" />
-            <!-- <div v-for="sportsman in sportsmans" :key="sportsman.key">{{ sportsman }}</div> -->
         </div>
         <table class="table table-hover table-bordered table-sm table-responsive">
             <thead>
@@ -18,7 +17,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="sportsman in sportsmans.sportsmans" :key="sportsman.key">
+                <tr v-for="sportsman in listSportsmanMap.listSportsmans" :key="sportsman.key">
                     <th scope="row">{{ sportsman.id }}</th>
                     <td>{{ sportsman.surname }}</td>
                     <td>{{ sportsman.name }}</td>
@@ -37,7 +36,7 @@
 import { Vue } from 'vue-class-component';
 import { Watch } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
-import { SportsmanState } from '../store/modules/sportsman/types';
+import { listSportsmanState } from '../store/modules/sportsman/types';
 
 const namespace = 'sportsman';
 
@@ -45,7 +44,7 @@ export default class Sportsman extends Vue {
     search = '';
 
     @State('sportsman')
-    sportsmans!: SportsmanState;
+    listSportsmanMap!: listSportsmanState;
     @Action('fetchData', { namespace })
     fetchData: any;
     @Action('searchData', { namespace })

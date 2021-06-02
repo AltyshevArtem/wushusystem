@@ -2,10 +2,15 @@ import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
     {
-        path: '/',
-        name: 'Sportsman',
-        component: () => import(/* webpackChunkName: "about" */ '../views/Sportsman.vue'),
+        path: '/sportsmans',
+        name: 'Sportsmans',
+        component: () => import('../views/TableSportsman.vue'),
     },
+    {
+        path: '/sportsmans/:id',
+        name: 'Sportsman',
+        component: () => import('../views/TableSportsman.vue'),
+    }
 ];
 
 const router = createRouter({

@@ -20,6 +20,7 @@ module.exports = {
         camelcase: 'warn',
         'no-use-before-define': 'off',
         '@typescript-eslint/no-use-before-define': ['error'],
+        "@typescript-eslint/no-explicit-any": ["off"],
         'import/extensions': 'off',
         'import/no-unresolved': 'off',
         'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',

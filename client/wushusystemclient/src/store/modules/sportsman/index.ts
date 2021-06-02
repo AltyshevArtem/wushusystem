@@ -2,14 +2,14 @@ import { Module } from 'vuex';
 // import { getters } from './getters';
 import { actions } from './actions';
 import { mutations } from './mutations';
-import { SportsmanState } from './types';
+import { listSportsmanState } from './types';
 
-export const state: SportsmanState = {
-    sportsmans: '',
+export const state: listSportsmanState = {
+    listSportsmans: '',
     error: false,
 };
 
-export const sportsman: Module<SportsmanState, null> = {
+export const sportsman: Module<listSportsmanState, null> = {
     namespaced: true,
     state,
     actions,

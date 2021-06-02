@@ -1,13 +1,13 @@
 import { ActionTree } from 'vuex';
 import axios from 'axios';
-import { SportsmanState } from './types';
+import { listSportsmanState } from './types';
 
-export const actions: ActionTree<SportsmanState, null> = {
+export const actions: ActionTree<listSportsmanState, null> = {
     fetchData({ commit }): any {
         axios
             .get('/api/sportsmans/')
             .then((response) => {
-                const payload: SportsmanState = response && response.data.results;
+                const payload: listSportsmanState = response && response.data.results;
                 commit('getSportsmans', payload);
             })
             .catch((error) => {
@@ -19,7 +19,7 @@ export const actions: ActionTree<SportsmanState, null> = {
         axios
                 .get('/api/sportsmans/', { params: { search: search } })
                 .then((response) => {
-                    const payload: SportsmanState = response && response.data.results;
+                    const payload: listSportsmanState = response && response.data.results;
                     commit('getSportsmans', payload);
                 })
                 .catch((error) => {
