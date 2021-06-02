@@ -1,20 +1,35 @@
 <template>
-    <div class="header">
-        <div class="header__nav">
-            <nav>
-                <ul>
-                    <li>Соревнования</li>
-                    <li><router-link to="/">Спортсмены</router-link></li>
-                    <li>Судейство</li>
-                    <li>Опубликовать</li>
-                    <li>Информационные экраны</li>
+    <header class="p-3 bg-dark text-white">
+        <div class="container">
+            <div
+                class="
+                    d-flex
+                    flex-wrap
+                    align-items-center
+                    justify-content-center justify-content-lg-start
+                "
+            >
+                <a
+                    href="/"
+                    class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+                >
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                        <use xlink:href="#bootstrap" />
+                    </svg>
+                </a>
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="#" class="nav-link px-2 text-white">Соревнования</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">Спортсмены</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">Судейство</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">Опубликовать</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">Информационные экран</a></li>
                 </ul>
-            </nav>
+                <div class="text-end">
+                    <button type="button" class="btn btn-outline-light me-2">Войти</button>
+                </div>
+            </div>
         </div>
-        <div class="header__user">
-            <a href="/login">Войти</a>
-        </div>
-    </div>
+    </header>
 </template>
 
 <script lang="ts">
@@ -27,48 +42,6 @@ export default class Header extends Vue {}
 </script>
 
 <style scoped>
-.header {
-    display: flex;
-    background: rgb(95, 80, 136);
-}
-.header__nav {
-    display: flex;
-    width: 70%;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 10px 20px;
-}
-.header__user {
-    display: flex;
-    width: 30%;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 10px 20px;
-}
-ul {
-    display: flex;
+svg{
     background: url('../../assets/cake.icon.png') no-repeat left;
-    margin: 0;
-}
-li:first-child {
-    padding-left: 20px;
-}
-li {
-    display: inline-flex;
-    padding: 10px;
-}
-li,
-li > a,
-.header__user > a {
-    color: white;
-    text-decoration: none;
-}
-li:hover,
-li:focus,
-.header__user > a:hover,
-.header__user > a:focus,
-li > a:hover,
-li > a:focus {
-    color: rgb(141, 119, 201);
-}
-</style>
+}</style>
