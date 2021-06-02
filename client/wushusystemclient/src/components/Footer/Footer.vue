@@ -1,7 +1,13 @@
 <template>
-    <div class="footer">
-        <span>Wushu Competitions</span>
-    </div>
+    <!-- Footer -->
+    <footer class="bg-dark text-center text-white">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            © 2020 Все права защищены:
+            <a class="text-white" href="http://www.wushu-russ.ru/">Федрация Ушу России</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+    <!-- Footer -->
 </template>
 
 <script>
@@ -10,14 +16,4 @@ import { Vue } from 'vue-class-component';
 export default class Footer extends Vue {}
 </script>
 
-<style scoped>
-.footer {
-    display: flex;
-    background: rgb(95, 80, 136);
-    justify-content: flex-end;
-}
-.footer > span {
-    color: white;
-    padding: 10px;
-}
-</style>
+<style scoped></style>
