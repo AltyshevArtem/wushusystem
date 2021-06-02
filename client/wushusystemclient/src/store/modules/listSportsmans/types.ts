@@ -1,4 +1,4 @@
-export interface listSportsmanState {
+export interface IListSportsmansState {
     listSportsmans: string;
     error: boolean;
 }

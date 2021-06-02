@@ -40,15 +40,15 @@
 import { Vue } from 'vue-class-component';
 import { Watch } from 'vue-property-decorator';
 import { State, Action } from 'vuex-class';
-import { listSportsmanState } from '../store/modules/sportsman/types';
+import { IListSportsmansState } from '../store/modules/listSportsmans/types';
 
-const namespace = 'sportsman';
+const namespace = 'listSportsmans';
 
-export default class Sportsman extends Vue {
+export default class TableSportsman extends Vue {
     search = '';
 
-    @State('sportsman')
-    listSportsmanMap!: listSportsmanState;
+    @State('listSportsmans')
+    listSportsmanMap!: IListSportsmansState;
     @Action('fetchData', { namespace })
     fetchData: any;
     @Action('searchData', { namespace })

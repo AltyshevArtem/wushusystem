@@ -1,7 +1,7 @@
 import { MutationTree } from 'vuex';
-import { listSportsmanState } from './types';
+import { IListSportsmansState } from './types';
 
-export const mutations: MutationTree<listSportsmanState> = {
+export const mutations: MutationTree<IListSportsmansState> = {
     getSportsmans(state, payload: string) {
         state.error = false;
         state.listSportsmans = payload;
