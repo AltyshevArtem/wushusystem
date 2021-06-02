@@ -7,6 +7,7 @@ import '@/styles.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 
+//TODO: убрать declare global
 declare global{
     interface Window {
         __VUE_DEVTOOLS_GLOBAL_HOOK__?: any;
