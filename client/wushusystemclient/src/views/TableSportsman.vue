@@ -6,6 +6,7 @@
         </div>
         <br />
         <div class="container">
+            <div class="table-responsive">
             <table class="table table-hover table-bordered table-sm table-responsive">
                 <thead>
                     <tr>
@@ -14,7 +15,7 @@
                         <th scope="col">Имя</th>
                         <th scope="col">Отчество</th>
                         <th scope="col">Пол</th>
-                        <th scope="col">Федеральный округ/Республика</th>
+                        <th scope="col">Республика/Край</th>
                         <th scope="col">Город</th>
                         <th scope="col">Разряд</th>
                     </tr>
@@ -32,6 +33,7 @@
                     </tr>
                 </tbody>
             </table>
+            </div>
         </div>
     </div>
 </template>

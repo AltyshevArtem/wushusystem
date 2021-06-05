@@ -27,7 +27,7 @@
                     </li>
                     <li><a href="#" class="nav-link px-2 text-white">Судейство</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Опубликовать</a></li>
-                    <li><a href="#" class="nav-link px-2 text-white">Информационные экран</a></li>
+                    <li><a href="#" class="nav-link px-2 text-white">Информационные экраны</a></li>
                 </ul>
                 <div class="text-end">
                     <button type="button" class="btn btn-outline-light me-2">Войти</button>
