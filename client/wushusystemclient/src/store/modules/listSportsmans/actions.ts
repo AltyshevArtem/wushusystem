@@ -1,9 +1,9 @@
 import { ActionTree } from 'vuex';
 import axios from 'axios';
-import { IListSportsmansState } from './types';
+import { IListSportsmansState} from './types';
 
 export const actions: ActionTree<IListSportsmansState, null> = {
-    fetchData({ commit }): any {
+    getSportsmanList({ commit }): any {
         axios
             .get('/api/sportsmans/')
             .then((response) => {
@@ -15,7 +15,7 @@ export const actions: ActionTree<IListSportsmansState, null> = {
                 commit('getSportsmansError');
             });
     },
-    searchData({commit}, search: string): any {
+    getSportsmanSearchList({commit}, search: string): any {
         axios
                 .get('/api/sportsmans/', { params: { search: search } })
                 .then((response) => {
@@ -28,4 +28,5 @@ export const actions: ActionTree<IListSportsmansState, null> = {
                 });
 
     }
+
 };

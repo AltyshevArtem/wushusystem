@@ -16,6 +16,7 @@ class RegionSerialize(serializers.ModelSerializer):
 
 
 class CitySerialize(serializers.ModelSerializer):
+    name_of_region = RegionSerialize()
     class Meta:
         model = City
         fields = "__all__"
@@ -60,17 +61,18 @@ class Duan_CziSerialize(serializers.ModelSerializer):
 
 
 class SportsmanSerialize(serializers.ModelSerializer):
-    gender = GenderSerialize()
     city = CitySerialize()
     trainer = TrainerSerialize()
     insurance = InsuranceSerialize()
-    duan_czi = Duan_CziSerialize()
+    #TODO: это не нужно, метод __str__ итак возвращает
+    # duan_czi = Duan_CziSerialize()
+    # gender = GenderSerialize()
     club = ClubSerialize()
 
     class Meta:
         model = Sportsman
         fields = "__all__"
-    #тут надо будет убрать фотки наверное, нафига они в списке общих спортсменов
+    #TODO: тут надо будет убрать фотки наверное, нафига они в списке общих спортсменов
 
 
 class Rank_historySerialize(serializers.ModelSerializer):
