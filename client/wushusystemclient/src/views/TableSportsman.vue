@@ -20,7 +20,7 @@
                 <tr v-for="sportsman in listSportsmanMap.listSportsmans" :key="sportsman.key">
                     <th scope="row">{{ sportsman.id }}</th>
                     <td>
-                        <router-link :to="'/sportsmans/' + sportsman.id">
+                        <router-link :to="'/sportsman/' + sportsman.id">
                             {{ sportsman.surname }} {{ sportsman.name }} {{ sportsman.patronymic }}
                         </router-link>
                     </td>

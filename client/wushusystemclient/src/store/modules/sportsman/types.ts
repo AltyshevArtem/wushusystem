@@ -7,18 +7,17 @@ interface IFederation {
     name_of_federation: string;
     region: IRegion;
 }
-
 interface IClub {
     name_of_club: string;
-    name_of_owner: string;
+    name_of_owner?: string;
     federation: IFederation;
-    address: string;
+    address?: string;
 
 }
 interface IInsurance {
-    date_start: Date;
+    date_start?: Date;
     date_end: Date;
-    file_insurance?: string;
+    file_insurance: string;
 }
 interface ICity {
     name_of_city: string;
@@ -26,26 +25,29 @@ interface ICity {
 }
 interface ITrainer {
     name: string;
-    surname: string;
+    surname?: string;
     patronymic: string;
     photo?: string;
-    date_of_birth: Date;
+    date_of_birth?: Date;
     gender: string;
 }
 
 export interface ISportsman {
     name: string;
     surname: string;
-    patronymic: string;
+    patronymic?: string;
     date_of_birth: Date;
+    address?: string;
     gender: string;
-    trainer: string;
-    city: ICity;
-    club: IClub;
-    insurance: IInsurance;
+    trainer?: ITrainer;
+    city?: ICity;
+    club?: IClub;
+    insurance?: IInsurance;
     photo?: string;
-    rank: string;
-    duan_czi: string;
+    file_main_document?: string;
+    rusada?: string;
+    rank?: string;
+    duan_czi?: string;
 }
 
 export interface ISportsmanState {
