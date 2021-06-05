@@ -1,34 +1,26 @@
 <template>
-    <div>{this.$router.params}</div>
+    <div class="sportsman">
+        {{ sportsmanMap.sportsman }}
+    </div>
 </template>
 
 <script lang="ts">
 import { Vue } from 'vue-class-component';
-// import { Watch } from 'vue-property-decorator';
-// import { State, Action } from 'vuex-class';
-// import { listSportsmansState } from '../store/modules/listSportsmans/types';
+import { State, Action } from 'vuex-class';
+import { ISportsmanState } from '../store/modules/sportsman/types';
 
-// const namespace = 'listSportsmans';
+const namespace = 'sportsman';
 
-// export default class Sportsman extends Vue {
-//     search = '';
+export default class Sportsman extends Vue {
+    @State('sportsman')
+    sportsmanMap!: ISportsmanState;
+    @Action('getSportsman', { namespace })
+    getSportsman: any;
 
-//     @State('listSportsmans')
-//     listSportsmanMap!: listSportsmansState;
-//     @Action('fetchData', { namespace })
-//     fetchData: any;
-//     @Action('searchData', { namespace })
-//     searchData: any;
-
-//     mounted(): void {
-//         this.fetchData();
-//     }
-
-//     @Watch('search')
-//     changeData(): void {
-//         this.searchData(this.search);
-//     }
-// }
+    mounted(): void {
+        this.getSportsman(this.$route.params.id);
+    }
+}
 </script>
 
 <style scoped></style>

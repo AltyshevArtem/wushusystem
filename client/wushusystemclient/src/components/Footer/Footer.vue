@@ -12,8 +12,11 @@
 </template>
 
 <script>
-import { Vue } from 'vue-class-component';
+import { Options, Vue } from 'vue-class-component';
 
+@Options({
+    name: 'Footer',
+})
 export default class Footer extends Vue {}
 </script>
 
