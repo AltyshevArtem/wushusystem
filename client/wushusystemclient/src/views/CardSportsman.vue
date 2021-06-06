@@ -78,12 +78,15 @@
 </template>
 
 <script lang="ts">
-import { Vue } from 'vue-class-component';
+import { Vue, Options } from 'vue-class-component';
 import { State, Action } from 'vuex-class';
 import { ISportsmanState } from '../store/modules/sportsman/types';
 
 const namespace = 'sportsman';
 
+@Options({
+    name: 'CardSportsman',
+})
 export default class Sportsman extends Vue {
     @State('sportsman')
     sportsmanMap!: ISportsmanState;

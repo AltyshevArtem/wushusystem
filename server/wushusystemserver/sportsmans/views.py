@@ -68,7 +68,6 @@ class PaginatorSportsman(PageNumberPagination):
             'results' : data
         })
 
-# Дату фильтровать через DateFilter
 class SportsmanSetFilter(FilterSet):
     search = CharFilter(method="get_search")
     print(search)
@@ -84,9 +83,8 @@ class SportsmanSetFilter(FilterSet):
 # что будет в чекбоксе:
     # пол
     # клуб
-    # дата рождения(не через чекбокс, но я пока убрал, хз как искать)
+    #TODO: дата рождения(не через чекбокс, но я пока убрал, хз как искать) - (через DateFilter отдельной функцией)
     # округ(в city модели он)
-    # клуб
     # ранг обычный
     # ранг дуан цзи
 
