@@ -1,7 +1,7 @@
 import { GetterTree } from 'vuex';
-import { ICityClub } from './types';
+import { ICityList } from './types';
 
-export const getters: GetterTree<ICityClub, null> = {
+export const getters: GetterTree<ICityList, null> = {
     arrValueCity(state): any {
         const { listCity } = state;
         const arr: Array<string> = [];

@@ -161,7 +161,7 @@ import { IRankList } from '../store/modules/rank/types';
 import { IDuanCziList } from '../store/modules/duan_czi/types';
 import { IGenderList } from '../store/modules/gender/types';
 import { IClubList } from '../store/modules/club/types';
-import { ICityClub } from '../store/modules/city/types';
+import { ICityList } from '../store/modules/city/types';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';
@@ -195,7 +195,7 @@ export default class TableSportsman extends Vue {
     @State('club')
     listClubMap!: IClubList;
     @State('city')
-    listCityMap!: ICityClub;
+    listCityMap!: ICityList;
 
     /* ACTION */
     @Action('getSportsmanList', { namespace: namespaceListSportsmans })

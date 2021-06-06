@@ -1,7 +1,7 @@
 import { MutationTree } from 'vuex';
-import { ICityClub } from './types';
+import { ICityList } from './types';
 
-export const mutations: MutationTree<ICityClub> = {
+export const mutations: MutationTree<ICityList> = {
     getCity(state, payload: Array<string>) {
         state.error = false;
         state.listCity = payload;
