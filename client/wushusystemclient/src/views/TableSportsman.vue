@@ -1,15 +1,15 @@
 <template>
     <div class="container-sm">
+        <br>
         <div class="listSportsman">
             <input placeholder="Поиск" class="form-control" v-model="search" />
         </div>
+        <br>
         <table class="table table-hover table-bordered table-sm table-responsive">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Фамилия</th>
-                    <th scope="col">Имя</th>
-                    <th scope="col">Отчество</th>
+                    <th scope="col">Фамилия Имя Отчетство</th>
                     <th scope="col">Пол</th>
                     <th scope="col">Федеральный округ/Республика</th>
                     <th scope="col">Город</th>
