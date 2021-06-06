@@ -75,9 +75,6 @@ class PaginatorSportsman(PageNumberPagination):
 class SportsmanSetFilter(FilterSet):
     name = CharFilter(method="get_name")
     gender = CharFilter(method="get_gender")
-    print('------')
-    print(gender)
-    print('------')
     club = CharFilter(method="get_club")
     city = CharFilter(method="get_city")
     trainer = CharFilter(method="get_trainer")
@@ -94,48 +91,72 @@ class SportsmanSetFilter(FilterSet):
         return queryset
 
     def get_gender(self, queryset, name, value):
-        if value:
-            queryset = queryset.filter(
-                Q(gender__name_of_gender__icontains=value)
-            )
-        return queryset
+        value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
+        querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+        for value in value_list:
+            if value:
+                temp_query = queryset.filter(
+                    Q(gender__name_of_gender__icontains=value)
+                )
+                querysetresult = querysetresult.union(temp_query) 
+        return querysetresult
 
     def get_club(self, queryset, name,  value):
-        if value:
-            queryset = queryset.filter(
-                Q(club__name_of_club__icontains=value)
-            )
-        return queryset
+        value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
+        querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+        for value in value_list:
+            if value:
+                temp_query = queryset.filter(
+                   Q(club__name_of_club__icontains=value)
+                )
+                querysetresult = querysetresult.union(temp_query)
+        return querysetresult
 
     def get_city(self, queryset, name,  value):
-        if value:
-            queryset = queryset.filter(
-                Q(city__name_of_city__icontains=value)
-            )
-        return queryset
+        value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
+        querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+        for value in value_list:
+            if value:
+                temp_query = queryset.filter(
+                   Q(city__name_of_city__icontains=value)
+                )
+                querysetresult = querysetresult.union(temp_query)
+        return querysetresult
 
     def get_trainer(self, queryset, name,  value):
-        if value:
-            queryset = queryset.filter(
-                Q(trainer__name__icontains=value) |
-                Q(trainer__surname__icontains=value) |
-                Q(trainer__patronymic__icontains=value)
-            )
-        return queryset
+        value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
+        querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+        for value in value_list:
+            if value:
+                temp_query = queryset.filter(
+                    Q(trainer__name__icontains=value) |
+                    Q(trainer__surname__icontains=value) |
+                    Q(trainer__patronymic__icontains=value)
+                )
+                querysetresult = querysetresult.union(temp_query)
+        return querysetresult
 
     def get_rank(self, queryset,name,  value):
-        if value:
-            queryset = queryset.filter(
-                Q(rank__icontains=value)
-            )
-        return queryset
+        value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
+        querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+        for value in value_list:
+            if value:
+                temp_query = queryset.filter(
+                    Q(rank__icontains=value)
+                )
+                querysetresult = querysetresult.union(temp_query)
+        return querysetresult
 
     def get_duan_czi(self, queryset,name,  value):
-        if value:
-            queryset = queryset.filter(
-                Q(duan_czi__icontains=value)
-            )
-        return queryset
+        value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
+        querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+        for value in value_list:
+            if value:
+                temp_query = queryset.filter(
+                    Q(rank__icontains=value)
+                )
+                querysetresult = querysetresult.union(temp_query)
+        return querysetresult
 
 
 # TODO:Подумать над фильтрацией даты со стороны клиента и сервера
