@@ -142,7 +142,7 @@ class SportsmanSetFilter(FilterSet):
         for value in value_list:
             if value:
                 temp_query = queryset.filter(
-                    Q(rank__icontains=value)
+                    Q(rank__name_of_rank__icontains=value)
                 )
                 querysetresult = querysetresult.union(temp_query)
         return querysetresult
@@ -153,7 +153,7 @@ class SportsmanSetFilter(FilterSet):
         for value in value_list:
             if value:
                 temp_query = queryset.filter(
-                    Q(rank__icontains=value)
+                    Q(duan_czi__name_of_rank__icontains=value)
                 )
                 querysetresult = querysetresult.union(temp_query)
         return querysetresult
