@@ -17,7 +17,7 @@ export const actions: ActionTree<IListSportsmansState, null> = {
     },
     getSportsmanSearchList({commit}, search: string): any {
         axios
-                .get('/api/sportsmans/', { params: { search: search } })
+                .get('/api/sportsmans/', { params: { name: search } })
                 .then((response) => {
                     const payload: IListSportsmansState = response && response.data.results;
                     commit('getSportsmans', payload);
