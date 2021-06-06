@@ -2,15 +2,15 @@ import { Module } from 'vuex';
 import { getters } from './getters';
 import { actions } from './actions';
 import { mutations } from './mutations';
-import { ICity } from './types';
+import { ICityClub } from './types';
 
-export const state: ICity = {
+export const state: ICityClub = {
     listCity: [],
     value: undefined,
     error: false,
 };
 
-export const city: Module<ICity, null> = {
+export const city: Module<ICityClub, null> = {
     namespaced: true,
     state,
     actions,

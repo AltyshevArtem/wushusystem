@@ -32,7 +32,6 @@ createApp(App)
     .use(devtools)
     .use(store)
     .use(router)
-    // .use(VueMaterial)
     .mount('#app');
 
 

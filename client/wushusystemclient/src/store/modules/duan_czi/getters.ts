@@ -1,7 +1,7 @@
 import { GetterTree } from 'vuex';
-import { IDuanCzi } from './types';
+import { IDuanCziList } from './types';
 
-export const getters: GetterTree<IDuanCzi, null> = {
+export const getters: GetterTree<IDuanCziList, null> = {
     arrValueDuanCzi(state): any {
         const { listDuanCzi } = state;
         const arr: Array<string> = [];

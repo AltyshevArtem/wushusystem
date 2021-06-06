@@ -1,7 +1,7 @@
 import { GetterTree } from 'vuex';
-import { IClub } from './types';
+import { IClubList } from './types';
 
-export const getters: GetterTree<IClub, null> = {
+export const getters: GetterTree<IClubList, null> = {
     arrValueClub(state): any {
         const { listClub } = state;
         const arr: Array<string> = [];

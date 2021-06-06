@@ -1,7 +1,7 @@
 import { MutationTree } from 'vuex';
-import { IDuanCzi } from './types';
+import { IDuanCziList } from './types';
 
-export const mutations: MutationTree<IDuanCzi> = {
+export const mutations: MutationTree<IDuanCziList> = {
     getDuanCzi(state, payload: Array<string>) {
         state.error = false;
         state.listDuanCzi = payload;

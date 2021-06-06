@@ -1,13 +1,13 @@
 import { ActionTree } from 'vuex';
 import axios from 'axios';
-import { IDuanCzi } from './types';
+import { IDuanCziList } from './types';
 
-export const actions: ActionTree<IDuanCzi, null> = {
+export const actions: ActionTree<IDuanCziList, null> = {
     getDuanCziList({ commit }): any {
         axios
             .get('/api/duan_czi/')
             .then((response) => {
-                const payload: IDuanCzi = response && response.data;
+                const payload: IDuanCziList = response && response.data;
                 commit('getDuanCzi', payload);
             })
             .catch((error) => {

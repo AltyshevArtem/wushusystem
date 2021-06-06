@@ -158,10 +158,10 @@ import { State, Action, Getter } from 'vuex-class';
 /* STATE */
 import { IListSportsmansState } from '../store/modules/listSportsmans/types';
 import { IRankList } from '../store/modules/rank/types';
-import { IDuanCzi } from '../store/modules/duan_czi/types';
+import { IDuanCziList } from '../store/modules/duan_czi/types';
 import { IGenderList } from '../store/modules/gender/types';
-import { IClub } from '../store/modules/club/types';
-import { ICity } from '../store/modules/city/types';
+import { IClubList } from '../store/modules/club/types';
+import { ICityClub } from '../store/modules/city/types';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';
@@ -189,13 +189,13 @@ export default class TableSportsman extends Vue {
     @State('rank')
     listRankMap!: IRankList;
     @State('duan_czi')
-    listDuanCziMap!: IDuanCzi;
+    listDuanCziMap!: IDuanCziList;
     @State('gender')
     listGenderMap!: IGenderList;
     @State('club')
-    listClubMap!: IClub;
+    listClubMap!: IClubList;
     @State('city')
-    listCityMap!: ICity;
+    listCityMap!: ICityClub;
 
     /* ACTION */
     @Action('getSportsmanList', { namespace: namespaceListSportsmans })
