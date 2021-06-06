@@ -71,7 +71,6 @@ class PaginatorSportsman(PageNumberPagination):
             'results': data
         })
 
-
 class SportsmanSetFilter(FilterSet):
     name = CharFilter(method="get_name")
     gender = CharFilter(method="get_gender")
@@ -89,6 +88,15 @@ class SportsmanSetFilter(FilterSet):
                 Q(patronymic__icontains=value)
             )
         return queryset
+
+# что будет в чекбоксе:
+    # пол
+    # клуб
+    #TODO: дата рождения(не через чекбокс, но я пока убрал, хз как искать) - (через DateFilter отдельной функцией)
+    # округ(в city модели он)
+    # ранг обычный
+    # ранг дуан цзи
+
 
     def get_gender(self, queryset, name, value):
         value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
