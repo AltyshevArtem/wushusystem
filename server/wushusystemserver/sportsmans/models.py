@@ -101,7 +101,7 @@ class Insurance(models.Model):
     date_start = models.DateField(verbose_name="Дата начала страхования")
     date_end = models.DateField(
         blank=False, verbose_name="Дата окончания страхования")
-    file_insurance = models.FileField(
+    file_insurance = models.FileField(upload_to = 'insurance_files_pdf/',
         blank=False, verbose_name="Фотография страховки")
 
     def __str__(self):
@@ -140,12 +140,12 @@ class Sportsman(models.Model):
     name = models.TextField(blank=False, verbose_name="Имя спортсмена")
     surname = models.TextField(blank=False, verbose_name="Фамилия спортсмена")
     patronymic = models.TextField(verbose_name="Отчество спортсмена")
-    photo = models.ImageField(verbose_name="Фотография спортсмена")
+    photo = models.ImageField(upload_to = 'sportsman_photo/', verbose_name="Фотография спортсмена")
     date_of_birth = models.DateField(blank=False, verbose_name="Дата рождения")
     address = models.TextField(verbose_name="Адрес прописки")
     gender = models.ForeignKey(
         Gender, on_delete=models.CASCADE, blank=False, verbose_name="Наименование пола")
-    file_main_document = models.FileField(
+    file_main_document = models.FileField(upload_to = 'passport_files/',
         verbose_name="Фото подтверждающего документа")
     city = models.ForeignKey(
         City, on_delete=models.CASCADE, verbose_name="Название города")
@@ -157,7 +157,7 @@ class Sportsman(models.Model):
         Insurance, on_delete=models.CASCADE, verbose_name="Страховка")
     rank = models.ForeignKey(
         Rank, on_delete=models.CASCADE, verbose_name="Наименование ранга")
-    rusada = models.FileField(
+    rusada = models.FileField(upload_to = 'rusada_files_pdf/',
         verbose_name="Изображение антидопингового сертификата")
     duan_czi = models.ForeignKey(
         Duan_Czi, on_delete=models.CASCADE, verbose_name="Ранг Дуань Цзи")
