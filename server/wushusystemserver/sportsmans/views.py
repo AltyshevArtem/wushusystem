@@ -13,6 +13,7 @@ from rest_framework.filters import OrderingFilter
 from django_filters import FilterSet, CharFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
+
 class GenderViewSet(viewsets.ModelViewSet):
     queryset = Gender.objects.all()
     serializer_class = GenderSerialize
@@ -52,6 +53,7 @@ class Duan_CziViewSet(viewsets.ModelViewSet):
     queryset = Duan_Czi.objects.all()
     serializer_class = Duan_CziSerialize
 
+
 class RegionViewSet(viewsets.ModelViewSet):
     queryset = Region.objects.all()
     serializer_class = RegionSerialize
@@ -59,27 +61,34 @@ class RegionViewSet(viewsets.ModelViewSet):
 
 class PaginatorSportsman(PageNumberPagination):
     page_size = 50
+
     def get_paginated_response(self, data):
         return Response({
             'links': {
                 'next': self.get_next_link(),
                 'previous': self.get_previous_link()
             },
-            'results' : data
+            'results': data
         })
 
 class SportsmanSetFilter(FilterSet):
-    search = CharFilter(method="get_search")
-    print(search)
-    def get_search(self, queryset, name, value):
+    name = CharFilter(method="get_name")
+    gender = CharFilter(method="get_gender")
+    club = CharFilter(method="get_club")
+    city = CharFilter(method="get_city")
+    trainer = CharFilter(method="get_trainer")
+    rank = CharFilter(method="get_rank")
+    duan_czi = CharFilter(method="get_duan_czi")
+
+    def get_name(self, queryset, name, value):
         if value:
             queryset = queryset.filter(
-                Q(name__icontains=value)|
-                Q(surname__icontains=value)|
-                Q(patronymic__icontains=value)|
-                Q(city__name_of_city__icontains=value)
+                Q(name__icontains=value) |
+                Q(surname__icontains=value) |
+                Q(patronymic__icontains=value)
             )
         return queryset
+
 # что будет в чекбоксе:
     # пол
     # клуб
@@ -88,11 +97,90 @@ class SportsmanSetFilter(FilterSet):
     # ранг обычный
     # ранг дуан цзи
 
+
+    def get_gender(self, queryset, name, value):
+        value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
+        querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+        for value in value_list:
+            if value:
+                temp_query = queryset.filter(
+                    Q(gender__name_of_gender__icontains=value)
+                )
+                querysetresult = querysetresult.union(temp_query) 
+        return querysetresult
+
+    def get_club(self, queryset, name,  value):
+        value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
+        querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+        for value in value_list:
+            if value:
+                temp_query = queryset.filter(
+                   Q(club__name_of_club__icontains=value)
+                )
+                querysetresult = querysetresult.union(temp_query)
+        return querysetresult
+
+    def get_city(self, queryset, name,  value):
+        value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
+        querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+        for value in value_list:
+            if value:
+                temp_query = queryset.filter(
+                   Q(city__name_of_city__icontains=value)
+                )
+                querysetresult = querysetresult.union(temp_query)
+        return querysetresult
+
+    def get_trainer(self, queryset, name,  value):
+        value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
+        querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+        for value in value_list:
+            if value:
+                temp_query = queryset.filter(
+                    Q(trainer__name__icontains=value) |
+                    Q(trainer__surname__icontains=value) |
+                    Q(trainer__patronymic__icontains=value)
+                )
+                querysetresult = querysetresult.union(temp_query)
+        return querysetresult
+
+    def get_rank(self, queryset,name,  value):
+        value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
+        querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+        for value in value_list:
+            if value:
+                temp_query = queryset.filter(
+                    Q(rank__name_of_rank__icontains=value)
+                )
+                querysetresult = querysetresult.union(temp_query)
+        return querysetresult
+
+    def get_duan_czi(self, queryset,name,  value):
+        value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
+        querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+        for value in value_list:
+            if value:
+                temp_query = queryset.filter(
+                    Q(duan_czi__name_of_rank__icontains=value)
+                )
+                querysetresult = querysetresult.union(temp_query)
+        return querysetresult
+
+
+# TODO:Подумать над фильтрацией даты со стороны клиента и сервера
+
+# TODO:Разнести бы на файлы:
+# 1) Основные ViewSet-ы которые есть в запросах
+# 2) Дополнительные ViewSet-ы
+# 3) SetFilter-ы
+# 4) Пагинации
 class SportsmanViewSet(viewsets.ModelViewSet):
     queryset = Sportsman.objects.all()
     model = Sportsman
     serializer_class = SportsmanSerialize
     pagination_class = PaginatorSportsman
+
+    # параметры фильтрации
     filter_backends = (DjangoFilterBackend, OrderingFilter)
     filterset_class = SportsmanSetFilter
 
