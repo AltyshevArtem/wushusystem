@@ -47,8 +47,7 @@ class City (models.Model):
 
 class Trainer(models.Model):
     name = models.TextField(blank=False, verbose_name="Имя тренера")
-    #TODO: surname необязательный?
-    surname = models.TextField(verbose_name="Фамилия тренера")
+    surname = models.TextField(blank=False, verbose_name="Фамилия тренера")
     patronymic = models.TextField(verbose_name="Отчество тренера")
     photo = models.ImageField(verbose_name="Фотография тренера")
     gender = models.ForeignKey(
@@ -85,8 +84,7 @@ class Club(models.Model):
         blank=True, verbose_name="ФИО владельца клуба")
     address = models.TextField(
         blank=True, verbose_name="Адрес регистрации клуба")
-    #TODO: name_of_federation может federation?
-    name_of_federation = models.ForeignKey(Federation,
+    federation = models.ForeignKey(Federation,
                                            on_delete=models.CASCADE, verbose_name="Федерация, к которой привязан клуб")
 
     def __str__(self):

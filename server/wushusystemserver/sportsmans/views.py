@@ -1,5 +1,4 @@
 # DJANGO
-from django.shortcuts import render
 from django.db.models import Q
 # SPORTSMAN
 from sportsmans.models import *
@@ -89,13 +88,6 @@ class SportsmanSetFilter(FilterSet):
             )
         return queryset
 
-# что будет в чекбоксе:
-    # пол
-    # клуб
-    #TODO: дата рождения(не через чекбокс, но я пока убрал, хз как искать) - (через DateFilter отдельной функцией)
-    # округ(в city модели он)
-    # ранг обычный
-    # ранг дуан цзи
 
 
     def get_gender(self, queryset, name, value):
@@ -167,7 +159,7 @@ class SportsmanSetFilter(FilterSet):
         return querysetresult
 
 
-# TODO:Подумать над фильтрацией даты со стороны клиента и сервера
+# TODO:Подумать над фильтрацией даты со стороны клиента и сервера (через DateFilter отдельной функцией)
 
 # TODO:Разнести бы на файлы:
 # 1) Основные ViewSet-ы которые есть в запросах

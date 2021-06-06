@@ -64,15 +64,11 @@ class SportsmanSerialize(serializers.ModelSerializer):
     city = CitySerialize()
     trainer = TrainerSerialize()
     insurance = InsuranceSerialize()
-    #TODO: это не нужно, метод __str__ итак возвращает
-    # duan_czi = Duan_CziSerialize()
-    # gender = GenderSerialize()
     club = ClubSerialize()
 
     class Meta:
         model = Sportsman
         fields = "__all__"
-    #TODO: тут надо будет убрать фотки наверное, нафига они в списке общих спортсменов
 
 
 class Rank_historySerialize(serializers.ModelSerializer):

@@ -227,7 +227,7 @@ export default class TableSportsman extends Vue {
     arrValueCity: Array<string> | undefined;
 
     mounted(): void {
-        // TODO: loading
+        // TODO: loading (вейтер)
         this.getSportsmanList();
         // TODO: не надо при отрисовке компонента получать ниже данные
         this.getRankList();

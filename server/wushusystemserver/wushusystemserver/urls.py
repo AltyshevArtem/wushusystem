@@ -11,7 +11,6 @@ router.register(r'trainer', TrainerViewSet)
 #router.register(r'federation', FederationViewSet)
 #router.register(r'region', RegionViewSet)
 router.register(r'club', ClubViewSet)
-#router.register(r'insurance', InsuranceViewSet)
 router.register(r'rank', RankViewSet)
 router.register(r'duan_czi', Duan_CziViewSet)
 router.register(r'sportsmans', SportsmanViewSet)
@@ -20,9 +19,14 @@ router.register(r'sportsmans', SportsmanViewSet)
 #router.register(r'duan_czi_history', Duan_Czi_historyViewSet)
 #router.register(r'club_history', Club_historyViewSet)
 
-#TODO: закомментированные роуты пока нафиг не нужны
+from . import settings
+from django.contrib.staticfiles.urls import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     url(r'api/', include(router.urls)),
     path('admin/', admin.site.urls),
 ]
+
+urlpatterns += staticfiles_urlpatterns()
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
