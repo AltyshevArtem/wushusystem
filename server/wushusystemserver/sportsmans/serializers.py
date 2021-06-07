@@ -36,7 +36,7 @@ class FederationSerialize(serializers.ModelSerializer):
 
 
 class ClubSerialize(serializers.ModelSerializer):
-    name_of_federation = FederationSerialize()
+    federation = FederationSerialize()
     class Meta:
         model = Club
         fields = "__all__"

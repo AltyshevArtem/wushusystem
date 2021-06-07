@@ -1,13 +1,14 @@
 <template>
     <div class="container-sm">
-        <br>
+        <br />
         <div class="listSportsman">
             <input placeholder="Поиск" class="form-control" v-model="search" />
         </div>
+        {{arrValueCity}}
         <!-- TODO: я бы вынес в отдельный компонент все селекты -->
         <div class="select">
             <div class="row">
-                <div class="col-2">
+                <div class="col-1">
                     <Multiselect
                         v-model="listGenderMap.value"
                         :options="arrValueGender"
@@ -29,7 +30,7 @@
                         </template>
                     </Multiselect>
                 </div>
-                <div class="col-2">
+                <div class="col-5">
                     <Multiselect
                         v-model="listRankMap.value"
                         :options="arrValueRank"
@@ -37,16 +38,8 @@
                         placeholder="Ранк"
                     >
                         <template v-slot:multiplelabel="{ values }">
-                            <div class="multiselect-single-label">
-                                <div v-for="(value, idx) in values" :key="value">
-                                    <div v-if="idx !== values.length - 1">
-                                        <span>{{ value.label }}</span>
-                                        <span>,&nbsp;</span>
-                                    </div>
-                                    <div v-else>
-                                        <span>{{ value.label }}</span>
-                                    </div>
-                                </div>
+                            <div class="multiselect-multiple-label">
+                                {{ values.length }} опций выбрано из {{ arrValueRank.length }}
                             </div>
                         </template>
                     </Multiselect>
@@ -59,16 +52,8 @@
                         placeholder="Дуань Цзин"
                     >
                         <template v-slot:multiplelabel="{ values }">
-                            <div class="multiselect-single-label">
-                                <div v-for="(value, idx) in values" :key="value">
-                                    <div v-if="idx !== values.length - 1">
-                                        <span>{{ value.label }}</span>
-                                        <span>,&nbsp;</span>
-                                    </div>
-                                    <div v-else>
-                                        <span>{{ value.label }}</span>
-                                    </div>
-                                </div>
+                            <div class="multiselect-multiple-label">
+                                {{ values.length }} опций выбрано из {{ arrValueDuanCzi.length }}
                             </div>
                         </template>
                     </Multiselect>
@@ -81,21 +66,13 @@
                         placeholder="Клуб"
                     >
                         <template v-slot:multiplelabel="{ values }">
-                            <div class="multiselect-single-label">
-                                <div v-for="(value, idx) in values" :key="value">
-                                    <div v-if="idx !== values.length - 1">
-                                        <span>{{ value.label }}</span>
-                                        <span>,&nbsp;</span>
-                                    </div>
-                                    <div v-else>
-                                        <span>{{ value.label }}</span>
-                                    </div>
-                                </div>
+                            <div class="multiselect-multiple-label">
+                                {{ values.length }} опций выбрано из {{ arrValueClub.length }}
                             </div>
                         </template>
                     </Multiselect>
                 </div>
-                <div class="col-2">
+                <div class="col-3">
                     <Multiselect
                         v-model="listCityMap.value"
                         :options="arrValueCity"
@@ -103,16 +80,8 @@
                         placeholder="Округ"
                     >
                         <template v-slot:multiplelabel="{ values }">
-                            <div class="multiselect-single-label">
-                                <div v-for="(value, idx) in values" :key="value">
-                                    <div v-if="idx !== values.length - 1">
-                                        <span>{{ value.label }}</span>
-                                        <span>,&nbsp;</span>
-                                    </div>
-                                    <div v-else>
-                                        <span>{{ value.label }}</span>
-                                    </div>
-                                </div>
+                            <div class="multiselect-multiple-label">
+                                {{ values.length }} опций выбрано из {{ arrValueCity.length }}
                             </div>
                         </template>
                     </Multiselect>
@@ -123,7 +92,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">ФИО</th>
+                    <th scope="col">Полное имя</th>
                     <th scope="col">Пол</th>
                     <th scope="col">Федеральный округ/Республика</th>
                     <th scope="col">Город</th>
@@ -133,15 +102,27 @@
             <tbody>
                 <tr v-for="sportsman in listSportsmanMap.listSportsmans" :key="sportsman.key">
                     <th scope="row">{{ sportsman.id }}</th>
-                    <td>
+                    <td v-if="sportsman.patronymic">
                         <router-link :to="'/sportsman/' + sportsman.id">
                             {{ sportsman.surname }} {{ sportsman.name }} {{ sportsman.patronymic }}
                         </router-link>
                     </td>
+                    <td v-else>
+                        <router-link :to="'/sportsman/' + sportsman.id">
+                            {{ sportsman.surname }} {{ sportsman.name }}
+                        </router-link>
+                    </td>
                     <td>{{ sportsman.gender }}</td>
-                    <td>{{ sportsman.city.name_of_region.name_of_federal_region }}</td>
-                    <td>{{ sportsman.city.name_of_city }}</td>
-                    <td>{{ sportsman.rank }}</td>
+                    <td v-if="sportsman.city">
+                        {{ sportsman.city.name_of_region.name_of_federal_region }}
+                    </td>
+                    <td v-else>Не указан</td>
+                    <td v-if="sportsman.city">
+                        {{ sportsman.city.name_of_city }}
+                    </td>
+                    <td v-else>Не указан</td>
+                    <td v-if="sportsman.rank">{{ sportsman.rank }}</td>
+                    <td v-else>Не указан</td>
                 </tr>
             </tbody>
         </table>
