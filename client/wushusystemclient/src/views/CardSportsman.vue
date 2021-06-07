@@ -9,11 +9,11 @@
 
             <div class="p-5 mb-4 bg-light rounded-3">
                 <div class="card" style="width: 18rem">
-                    <img
+                    <!-- <img
                         class="card-img-top"
                         src="../media/${sportsmanMap.sportsman.photo}"
                         alt="Card image cap"
-                    />
+                    /> -->
                     <div class="card-body">
                         <h5 class="card-title">Card title</h5>
                         <p class="card-text">
