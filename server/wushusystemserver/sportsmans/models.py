@@ -51,7 +51,7 @@ class Trainer(models.Model):
     patronymic = models.TextField(verbose_name="Отчество тренера")
     photo = models.ImageField(verbose_name="Фотография тренера")
     gender = models.ForeignKey(
-        Gender, on_delete=models.CASCADE, verbose_name="Наименование пола")
+        Gender, null = True, on_delete=models.CASCADE, verbose_name="Наименование пола")
     date_of_birth = models.DateField(verbose_name="Дата рождения тренера")
 
     def __str__(self):
@@ -77,15 +77,14 @@ class Federation(models.Model):
 
 
 class Club(models.Model):
-    id = models.AutoField(primary_key=True)
     name_of_club = models.TextField(
         blank=False, verbose_name="Наименование клуба")
     name_of_owner = models.TextField(
-        blank=True, verbose_name="ФИО владельца клуба")
+        verbose_name="ФИО владельца клуба")
     address = models.TextField(
-        blank=True, verbose_name="Адрес регистрации клуба")
+        verbose_name="Адрес регистрации клуба")
     federation = models.ForeignKey(Federation,
-                                           on_delete=models.CASCADE, verbose_name="Федерация, к которой привязан клуб")
+                                           null=True, on_delete=models.CASCADE, verbose_name="Федерация, к которой привязан клуб")
 
     def __str__(self):
         return "%s" % (self.name_of_club)
@@ -146,19 +145,19 @@ class Sportsman(models.Model):
     file_main_document = models.FileField(upload_to = 'passport_files/',
         verbose_name="Фото подтверждающего документа")
     city = models.ForeignKey(
-        City, on_delete=models.CASCADE, verbose_name="Название города")
+        City, null=True, on_delete=models.CASCADE, verbose_name="Название города")
     trainer = models.ForeignKey(
-        Trainer, on_delete=models.CASCADE, verbose_name="Тренер спортсмена")
+        Trainer, null=True, on_delete=models.CASCADE, verbose_name="Тренер спортсмена")
     club = models.ForeignKey(
-        Club, on_delete=models.CASCADE, verbose_name="Наименование клуба")
+        Club, null=True, on_delete=models.CASCADE, verbose_name="Наименование клуба")
     insurance = models.ForeignKey(
-        Insurance, on_delete=models.CASCADE, verbose_name="Страховка")
+        Insurance, null=True, on_delete=models.CASCADE, verbose_name="Страховка")
     rank = models.ForeignKey(
-        Rank, on_delete=models.CASCADE, verbose_name="Наименование ранга")
-    rusada = models.FileField(upload_to = 'rusada_files_pdf/',
+        Rank, null=True, on_delete=models.CASCADE, verbose_name="Наименование ранга")
+    rusada = models.FileField(upload_to = 'rusada_files_pdf/', null=True,
         verbose_name="Изображение антидопингового сертификата")
     duan_czi = models.ForeignKey(
-        Duan_Czi, on_delete=models.CASCADE, verbose_name="Ранг Дуань Цзи")
+        Duan_Czi, null=True, on_delete=models.CASCADE, verbose_name="Ранг Дуань Цзи")
 
     class Meta():
         verbose_name = "Спортсмен"
