@@ -19,6 +19,14 @@ class RegionAdmin(admin.ModelAdmin):
 
 admin.site.register(Region, RegionAdmin)
 
+class FederalRegionAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Federal_Region._meta.fields]
+    
+    class Meta:
+        model = Federal_Region
+
+admin.site.register(Federal_Region, FederalRegionAdmin)
+
 class CityAdmin(admin.ModelAdmin):
     list_display = [field.name for field in City._meta.fields]
 

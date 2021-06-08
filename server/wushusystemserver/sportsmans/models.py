@@ -14,11 +14,20 @@ class Gender(models.Model):
         verbose_name = "Список доступных полов"
         verbose_name_plural = "Список доступных полов"
 
+class Federal_Region(models.Model):
+    name_of_federal_region = models.TextField(blank=False, verbose_name="Название федерального округа")
+    abbr_of_federal_region = models.TextField(blank=False, verbose_name="Аббревиатура федерального округа")
+    def __str__(self):
+        return "%s" % (self.name_of_federal_region)
 
+    class Meta():
+        verbose_name = "Список федеральных округов"
+        verbose_name_plural = "Список федеральных округов"
+        
 class Region(models.Model):
     name_of_region = models.TextField(blank=False, primary_key=True,
                                       verbose_name="Название округа/области/края/республики")
-    name_of_federal_region = models.TextField(
+    name_of_federal_region = models.ForeignKey(Federal_Region, on_delete=models.CASCADE,
         blank=False, verbose_name="Название федерального округа")
     name_of_country = models.TextField(
         blank=False, verbose_name="Название страны")
