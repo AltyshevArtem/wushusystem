@@ -4,7 +4,6 @@
         <div class="listSportsman">
             <input placeholder="Поиск" class="form-control" v-model="search" />
         </div>
-        {{arrValueCity}}
         <!-- TODO: я бы вынес в отдельный компонент все селекты -->
         <div class="select">
             <div class="row">
@@ -64,6 +63,7 @@
                         :options="arrValueClub"
                         mode="multiple"
                         placeholder="Клуб"
+                        :searchable="true"
                     >
                         <template v-slot:multiplelabel="{ values }">
                             <div class="multiselect-multiple-label">
@@ -72,7 +72,7 @@
                         </template>
                     </Multiselect>
                 </div>
-                <div class="col-3">
+                <!-- <div class="col-3">
                     <Multiselect
                         v-model="listCityMap.value"
                         :options="arrValueCity"
@@ -85,7 +85,7 @@
                             </div>
                         </template>
                     </Multiselect>
-                </div>
+                </div> -->
             </div>
         </div>
         <table class="table table-hover table-bordered table-sm table-responsive">
