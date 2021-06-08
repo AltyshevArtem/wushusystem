@@ -15,5 +15,5 @@ export const gender: Module<IGenderList, null> = {
     state,
     actions,
     mutations,
-    getters
+    getters,
 };

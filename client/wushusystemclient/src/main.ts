@@ -15,24 +15,17 @@ import store from './store';
 import '@/styles.css';
 
 /* BOOTSTRAP STYLES */
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap';
 
 /* VUE FORM STYLES */
-import "@vueform/multiselect/themes/default.css";
+import '@vueform/multiselect/themes/default.css';
 
 //TODO: убрать declare global
-declare global{
+declare global {
     interface Window {
         __VUE_DEVTOOLS_GLOBAL_HOOK__?: any;
     }
 }
 
-createApp(App)
-    .use(devtools)
-    .use(store)
-    .use(router)
-    .mount('#app');
-
-
-
+createApp(App).use(devtools).use(store).use(router).mount('#app');

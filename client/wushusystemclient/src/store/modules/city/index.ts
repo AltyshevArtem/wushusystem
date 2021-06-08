@@ -15,5 +15,5 @@ export const city: Module<ICityList, null> = {
     state,
     actions,
     mutations,
-    getters
+    getters,
 };
