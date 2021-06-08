@@ -8,8 +8,12 @@ class GenderSerialize(serializers.ModelSerializer):
         model = Gender
         fields = "__all__"
 
-
+class FederalRegionSerialize(serializers.ModelSerializer):
+    class Meta:
+        model = Federal_Region
+        fields = "__all__"
 class RegionSerialize(serializers.ModelSerializer):
+    name_of_federal_region = FederalRegionSerialize()
     class Meta:
         model = Region
         fields = "__all__"

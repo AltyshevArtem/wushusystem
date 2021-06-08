@@ -1,4 +1,5 @@
 # DJANGO
+
 from django.db.models import Q
 # SPORTSMAN
 from sportsmans.models import *
@@ -57,7 +58,9 @@ class RegionViewSet(viewsets.ModelViewSet):
     queryset = Region.objects.all()
     serializer_class = RegionSerialize
 
-
+class FederalRegionViewSet(viewsets.ModelViewSet):
+    queryset = Federal_Region.objects.all()
+    serializer_class = FederalRegionSerialize
 class PaginatorSportsman(PageNumberPagination):
     page_size = 50
 
