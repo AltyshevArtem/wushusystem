@@ -101,8 +101,9 @@ class SportsmanSetFilter(FilterSet):
                 temp_query = queryset.filter(
                     Q(gender__name_of_gender__icontains=value)
                 )
-                querysetresult = querysetresult.union(temp_query) 
-        return querysetresult
+                querysetresult = querysetresult | temp_query
+        queryset = querysetresult
+        return queryset
 
     def get_club(self, queryset, name,  value):
         value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
@@ -112,8 +113,9 @@ class SportsmanSetFilter(FilterSet):
                 temp_query = queryset.filter(
                    Q(club__name_of_club__icontains=value)
                 )
-                querysetresult = querysetresult.union(temp_query)
-        return querysetresult
+                querysetresult = querysetresult | temp_query
+        queryset = querysetresult
+        return queryset
 
     def get_city(self, queryset, name,  value):
         value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
@@ -123,8 +125,9 @@ class SportsmanSetFilter(FilterSet):
                 temp_query = queryset.filter(
                    Q(city__name_of_city__icontains=value)
                 )
-                querysetresult = querysetresult.union(temp_query)
-        return querysetresult
+                querysetresult = querysetresult | temp_query
+        queryset = querysetresult
+        return queryset
 
     def get_trainer(self, queryset, name,  value):
         value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
@@ -136,8 +139,9 @@ class SportsmanSetFilter(FilterSet):
                     Q(trainer__surname__icontains=value) |
                     Q(trainer__patronymic__icontains=value)
                 )
-                querysetresult = querysetresult.union(temp_query)
-        return querysetresult
+                querysetresult = querysetresult | temp_query
+        queryset = querysetresult
+        return queryset
 
     def get_rank(self, queryset,name,  value):
         value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
@@ -147,8 +151,9 @@ class SportsmanSetFilter(FilterSet):
                 temp_query = queryset.filter(
                     Q(rank__name_of_rank__icontains=value)
                 )
-                querysetresult = querysetresult.union(temp_query)
-        return querysetresult
+                querysetresult = querysetresult | temp_query
+        queryset = querysetresult
+        return queryset
 
     def get_duan_czi(self, queryset,name,  value):
         value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
@@ -158,9 +163,9 @@ class SportsmanSetFilter(FilterSet):
                 temp_query = queryset.filter(
                     Q(duan_czi__name_of_rank__icontains=value)
                 )
-                querysetresult = querysetresult.union(temp_query)
-        return querysetresult
-
+                querysetresult = querysetresult | temp_query
+        queryset = querysetresult
+        return queryset
 
 # TODO:Подумать над фильтрацией даты со стороны клиента и сервера (через DateFilter отдельной функцией)
 
