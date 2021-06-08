@@ -14,5 +14,5 @@ export const actions: ActionTree<IClubList, null> = {
                 console.log(error);
                 commit('getClubError');
             });
-    }
+    },
 };

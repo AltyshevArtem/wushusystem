@@ -14,5 +14,5 @@ export const actions: ActionTree<IGenderList, null> = {
                 console.log(error);
                 commit('getGenderError');
             });
-    }
+    },
 };

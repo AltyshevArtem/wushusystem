@@ -14,5 +14,5 @@ export const actions: ActionTree<IDuanCziList, null> = {
                 console.log(error);
                 commit('getDuanCziError');
             });
-    }
+    },
 };

@@ -35,6 +35,7 @@
                         :options="arrValueRank"
                         mode="multiple"
                         placeholder="Ранк"
+                        :searchable="true"
                     >
                         <template v-slot:multiplelabel="{ values }">
                             <div class="multiselect-multiple-label">
@@ -49,6 +50,7 @@
                         :options="arrValueDuanCzi"
                         mode="multiple"
                         placeholder="Дуань Цзин"
+                        :searchable="true"
                     >
                         <template v-slot:multiplelabel="{ values }">
                             <div class="multiselect-multiple-label">
@@ -114,7 +116,10 @@
                     </td>
                     <td>{{ sportsman.gender }}</td>
                     <td v-if="sportsman.city">
-                        {{ sportsman.city.name_of_region.name_of_federal_region }}
+                        {{
+                            sportsman.city.name_of_region.name_of_federal_region
+                                .abbr_of_federal_region
+                        }}
                     </td>
                     <td v-else>Не указан</td>
                     <td v-if="sportsman.city">
@@ -220,7 +225,13 @@ export default class TableSportsman extends Vue {
 
     @Watch('search')
     changeData(): void {
-        this.getSportsmanSearchList(this.search);
+        this.getSportsmanSearchList([
+            this.search,
+            this.getGenderList.value,
+            this.getRankList.value,
+            this.getDuanCziList.value,
+            this.getClubList.value,
+        ]);
     }
 }
 </script>

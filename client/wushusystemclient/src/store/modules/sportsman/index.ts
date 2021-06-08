@@ -1,5 +1,5 @@
 import { Module } from 'vuex';
-// import { getters } from './getters';
+import { getters } from './getters';
 import { actions } from './actions';
 import { mutations } from './mutations';
 import { ISportsmanState } from './types';
@@ -14,4 +14,5 @@ export const sportsman: Module<ISportsmanState, null> = {
     state,
     actions,
     mutations,
+    getters,
 };

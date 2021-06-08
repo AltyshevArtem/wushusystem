@@ -62,7 +62,7 @@ class FederalRegionViewSet(viewsets.ModelViewSet):
     queryset = Federal_Region.objects.all()
     serializer_class = FederalRegionSerialize
 class PaginatorSportsman(PageNumberPagination):
-    page_size = 50
+    page_size = 30
 
     def get_paginated_response(self, data):
         return Response({

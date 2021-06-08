@@ -14,5 +14,5 @@ export const actions: ActionTree<IRankList, null> = {
                 console.log(error);
                 commit('getRankError');
             });
-    }
+    },
 };

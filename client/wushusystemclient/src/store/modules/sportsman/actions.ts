@@ -1,6 +1,6 @@
 import { ActionTree } from 'vuex';
 import axios from 'axios';
-import { ISportsmanState} from './types';
+import { ISportsmanState } from './types';
 
 export const actions: ActionTree<ISportsmanState, null> = {
     getSportsman({ commit }, id: number): any {
@@ -15,4 +15,4 @@ export const actions: ActionTree<ISportsmanState, null> = {
                 commit('getSportsmanError');
             });
     },
-}
+};

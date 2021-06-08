@@ -15,5 +15,5 @@ export const duan_czi: Module<IDuanCziList, null> = {
     state,
     actions,
     mutations,
-    getters
+    getters,
 };

@@ -12,7 +12,6 @@ interface IClub {
     name_of_owner?: string;
     federation: IFederation;
     address?: string;
-
 }
 interface IInsurance {
     date_start?: Date;

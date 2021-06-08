@@ -14,5 +14,5 @@ export const actions: ActionTree<ICityList, null> = {
                 console.log(error);
                 commit('getCityError');
             });
-    }
+    },
 };

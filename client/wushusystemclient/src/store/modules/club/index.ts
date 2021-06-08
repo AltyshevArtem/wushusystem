@@ -15,5 +15,5 @@ export const club: Module<IClubList, null> = {
     state,
     actions,
     mutations,
-    getters
+    getters,
 };

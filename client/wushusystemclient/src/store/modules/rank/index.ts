@@ -15,5 +15,5 @@ export const rank: Module<IRankList, null> = {
     state,
     actions,
     mutations,
-    getters
+    getters,
 };
