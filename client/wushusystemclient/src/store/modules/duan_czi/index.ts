@@ -6,7 +6,7 @@ import { IDuanCziList } from './types';
 
 export const state: IDuanCziList = {
     listDuanCzi: [],
-    value: undefined,
+    valueDuanCzi: undefined,
     error: false,
 };
 

@@ -6,7 +6,7 @@ import { IGenderList } from './types';
 
 export const state: IGenderList = {
     listGender: [],
-    value: undefined,
+    valueGender: undefined,
     error: false,
 };
 

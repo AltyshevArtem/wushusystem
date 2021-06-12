@@ -7,7 +7,7 @@ import { ICityList } from './types';
 export const state: ICityList = {
     listCity: [],
     valueCity: undefined,
-    valueFo: undefined,
+    // valueFR: undefined,
     error: false,
 };
 

@@ -1,5 +1,5 @@
 export interface IDuanCziList {
     listDuanCzi: Array<string>;
-    value?: Array<string>;
+    valueDuanCzi?: Array<string>;
     error: boolean;
 }

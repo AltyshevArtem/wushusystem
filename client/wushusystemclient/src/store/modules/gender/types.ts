@@ -1,5 +1,5 @@
 export interface IGenderList {
     listGender: Array<string>;
-    value?: Array<string>;
+    valueGender?: Array<string>;
     error: boolean;
 }

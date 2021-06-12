@@ -2,7 +2,7 @@ import { MutationTree } from 'vuex';
 import { IListSportsmansState } from './types';
 
 export const mutations: MutationTree<IListSportsmansState> = {
-    getSportsmans(state, payload: string) {
+    getSportsmanList(state, payload: string) {
         state.error = false;
         state.listSportsmans = payload;
     },
@@ -10,7 +10,7 @@ export const mutations: MutationTree<IListSportsmansState> = {
         // eslint-disable-next-line max-len
         state.search = `?name=${payload[0]||''}&gender=${payload[1]||''}&rank=${payload[2]||''}&duan_czi=${payload[3]||''}&club=${payload[4]||''}&city=${payload[5]||''}&trainer=`
     },
-    getSportsmansError(state) {
+    getSportsmanListError(state) {
         state.error = true;
         state.listSportsmans = '';
     },

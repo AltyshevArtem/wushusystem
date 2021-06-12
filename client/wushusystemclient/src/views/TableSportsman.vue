@@ -9,7 +9,7 @@
             <div class="row">
                 <div class="col-1">
                     <Multiselect
-                        v-model="listGenderMap.value"
+                        v-model="listGenderMap.valueGender"
                         :options="arrValueGender"
                         mode="multiple"
                         placeholder="Пол"
@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-5">
                     <Multiselect
-                        v-model="listRankMap.value"
+                        v-model="listRankMap.valueRank"
                         :options="arrValueRank"
                         mode="multiple"
                         placeholder="Разряд"
@@ -46,7 +46,7 @@
                 </div>
                 <div class="col-3">
                     <Multiselect
-                        v-model="listDuanCziMap.value"
+                        v-model="listDuanCziMap.valueDuanCzi"
                         :options="arrValueDuanCzi"
                         mode="multiple"
                         placeholder="Дуань Цзин"
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-3">
                     <Multiselect
-                        v-model="listClubMap.value"
+                        v-model="listClubMap.valueClub"
                         :options="arrValueClub"
                         mode="multiple"
                         placeholder="Клуб"
@@ -92,7 +92,7 @@
                 </div>
                 <!-- <div class="col-3">
                     <Multiselect
-                        v-model="listCityMap.valueFo"
+                        v-model="listCityMap.valueFR"
                         :options="arrValueCity"
                         mode="multiple"
                         placeholder="ФО"
@@ -264,10 +264,10 @@ export default class TableSportsman extends Vue {
     watchSetSearch(): void {
         this.setSearch([
             this.search,
-            this.listGenderMap.value,
-            this.listRankMap.value,
-            this.listDuanCziMap.value,
-            this.listClubMap.value,
+            this.listGenderMap.valueGender,
+            this.listRankMap.valueRank,
+            this.listDuanCziMap.valueDuanCzi,
+            this.listClubMap.valueClub,
             this.listCityMap.valueCity,
         ]);
         this.getSportsmanSearchList();
@@ -278,22 +278,22 @@ export default class TableSportsman extends Vue {
         this.watchSetSearch();
     }
 
-    @Watch('listGenderMap.value')
+    @Watch('listGenderMap.valueGender')
     changeDataGender(): void {
         this.watchSetSearch();
     }
 
-    @Watch('listRankMap.value')
+    @Watch('listRankMap.valueRank')
     changeDataRank(): void {
         this.watchSetSearch();
     }
 
-    @Watch('listDuanCziMap.value')
+    @Watch('listDuanCziMap.valueDuanCzi')
     changeDataDuanCzi(): void {
         this.watchSetSearch();
     }
 
-    @Watch('listClubMap.value')
+    @Watch('listClubMap.valueClub')
     changeDataClub(): void {
         this.watchSetSearch();
     }

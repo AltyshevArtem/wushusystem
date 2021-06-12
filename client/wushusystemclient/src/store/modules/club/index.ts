@@ -6,7 +6,7 @@ import { IClubList } from './types';
 
 export const state: IClubList = {
     listClub: [],
-    value: undefined,
+    valueClub: undefined,
     error: false,
 };
 
