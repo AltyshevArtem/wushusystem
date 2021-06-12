@@ -96,7 +96,7 @@ class SportsmanSetFilter(FilterSet):
     def get_gender(self, queryset, name, value):
         if value:
             value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
-            querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+            querysetresult = Sportsman.objects.none() #создание пустого queryset-a
             for value in value_list:
                 temp_query = queryset.filter(
                     Q(gender__name_of_gender__icontains=value)
@@ -108,10 +108,10 @@ class SportsmanSetFilter(FilterSet):
     def get_club(self, queryset, name,  value):
         if value:
             value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
-            querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+            querysetresult = Sportsman.objects.none() #создание пустого queryset-a
             for value in value_list:
                 temp_query = queryset.filter(
-                Q(club__name_of_club__icontains=value)
+                    Q(club__name_of_club__icontains=value)
                 )
                 querysetresult = querysetresult | temp_query
             queryset = querysetresult
@@ -120,10 +120,10 @@ class SportsmanSetFilter(FilterSet):
     def get_city(self, queryset, name,  value):
         if value:
             value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
-            querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+            querysetresult = Sportsman.objects.none() #создание пустого queryset-a
             for value in value_list:
                 temp_query = queryset.filter(
-                Q(city__name_of_city__icontains=value)
+                    Q(city__name_of_city__icontains=value)
                 )
                 querysetresult = querysetresult | temp_query
             queryset = querysetresult
@@ -132,7 +132,7 @@ class SportsmanSetFilter(FilterSet):
     def get_trainer(self, queryset, name,  value):
         if value:
             value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
-            querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+            querysetresult = Sportsman.objects.none() #создание пустого queryset-a
             for value in value_list:
                 temp_query = queryset.filter(
                     Q(trainer__name__icontains=value) |
@@ -146,7 +146,7 @@ class SportsmanSetFilter(FilterSet):
     def get_rank(self, queryset,name,  value):
         if value:
             value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
-            querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+            querysetresult = Sportsman.objects.none() #создание пустого queryset-a
             for value in value_list:
                 temp_query = queryset.filter(
                     Q(rank__name_of_rank__icontains=value)
@@ -158,7 +158,7 @@ class SportsmanSetFilter(FilterSet):
     def get_duan_czi(self, queryset,name,  value):
         if value:
             value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
-            querysetresult = queryset.filter(pk=0) #создание пустого queryset-a
+            querysetresult = Sportsman.objects.none() #создание пустого queryset-a
             for value in value_list:
                 temp_query = queryset.filter(
                     Q(duan_czi__name_of_rank__icontains=value)
