@@ -34,7 +34,7 @@
                         v-model="listRankMap.value"
                         :options="arrValueRank"
                         mode="multiple"
-                        placeholder="Ранк"
+                        placeholder="Разряд"
                         :searchable="true"
                     >
                         <template v-slot:multiplelabel="{ values }">
@@ -74,12 +74,28 @@
                         </template>
                     </Multiselect>
                 </div>
-                <!-- <div class="col-3">
+            </div>
+            <div class="row">
+                <div class="col-3">
                     <Multiselect
-                        v-model="listCityMap.value"
+                        v-model="listCityMap.valueCity"
                         :options="arrValueCity"
                         mode="multiple"
-                        placeholder="Округ"
+                        placeholder="Город"
+                    >
+                        <template v-slot:multiplelabel="{ values }">
+                            <div class="multiselect-multiple-label">
+                                {{ values.length }} опций выбрано из {{ arrValueCity.length }}
+                            </div>
+                        </template>
+                    </Multiselect>
+                </div>
+                <!-- <div class="col-3">
+                    <Multiselect
+                        v-model="listCityMap.valueFo"
+                        :options="arrValueCity"
+                        mode="multiple"
+                        placeholder="ФО"
                     >
                         <template v-slot:multiplelabel="{ values }">
                             <div class="multiselect-multiple-label">
@@ -93,17 +109,19 @@
         <table class="table table-hover table-bordered table-sm table-responsive">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
                     <th scope="col">Полное имя</th>
                     <th scope="col">Пол</th>
-                    <th scope="col">Федеральный округ/Республика</th>
+                    <th scope="col">ФО</th>
                     <th scope="col">Город</th>
+                    <th scope="col">Клуб</th>
+                    <th scope="col">Полное имя тренера</th>
                     <th scope="col">Разряд</th>
+                    <th scope="col">Дуань</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="sportsman in listSportsmanMap.listSportsmans" :key="sportsman.key">
-                    <th scope="row">{{ sportsman.id }}</th>
+                    <!-- Полное имя -->
                     <td v-if="sportsman.patronymic">
                         <router-link :to="'/sportsman/' + sportsman.id">
                             {{ sportsman.surname }} {{ sportsman.name }} {{ sportsman.patronymic }}
@@ -114,7 +132,9 @@
                             {{ sportsman.surname }} {{ sportsman.name }}
                         </router-link>
                     </td>
+                    <!-- Пол -->
                     <td>{{ sportsman.gender }}</td>
+                    <!-- ФО -->
                     <td v-if="sportsman.city">
                         {{
                             sportsman.city.name_of_region.name_of_federal_region
@@ -122,11 +142,25 @@
                         }}
                     </td>
                     <td v-else>Не указан</td>
+                    <!-- Город -->
                     <td v-if="sportsman.city">
                         {{ sportsman.city.name_of_city }}
                     </td>
                     <td v-else>Не указан</td>
+                    <!-- Клуб -->
+                    <td v-if="sportsman.club">{{ sportsman.club.name_of_club }}</td>
+                    <td v-else>Не указан</td>
+                    <!-- Тренер -->
+                    <td v-if="sportsman.trainer">
+                        {{ sportsman.trainer.surname }} {{ sportsman.trainer.name }}
+                        {{ sportsman.trainer.patronymic }}
+                    </td>
+                    <td v-else>Не указан</td>
+                    <!-- Ранк -->
                     <td v-if="sportsman.rank">{{ sportsman.rank }}</td>
+                    <td v-else>Не указан</td>
+                    <!-- Дуань -->
+                    <td v-if="sportsman.duan_czi">{{ sportsman.duan_czi }}</td>
                     <td v-else>Не указан</td>
                 </tr>
             </tbody>
@@ -140,7 +174,7 @@ import { Vue, Options } from 'vue-class-component';
 import { Watch } from 'vue-property-decorator';
 
 /* VUEX */
-import { State, Action, Getter } from 'vuex-class';
+import { State, Action, Getter, Mutation } from 'vuex-class';
 
 /* STATE */
 import { IListSportsmansState } from '../store/modules/listSportsmans/types';
@@ -200,6 +234,10 @@ export default class TableSportsman extends Vue {
     @Action('getCityList', { namespace: namespaceCity })
     getCityList: any;
 
+    /* MUTATIONS */
+    @Mutation('setSearch', { namespace: namespaceListSportsmans })
+    setSearch: any;
+
     /* GETTERS */
     @Getter('arrValueRank', { namespace: namespaceRank })
     arrValueRank: Array<string> | undefined;
@@ -223,15 +261,46 @@ export default class TableSportsman extends Vue {
         this.getCityList();
     }
 
-    @Watch('search')
-    changeData(): void {
-        this.getSportsmanSearchList([
+    watchSetSearch(): void {
+        this.setSearch([
             this.search,
-            this.getGenderList.value,
-            this.getRankList.value,
-            this.getDuanCziList.value,
-            this.getClubList.value,
+            this.listGenderMap.value,
+            this.listRankMap.value,
+            this.listDuanCziMap.value,
+            this.listClubMap.value,
+            this.listCityMap.valueCity,
         ]);
+        this.getSportsmanSearchList();
+    }
+
+    @Watch('search')
+    changeDataSearch(): void {
+        this.watchSetSearch();
+    }
+
+    @Watch('listGenderMap.value')
+    changeDataGender(): void {
+        this.watchSetSearch();
+    }
+
+    @Watch('listRankMap.value')
+    changeDataRank(): void {
+        this.watchSetSearch();
+    }
+
+    @Watch('listDuanCziMap.value')
+    changeDataDuanCzi(): void {
+        this.watchSetSearch();
+    }
+
+    @Watch('listClubMap.value')
+    changeDataClub(): void {
+        this.watchSetSearch();
+    }
+
+    @Watch('listCityMap.valueCity')
+    changeDataCity(): void {
+        this.watchSetSearch();
     }
 }
 </script>

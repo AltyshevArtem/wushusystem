@@ -6,6 +6,7 @@ import { IListSportsmansState } from './types';
 
 export const state: IListSportsmansState = {
     listSportsmans: '',
+    search: ``,
     error: false,
 };
 

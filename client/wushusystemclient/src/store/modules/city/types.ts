@@ -1,5 +1,6 @@
 export interface ICityList {
     listCity: Array<string>;
-    value?: Array<string>;
+    valueCity?: Array<string>;
+    valueFo?: Array<string>;
     error: boolean;
 }
