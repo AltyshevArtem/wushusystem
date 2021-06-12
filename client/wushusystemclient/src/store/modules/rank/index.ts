@@ -6,7 +6,7 @@ import { IRankList } from './types';
 
 export const state: IRankList = {
     listRank: [],
-    value: undefined,
+    valueRank: undefined,
     error: false,
 };
 

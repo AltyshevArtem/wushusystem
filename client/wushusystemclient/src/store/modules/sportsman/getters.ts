@@ -1,4 +1,3 @@
-import { sportsman } from './index';
 import { GetterTree } from 'vuex';
 import { ISportsmanState } from './types';
 

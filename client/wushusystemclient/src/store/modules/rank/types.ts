@@ -1,5 +1,5 @@
 export interface IRankList {
     listRank: Array<string>;
-    value?: Array<string>;
+    valueRank?: Array<string>;
     error: boolean;
 }

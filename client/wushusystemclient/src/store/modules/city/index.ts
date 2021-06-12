@@ -6,7 +6,8 @@ import { ICityList } from './types';
 
 export const state: ICityList = {
     listCity: [],
-    value: undefined,
+    valueCity: undefined,
+    // valueFR: undefined,
     error: false,
 };
 

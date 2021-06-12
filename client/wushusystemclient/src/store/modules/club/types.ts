@@ -1,5 +1,5 @@
 export interface IClubList {
     listClub: Array<string>;
-    value?: Array<string>;
+    valueClub?: Array<string>;
     error: boolean;
 }
