@@ -58,17 +58,42 @@ class RankSerialize(serializers.ModelSerializer):
         fields = "__all__"
 
 
+
+
 class Duan_CziSerialize(serializers.ModelSerializer):
     class Meta:
         model = Duan_Czi
         fields = "__all__"
 
+class PassportSerialize(serializers.ModelSerializer):
+    class Meta:
+        model = Passport
+        fields = "__all__"
 
+class Birth_CertificateSerialize(serializers.ModelSerializer):
+    class Meta:
+        model = Birth_Certificate
+        fields = "__all__"
+
+class OMSSerialize(serializers.ModelSerializer):
+    class Meta:
+        model = OMS
+        fields = "__all__"
+
+
+class Proxy_docSerialize(serializers.ModelSerializer):
+    class Meta:
+        model = Proxy_doc
+        fields = "__all__"
 class SportsmanSerialize(serializers.ModelSerializer):
     city = CitySerialize()
     trainer = TrainerSerialize()
     insurance = InsuranceSerialize()
     club = ClubSerialize()
+    passport = PassportSerialize()
+    birth_certificate = Birth_CertificateSerialize()
+    proxy = Proxy_docSerialize()
+    oms = OMSSerialize()
 
     class Meta:
         model = Sportsman

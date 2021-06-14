@@ -1,5 +1,4 @@
 # DJANGO
-
 from django.db.models import Q
 # SPORTSMAN
 from sportsmans.models import *
@@ -17,6 +16,16 @@ from django_filters.rest_framework import DjangoFilterBackend
 class GenderViewSet(viewsets.ModelViewSet):
     queryset = Gender.objects.all()
     serializer_class = GenderSerialize
+
+
+class FederalRegionViewSet(viewsets.ModelViewSet):
+    queryset = Federal_Region.objects.all
+    serializer_class = FederalRegionSerialize
+
+
+class RegionViewSet(viewsets.ModelViewSet):
+    queryset = Region.objects.all()
+    serializer_class = RegionSerialize
 
 
 class CityViewSet(viewsets.ModelViewSet):
@@ -54,13 +63,26 @@ class Duan_CziViewSet(viewsets.ModelViewSet):
     serializer_class = Duan_CziSerialize
 
 
-class RegionViewSet(viewsets.ModelViewSet):
-    queryset = Region.objects.all()
-    serializer_class = RegionSerialize
+class PassportViewSet(viewsets.ModelViewSet):
+    queryset = Passport.objects.all()
+    serializer_class = PassportSerialize
 
-class FederalRegionViewSet(viewsets.ModelViewSet):
-    queryset = Federal_Region.objects.all()
-    serializer_class = FederalRegionSerialize
+
+class Birth_CertificateViewSet(viewsets.ModelViewSet):
+    queryset = Birth_Certificate.objects.all()
+    serializer_class = Birth_CertificateSerialize
+
+
+class OMSViewSet(viewsets.ModelViewSet):
+    queryset = OMS.objects.all()
+    serializer_class = OMSSerialize
+
+
+class Proxy_docViewSet(viewsets.ModelViewSet):
+    queryset = Proxy_doc.objects.all()
+    serializer_class = Proxy_docSerialize
+
+
 class PaginatorSportsman(PageNumberPagination):
     page_size = 30
 
@@ -72,6 +94,7 @@ class PaginatorSportsman(PageNumberPagination):
             },
             'results': data
         })
+
 
 class SportsmanSetFilter(FilterSet):
     name = CharFilter(method="get_name")
@@ -91,12 +114,11 @@ class SportsmanSetFilter(FilterSet):
             )
         return queryset
 
-
-
     def get_gender(self, queryset, name, value):
         if value:
-            value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
-            querysetresult = Sportsman.objects.none() #создание пустого queryset-a
+            value_list = value.replace('[', "").replace(']', "").replace(
+                "'", "").split(',')  # парсим queryset
+            querysetresult = Sportsman.objects.none()  # создание пустого queryset-a
             for value in value_list:
                 temp_query = queryset.filter(
                     Q(gender__name_of_gender__icontains=value)
@@ -107,8 +129,9 @@ class SportsmanSetFilter(FilterSet):
 
     def get_club(self, queryset, name,  value):
         if value:
-            value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
-            querysetresult = Sportsman.objects.none() #создание пустого queryset-a
+            value_list = value.replace('[', "").replace(']', "").replace(
+                "'", "").split(',')  # парсим queryset
+            querysetresult = Sportsman.objects.none()  # создание пустого queryset-a
             for value in value_list:
                 temp_query = queryset.filter(
                     Q(club__name_of_club__icontains=value)
@@ -119,8 +142,9 @@ class SportsmanSetFilter(FilterSet):
 
     def get_city(self, queryset, name,  value):
         if value:
-            value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
-            querysetresult = Sportsman.objects.none() #создание пустого queryset-a
+            value_list = value.replace('[', "").replace(']', "").replace(
+                "'", "").split(',')  # парсим queryset
+            querysetresult = Sportsman.objects.none()  # создание пустого queryset-a
             for value in value_list:
                 temp_query = queryset.filter(
                     Q(city__name_of_city__icontains=value)
@@ -131,8 +155,9 @@ class SportsmanSetFilter(FilterSet):
 
     def get_trainer(self, queryset, name,  value):
         if value:
-            value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
-            querysetresult = Sportsman.objects.none() #создание пустого queryset-a
+            value_list = value.replace('[', "").replace(']', "").replace(
+                "'", "").split(',')  # парсим queryset
+            querysetresult = Sportsman.objects.none()  # создание пустого queryset-a
             for value in value_list:
                 temp_query = queryset.filter(
                     Q(trainer__name__icontains=value) |
@@ -143,10 +168,11 @@ class SportsmanSetFilter(FilterSet):
             queryset = querysetresult
         return queryset
 
-    def get_rank(self, queryset,name,  value):
+    def get_rank(self, queryset, name,  value):
         if value:
-            value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
-            querysetresult = Sportsman.objects.none() #создание пустого queryset-a
+            value_list = value.replace('[', "").replace(']', "").replace(
+                "'", "").split(',')  # парсим queryset
+            querysetresult = Sportsman.objects.none()  # создание пустого queryset-a
             for value in value_list:
                 temp_query = queryset.filter(
                     Q(rank__name_of_rank__icontains=value)
@@ -155,10 +181,11 @@ class SportsmanSetFilter(FilterSet):
             queryset = querysetresult
         return queryset
 
-    def get_duan_czi(self, queryset,name,  value):
+    def get_duan_czi(self, queryset, name,  value):
         if value:
-            value_list = value.replace('[',"").replace(']',"").replace("'","").split(',') #парсим queryset
-            querysetresult = Sportsman.objects.none() #создание пустого queryset-a
+            value_list = value.replace('[', "").replace(']', "").replace(
+                "'", "").split(',')  # парсим queryset
+            querysetresult = Sportsman.objects.none()  # создание пустого queryset-a
             for value in value_list:
                 temp_query = queryset.filter(
                     Q(duan_czi__name_of_rank__icontains=value)
@@ -174,6 +201,8 @@ class SportsmanSetFilter(FilterSet):
 # 2) Дополнительные ViewSet-ы
 # 3) SetFilter-ы
 # 4) Пагинации
+
+
 class SportsmanViewSet(viewsets.ModelViewSet):
     queryset = Sportsman.objects.all()
     model = Sportsman
