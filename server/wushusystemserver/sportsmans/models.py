@@ -185,7 +185,7 @@ class Proxy_doc(models.Model):
     scan = models.FileField(upload_to="proxy_files/",
                             verbose_name="Скан доверенности")
     original_passport = models.ForeignKey(
-        Passport, on_delete=models.CASCADE, verbose_name="Оригинал паспорта")
+        Passport, null=True, on_delete=models.CASCADE, verbose_name="Оригинал паспорта")
     original_birth_certificate = models.ForeignKey(
         Birth_Certificate, on_delete=models.CASCADE, verbose_name="Оригинал свидетельства о рождении")
     date_end = models.DateField(verbose_name="Дата окончания доверенности")
@@ -208,13 +208,13 @@ class Sportsman(models.Model):
     gender = models.ForeignKey(
         Gender, on_delete=models.CASCADE, blank=False, verbose_name="Наименование пола")
     passport = models.ForeignKey(
-        Passport, on_delete=models.CASCADE, verbose_name="Паспорт")
+        Passport, null=True, on_delete=models.CASCADE, verbose_name="Паспорт")
     birth_certificate = models.ForeignKey(
-        Birth_Certificate, on_delete=models.CASCADE, verbose_name="Свидетельство о рождении")
-    proxy = models.ForeignKey(Proxy_doc, on_delete=models.CASCADE,
+        Birth_Certificate, null=True, on_delete=models.CASCADE, verbose_name="Свидетельство о рождении")
+    proxy = models.ForeignKey(Proxy_doc, on_delete=models.CASCADE, null=True,
                               verbose_name="Доверенность на паспорт/свидетельство о рождении")
     oms = models.ForeignKey(
-        OMS, on_delete=models.CASCADE, verbose_name="Полис ОМС")
+        OMS, null=True, on_delete=models.CASCADE, verbose_name="Полис ОМС")
     city = models.ForeignKey(
         City, null=True, on_delete=models.CASCADE, verbose_name="Название города")
     trainer = models.ForeignKey(
