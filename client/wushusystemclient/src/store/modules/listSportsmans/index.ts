@@ -6,6 +6,7 @@ import { IListSportsmansState } from './types';
 
 export const state: IListSportsmansState = {
     listSportsmans: '',
+    page: 1,
     search: '',
     error: false,
 };
@@ -16,3 +17,4 @@ export const listSportsmans: Module<IListSportsmansState, null> = {
     actions,
     mutations,
 };
+
