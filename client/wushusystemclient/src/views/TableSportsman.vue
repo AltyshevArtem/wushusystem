@@ -225,8 +225,10 @@ const namespaceCity = 'city';
     },
     computed: {
         pageCount(): number {
-            //TODO: Число 30 нужно либо с сервера получать, либо через dot env
-            return Math.ceil(this.listSportsmanMap.listSportsmans.count / 30);
+            return Math.ceil(
+                this.listSportsmanMap.listSportsmans.count /
+                    this.listSportsmanMap.listSportsmans.page_size,
+            );
         },
     },
     methods: {
