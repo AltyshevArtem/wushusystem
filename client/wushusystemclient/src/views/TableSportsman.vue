@@ -168,7 +168,7 @@
                 </tr>
             </tbody>
         </table>
-        <nav aria-label="..." v-if="pageCount && !isSearchActive">
+        <nav aria-label="..." v-if="pageCount">
             <ul class="pagination">
                 <li class="page-item" :class="{ disabled: listSportsmanMap.page === 1 }">
                     <a class="page-link" @click="prevPage" tabindex="-1" aria-disabled="true">
@@ -225,17 +225,8 @@ const namespaceCity = 'city';
     },
     computed: {
         pageCount(): number {
+            //TODO: Число 30 нужно либо с сервера получать, либо через dot env
             return Math.ceil(this.listSportsmanMap.listSportsmans.count / 30);
-        },
-        isSearchActive(): boolean {
-            return (
-                this.search === null ||
-                this.arrValueCity === null ||
-                this.arrValueRank === null ||
-                this.arrValueDuanCzi === null ||
-                this.arrValueGender === null ||
-                this.arrValueClub === null
-            );
         },
     },
     methods: {
