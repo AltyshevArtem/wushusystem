@@ -92,6 +92,7 @@ class PaginatorSportsman(PageNumberPagination):
                 'next': self.get_next_link(),
                 'previous': self.get_previous_link()
             },
+            'page_size': self.page_size,
             'count': self.page.paginator.count,
             'results': data
         })
