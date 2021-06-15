@@ -120,7 +120,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="sportsman in listSportsmanMap.listSportsmans" :key="sportsman.key">
+                <tr
+                    v-for="sportsman in listSportsmanMap.listSportsmans.results"
+                    :key="sportsman.key"
+                >
                     <!-- Полное имя -->
                     <td v-if="sportsman.patronymic">
                         <router-link :to="'/sportsman/' + sportsman.id">
@@ -165,6 +168,26 @@
                 </tr>
             </tbody>
         </table>
+        <nav aria-label="..." v-if="pageCount">
+            <ul class="pagination">
+                <li class="page-item" :class="{ disabled: listSportsmanMap.page === 1 }">
+                    <a class="page-link" @click="prevPage" tabindex="-1" aria-disabled="true">
+                        Previous
+                    </a>
+                </li>
+                <li
+                    class="page-item"
+                    v-for="page in pageCount"
+                    :key="page"
+                    :class="{ disabled: isDisabledPage(page) }"
+                >
+                    <a class="page-link" @click="currentPage(page)">{{ page }}</a>
+                </li>
+                <li class="page-item" :class="{ disabled: listSportsmanMap.page === pageCount }">
+                    <a class="page-link" @click="nextPage"> Next </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </template>
 
@@ -200,6 +223,17 @@ const namespaceCity = 'city';
     components: {
         Multiselect,
     },
+    computed: {
+        pageCount(): number {
+            //TODO: Число 30 нужно либо с сервера получать, либо через dot env
+            return Math.ceil(this.listSportsmanMap.listSportsmans.count / 30);
+        },
+    },
+    methods: {
+        isDisabledPage(page: number): boolean {
+            return page === this.listSportsmanMap.page;
+        },
+    },
 })
 export default class TableSportsman extends Vue {
     search = '';
@@ -219,8 +253,8 @@ export default class TableSportsman extends Vue {
     listCityMap!: ICityList;
 
     /* ACTION */
-    @Action('getSportsmanList', { namespace: namespaceListSportsmans })
-    getSportsmanList: any;
+    @Action('getSportsmanListPage', { namespace: namespaceListSportsmans })
+    getSportsmanListPage: any;
     @Action('getSportsmanSearchList', { namespace: namespaceListSportsmans })
     getSportsmanSearchList: any;
     @Action('getRankList', { namespace: namespaceRank })
@@ -237,6 +271,12 @@ export default class TableSportsman extends Vue {
     /* MUTATIONS */
     @Mutation('setSearch', { namespace: namespaceListSportsmans })
     setSearch: any;
+    @Mutation('prevPage', { namespace: namespaceListSportsmans })
+    prevPage: any;
+    @Mutation('currentPage', { namespace: namespaceListSportsmans })
+    currentPage: any;
+    @Mutation('nextPage', { namespace: namespaceListSportsmans })
+    nextPage: any;
 
     /* GETTERS */
     @Getter('arrValueRank', { namespace: namespaceRank })
@@ -252,7 +292,7 @@ export default class TableSportsman extends Vue {
 
     mounted(): void {
         // TODO: loading (вейтер)
-        this.getSportsmanList();
+        this.getSportsmanListPage();
         // TODO: не надо при отрисовке компонента получать ниже данные
         this.getRankList();
         this.getDuanCziList();
@@ -302,6 +342,11 @@ export default class TableSportsman extends Vue {
     changeDataCity(): void {
         this.watchSetSearch();
     }
+
+    @Watch('listSportsmanMap.page')
+    changeSportsmanList(): void {
+        this.getSportsmanListPage(this.listSportsmanMap.page);
+    }
 }
 </script>
 
@@ -312,5 +357,8 @@ export default class TableSportsman extends Vue {
 }
 table {
     margin-top: 30px;
+}
+li > a {
+    cursor: pointer;
 }
 </style>
