@@ -3,7 +3,7 @@ import { GetterTree } from 'vuex';
 import { ISportsmanState } from './types';
 
 export const getters: GetterTree<ISportsmanState, null> = {
-    fullName(state): string {
+    FullName(state): string {
         const { sportsman } = state;
         const name = (sportsman && sportsman.name) || '';
         const surname = (sportsman && sportsman.surname) || '';
@@ -18,7 +18,6 @@ export const getters: GetterTree<ISportsmanState, null> = {
     SportsmanPhoto(state): string {
         const { sportsman } = state;
         const src = (sportsman && sportsman.photo) || '';
-        // const sportsman_photo = (sportsman && sportsman.photo) || '';
         return `${src}`;
     },
     DateOfBirth(state): string {

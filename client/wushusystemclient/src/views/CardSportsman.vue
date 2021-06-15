@@ -6,7 +6,7 @@
                     >Информация о спортсмене:
                     <br />
                     <strong>
-                        {{ fullName }}
+                        {{ FullName }}
                     </strong>
                 </span>
             </header>
@@ -23,7 +23,7 @@
                     <div class="card mb-3" style="width: 18rem">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                ФИО: <strong>{{ fullName }}</strong>
+                                ФИО: <strong>{{ FullName }}</strong>
                             </li>
                             <li class="list-group-item">
                                 Пол: <strong>{{ Gender }}</strong>
@@ -87,8 +87,8 @@ export default class Sportsman extends Vue {
     sportsmanMap!: ISportsmanState;
     @Action('getSportsman', { namespace })
     getSportsman: any;
-    @Getter('fullName', { namespace })
-    fullName: string | undefined;
+    @Getter('FullName', { namespace })
+    FullName: string | undefined;
     @Getter('Gender', { namespace })
     Gender: string | undefined;
     @Getter('SportsmanPhoto', { namespace })
@@ -114,8 +114,4 @@ export default class Sportsman extends Vue {
 }
 </script>
 
-<style scoped>
-.card-cont {
-    padding-top: 15px;
-}
-</style>
+<style scoped></style>
