@@ -20,7 +20,7 @@ interface IInsurance {
 }
 interface ICity {
     name_of_city: string;
-    name_of_region: string;
+    name_of_region: IRegion;
 }
 interface ITrainer {
     name: string;
