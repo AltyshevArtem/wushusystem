@@ -149,7 +149,7 @@ class Duan_Czi(models.Model):
 
 class Passport(models.Model):
     number = models.TextField(
-        blank=False, verbose_name="Серия и номер паспорта")
+        blank=False, verbose_name="Серия и номер паспорта") #TODO: в бд для хранения ПДн использовать солевые хэши
     scan = models.FileField(upload_to='passport_files/',
                             verbose_name="Скан паспорта")
     date_start = models.DateField(verbose_name="Дата выдачи паспорта")
