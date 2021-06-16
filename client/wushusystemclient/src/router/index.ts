@@ -7,6 +7,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('../views/TableSportsman.vue'),
     },
     {
+        //TODO: Если спортсмена по такому ID не существует делать редирект
         path: '/sportsman/:id',
         name: 'Sportsman',
         component: () => import('../views/CardSportsman.vue'),

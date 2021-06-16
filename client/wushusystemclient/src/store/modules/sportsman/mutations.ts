@@ -10,4 +10,10 @@ export const mutations: MutationTree<ISportsmanState> = {
         state.error = true;
         state.sportsman = undefined;
     },
+    deleteSportsman(state) {
+        state.error = false;
+    },
+    deleteSportsmanError(state) {
+        state.error = true;
+    }
 };

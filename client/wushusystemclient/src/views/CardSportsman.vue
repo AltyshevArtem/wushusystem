@@ -1,9 +1,26 @@
 <template>
-    <main>
+    <div>
         <div class="container py-4">
-            <header class="pb-3 mb-4 border-bottom">
-                <span class="fs-4">{{ FullName }}</span>
-            </header>
+            <div>
+                <div class="pb-3 mb-4 d-flex justify-content-between">
+                    <span class="fs-4"
+                        >Информация о спортсмене:
+                        <br />
+                        <strong>
+                            {{ FullName }}
+                        </strong>
+                    </span>
+                    <div class="pb-3 mb-3">
+                        <button
+                            type="button"
+                            @click="isConfirmModalVisible = true"
+                            class="btn btn-danger"
+                        >
+                            Удалить
+                        </button>
+                    </div>
+                </div>
+            </div>
             <div class="p-5 mb-4 bg-light rounded-3">
                 <div class="card mb-3" style="max-width: 1920px">
                     <div class="row g-0">
@@ -87,24 +104,45 @@
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+    <confirmationModal
+        v-if="isConfirmModalVisible"
+        @closeModal="isConfirmModalVisible = false"
+        @confirmModal="deleteSportsmanMethod"
+    >
+        <span> Вы уверены, что собираетесь удалить спортсмена?</span>
+    </confirmationModal>
 </template>
 
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
 import { State, Action, Getter } from 'vuex-class';
 import { ISportsmanState } from '../store/modules/sportsman/types';
+import confirmationModal from '../components/Modal/confirmationModal.vue';
 
 const namespace = 'sportsman';
 
 @Options({
     name: 'CardSportsman',
+    components: {
+        confirmationModal,
+    },
+    methods: {},
 })
 export default class Sportsman extends Vue {
+    isConfirmModalVisible = false;
+
+    /* STATE */
     @State('sportsman')
     sportsmanMap!: ISportsmanState;
+
+    /* ACTION */
     @Action('getSportsman', { namespace })
     getSportsman: any;
+    @Action('deleteSportsman', { namespace })
+    deleteSportsman: any;
+
+    /* GETTER */
     @Getter('FullName', { namespace })
     FullName: string | undefined;
     @Getter('Gender', { namespace })
@@ -138,6 +176,13 @@ export default class Sportsman extends Vue {
 
     mounted(): void {
         this.getSportsman(this.$route.params.id);
+    }
+
+    deleteSportsmanMethod(): void {
+        this.deleteSportsman(this.$route.params.id);
+        this.isConfirmModalVisible = false;
+        // TODO: нужно перерендерить таблицу спортсменов после редиректа
+        this.$router.push('/sportsmans');
     }
 }
 </script>
