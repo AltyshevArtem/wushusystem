@@ -168,21 +168,39 @@
                 </tr>
             </tbody>
         </table>
-        <nav aria-label="..." v-if="pageCount">
+        <nav aria-label="..." v-if="pageCount > 1">
             <ul class="pagination">
                 <li class="page-item" :class="{ disabled: listSportsmanMap.page === 1 }">
                     <a class="page-link" @click="prevPage" tabindex="-1" aria-disabled="true">
                         Previous
                     </a>
                 </li>
-                <li
-                    class="page-item"
-                    v-for="page in pageCount"
-                    :key="page"
-                    :class="{ disabled: isDisabledPage(page) }"
-                >
-                    <a class="page-link" @click="currentPage(page)">{{ page }}</a>
-                </li>
+                <template v-if="pageCount > limitPage">
+                    <li
+                        class="page-item"
+                        v-for="page in limitPage"
+                        :key="page"
+                        :class="{ disabled: isDisabledPage(page) }"
+                    >
+                        <a class="page-link" @click="currentPage(page)">{{ page }}</a>
+                    </li>
+                    <li class="page-item disabled">
+                        <a class="page-link">...</a>
+                    </li>
+                </template>
+                <template v-else>
+                    <li
+                        class="page-item"
+                        v-for="page in pageCount"
+                        :key="page"
+                        :class="{ disabled: isDisabledPage(page) }"
+                    >
+                        <a class="page-link" @click="currentPage(page)">{{ page }}</a>
+                    </li>
+                </template>
+                <!-- TODO: Если страниц больше limitPage, то мы не видим страницы больше
+                этого значения. Нужно либо использовать скролл,
+                либо при нажатии в списке менять нумерацию -->
                 <li class="page-item" :class="{ disabled: listSportsmanMap.page === pageCount }">
                     <a class="page-link" @click="nextPage"> Next </a>
                 </li>
@@ -239,6 +257,7 @@ const namespaceCity = 'city';
 })
 export default class TableSportsman extends Vue {
     search = '';
+    limitPage = 25;
 
     /* STATE */
     @State('listSportsmans')
@@ -254,11 +273,8 @@ export default class TableSportsman extends Vue {
     @State('city')
     listCityMap!: ICityList;
 
-    /* ACTION */
-    @Action('getSportsmanListPage', { namespace: namespaceListSportsmans })
-    getSportsmanListPage: any;
-    @Action('getSportsmanSearchList', { namespace: namespaceListSportsmans })
-    getSportsmanSearchList: any;
+    @Action('getSportsmanList', { namespace: namespaceListSportsmans })
+    getSportsmanList: any;
     @Action('getRankList', { namespace: namespaceRank })
     getRankList: any;
     @Action('getDuanCziList', { namespace: namespaceDuanCzi })
@@ -294,7 +310,7 @@ export default class TableSportsman extends Vue {
 
     mounted(): void {
         // TODO: loading (вейтер)
-        this.getSportsmanListPage();
+        this.getSportsmanList();
         // TODO: не надо при отрисовке компонента получать ниже данные
         this.getRankList();
         this.getDuanCziList();
@@ -312,7 +328,7 @@ export default class TableSportsman extends Vue {
             this.listClubMap.valueClub,
             this.listCityMap.valueCity,
         ]);
-        this.getSportsmanSearchList();
+        this.getSportsmanList();
     }
 
     @Watch('search')
@@ -347,7 +363,7 @@ export default class TableSportsman extends Vue {
 
     @Watch('listSportsmanMap.page')
     changeSportsmanList(): void {
-        this.getSportsmanListPage(this.listSportsmanMap.page);
+        this.getSportsmanList(this.listSportsmanMap.page);
     }
 }
 </script>
