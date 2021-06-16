@@ -2,14 +2,6 @@ import { MutationTree } from 'vuex';
 import { IListSportsmansState } from './types';
 
 export const mutations: MutationTree<IListSportsmansState> = {
-    getSportsmanListPage(state, payload: string) {
-        state.error = false;
-        state.listSportsmans = payload;
-    },
-    getSportsmanListPageError(state) {
-        state.error = true;
-        state.listSportsmans = '';
-    },
     getSportsmanList(state, payload: string) {
         state.error = false;
         state.listSportsmans = payload;
