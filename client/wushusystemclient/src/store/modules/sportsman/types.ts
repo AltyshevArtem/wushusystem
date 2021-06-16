@@ -1,7 +1,11 @@
 interface IRegion {
     name_of_region: string;
-    name_of_federal_region: string;
+    name_of_federal_region: IFederalRegion;
     name_of_country: string;
+}
+interface IFederalRegion {
+    name_of_federal_region: string;
+    abbr_of_federal_region: string;
 }
 interface IFederation {
     name_of_federation: string;
@@ -47,6 +51,11 @@ export interface ISportsman {
     rusada?: string;
     rank?: string;
     duan_czi?: string;
+    confirm_address?: string;
+    covid_test?: string;
+    covid_contact?: string;
+    parent_doc?: string;
+    school_doc?: string
 }
 
 export interface ISportsmanState {
