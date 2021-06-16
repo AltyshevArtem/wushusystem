@@ -2,47 +2,67 @@
     <main>
         <div class="container py-4">
             <header class="pb-3 mb-4 border-bottom">
-                <span class="fs-4"
-                    >Информация о спортсмене:
-                    <br />
-                    <strong>
-                        {{ FullName }}
-                    </strong>
-                </span>
+                <span class="fs-4">{{ FullName }}</span>
             </header>
             <div class="p-5 mb-4 bg-light rounded-3">
-                <div class="card-group">
-                    <div>
-                        <img
-                            class="card-img-top"
-                            style="width: 15rem"
-                            :src="SportsmanPhoto"
-                            alt="Card image cap"
-                        />
+                <div class="card mb-3" style="max-width: 1920px">
+                    <div class="row g-0">
+                        <div class="col-md-8">
+                            <div class="card-body">
+                                <h5 class="card-title">Информация спортсмене:</h5>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        ФИО: <strong>{{ FullName }}</strong>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Пол: <strong>{{ Gender }}</strong>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Дата рождения: <strong> {{ DateOfBirth }}</strong>
+                                    </li>
+                                    <li class="list-group-item">
+                                        Разряд: <strong> {{ Rank }} </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <img
+                                class="card-img-top"
+                                style="width: 16rem"
+                                :src="SportsmanPhoto"
+                                alt="Card image cap"
+                            />
+                        </div>
                     </div>
-                    <div class="card mb-3" style="width: 18rem">
+                </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <!-- <h5 class="card-title">Информация о регионе:</h5> -->
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                ФИО: <strong>{{ FullName }}</strong>
+                                Город: <strong>{{ NameOfCity }}</strong>
                             </li>
                             <li class="list-group-item">
-                                Пол: <strong>{{ Gender }}</strong>
+                                Край/Республика: <strong>{{ NameOfRegion }}</strong>
                             </li>
                             <li class="list-group-item">
-                                Дата рождения: <strong>{{ DateOfBirth }}</strong>
+                                Федеральный округ: <strong>{{ NameOfFederalRegion }}</strong>
                             </li>
                             <li class="list-group-item">
-                                Разряд: <strong>{{ Rank }}</strong>
+                                Адрес прописки: <strong>{{ Address }}</strong>
+                            </li>
+                            <li class="list-group-item">
+                                Справка о регистрации по месту жительства:
+                                <a :href="ConfirmAddress" class="card-link">Просмотр</a>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="card mb-3">
                     <div class="card-body">
+                        <!-- <h5 class="card-title">Документы:</h5> -->
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                Адрес прописки: <strong>{{ Address }}</strong>
-                            </li>
                             <li class="list-group-item">
                                 Фотография паспорта:
                                 <a :href="SportsmanPhoto" class="card-link">Просмотр</a>
@@ -54,15 +74,13 @@
                             <li class="list-group-item">
                                 Дуань/Цзи: <strong>{{ DuanCzi }}</strong>
                             </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Информация о регионе</h5>
-                        <ul>
                             <li class="list-group-item">
-                                Город: <strong>{{ RegionInfo }}</strong>
+                                Справка об отсутствии контактов с инфекционными больными:
+                                <a :href="CovidContact" class="card-link">Просмотр</a>
+                            </li>
+                            <li class="list-group-item">
+                                ПЦР-тест COVID-19:
+                                <a :href="CovidTest" class="card-link">Просмотр</a>
                             </li>
                         </ul>
                     </div>
@@ -105,8 +123,18 @@ export default class Sportsman extends Vue {
     Rank: string | undefined;
     @Getter('DuanCzi', { namespace })
     DuanCzi: string | undefined;
-    @Getter('RegionInfo', { namespace })
-    RegionInfo: string | undefined;
+    @Getter('NameOfCity', { namespace })
+    NameOfCity: string | undefined;
+    @Getter('NameOfRegion', { namespace })
+    NameOfRegion: string | undefined;
+    @Getter('NameOfFederalRegion', { namespace })
+    NameOfFederalRegion: string | undefined;
+    @Getter('ConfirmAddress', { namespace })
+    ConfirmAddress: string | undefined;
+    @Getter('CovidTest', { namespace })
+    CovidTest: string | undefined;
+    @Getter('CovidContact', { namespace })
+    CovidContact: string | undefined;
 
     mounted(): void {
         this.getSportsman(this.$route.params.id);
