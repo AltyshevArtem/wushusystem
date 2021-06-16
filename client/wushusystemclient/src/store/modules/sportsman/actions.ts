@@ -15,4 +15,15 @@ export const actions: ActionTree<ISportsmanState, null> = {
                 commit('getSportsmanError');
             });
     },
+    deleteSportsman({ commit }, id:number): any {
+        axios
+            .delete(`/api/sportsmans/${id}`)
+            .then((response) => {
+                commit('deleteSportsman');
+            })
+            .catch((error) => {
+                console.log(error);
+                commit('deleteSportsmanError');
+            });
+    }
 };
