@@ -1,64 +1,58 @@
 <template>
     <ul>
+        <li>Фамилия: <input v-model="Name" /></li>
+        <li>Имя: <input v-model="Surname" /></li>
+        <li>Отчество: <input v-model="Patronymic" /></li>
+        <li>Пол: <input v-model="Gender" /></li>
         <li>
-            Фамилия: <input v-model="Name">
+            Дата рождения:
+            <Datepicker
+                v-model="SelectedDate"
+                :locale="locale"
+                :upperLimit="to"
+                :lowerLimit="from"
+            />
         </li>
-        <li>
-            Имя: <input v-model="Surname">
-        </li>
-        <li>
-            Отчество: <input v-model="Patronymic">
-        </li>
-        <!-- Селектор для пола -->
-        <li>
-            Пол: <input v-model="Gender">
-        </li>
-        <!-- Как сделать выбор даты? -->
-        <li>
-            Дата рождения: <input v-model="DateOfBirth">
-        </li>
-        <!-- Селектор для рангов -->
-        <li>
-            Разряд: <input v-model="Rank">
-        </li>
-        <!-- Селектор для ФО -->
-        <li>
-            Федеральный округ: <input v-model="NameOfFederalRegion">
-        </li>
-        <!-- Селектор для краёв/республик -->
-        <li>
-            Край/Республика: <input v-model="NameOfRegion">
-        </li>
-        <!-- Селектор для городов с учетом фильтров краёв/республик-->
-        <li>
-            Город: <input v-model="NameOfCity">
-        </li>
-        <li>
-            Адрес прописки: <input v-model="Address">
-        </li>
-        <!-- Как сделать загрузку фотки паспорта?  -->
+        <li>Разряд: <input v-model="Rank" /></li>
+        <li>Федеральный округ: <input v-model="NameOfFederalRegion" /></li>
+        <li>Край/Республика: <input v-model="NameOfRegion" /></li>
+        <li>Город: <input v-model="NameOfCity" /></li>
+        <li>Адрес прописки: <input v-model="Address" /></li>
         <li>
             Фотография паспорта:
-            <a :href="SportsmanPhoto">Просмотр</a>
+            <input
+                type="file"
+                id="PassportFile"
+                ref="PassportFile"
+                v-on:change="PassportFileUpload()"
+            />
         </li>
-        <!-- Как сделать загрузку дока РУСАДА -->
         <li>
             РУСАДА:
-            <a :href="Rusada">Просмотр</a>
+            <input
+                type="file"
+                id="RusadaFile"
+                ref="RusadaFile"
+                v-on:change="RusadaFileUpload()" />
         </li>
-        <!-- Селектор для дуаней -->
-        <li>
-            Дуань/Цзи: <input v-model="DuanCzi">
-        </li>
-        <!-- Загрузка справки -->
+        <li>Дуань/Цзи: <input v-model="DuanCzi" /></li>
         <li>
             Справка об отсутствии контактов с инфекционными больными:
-            <a :href="CovidContact">Просмотр</a>
+            <input
+                type="file"
+                id="CovidContactFile"
+                ref="CovidContactFile"
+                v-on:change="CovidContactFileUpload()"
+            />
         </li>
-        <!-- Загрузка дока -->
         <li>
             ПЦР-тест COVID-19:
-            <a :href="CovidTest">Просмотр</a>
+            <input
+                type="file"
+                id="CovidTestFile"
+                ref="CovidTestFile"
+                v-on:change="CovidTestFileUpload()"
+            />
         </li>
         <!-- А также поля
             Фото спортсмена
@@ -69,7 +63,6 @@
             Клуб
             Страховки
             Ранга
-            ПЦР теста
             Доверенность родителей
             Справка о школе
         -->
@@ -77,17 +70,37 @@
 </template>
 
 <script lang="ts">
+import Datepicker from 'vue3-datepicker';
 import { Vue, Options } from 'vue-class-component';
 import { Getter } from 'vuex-class';
-
 const namespace = 'sportsman';
-
 @Options({
     name: 'EditCardSportsman',
-    methods: {},
+    components: { Datepicker },
+    methods: {
+        PassportFileUpload() {
+            this.passportFile = this.$refs.PassportFile.files[0];
+        },
+        RusadaFileUpload() {
+            this.RusadaFile = this.$refs.RusadaFile.files[0];
+        },
+        CovidContactFileUpload() {
+            this.CovidContactFile = this.$refs.CovidContactFile.files[0];
+        },
+        CovidTestFileUpload() {
+            this.CovidTestFile = this.$refs.CovidTestFile.files[0];
+        },
+    },
+    data() {
+        return {
+            PassportFile: '',
+            RusadaFile: '',
+            CovidContactFile: '',
+            CovidTestFile: '',
+            SelectedDate: '',
+        };
+    },
 })
-
-
 export default class Sportsman extends Vue {
     /* GETTER */
     @Getter('Name', { namespace })
@@ -127,6 +140,4 @@ export default class Sportsman extends Vue {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
