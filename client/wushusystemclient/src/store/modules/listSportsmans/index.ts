@@ -6,7 +6,7 @@ import { IListSportsmansState } from './types';
 export const state: IListSportsmansState = {
     listSportsmans: '',
     page: 1,
-    search: '?name=&gender=&club=&city=&trainer=&rank=&duan_czi=',
+    search: '?name=&gender=&club=&city=&rank=&duan_czi=&trainer=',
     error: false,
 };
 

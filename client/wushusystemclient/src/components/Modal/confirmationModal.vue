@@ -34,7 +34,7 @@
 import { Vue, Options } from 'vue-class-component';
 
 @Options({
-    name: 'confirmationModal',
+    name: 'ConfirmationModal',
     methods: {
         closeModal() {
             this.$emit('closeModal');

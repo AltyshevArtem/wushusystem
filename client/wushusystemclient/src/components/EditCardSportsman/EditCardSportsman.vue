@@ -1,41 +1,21 @@
 <template>
     <ul>
-        <li>
-            Фамилия: <input v-model="Name">
-        </li>
-        <li>
-            Имя: <input v-model="Surname">
-        </li>
-        <li>
-            Отчество: <input v-model="Patronymic">
-        </li>
+        <li>Фамилия: <input v-model="Name" /></li>
+        <li>Имя: <input v-model="Surname" /></li>
+        <li>Отчество: <input v-model="Patronymic" /></li>
         <!-- Селектор для пола -->
-        <li>
-            Пол: <input v-model="Gender">
-        </li>
+        <li>Пол: <SelectGender mode="single" /></li>
         <!-- Как сделать выбор даты? -->
-        <li>
-            Дата рождения: <input v-model="DateOfBirth">
-        </li>
+        <li>Дата рождения: <input v-model="DateOfBirth" /></li>
         <!-- Селектор для рангов -->
-        <li>
-            Разряд: <input v-model="Rank">
-        </li>
+        <li>Разряд: <SelectRank mode="single" /></li>
         <!-- Селектор для ФО -->
-        <li>
-            Федеральный округ: <input v-model="NameOfFederalRegion">
-        </li>
+        <li>Федеральный округ: <input v-model="NameOfFederalRegion" /></li>
         <!-- Селектор для краёв/республик -->
-        <li>
-            Край/Республика: <input v-model="NameOfRegion">
-        </li>
+        <li>Край/Республика: <input v-model="NameOfRegion" /></li>
         <!-- Селектор для городов с учетом фильтров краёв/республик-->
-        <li>
-            Город: <input v-model="NameOfCity">
-        </li>
-        <li>
-            Адрес прописки: <input v-model="Address">
-        </li>
+        <li>Город: <input v-model="NameOfCity" /></li>
+        <li>Адрес прописки: <input v-model="Address" /></li>
         <!-- Как сделать загрузку фотки паспорта?  -->
         <li>
             Фотография паспорта:
@@ -47,9 +27,7 @@
             <a :href="Rusada">Просмотр</a>
         </li>
         <!-- Селектор для дуаней -->
-        <li>
-            Дуань/Цзи: <input v-model="DuanCzi">
-        </li>
+        <li>Дуань/Цзи: <input v-model="DuanCzi" /></li>
         <!-- Загрузка справки -->
         <li>
             Справка об отсутствии контактов с инфекционными больными:
@@ -77,17 +55,26 @@
 </template>
 
 <script lang="ts">
+/* VUE */
 import { Vue, Options } from 'vue-class-component';
+
+/* VUEX */
 import { Getter } from 'vuex-class';
+
+/* COMPONENTS */
+import SelectGender from '../Select/SelectGender.vue';
+import SelectRank from '../Select/SelectRank.vue';
 
 const namespace = 'sportsman';
 
 @Options({
     name: 'EditCardSportsman',
+    components: {
+        SelectGender,
+        SelectRank,
+    },
     methods: {},
 })
-
-
 export default class Sportsman extends Vue {
     /* GETTER */
     @Getter('Name', { namespace })
@@ -127,6 +114,4 @@ export default class Sportsman extends Vue {
 }
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
