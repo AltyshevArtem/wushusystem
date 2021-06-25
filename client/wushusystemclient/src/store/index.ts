@@ -6,6 +6,7 @@ import { duan_czi } from './modules/duan_czi/index';
 import { gender } from './modules/gender/index';
 import { club } from './modules/club/index';
 import { city } from './modules/city/index';
+import { trainer } from './modules/trainer/index';
 
 export default createStore({
     modules: {
@@ -16,5 +17,6 @@ export default createStore({
         gender,
         club,
         city,
+        trainer,
     },
 });

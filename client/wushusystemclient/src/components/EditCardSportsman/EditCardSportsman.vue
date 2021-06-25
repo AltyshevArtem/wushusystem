@@ -3,7 +3,7 @@
         <li>Фамилия: <input v-model="Name" /></li>
         <li>Имя: <input v-model="Surname" /></li>
         <li>Отчество: <input v-model="Patronymic" /></li>
-        <li>Пол: <input v-model="Gender" /></li>
+        <li>Пол: <SelectGender mode="single" /></li>
         <li>
             Дата рождения:
             <Datepicker
@@ -13,11 +13,15 @@
                 :lowerLimit="from"
             />
         </li>
-        <li>Разряд: <input v-model="Rank" /></li>
+        <li>Разряд: <SelectRank mode="single" /></li>
+        <!-- Селектор для ФО -->
         <li>Федеральный округ: <input v-model="NameOfFederalRegion" /></li>
+        <!-- Селектор для краёв/республик -->
         <li>Край/Республика: <input v-model="NameOfRegion" /></li>
+        <!-- Селектор для городов с учетом фильтров краёв/республик-->
         <li>Город: <input v-model="NameOfCity" /></li>
         <li>Адрес прописки: <input v-model="Address" /></li>
+        <!-- Как сделать загрузку фотки паспорта?  -->
         <li>
             Фотография паспорта:
             <input
@@ -72,11 +76,17 @@
 <script lang="ts">
 import Datepicker from 'vue3-datepicker';
 import { Vue, Options } from 'vue-class-component';
+
+/* VUEX */
 import { Getter } from 'vuex-class';
+
+/* COMPONENTS */
+import SelectGender from '../Select/SelectGender.vue';
+import SelectRank from '../Select/SelectRank.vue';
+
 const namespace = 'sportsman';
 @Options({
     name: 'EditCardSportsman',
-    components: { Datepicker },
     methods: {
         PassportFileUpload() {
             this.passportFile = this.$refs.PassportFile.files[0];
@@ -99,6 +109,11 @@ const namespace = 'sportsman';
             CovidTestFile: '',
             SelectedDate: '',
         };
+    },
+    components: {
+        SelectGender,
+        SelectRank,
+        Datepicker,
     },
 })
 export default class Sportsman extends Vue {
