@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- TODO: Для полей без фоток прописать условие, а то ссылки есть, а фоток нет -->
         <div v-if="isEditable === false" class="container py-4">
             <div>
                 <div class="pb-3 mb-4 d-flex justify-content-between">
@@ -124,7 +125,7 @@
 import { Vue, Options } from 'vue-class-component';
 import { State, Action, Getter } from 'vuex-class';
 import { ISportsmanState } from '../store/modules/sportsman/types';
-import confirmationModal from '../components/Modal/ConfirmationModal.vue';
+import confirmationModal from '../components/Modal/confirmationModal.vue';
 import EditCardSportsman from '../components/EditCardSportsman/EditCardSportsman.vue';
 const namespace = 'sportsman';
 
