@@ -39,6 +39,13 @@ export const getters: GetterTree<ISportsmanState, null> = {
         const date_of_birth = (sportsman && sportsman.date_of_birth) || '';
         return `${date_of_birth}`;
     },
+    Trainer(state): string {
+        const { sportsman } = state;
+        const trainer_name = (sportsman && sportsman.trainer?.name) || '';
+        const trainer_surname = (sportsman && sportsman.trainer?.surname) || '';
+        const trainer_patronymic = (sportsman && sportsman.trainer?.patronymic) || '';
+        return `${trainer_name} ${trainer_surname} ${trainer_patronymic}`;
+    },
     Address(state): string {
         const { sportsman } = state;
         const address = (sportsman && sportsman.address) || '';
