@@ -3,7 +3,18 @@
         <li>Фамилия: <input v-model="Name" /></li>
         <li>Имя: <input v-model="Surname" /></li>
         <li>Отчество: <input v-model="Patronymic" /></li>
+        <li>
+            Фото спортсмена
+            <input
+                type="file"
+                id="PhotoFile"
+                ref="PhotoFile"
+                v-on:change="PhotoFileUpload()"
+            />
+        </li>
         <li>Пол: <SelectGender mode="single" /></li>
+        <!-- Селектор нужен-->
+        <li>Тренер: <input v-model="Trainer" /></li>
         <li>
             Дата рождения:
             <Datepicker
@@ -59,13 +70,11 @@
             />
         </li>
         <!-- А также поля
-            Фото спортсмена
-            Док с пропиской
-            Доверенность на паспорт/свидетельство
-            Полис омс
-            Тренер
+            Док с пропиской -> ещё нету в спортсменах
+            Доверенность на паспорт/свидетельство -> ещё нету в спортсменах
+            Полис омс -> ещё нету в спортсменах
             Клуб
-            Страховки
+            Страховки 
             Ранга
             Доверенность родителей
             Справка о школе
@@ -100,9 +109,13 @@ const namespace = 'sportsman';
         CovidTestFileUpload() {
             this.CovidTestFile = this.$refs.CovidTestFile.files[0];
         },
+        PhotoFileUpload() {
+            this.PassportFile = this.$refs.PhotoFile.files[0];
+        }
     },
     data() {
         return {
+            PhotoFile: '',
             PassportFile: '',
             RusadaFile: '',
             CovidContactFile: '',
@@ -126,6 +139,8 @@ export default class Sportsman extends Vue {
     Patronymic: string | undefined;
     @Getter('Gender', { namespace })
     Gender: string | undefined;
+    @Getter('Trainer', { namespace })
+    Trainer: string | undefined;
     @Getter('SportsmanPhoto', { namespace })
     SportsmanPhoto: string | undefined;
     @Getter('DateOfBirth', { namespace })
