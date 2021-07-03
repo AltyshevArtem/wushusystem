@@ -1,14 +1,13 @@
 import { GetterTree } from 'vuex';
-import { IRankList } from './types';
+import { IRankState } from './types';
 
-export const getters: GetterTree<IRankList, null> = {
-    arrValueRank(state): any {
-        const { listRank } = state;
+export const getters: GetterTree<IRankState, null> = {
+    arrValueRank(state): string[] {
+        const { ranks } = state;
         const arr: Array<string> = [];
-        for (const valueObj of Object.values(listRank)) {
-            const [value] = Object.entries(valueObj);
-            arr.push(value[1]);
-        }
+        ranks.forEach((rank) => {
+            arr.push(rank.name_of_rank);
+        })
         return arr;
     },
 };

@@ -26,20 +26,14 @@
                 <div class="col-6">
                     <SelectTrainer mode="multiple" v-model="SelectTrainer" />
                 </div>
-                <!-- <div class="col-3">
-                    <Multiselect
-                        v-model="listCityMap.valueFR"
-                        :options="arrValueCity"
-                        mode="multiple"
-                        placeholder="ФО"
-                    >
-                        <template v-slot:multiplelabel="{ values }">
-                            <div class="multiselect-multiple-label">
-                                {{ values.length }} опций выбрано из {{ arrValueCity.length }}
-                            </div>
-                        </template>
-                    </Multiselect>
-                </div> -->
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <SelectFederalRegion mode="multiple" v-model="SelectFederalRegion" />
+                </div>
+                <div class="col-6">
+                    <SelectRegion mode="multiple" v-model="SelectRegion" />
+                </div>
             </div>
         </div>
         <table class="table table-hover table-bordered table-sm table-responsive">
@@ -56,10 +50,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr
-                    v-for="sportsman in listSportsmanMap.listSportsmans.results"
-                    :key="sportsman.key"
-                >
+                <tr v-for="sportsman in sportsmansMap.sportsmans.results" :key="sportsman.key">
                     <!-- Полное имя -->
                     <td v-if="sportsman.patronymic">
                         <router-link :to="'/sportsman/' + sportsman.id">
@@ -154,7 +145,7 @@ import { Watch } from 'vue-property-decorator';
 import { State, Action, Mutation } from 'vuex-class';
 
 /* STATE */
-import { IListSportsmansState } from '../store/modules/listSportsmans/types';
+import { ISportsmansState } from '../store/modules/sportsmans/types';
 
 /* COMPONENTS */
 import SelectGender from '../components/Select/SelectGender.vue';
@@ -163,12 +154,14 @@ import SelectCity from '../components/Select/SelectCity.vue';
 import SelectDuanCzi from '../components/Select/SelectDuanCzi.vue';
 import SelectClub from '../components/Select/SelectClub.vue';
 import SelectTrainer from '../components/Select/SelectTrainer.vue';
+import SelectFederalRegion from '../components/Select/SelectFederalRegion.vue';
+import SelectRegion from '../components/Select/SelectRegion.vue';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';
 
 /* NAMESPACE */
-const namespace = 'listSportsmans';
+const namespace = 'sportsmans';
 
 @Options({
     name: 'TableSportsman',
@@ -180,18 +173,17 @@ const namespace = 'listSportsmans';
         SelectDuanCzi,
         SelectClub,
         SelectTrainer,
+        SelectFederalRegion,
+        SelectRegion,
     },
     computed: {
         pageCount(): number {
-            return Math.ceil(
-                this.listSportsmanMap.listSportsmans.count /
-                    this.listSportsmanMap.listSportsmans.page_size,
-            );
+            return Math.ceil(this.sportsmansMap.count / this.sportsmansMap.page_size);
         },
     },
     methods: {
         isDisabledPage(page: number): boolean {
-            return page === this.listSportsmanMap.page;
+            return page === this.sportsmansMap.page;
         },
     },
 })
@@ -206,10 +198,12 @@ export default class TableSportsman extends Vue {
     SelectClub = null;
     SelectCity = null;
     SelectTrainer = null;
+    SelectFederalRegion = null;
+    SelectRegion = null;
 
     /* STATE */
-    @State('listSportsmans')
-    listSportsmanMap!: IListSportsmansState;
+    @State('sportsmans')
+    sportsmansMap!: ISportsmansState;
 
     @Action('getSportsmanList', { namespace })
     getSportsmanList: any;
@@ -279,9 +273,9 @@ export default class TableSportsman extends Vue {
         this.watchSetSearch();
     }
 
-    @Watch('listSportsmanMap.page')
+    @Watch('sportsmansMap.page')
     changeSportsmanList(): void {
-        this.getSportsmanList(this.listSportsmanMap.page);
+        this.getSportsmanList(this.sportsmansMap.page);
     }
 }
 </script>

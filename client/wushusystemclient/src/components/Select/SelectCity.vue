@@ -23,7 +23,7 @@ import { Prop } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
 
 /* STATE */
-import { ICityList } from '../../store/modules/city/types';
+import { ICityState } from '../../store/modules/city/types';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';
@@ -46,7 +46,7 @@ export default class genderMultiSelect extends Vue {
 
     /* STATE */
     @State('city')
-    listCityMap!: ICityList;
+    listCityMap!: ICityState;
 
     /* ACTION */
     @Action('getCityList', { namespace })

@@ -1,13 +1,13 @@
 import { ActionTree } from 'vuex';
 import axios from 'axios';
-import { ITrainerList } from './types';
+import { ITrainerState } from './types';
 
-export const actions: ActionTree<ITrainerList, null> = {
+export const actions: ActionTree<ITrainerState, null> = {
     getTrainerList({ commit }): any {
         axios
             .get('/api/trainer/')
             .then((response) => {
-                const payload: ITrainerList = response && response.data;
+                const payload: ITrainerState = response && response.data;
                 commit('getTrainer', payload);
             })
             .catch((error) => {

@@ -30,7 +30,7 @@ import { Prop } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
 
 /* STATE */
-import { IGenderList } from '../../store/modules/gender/types';
+import { IGenderState } from '../../store/modules/gender/types';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';
@@ -50,7 +50,7 @@ export default class SelectGender extends Vue {
 
     /* STATE */
     @State('gender')
-    listGenderMap!: IGenderList;
+    listGenderMap!: IGenderState;
 
     /* ACTION */
     @Action('getGenderList', { namespace })

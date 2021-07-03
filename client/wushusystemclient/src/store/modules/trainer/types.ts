@@ -1,5 +1,6 @@
-export interface ITrainerList {
-    listTrainer: Array<string>;
-    valueTrainer?: Array<string>;
+import { ITrainer } from "@/models/trainer";
+export interface ITrainerState {
+    trainers: Array<ITrainer>;
+    selectedTrainer?: Array<string>;
     error: boolean;
 }

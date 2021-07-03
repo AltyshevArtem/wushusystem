@@ -2,15 +2,15 @@ import { Module } from 'vuex';
 import { getters } from './getters';
 import { actions } from './actions';
 import { mutations } from './mutations';
-import { IDuanCziList } from './types';
+import { IDuanCziState } from './types';
 
-export const state: IDuanCziList = {
-    listDuanCzi: [],
-    valueDuanCzi: undefined,
+export const state: IDuanCziState = {
+    duan_czi_list: [],
+    selectedDuanCzi: undefined,
     error: false,
 };
 
-export const duan_czi: Module<IDuanCziList, null> = {
+export const duan_czi: Module<IDuanCziState, null> = {
     namespaced: true,
     state,
     actions,

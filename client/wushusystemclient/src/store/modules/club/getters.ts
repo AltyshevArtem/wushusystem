@@ -1,13 +1,13 @@
 import { GetterTree } from 'vuex';
-import { IClubList } from './types';
+import { IClubState } from './types';
 
-export const getters: GetterTree<IClubList, null> = {
-    arrValueClub(state): any {
-        const { listClub } = state;
+export const getters: GetterTree<IClubState, null> = {
+    arrValueClub(state): string[] {
+        const { clubs } = state;
         const arr: Array<string> = [];
-        for (const proxyObj of Object.entries(listClub)) {
-            arr.push(Object.values(proxyObj[1])[2]);
-        }
+        clubs.forEach((club) => {
+            arr.push(club.name_of_club);
+        });
         return arr;
     },
 };

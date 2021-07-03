@@ -1,5 +1,5 @@
 import { createStore } from 'vuex';
-import { listSportsmans } from './modules/listSportsmans/index';
+import { sportsmans } from './modules/sportsmans/index';
 import { sportsman } from './modules/sportsman/index';
 import { rank } from './modules/rank/index';
 import { duan_czi } from './modules/duan_czi/index';
@@ -7,10 +7,12 @@ import { gender } from './modules/gender/index';
 import { club } from './modules/club/index';
 import { city } from './modules/city/index';
 import { trainer } from './modules/trainer/index';
+import { federal_region } from './modules/federal_region/index';
+import { region } from './modules/region/index';
 
 export default createStore({
     modules: {
-        listSportsmans,
+        sportsmans,
         sportsman,
         rank,
         duan_czi,
@@ -18,5 +20,7 @@ export default createStore({
         club,
         city,
         trainer,
+        federal_region,
+        region,
     },
 });

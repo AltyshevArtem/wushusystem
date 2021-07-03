@@ -23,7 +23,7 @@ import { Prop } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
 
 /* STATE */
-import { IRankList } from '../../store/modules/rank/types';
+import { IRankState } from '../../store/modules/rank/types';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';
@@ -43,7 +43,7 @@ export default class SelectRank extends Vue {
 
     /* STATE */
     @State('rank')
-    listRankMap!: IRankList;
+    listRankMap!: IRankState;
 
     /* ACTION */
     @Action('getRankList', { namespace })

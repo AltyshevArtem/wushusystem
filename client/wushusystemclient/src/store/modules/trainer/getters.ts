@@ -1,16 +1,14 @@
+import { trainer } from './index';
 import { GetterTree } from 'vuex';
-import { ITrainerList } from './types';
+import { ITrainerState } from './types';
 
-export const getters: GetterTree<ITrainerList, null> = {
+export const getters: GetterTree<ITrainerState, null> = {
     arrValueTrainer(state): any {
-        const { listTrainer } = state;
+        const { trainers } = state;
         const arr: Array<string> = [];
-        for (const valueObj of Object.values(listTrainer)) {
-            const name = Object.values(valueObj)[1];
-            const surname = Object.values(valueObj)[2];
-            const patronymic = Object.values(valueObj)[3];
-            arr.push(`${surname} ${patronymic} ${name}`);
-        }
+        trainers.forEach((trainer) => {
+            arr.push(`${trainer.surname} ${trainer.name} ${trainer.patronymic}`)
+        });
         return arr;
     },
 };

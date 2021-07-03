@@ -2,15 +2,15 @@ import { Module } from 'vuex';
 import { getters } from './getters';
 import { actions } from './actions';
 import { mutations } from './mutations';
-import { IRankList } from './types';
+import { IRankState } from './types';
 
-export const state: IRankList = {
-    listRank: [],
-    valueRank: undefined,
+export const state: IRankState = {
+    ranks: [],
+    selectedRank: undefined,
     error: false,
 };
 
-export const rank: Module<IRankList, null> = {
+export const rank: Module<IRankState, null> = {
     namespaced: true,
     state,
     actions,

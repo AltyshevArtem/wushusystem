@@ -19,7 +19,7 @@ class GenderViewSet(viewsets.ModelViewSet):
 
 
 class FederalRegionViewSet(viewsets.ModelViewSet):
-    queryset = Federal_Region.objects.all
+    queryset = Federal_Region.objects.all()
     serializer_class = FederalRegionSerialize
 
 

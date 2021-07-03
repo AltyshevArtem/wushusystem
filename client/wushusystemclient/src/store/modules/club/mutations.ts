@@ -1,13 +1,14 @@
 import { MutationTree } from 'vuex';
-import { IClubList } from './types';
+import { IClubState } from './types';
+import { IClub } from "@/models/club";
 
-export const mutations: MutationTree<IClubList> = {
-    getClub(state, payload: Array<string>) {
+export const mutations: MutationTree<IClubState> = {
+    getClub(state, payload: Array<IClub>) {
         state.error = false;
-        state.listClub = payload;
+        state.clubs = payload;
     },
     getClubError(state) {
         state.error = true;
-        state.listClub = [];
+        state.clubs = [];
     },
 };

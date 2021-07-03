@@ -1,14 +1,15 @@
 import { MutationTree } from 'vuex';
-import { IListSportsmansState } from './types';
+import { ISportsmansState } from './types';
+import { ISportsman } from "@/models/sportsman";
 
-export const mutations: MutationTree<IListSportsmansState> = {
-    getSportsmanList(state, payload: string) {
+export const mutations: MutationTree<ISportsmansState> = {
+    getSportsmanList(state, payload: Array<ISportsman>) {
         state.error = false;
-        state.listSportsmans = payload;
+        state.sportsmans = payload;
     },
     getSportsmanListError(state) {
         state.error = true;
-        state.listSportsmans = '';
+        state.sportsmans = [];
     },
     setSearch(state, payload: Array<string>){
         // eslint-disable-next-line max-len

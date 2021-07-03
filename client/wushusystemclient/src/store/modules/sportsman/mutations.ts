@@ -1,5 +1,6 @@
 import { MutationTree } from 'vuex';
-import { ISportsmanState, ISportsman } from './types';
+import { ISportsmanState } from './types';
+import { ISportsman } from '@/models/sportsman';
 
 export const mutations: MutationTree<ISportsmanState> = {
     getSportsman(state, payload: ISportsman) {

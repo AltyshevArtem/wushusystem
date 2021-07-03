@@ -23,7 +23,7 @@ import { Prop } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
 
 /* STATE */
-import { IDuanCziList } from '../../store/modules/duan_czi/types';
+import { IDuanCziState } from '../../store/modules/duan_czi/types';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';
@@ -43,7 +43,7 @@ export default class SelectDuanCzi extends Vue {
 
     /* STATE */
     @State('duan_czi')
-    listDuanCziMap!: IDuanCziList;
+    listDuanCziMap!: IDuanCziState;
 
     /* ACTION */
     @Action('getDuanCziList', { namespace })

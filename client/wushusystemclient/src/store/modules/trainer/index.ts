@@ -2,15 +2,15 @@ import { Module } from 'vuex';
 import { getters } from './getters';
 import { actions } from './actions';
 import { mutations } from './mutations';
-import { ITrainerList } from './types';
+import { ITrainerState } from './types';
 
-export const state: ITrainerList = {
-    listTrainer: [],
-    valueTrainer: undefined,
+export const state: ITrainerState = {
+    trainers: [],
+    selectedTrainer: undefined,
     error: false,
 };
 
-export const trainer: Module<ITrainerList, null> = {
+export const trainer: Module<ITrainerState, null> = {
     namespaced: true,
     state,
     actions,

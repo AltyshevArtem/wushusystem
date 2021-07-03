@@ -23,7 +23,7 @@ import { Prop } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
 
 /* STATE */
-import { IClubList } from '../../store/modules/club/types';
+import { IClubState } from '../../store/modules/club/types';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';
@@ -43,7 +43,7 @@ export default class SelectClub extends Vue {
 
     /* STATE */
     @State('club')
-    listClubMap!: IClubList;
+    listClubMap!: IClubState;
 
     /* ACTION */
     @Action('getClubList', { namespace })

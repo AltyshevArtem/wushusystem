@@ -1,13 +1,14 @@
 import { MutationTree } from 'vuex';
-import { ITrainerList } from './types';
+import { ITrainerState } from './types';
+import { ITrainer } from "@/models/trainer";
 
-export const mutations: MutationTree<ITrainerList> = {
-    getTrainer(state, payload: Array<string>) {
+export const mutations: MutationTree<ITrainerState> = {
+    getTrainer(state, payload: Array<ITrainer>) {
         state.error = false;
-        state.listTrainer = payload;
+        state.trainers = payload;
     },
     getTrainerError(state) {
         state.error = true;
-        state.listTrainer = [];
+        state.trainers = [];
     },
 };
