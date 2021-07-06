@@ -1,5 +1,6 @@
-export interface IDuanCziList {
-    listDuanCzi: Array<string>;
-    valueDuanCzi?: Array<string>;
+import { IDuanCzi } from "@/models/duan_czi";
+export interface IDuanCziState {
+    duan_czi_list: Array<IDuanCzi>;
+    selectedDuanCzi?: Array<string>;
     error: boolean;
 }

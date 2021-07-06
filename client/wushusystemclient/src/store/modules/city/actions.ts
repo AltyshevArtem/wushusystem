@@ -1,13 +1,13 @@
 import { ActionTree } from 'vuex';
 import axios from 'axios';
-import { ICityList } from './types';
+import { ICityState } from './types';
 
-export const actions: ActionTree<ICityList, null> = {
+export const actions: ActionTree<ICityState, null> = {
     getCityList({ commit }): any {
         axios
             .get('/api/city/')
             .then((response) => {
-                const payload: ICityList = response && response.data;
+                const payload: ICityState = response && response.data;
                 commit('getCity', payload);
             })
             .catch((error) => {

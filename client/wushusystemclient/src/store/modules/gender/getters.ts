@@ -1,14 +1,13 @@
 import { GetterTree } from 'vuex';
-import { IGenderList } from './types';
+import { IGenderState } from './types';
 
-export const getters: GetterTree<IGenderList, null> = {
-    arrValueGender(state): any {
-        const { listGender } = state;
+export const getters: GetterTree<IGenderState, null> = {
+    arrValueGender(state): string[] {
+        const { genders } = state;
         const arr: Array<string> = [];
-        for (const valueObj of Object.values(listGender)) {
-            const [value] = Object.entries(valueObj);
-            arr.push(value[1]);
-        }
+        genders.forEach((duan_czi) => {
+            arr.push(duan_czi.name_of_gender);
+        })
         return arr;
     },
 };

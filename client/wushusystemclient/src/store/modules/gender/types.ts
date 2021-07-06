@@ -1,5 +1,6 @@
-export interface IGenderList {
-    listGender: Array<string>;
-    valueGender?: Array<string>;
+import { IGender } from "@/models/gender";
+export interface IGenderState {
+    genders: Array<IGender>;
+    selectedGender?: Array<string>;
     error: boolean;
 }

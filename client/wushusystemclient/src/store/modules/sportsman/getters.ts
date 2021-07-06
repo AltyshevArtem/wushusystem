@@ -2,6 +2,21 @@ import { GetterTree } from 'vuex';
 import { ISportsmanState } from './types';
 
 export const getters: GetterTree<ISportsmanState, null> = {
+    Name(state): string {
+        const { sportsman } = state;
+        const name = (sportsman && sportsman.name) || ''
+        return `${name}`;
+    },
+    Surname(state): string {
+        const { sportsman } = state;
+        const surname = (sportsman && sportsman.surname) || ''
+        return `${surname}`;
+    },
+    Patronymic(state): string {
+        const { sportsman } = state;
+        const patronymic = (sportsman && sportsman.patronymic) || '';
+        return `${patronymic}`;
+    },
     FullName(state): string {
         const { sportsman } = state;
         const name = (sportsman && sportsman.name) || '';
@@ -23,6 +38,13 @@ export const getters: GetterTree<ISportsmanState, null> = {
         const { sportsman } = state;
         const date_of_birth = (sportsman && sportsman.date_of_birth) || '';
         return `${date_of_birth}`;
+    },
+    Trainer(state): string {
+        const { sportsman } = state;
+        const trainer_name = (sportsman && sportsman.trainer?.name) || '';
+        const trainer_surname = (sportsman && sportsman.trainer?.surname) || '';
+        const trainer_patronymic = (sportsman && sportsman.trainer?.patronymic) || '';
+        return `${trainer_name} ${trainer_surname} ${trainer_patronymic}`;
     },
     Address(state): string {
         const { sportsman } = state;

@@ -4,106 +4,36 @@
         <div class="listSportsman">
             <input placeholder="Поиск" class="form-control" v-model="search" />
         </div>
-        <!-- TODO: я бы вынес в отдельный компонент все селекты -->
         <div class="select">
             <div class="row">
                 <div class="col-1">
-                    <Multiselect
-                        v-model="listGenderMap.valueGender"
-                        :options="arrValueGender"
-                        mode="multiple"
-                        placeholder="Пол"
-                    >
-                        <template v-slot:multiplelabel="{ values }">
-                            <div class="multiselect-single-label">
-                                <div v-for="(value, idx) in values" :key="value">
-                                    <div v-if="idx !== values.length - 1">
-                                        <span>{{ value.label }}</span>
-                                        <span>,&nbsp;</span>
-                                    </div>
-                                    <div v-else>
-                                        <span>{{ value.label }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </template>
-                    </Multiselect>
+                    <SelectGender mode="multiple" v-model="SelectGender" />
                 </div>
                 <div class="col-5">
-                    <Multiselect
-                        v-model="listRankMap.valueRank"
-                        :options="arrValueRank"
-                        mode="multiple"
-                        placeholder="Разряд"
-                        :searchable="true"
-                    >
-                        <template v-slot:multiplelabel="{ values }">
-                            <div class="multiselect-multiple-label">
-                                {{ values.length }} опций выбрано из {{ arrValueRank.length }}
-                            </div>
-                        </template>
-                    </Multiselect>
+                    <SelectRank mode="multiple" v-model="SelectRank" />
                 </div>
                 <div class="col-3">
-                    <Multiselect
-                        v-model="listDuanCziMap.valueDuanCzi"
-                        :options="arrValueDuanCzi"
-                        mode="multiple"
-                        placeholder="Дуань Цзин"
-                        :searchable="true"
-                    >
-                        <template v-slot:multiplelabel="{ values }">
-                            <div class="multiselect-multiple-label">
-                                {{ values.length }} опций выбрано из {{ arrValueDuanCzi.length }}
-                            </div>
-                        </template>
-                    </Multiselect>
+                    <SelectDuanCzi mode="multiple" v-model="SelectDuanCzi" />
                 </div>
                 <div class="col-3">
-                    <Multiselect
-                        v-model="listClubMap.valueClub"
-                        :options="arrValueClub"
-                        mode="multiple"
-                        placeholder="Клуб"
-                        :searchable="true"
-                    >
-                        <template v-slot:multiplelabel="{ values }">
-                            <div class="multiselect-multiple-label">
-                                {{ values.length }} опций выбрано из {{ arrValueClub.length }}
-                            </div>
-                        </template>
-                    </Multiselect>
+                    <SelectClub mode="multiple" v-model="SelectClub" />
                 </div>
             </div>
             <div class="row">
-                <div class="col-3">
-                    <Multiselect
-                        v-model="listCityMap.valueCity"
-                        :options="arrValueCity"
-                        mode="multiple"
-                        placeholder="Город"
-                    >
-                        <template v-slot:multiplelabel="{ values }">
-                            <div class="multiselect-multiple-label">
-                                {{ values.length }} опций выбрано из {{ arrValueCity.length }}
-                            </div>
-                        </template>
-                    </Multiselect>
+                <div class="col-6">
+                    <SelectCity mode="multiple" v-model="SelectCity" />
                 </div>
-                <!-- <div class="col-3">
-                    <Multiselect
-                        v-model="listCityMap.valueFR"
-                        :options="arrValueCity"
-                        mode="multiple"
-                        placeholder="ФО"
-                    >
-                        <template v-slot:multiplelabel="{ values }">
-                            <div class="multiselect-multiple-label">
-                                {{ values.length }} опций выбрано из {{ arrValueCity.length }}
-                            </div>
-                        </template>
-                    </Multiselect>
-                </div> -->
+                <div class="col-6">
+                    <SelectTrainer mode="multiple" v-model="SelectTrainer" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <SelectFederalRegion mode="multiple" v-model="SelectFederalRegion" />
+                </div>
+                <div class="col-6">
+                    <SelectRegion mode="multiple" v-model="SelectRegion" />
+                </div>
             </div>
         </div>
         <table class="table table-hover table-bordered table-sm table-responsive">
@@ -120,10 +50,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr
-                    v-for="sportsman in listSportsmanMap.listSportsmans.results"
-                    :key="sportsman.key"
-                >
+                <tr v-for="sportsman in sportsmansMap.sportsmans.results" :key="sportsman.key">
                     <!-- Полное имя -->
                     <td v-if="sportsman.patronymic">
                         <router-link :to="'/sportsman/' + sportsman.id">
@@ -215,43 +142,48 @@ import { Vue, Options } from 'vue-class-component';
 import { Watch } from 'vue-property-decorator';
 
 /* VUEX */
-import { State, Action, Getter, Mutation } from 'vuex-class';
+import { State, Action, Mutation } from 'vuex-class';
 
 /* STATE */
-import { IListSportsmansState } from '../store/modules/listSportsmans/types';
-import { IRankList } from '../store/modules/rank/types';
-import { IDuanCziList } from '../store/modules/duan_czi/types';
-import { IGenderList } from '../store/modules/gender/types';
-import { IClubList } from '../store/modules/club/types';
-import { ICityList } from '../store/modules/city/types';
+import { ISportsmansState } from '../store/modules/sportsmans/types';
+
+/* COMPONENTS */
+import SelectGender from '../components/Select/SelectGender.vue';
+import SelectRank from '../components/Select/SelectRank.vue';
+import SelectCity from '../components/Select/SelectCity.vue';
+import SelectDuanCzi from '../components/Select/SelectDuanCzi.vue';
+import SelectClub from '../components/Select/SelectClub.vue';
+import SelectTrainer from '../components/Select/SelectTrainer.vue';
+import SelectFederalRegion from '../components/Select/SelectFederalRegion.vue';
+import SelectRegion from '../components/Select/SelectRegion.vue';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';
 
 /* NAMESPACE */
-const namespaceListSportsmans = 'listSportsmans';
-const namespaceRank = 'rank';
-const namespaceDuanCzi = 'duan_czi';
-const namespaceGender = 'gender';
-const namespaceClub = 'club';
-const namespaceCity = 'city';
+const namespace = 'sportsmans';
 
 @Options({
     name: 'TableSportsman',
     components: {
         Multiselect,
+        SelectGender,
+        SelectRank,
+        SelectCity,
+        SelectDuanCzi,
+        SelectClub,
+        SelectTrainer,
+        SelectFederalRegion,
+        SelectRegion,
     },
     computed: {
         pageCount(): number {
-            return Math.ceil(
-                this.listSportsmanMap.listSportsmans.count /
-                    this.listSportsmanMap.listSportsmans.page_size,
-            );
+            return Math.ceil(this.sportsmansMap.count / this.sportsmansMap.page_size);
         },
     },
     methods: {
         isDisabledPage(page: number): boolean {
-            return page === this.listSportsmanMap.page;
+            return page === this.sportsmansMap.page;
         },
     },
 })
@@ -259,111 +191,91 @@ export default class TableSportsman extends Vue {
     search = '';
     limitPage = 25;
 
-    /* STATE */
-    @State('listSportsmans')
-    listSportsmanMap!: IListSportsmansState;
-    @State('rank')
-    listRankMap!: IRankList;
-    @State('duan_czi')
-    listDuanCziMap!: IDuanCziList;
-    @State('gender')
-    listGenderMap!: IGenderList;
-    @State('club')
-    listClubMap!: IClubList;
-    @State('city')
-    listCityMap!: ICityList;
+    /* SELECT VALUE */
+    SelectGender = null;
+    SelectRank = null;
+    SelectDuanCzi = null;
+    SelectClub = null;
+    SelectCity = null;
+    SelectTrainer = null;
+    SelectFederalRegion = null;
+    SelectRegion = null;
 
-    @Action('getSportsmanList', { namespace: namespaceListSportsmans })
+    /* STATE */
+    @State('sportsmans')
+    sportsmansMap!: ISportsmansState;
+
+    @Action('getSportsmanList', { namespace })
     getSportsmanList: any;
-    @Action('getRankList', { namespace: namespaceRank })
-    getRankList: any;
-    @Action('getDuanCziList', { namespace: namespaceDuanCzi })
-    getDuanCziList: any;
-    @Action('getGenderList', { namespace: namespaceGender })
-    getGenderList: any;
-    @Action('getClubList', { namespace: namespaceClub })
-    getClubList: any;
-    @Action('getCityList', { namespace: namespaceCity })
-    getCityList: any;
 
     /* MUTATIONS */
-    @Mutation('setSearch', { namespace: namespaceListSportsmans })
+    @Mutation('setSearch', { namespace })
     setSearch: any;
-    @Mutation('prevPage', { namespace: namespaceListSportsmans })
+    @Mutation('prevPage', { namespace })
     prevPage: any;
-    @Mutation('currentPage', { namespace: namespaceListSportsmans })
+    @Mutation('currentPage', { namespace })
     currentPage: any;
-    @Mutation('nextPage', { namespace: namespaceListSportsmans })
+    @Mutation('nextPage', { namespace })
     nextPage: any;
-
-    /* GETTERS */
-    @Getter('arrValueRank', { namespace: namespaceRank })
-    arrValueRank: Array<string> | undefined;
-    @Getter('arrValueDuanCzi', { namespace: namespaceDuanCzi })
-    arrValueDuanCzi: Array<string> | undefined;
-    @Getter('arrValueGender', { namespace: namespaceGender })
-    arrValueGender: Array<string> | undefined;
-    @Getter('arrValueClub', { namespace: namespaceClub })
-    arrValueClub: Array<string> | undefined;
-    @Getter('arrValueCity', { namespace: namespaceCity })
-    arrValueCity: Array<string> | undefined;
 
     mounted(): void {
         // TODO: loading (вейтер)
         this.getSportsmanList();
-        // TODO: не надо при отрисовке компонента получать ниже данные
-        this.getRankList();
-        this.getDuanCziList();
-        this.getGenderList();
-        this.getClubList();
-        this.getCityList();
     }
 
     watchSetSearch(): void {
         this.setSearch([
             this.search,
-            this.listGenderMap.valueGender,
-            this.listRankMap.valueRank,
-            this.listDuanCziMap.valueDuanCzi,
-            this.listClubMap.valueClub,
-            this.listCityMap.valueCity,
+            this.SelectGender,
+            this.SelectRank,
+            this.SelectDuanCzi,
+            this.SelectClub,
+            this.SelectCity,
+            this.SelectTrainer,
         ]);
         this.getSportsmanList();
     }
+
+    /* WATCH */
 
     @Watch('search')
     changeDataSearch(): void {
         this.watchSetSearch();
     }
 
-    @Watch('listGenderMap.valueGender')
+    @Watch('SelectGender')
     changeDataGender(): void {
         this.watchSetSearch();
     }
 
-    @Watch('listRankMap.valueRank')
+    @Watch('SelectRank')
     changeDataRank(): void {
         this.watchSetSearch();
     }
 
-    @Watch('listDuanCziMap.valueDuanCzi')
+    @Watch('SelectDuanCzi')
     changeDataDuanCzi(): void {
         this.watchSetSearch();
     }
 
-    @Watch('listClubMap.valueClub')
+    @Watch('SelectClub')
     changeDataClub(): void {
         this.watchSetSearch();
     }
 
-    @Watch('listCityMap.valueCity')
+    @Watch('SelectCity')
     changeDataCity(): void {
         this.watchSetSearch();
     }
 
-    @Watch('listSportsmanMap.page')
+    @Watch('SelectTrainer')
+    changeDataTrainer(): void {
+        this.watchSetSearch();
+    }
+
+    @Watch('sportsmansMap.page')
     changeSportsmanList(): void {
-        this.getSportsmanList(this.listSportsmanMap.page);
+        this.getSportsmanList(this.sportsmansMap.page);
     }
 }
 </script>

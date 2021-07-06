@@ -1,6 +1,7 @@
 <template>
     <div>
-        <div class="container py-4">
+        <!-- TODO: Для полей без фоток прописать условие, а то ссылки есть, а фоток нет -->
+        <div v-if="isEditable === false" class="container py-4">
             <div>
                 <div class="pb-3 mb-4 d-flex justify-content-between">
                     <span class="fs-4"
@@ -11,6 +12,9 @@
                         </strong>
                     </span>
                     <div class="pb-3 mb-3">
+                        <button type="button" @click="isEditable = true" class="btn btn-primary">
+                            Редактировать
+                        </button>
                         <button
                             type="button"
                             @click="isConfirmModalVisible = true"
@@ -104,6 +108,9 @@
                 </div>
             </div>
         </div>
+        <div v-else>
+            <EditCardSportsman />
+        </div>
     </div>
     <confirmationModal
         v-if="isConfirmModalVisible"
@@ -119,19 +126,20 @@ import { Vue, Options } from 'vue-class-component';
 import { State, Action, Getter } from 'vuex-class';
 import { ISportsmanState } from '../store/modules/sportsman/types';
 import confirmationModal from '../components/Modal/confirmationModal.vue';
-
+import EditCardSportsman from '../components/EditCardSportsman/EditCardSportsman.vue';
 const namespace = 'sportsman';
 
 @Options({
     name: 'CardSportsman',
     components: {
         confirmationModal,
+        EditCardSportsman,
     },
     methods: {},
 })
 export default class Sportsman extends Vue {
     isConfirmModalVisible = false;
-
+    isEditable = false;
     /* STATE */
     @State('sportsman')
     sportsmanMap!: ISportsmanState;

@@ -1,6 +1,7 @@
-export interface ICityList {
-    listCity: Array<string>;
-    valueCity?: Array<string>;
-    // valueFR?: Array<string>;
+import { ICity } from '@/models/city';
+
+export interface ICityState {
+    cities: Array<ICity>;
+    selectedCity?: Array<string>;
     error: boolean;
 }

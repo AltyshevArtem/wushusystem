@@ -19,7 +19,7 @@ class GenderViewSet(viewsets.ModelViewSet):
 
 
 class FederalRegionViewSet(viewsets.ModelViewSet):
-    queryset = Federal_Region.objects.all
+    queryset = Federal_Region.objects.all()
     serializer_class = FederalRegionSerialize
 
 
@@ -160,6 +160,7 @@ class SportsmanSetFilter(FilterSet):
             value_list = value.replace('[', "").replace(']', "").replace(
                 "'", "").split(',')  # парсим queryset
             querysetresult = Sportsman.objects.none()  # создание пустого queryset-a
+            #TODO: с фронта приходит в формате Ф И О (нужно распарсить)
             for value in value_list:
                 temp_query = queryset.filter(
                     Q(trainer__name__icontains=value) |
@@ -177,6 +178,7 @@ class SportsmanSetFilter(FilterSet):
             querysetresult = Sportsman.objects.none()  # создание пустого queryset-a
             for value in value_list:
                 temp_query = queryset.filter(
+                    #TODO: icontains не подходит в этом случае
                     Q(rank__name_of_rank__icontains=value)
                 )
                 querysetresult = querysetresult | temp_query

@@ -2,15 +2,15 @@ import { Module } from 'vuex';
 import { getters } from './getters';
 import { actions } from './actions';
 import { mutations } from './mutations';
-import { IGenderList } from './types';
+import { IGenderState } from './types';
 
-export const state: IGenderList = {
-    listGender: [],
-    valueGender: undefined,
+export const state: IGenderState = {
+    genders: [],
+    selectedGender: undefined,
     error: false,
 };
 
-export const gender: Module<IGenderList, null> = {
+export const gender: Module<IGenderState, null> = {
     namespaced: true,
     state,
     actions,
