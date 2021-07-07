@@ -1,5 +1,6 @@
 export interface IFederalRegion {
-    id: number;
+    //TODO: либо везде, либо нигде использовать id
+    // id: number;
     name_of_federal_region: string;
     abbr_of_federal_region: string;
 }
