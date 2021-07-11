@@ -44,13 +44,16 @@
                                     <li class="list-group-item">
                                         Разряд: <strong> {{ Rank }} </strong>
                                     </li>
+                                    <li class="list-group-item">
+                                        Дуань/Цзи: <strong>{{ DuanCzi }}</strong>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <img
-                                class="card-img-top"
-                                style="width: 16rem"
+                                class="photo"
+                                style=""
                                 :src="SportsmanPhoto"
                                 alt="Card image cap"
                             />
@@ -62,10 +65,7 @@
                         <h5 class="card-title">Принадлежность:</h5>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                Город: <strong>{{ NameOfCity }}</strong>
-                            </li>
-                            <li class="list-group-item">
-                                Край/Республика: <strong>{{ NameOfRegion }}</strong>
+                                Страна: <strong>{{ NameOfCountry }}</strong>
                             </li>
                             <li class="list-group-item">
                                 Федеральный округ:
@@ -74,7 +74,13 @@
                                 >
                             </li>
                             <li class="list-group-item">
-                                Страна: <strong>{{ NameOfCountry }}</strong>
+                                Край/Республика: <strong>{{ NameOfRegion }}</strong>
+                            </li>
+                            <li class="list-group-item">
+                                Город: <strong>{{ NameOfCity }}</strong>
+                            </li>
+                            <li class="list-group-item">
+                                Адрес прописки: <strong>{{ Address }}</strong>
                             </li>
                         </ul>
                     </div>
@@ -88,18 +94,12 @@
                                 <a :href="ConfirmAddress" class="card-link">Просмотр</a>
                             </li>
                             <li class="list-group-item">
-                                Адрес прописки: <strong>{{ Address }}</strong>
-                            </li>
-                            <li class="list-group-item">
                                 Фотография паспорта:
                                 <a :href="SportsmanPhoto" class="card-link">Просмотр</a>
                             </li>
                             <li class="list-group-item">
                                 Сертификат РУСАДА:
                                 <a :href="Rusada" class="card-link">Просмотр</a>
-                            </li>
-                            <li class="list-group-item">
-                                Дуань/Цзи: <strong>{{ DuanCzi }}</strong>
                             </li>
                             <li class="list-group-item">
                                 Справка об отсутствии контактов с инфекционными больными:
@@ -158,10 +158,10 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="photo">
                             <img
                                 class="card-img-top"
-                                style="width: 16rem"
+                                style=""
                                 :src="TrainerPhoto"
                                 alt="Card image cap"
                             />
@@ -246,6 +246,8 @@ export default class Sportsman extends Vue {
     getSportsman: any;
     @Action('deleteSportsman', { namespace })
     deleteSportsman: any;
+
+    // TODO: Вынести GETTTER-ы, если это возможно
 
     /* GETTER */
     @Getter('FullName', { namespace })
@@ -338,4 +340,24 @@ export default class Sportsman extends Vue {
 }
 </script>
 
-<style scoped></style>
+<style>
+.photo {
+    padding-top: 50px;
+    margin-left: 70px;
+    padding-right: 15px;
+    width: 16rem;
+    display: block;
+    height: auto;
+    max-width: 100%;
+    /* дополнительно их выровняем по центру */
+    margin-left: auto;
+    margin-right: auto;
+    /* и добавим внешний нижний отступ */
+    margin-bottom: 50px;
+}
+@media (max-width: 1199 px) {
+    .photo {
+        width: 10rem;
+    }
+}
+</style>
