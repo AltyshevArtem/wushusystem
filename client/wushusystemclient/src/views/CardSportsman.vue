@@ -61,7 +61,6 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <ul class="list-group list-group-flush">
-                            <!-- TODO: Страны нет-->
                             <li class="list-group-item">
                                 Федеральный округ: <strong>{{ NameOfFederalRegion }}</strong>
                             </li>
@@ -71,25 +70,23 @@
                             <li class="list-group-item">
                                 Город: <strong>{{ NameOfCity }}</strong>
                             </li>
-                            <!-- TODO: Клуба нет, добавить апосля -->
                             <li class="list-group-item">
                                 Адрес прописки: <strong>{{ Address }}</strong>
                             </li>
-                            <li class="list-group-item">
-                                Справка о регистрации по месту жительства:
-                                <a :href="ConfirmAddress" class="card-link">Просмотр</a>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <!-- <h5 class="card-title">Документы:</h5> -->
-                        <!-- TODO: Свидетельство о рождении добавить -->
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 Фотография паспорта:
                                 <a :href="SportsmanPhoto" class="card-link">Просмотр</a>
+                            </li>
+                            <li class="list-group-item">
+                                Справка о регистрации по месту жительства:
+                                <a :href="ConfirmAddress" class="card-link">Просмотр</a>
                             </li>
                             <li class="list-group-item">
                                 РУСАДА:
