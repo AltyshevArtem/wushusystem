@@ -1,3 +1,4 @@
+<!-- Перенести из папки views в компоненты всё-->
 <template>
     <div>
         <!-- TODO: Для полей без фоток прописать условие, а то ссылки есть, а фоток нет -->
@@ -59,17 +60,18 @@
                 </div>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <!-- <h5 class="card-title">Информация о регионе:</h5> -->
                         <ul class="list-group list-group-flush">
+                            <!-- TODO: Страны нет-->
                             <li class="list-group-item">
-                                Город: <strong>{{ NameOfCity }}</strong>
+                                Федеральный округ: <strong>{{ NameOfFederalRegion }}</strong>
                             </li>
                             <li class="list-group-item">
                                 Край/Республика: <strong>{{ NameOfRegion }}</strong>
                             </li>
                             <li class="list-group-item">
-                                Федеральный округ: <strong>{{ NameOfFederalRegion }}</strong>
+                                Город: <strong>{{ NameOfCity }}</strong>
                             </li>
+                            <!-- TODO: Клуба нет, добавить апосля -->
                             <li class="list-group-item">
                                 Адрес прописки: <strong>{{ Address }}</strong>
                             </li>
@@ -83,6 +85,7 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <!-- <h5 class="card-title">Документы:</h5> -->
+                        <!-- TODO: Свидетельство о рождении добавить -->
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 Фотография паспорта:

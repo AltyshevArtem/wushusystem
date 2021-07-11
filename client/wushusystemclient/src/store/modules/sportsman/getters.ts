@@ -51,11 +51,6 @@ export const getters: GetterTree<ISportsmanState, null> = {
         const address = (sportsman && sportsman.address) || '';
         return `${address}`;
     },
-    FileMainDocument(state): string {
-        const { sportsman } = state;
-        const file_main_document = (sportsman && sportsman.file_main_document) || '';
-        return `${file_main_document}`;
-    },
     Rusada(state): string {
         const { sportsman } = state;
         const rusada = (sportsman && sportsman.rusada) || '';

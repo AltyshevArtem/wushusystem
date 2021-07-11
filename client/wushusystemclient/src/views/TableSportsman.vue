@@ -1,6 +1,9 @@
 <template>
     <div class="container-sm">
         <br />
+        <router-link :to="'/sportsman/add_new'">
+            <button>Добавить нового</button>
+        </router-link>
         <div class="listSportsman">
             <input placeholder="Поиск" class="form-control" v-model="search" />
         </div>

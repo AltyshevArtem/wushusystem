@@ -12,6 +12,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Sportsman',
         component: () => import('../views/CardSportsman.vue'),
     },
+    {
+        path: '/sportsman/add_new',
+        name:'SportsmanAdd',
+        component: () => import('../components/AddCardSportsman/AddCardSportsman.vue'),
+    }
 ];
 
 const router = createRouter({
