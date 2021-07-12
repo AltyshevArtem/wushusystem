@@ -112,27 +112,36 @@
             <EditCardSportsman />
         </div>
     </div>
-    <confirmationModal
+    <ConfirmationModal
         v-if="isConfirmModalVisible"
         @closeModal="isConfirmModalVisible = false"
         @confirmModal="deleteSportsmanMethod"
     >
         <span> Вы уверены, что собираетесь удалить спортсмена?</span>
-    </confirmationModal>
+    </ConfirmationModal>
 </template>
 
 <script lang="ts">
+/* VUE */
 import { Vue, Options } from 'vue-class-component';
+
+/* VUEX */
 import { State, Action, Getter } from 'vuex-class';
+
+/* STATE */
 import { ISportsmanState } from '../store/modules/sportsman/types';
-import confirmationModal from '../components/Modal/confirmationModal.vue';
+
+/* COMPONENTS */
+import ConfirmationModal from '../components/Modal/ConfirmationModal.vue';
 import EditCardSportsman from '../components/EditCardSportsman/EditCardSportsman.vue';
+
+/* NAMESPACE */
 const namespace = 'sportsman';
 
 @Options({
     name: 'CardSportsman',
     components: {
-        confirmationModal,
+        ConfirmationModal,
         EditCardSportsman,
     },
     methods: {},

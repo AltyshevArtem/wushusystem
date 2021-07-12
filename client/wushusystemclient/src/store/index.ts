@@ -9,6 +9,7 @@ import { city } from './modules/city/index';
 import { trainer } from './modules/trainer/index';
 import { federal_region } from './modules/federal_region/index';
 import { region } from './modules/region/index';
+import { insurance } from './modules/insurance/index';
 
 export default createStore({
     modules: {
@@ -22,5 +23,6 @@ export default createStore({
         trainer,
         federal_region,
         region,
+        insurance,
     },
 });

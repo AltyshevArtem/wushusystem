@@ -5,13 +5,13 @@ import { IDuanCzi } from '@/models/duan_czi';
 import { IRank } from '@/models/rank';
 import { IGender } from '@/models/gender';
 
-interface IInsurance {
+export interface IInsurance {
     date_start: Date;
     date_end: Date;
     file_insurance: string;
 }
 
-interface IPassport {
+export interface IPassport {
     number: number;
     scan?: string;
     date_start?: Date;
@@ -19,12 +19,12 @@ interface IPassport {
     code?: number;
 }
 
-interface IBirthCeritifcate {
+export interface IBirthCeritifcate {
     number: number;
     scan?: string;
 }
 
-interface IProxyDoc {
+export interface IProxyDoc {
     scan?: string;
     original_passport?: IPassport;
     original_birth_certificate?: IBirthCeritifcate;

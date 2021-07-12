@@ -44,7 +44,7 @@ import { Vue, Options } from 'vue-class-component';
         },
     },
 })
-export default class Sportsman extends Vue {}
+export default class ConfirmationModal extends Vue {}
 </script>
 
 <style scoped>

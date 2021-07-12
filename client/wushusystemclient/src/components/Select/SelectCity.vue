@@ -33,14 +33,11 @@ const namespace = 'city';
 
 @Options({
     name: 'SelectCity',
-    props: {
-        mode: String,
-    },
     components: {
         Multiselect,
     },
 })
-export default class genderMultiSelect extends Vue {
+export default class SelectCity extends Vue {
     /* PROP */
     @Prop({ type: String, default: 'multiple' }) mode!: string;
 
