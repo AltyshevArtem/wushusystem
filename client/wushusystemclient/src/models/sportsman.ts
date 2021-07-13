@@ -60,7 +60,7 @@ export interface ISportsman {
     covid_test?: string;
     covid_contact?: string;
     parent_doc?: string;
-    school_doc?: string
+    school_doc?: string;
     duan_czi?: IDuanCzi;
 
     // TODO: хз откуда это
