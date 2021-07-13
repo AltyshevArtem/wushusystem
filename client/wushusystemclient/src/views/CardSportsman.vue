@@ -26,7 +26,7 @@
                 </div>
             </div>
             <div class="p-5 mb-4 bg-light rounded-3">
-                <div class="card mb-3" style="max-width: 1920px">
+                <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-8">
                             <div class="card-body">
@@ -51,12 +51,7 @@
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <img
-                                class="photo"
-                                style=""
-                                :src="SportsmanPhoto"
-                                alt="Card image cap"
-                            />
+                            <img class="photo" :src="SportsmanPhoto" alt="Card image cap" />
                         </div>
                     </div>
                 </div>
@@ -138,7 +133,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="card mb-3" style="max-width: 1920px">
+                <div class="card mb-3">
                     <div class="row g-0">
                         <div class="col-md-8">
                             <div class="card-body">
@@ -158,13 +153,8 @@
                                 </ul>
                             </div>
                         </div>
-                        <div class="photo">
-                            <img
-                                class="card-img-top"
-                                style=""
-                                :src="TrainerPhoto"
-                                alt="Card image cap"
-                            />
+                        <div class="col-md-4">
+                            <img class="photo" :src="TrainerPhoto" alt="Card image cap" />
                         </div>
                     </div>
                 </div>
@@ -173,32 +163,30 @@
                         <h5 class="card-title">Информация о клубе:</h5>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                Название: <strong>{{ SportsmanNameOfClub }}</strong>
+                                Название: <strong>{{ NameOfClub }}</strong>
                             </li>
                             <li class="list-group-item">
-                                Адресс: <strong>{{ SportsmanAddressOfClub }}</strong>
+                                Адрес: <strong>{{ AddressOfClub }}</strong>
                             </li>
                             <li class="list-group-item">
                                 Владелец:
-                                <strong> {{ SportsmanNameOfClubOwner }} </strong>
+                                <strong> {{ NameOfClubOwner }} </strong>
                             </li>
                             <li class="list-group-item">
-                                Принадлежность к федерация ушу:
-                                <strong>{{ SportsmanNameOfClubFederation }}</strong>
+                                Принадлежность к федерации ушу:
+                                <strong>{{ ClubFederation }}</strong>
                             </li>
                             <li class="list-group-item">
-                                Регион: <strong>{{ SportsmanNameOfClubRegion }}</strong>
+                                Регион: <strong>{{ ClubRegion }}</strong>
                             </li>
                             <li class="list-group-item">
                                 Федеральный округ:
                                 <strong
-                                    >{{ SportsmanNameOfClubFederalRegion }} ({{
-                                        SportsmanNameOfClubAbbrFederalRegion
-                                    }})</strong
+                                    >{{ ClubFederalRegion }} ({{ ClubAbbrFederalRegion }})</strong
                                 >
                             </li>
                             <li class="list-group-item">
-                                Страна: <strong>{{ SportsmanNameOfClubNameOfCountry }}</strong>
+                                Страна: <strong>{{ ClubNameOfCountry }}</strong>
                             </li>
                         </ul>
                     </div>
@@ -260,8 +248,6 @@ export default class Sportsman extends Vue {
     DateOfBirth: string | undefined;
     @Getter('Address', { namespace })
     Address: string | undefined;
-    @Getter('FileMainDocument', { namespace })
-    FileMainDocument: string | undefined;
     @Getter('Rusada', { namespace })
     Rusada: string | undefined;
     @Getter('Rank', { namespace })
@@ -310,22 +296,22 @@ export default class Sportsman extends Vue {
     TrainerDateOfBirth: string | undefined;
     @Getter('TrainerGender', { namespace })
     TrainerGender: string | undefined;
-    @Getter('SportsmanNameOfClub', { namespace })
-    SportsmanNameOfClub: string | undefined;
-    @Getter('SportsmanNameOfClubOwner', { namespace })
-    SportsmanNameOfClubOwner: string | undefined;
-    @Getter('SportsmanAddressOfClub', { namespace })
-    SportsmanAddressOfClub: string | undefined;
-    @Getter('SportsmanNameOfClubFederation', { namespace })
-    SportsmanNameOfClubFederation: string | undefined;
-    @Getter('SportsmanNameOfClubRegion', { namespace })
-    SportsmanNameOfClubRegion: string | undefined;
-    @Getter('SportsmanNameOfClubFederalRegion', { namespace })
-    SportsmanNameOfClubFederalRegion: string | undefined;
-    @Getter('SportsmanNameOfClubAbbrFederalRegion', { namespace })
-    SportsmanNameOfClubAbbrFederalRegion: string | undefined;
-    @Getter('SportsmanNameOfClubNameOfCountry', { namespace })
-    SportsmanNameOfClubNameOfCountry: string | undefined;
+    @Getter('NameOfClub', { namespace })
+    NameOfClub: string | undefined;
+    @Getter('NameOfClubOwner', { namespace })
+    NameOfClubOwner: string | undefined;
+    @Getter('AddressOfClub', { namespace })
+    AddressOfClub: string | undefined;
+    @Getter('ClubFederation', { namespace })
+    ClubFederation: string | undefined;
+    @Getter('ClubRegion', { namespace })
+    ClubRegion: string | undefined;
+    @Getter('ClubFederalRegion', { namespace })
+    ClubFederalRegion: string | undefined;
+    @Getter('ClubAbbrFederalRegion', { namespace })
+    ClubAbbrFederalRegion: string | undefined;
+    @Getter('ClubNameOfCountry', { namespace })
+    ClubNameOfCountry: string | undefined;
 
     mounted(): void {
         this.getSportsman(this.$route.params.id);
@@ -343,7 +329,7 @@ export default class Sportsman extends Vue {
 <style>
 .photo {
     padding-top: 50px;
-    margin-left: 70px;
+    padding-left: 15px;
     padding-right: 15px;
     width: 16rem;
     display: block;
@@ -355,9 +341,7 @@ export default class Sportsman extends Vue {
     /* и добавим внешний нижний отступ */
     margin-bottom: 50px;
 }
-@media (max-width: 1199 px) {
-    .photo {
-        width: 10rem;
-    }
+.card-mb-3 {
+    max-width: 1920px;
 }
 </style>

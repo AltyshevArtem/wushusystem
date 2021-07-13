@@ -44,11 +44,6 @@ export const getters: GetterTree<ISportsmanState, null> = {
         const address = (sportsman && sportsman.address) || '';
         return `${address}`;
     },
-    FileMainDocument(state): string {
-        const { sportsman } = state;
-        const file_main_document = (sportsman && sportsman.file_main_document) || '';
-        return `${file_main_document}`;
-    },
     Rusada(state): string {
         const { sportsman } = state;
         const rusada = (sportsman && sportsman.rusada) || '';
@@ -166,12 +161,12 @@ export const getters: GetterTree<ISportsmanState, null> = {
         const trainer_name = (sportsman && sportsman.trainer?.name) || '';
         const trainer_surname = (sportsman && sportsman.trainer?.surname) || '';
         const trainer_patronymic = (sportsman && sportsman.trainer?.patronymic) || '';
-        return `${trainer_name} ${trainer_surname} ${trainer_patronymic}`;
+        return `${trainer_surname} ${trainer_name} ${trainer_patronymic}`;
     },
     TrainerPhoto(state): string {
         const { sportsman } = state;
-        const src = (sportsman && sportsman.trainer?.photo) || '';
-        return `${src}`;
+        const trainer_photo = (sportsman && sportsman.trainer?.photo) || '';
+        return `${trainer_photo}`;
     },
     TrainerDateOfBirth(state): string {
         const { sportsman } = state;
@@ -183,34 +178,34 @@ export const getters: GetterTree<ISportsmanState, null> = {
         const trainer_gender = (sportsman && sportsman.trainer?.gender) || '';
         return `${trainer_gender}`;
     },
-    SportsmanNameOfClub(state): string {
+    NameOfClub(state): string {
         const { sportsman } = state;
         const sportsman_name_of_club = (sportsman && sportsman.club?.name_of_club) || '';
         return `${sportsman_name_of_club}`;
     },
-    SportsmanNameOfClubOwner(state): string {
+    NameOfClubOwner(state): string {
         const { sportsman } = state;
         const sportsman_name_of_club_owner = (sportsman && sportsman.club?.name_of_owner) || '';
         return `${sportsman_name_of_club_owner}`;
     },
-    SportsmanAddressOfClub(state): string {
+    AddressOfClub(state): string {
         const { sportsman } = state;
         const sportsman_address_of_club = (sportsman && sportsman.club?.address) || '';
         return `${sportsman_address_of_club}`;
     },
-    SportsmanNameOfClubFederation(state): string {
+    ClubFederation(state): string {
         const { sportsman } = state;
         const sportsman_name_of_club_federation =
             (sportsman && sportsman.club?.federation?.name_of_federation) || '';
         return `${sportsman_name_of_club_federation}`;
     },
-    SportsmanNameOfClubRegion(state): string {
+    ClubRegion(state): string {
         const { sportsman } = state;
         const sportsman_name_of_club_region =
             (sportsman && sportsman.club?.federation?.name_of_region.name_of_region) || '';
         return `${sportsman_name_of_club_region}`;
     },
-    SportsmanNameOfClubFederalRegion(state): string {
+    ClubFederalRegion(state): string {
         const { sportsman } = state;
         const sportsman_name_of_club_federal_region =
             (sportsman &&
@@ -219,7 +214,7 @@ export const getters: GetterTree<ISportsmanState, null> = {
             '';
         return `${sportsman_name_of_club_federal_region}`;
     },
-    SportsmanNameOfClubAbbrFederalRegion(state): string {
+    ClubAbbrFederalRegion(state): string {
         const { sportsman } = state;
         const sportsman_name_of_club_abbrfederal_region =
             (sportsman &&
@@ -228,7 +223,7 @@ export const getters: GetterTree<ISportsmanState, null> = {
             '';
         return `${sportsman_name_of_club_abbrfederal_region}`;
     },
-    SportsmanNameOfClubNameOfCountry(state): string {
+    ClubNameOfCountry(state): string {
         const { sportsman } = state;
         const sportsman_name_of_club_name_of_country =
             (sportsman &&

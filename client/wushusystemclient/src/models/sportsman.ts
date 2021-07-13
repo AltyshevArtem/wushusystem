@@ -62,7 +62,6 @@ export interface ISportsman {
     parent_doc?: string;
     school_doc?: string;
     duan_czi?: IDuanCzi;
-    file_main_document?: string;
 
     // TODO: хз откуда это
     //file_main_document?: string;
