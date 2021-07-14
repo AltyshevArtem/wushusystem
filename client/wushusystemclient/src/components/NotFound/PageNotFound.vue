@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="error-template">
-                    <p class="error-number">404</p>
+                    <p style="font-size: 150px">404</p>
                     <h2>Not Found</h2>
                     <div class="error-details">
                         Извините, запрашиваемая страница не найдена или удалена!
@@ -25,9 +25,6 @@ export default {
 </script>
 
 <style>
-.error-number {
-    font-size: 150px;
-}
 .error-template {
     padding: 40px 15px;
     text-align: center;

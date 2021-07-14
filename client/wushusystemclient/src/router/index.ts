@@ -12,6 +12,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Sportsman',
         component: () => import('../views/CardSportsman.vue'),
     },
+    {
+        path: '/:NotFound(.*)*',
+        name: 'NotFound',
+        component: () => import('../components/NotFound/PageNotFound.vue'),
+    },
 ];
 
 const router = createRouter({
