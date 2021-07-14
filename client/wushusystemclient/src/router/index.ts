@@ -12,6 +12,12 @@ const routes: Array<RouteRecordRaw> = [
         name: 'Sportsman',
         component: () => import('../views/CardSportsman.vue'),
     },
+    {
+        //TODO: Сделать так, чтобы на домашней странице не было 404
+        path: '/:NotFound(.*)*',
+        name: 'NotFound',
+        component: () => import('../components/NotFound/PageNotFound.vue'),
+    },
 ];
 
 const router = createRouter({
