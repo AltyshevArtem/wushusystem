@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="error-template">
-                    <p style="font-size: 150px">404</p>
+                    <p class="error-message">404</p>
                     <h2>Not Found</h2>
                     <div class="error-details">
                         Извините, запрашиваемая страница не найдена или удалена!
@@ -18,13 +18,18 @@
         </div>
     </div>
 </template>
-<script>
-export default {
-    name: 'PageNotFound',
-};
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+@Options({
+    name: 'PageNnotFound',
+})
+export default class PageNnotFound extends Vue {}
 </script>
 
-<style>
+<style scoped>
+.error-message {
+    font-size: 150px;
+}
 .error-template {
     padding: 40px 15px;
     text-align: center;
