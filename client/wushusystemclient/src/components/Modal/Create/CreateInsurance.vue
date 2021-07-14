@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade show" tabindex="-1" role="dialog">
+    <div class="modal fade show" @click.self="closeModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -59,12 +59,7 @@
                     </div>
                     <div>
                         <h6>Скан фото:</h6>
-                        <input
-                            type="file"
-                            id="File"
-                            ref="File"
-                            v-on:change="InsuranseFileUpload()"
-                        />
+                        <input type="file" id="file" ref="file" @change="InsuranseFileUpload()" />
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -77,12 +72,12 @@
                         Закрыть
                     </button>
                     <div v-if="!mode">
-                        <button type="button" @click="SaveInsurance" class="btn btn-danger">
+                        <button type="button" @click="AddInsurance" class="btn btn-danger">
                             Добавить
                         </button>
                     </div>
                     <div v-else>
-                        <button type="button" @click="AddInsurance" class="btn btn-danger">
+                        <button type="button" @click="SaveInsurance" class="btn btn-danger">
                             Сохранить
                         </button>
                     </div>
@@ -106,12 +101,14 @@ import Datepicker from 'vue3-datepicker';
 
 /* STATE */
 import { IInsuranceState } from '@/store/modules/insurance/types';
+import { ISportsmanState } from '@/store/modules/sportsman/types';
 
 /* MODELS */
 import { IInsurance } from '@/models/sportsman';
 
 /* NAMESPACE */
-const namespace = 'insurance';
+const namespaceInsurance = 'insurance';
+const namespaceSportsman = 'sportsman';
 
 @Options({
     name: 'CreateInsurance',
@@ -130,14 +127,25 @@ const namespace = 'insurance';
             this.$emit('closeModal');
         },
         AddInsurance() {
-            this.$emit('confirmModal');
+            const insurance = {
+                //TODO: формат даты вынести
+                date_start: new Date(this.DateStart).toISOString().slice(0, 10),
+                date_end: new Date(this.DateEnd).toISOString().slice(0, 10),
+                file_insurance: this.File,
+            };
+            this.postInsurance(insurance);
+
+            this.sportsmanMap.sportsman.insurance = insurance;
+
+            this.putSportsmanOfInsurance(this.sportsmanMap.sportsman);
+
+            this.$emit('AddInsurance');
         },
         SaveInsurance() {
             this.$emit('saveInsurance');
         },
         InsuranseFileUpload() {
-            if (this.FileInsurance === undefined) this.File = this.$refs.FileInsurance.files[0];
-            this.FileInsurance = this.$refs.FileInsurance.files[0];
+            this.File = this.$refs.file.files[0];
         },
     },
 })
@@ -148,10 +156,21 @@ export default class CreateInsurance extends Vue {
     /* STATE */
     @State('insurance')
     insuranceMap!: IInsuranceState;
+    @State('sportsman')
+    sportsmanMap!: ISportsmanState;
 
     /* ACTION */
-    @Action('postInsurance', { namespace })
+    @Action('postInsurance', { namespace: namespaceInsurance })
     postInsurance: any;
+    @Action('putSportsmanOfInsurance', { namespace: namespaceSportsman })
+    putSportsmanOfInsurance: any;
+
+    // @Action('putInsurance', { namespace: namespaceInsurance })
+    // putInsurance: any;
+    // @Action('deleteInsurance', { namespace: namespaceInsurance })
+    // deleteInsurance: any;
+    // @Action('getInsurance', { namespace: namespaceInsurance })
+    // getInsurance: any;
 }
 </script>
 

@@ -15,6 +15,8 @@ router.register(r'club', ClubViewSet)
 router.register(r'rank', RankViewSet)
 router.register(r'duan_czi', Duan_CziViewSet)
 router.register(r'sportsmans', SportsmanViewSet)
+
+router.register(r'insurance', InsuranceViewSet)
 #router.register(r'rank_history', Rank_historyViewSet)
 #router.register(r'trainer_history', Trainer_historyViewSet)
 #router.register(r'duan_czi_history', Duan_Czi_historyViewSet)

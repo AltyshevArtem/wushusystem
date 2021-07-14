@@ -6,12 +6,14 @@ import { IRank } from '@/models/rank';
 import { IGender } from '@/models/gender';
 
 export interface IInsurance {
+    id: number;
     date_start: Date;
     date_end: Date;
     file_insurance: string;
 }
 
 export interface IPassport {
+    id: number;
     number: number;
     scan?: string;
     date_start?: Date;
@@ -20,11 +22,13 @@ export interface IPassport {
 }
 
 export interface IBirthCeritifcate {
+    id: number;
     number: number;
     scan?: string;
 }
 
 export interface IProxyDoc {
+    id: number;
     scan?: string;
     original_passport?: IPassport;
     original_birth_certificate?: IBirthCeritifcate;
@@ -34,11 +38,13 @@ export interface IProxyDoc {
 //TODO: Поля number и scan повторяются во многих интерфейсах
 //Можно сделать отдельно интерфейс IDocument например
 interface IOms{
+    id: number;
     number: number;
     scan?: string;
 }
 
 export interface ISportsman {
+    id: number;
     name: string;
     surname: string;
     patronymic?: string;

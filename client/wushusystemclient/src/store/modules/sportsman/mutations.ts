@@ -1,3 +1,4 @@
+import { sportsman } from './index';
 import { MutationTree } from 'vuex';
 import { ISportsmanState } from './types';
 import { ISportsman } from '@/models/sportsman';
@@ -16,5 +17,12 @@ export const mutations: MutationTree<ISportsmanState> = {
     },
     deleteSportsmanError(state) {
         state.error = true;
-    }
+    },
+    putSportsman(state, payload: ISportsman) {
+        state.sportsman = payload;
+        state.error = false;
+    },
+    putSportsmanError(state) {
+        state.error = true;
+    },
 };

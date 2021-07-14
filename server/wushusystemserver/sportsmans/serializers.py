@@ -4,15 +4,18 @@ from sportsmans.models import *
 
 
 class GenderSerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     class Meta:
         model = Gender
         fields = "__all__"
 
 class FederalRegionSerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     class Meta:
         model = Federal_Region
         fields = "__all__"
 class RegionSerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     name_of_federal_region = FederalRegionSerialize()
     class Meta:
         model = Region
@@ -20,6 +23,7 @@ class RegionSerialize(serializers.ModelSerializer):
 
 
 class CitySerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     name_of_region = RegionSerialize()
     class Meta:
         model = City
@@ -27,12 +31,14 @@ class CitySerialize(serializers.ModelSerializer):
 
 
 class TrainerSerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     class Meta:
         model = Trainer
         fields = "__all__"
 
 
 class FederationSerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     name_of_region = RegionSerialize()
     class Meta:
         model = Federation
@@ -40,6 +46,7 @@ class FederationSerialize(serializers.ModelSerializer):
 
 
 class ClubSerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     federation = FederationSerialize()
     class Meta:
         model = Club
@@ -47,12 +54,14 @@ class ClubSerialize(serializers.ModelSerializer):
 
 
 class InsuranceSerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     class Meta:
         model = Insurance
         fields = "__all__"
 
 
 class RankSerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     class Meta:
         model = Rank
         fields = "__all__"
@@ -61,31 +70,38 @@ class RankSerialize(serializers.ModelSerializer):
 
 
 class Duan_CziSerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     class Meta:
         model = Duan_Czi
         fields = "__all__"
 
 class PassportSerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     class Meta:
         model = Passport
         fields = "__all__"
 
 class Birth_CertificateSerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     class Meta:
         model = Birth_Certificate
         fields = "__all__"
 
 class OMSSerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     class Meta:
         model = OMS
         fields = "__all__"
 
 
 class Proxy_docSerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     class Meta:
         model = Proxy_doc
         fields = "__all__"
+
 class SportsmanSerialize(serializers.ModelSerializer):
+    id = serializers.ReadOnlyField()
     city = CitySerialize()
     trainer = TrainerSerialize()
     insurance = InsuranceSerialize()

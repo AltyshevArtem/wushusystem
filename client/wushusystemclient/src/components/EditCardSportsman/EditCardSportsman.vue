@@ -93,6 +93,7 @@
                 :mode="isEdit"
                 :insurance="sportsmanMap.sportsman.insurance"
                 @closeModal="isModalInsurance = false"
+                @AddInsurance="isModalInsurance = false"
             />
         </li>
         <!-- А также поля
