@@ -137,7 +137,7 @@ const namespaceSportsman = 'sportsman';
 
             this.sportsmanMap.sportsman.insurance = insurance;
 
-            this.putSportsmanOfInsurance(this.sportsmanMap.sportsman);
+            // this.putSportsman(this.sportsmanMap.sportsman);
 
             this.$emit('AddInsurance');
         },
@@ -162,8 +162,9 @@ export default class CreateInsurance extends Vue {
     /* ACTION */
     @Action('postInsurance', { namespace: namespaceInsurance })
     postInsurance: any;
-    @Action('putSportsmanOfInsurance', { namespace: namespaceSportsman })
-    putSportsmanOfInsurance: any;
+    @Action('putSportsman', { namespace: namespaceSportsman })
+    putSportsman: any;
+
 
     // @Action('putInsurance', { namespace: namespaceInsurance })
     // putInsurance: any;

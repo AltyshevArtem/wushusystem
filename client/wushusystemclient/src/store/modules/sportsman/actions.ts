@@ -1,3 +1,4 @@
+import { insurance } from './../insurance/index';
 import { trainer } from './../trainer/index';
 import { sportsman } from './index';
 import { ISportsman } from '@/models/sportsman';
@@ -29,9 +30,21 @@ export const actions: ActionTree<ISportsmanState, null> = {
                 commit('deleteSportsmanError');
             });
     },
-    putSportsmanOfInsurance({ commit }, sportsman:ISportsman): any {
+    putSportsman({ commit }, sportsman:ISportsman): any {
         axios
-            .put(`/api/sportsmans/${sportsman.id}/`, sportsman, {
+            .put(`/api/sportsmans/${sportsman.id}/`,{
+                city: sportsman.city,
+                trainer: sportsman.trainer,
+                insurance: sportsman.insurance,
+                club: sportsman.club,
+                passport: sportsman.passport,
+                birth_certificate: sportsman.birth_certificate,
+                proxy: sportsman.proxy,
+                oms: sportsman.oms,
+                name: sportsman.name,
+                surname: sportsman.surname,
+                date_of_birth: sportsman.date_of_birth,
+                gender: sportsman.gender,
                 headers: {
                     'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxk'
                 },
