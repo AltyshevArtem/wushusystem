@@ -3,8 +3,8 @@ import axios from 'axios';
 import { ISportsmanState } from './types';
 
 export const actions: ActionTree<ISportsmanState, null> = {
-    getSportsman({ commit }, id: number): any {
-        axios
+    async getSportsman({ commit }, id: number): Promise<any> {
+        await axios
             .get(`/api/sportsmans/${id}`)
             .then((response) => {
                 const payload: ISportsmanState = response && response.data;
@@ -14,6 +14,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
                 console.log(error);
                 commit('getSportsmanError');
             });
+
     },
     deleteSportsman({ commit }, id:number): any {
         axios

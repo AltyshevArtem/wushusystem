@@ -21,9 +21,9 @@
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
 @Options({
-    name: 'PageNnotFound',
+    name: 'PageNotFound',
 })
-export default class PageNnotFound extends Vue {}
+export default class PageNotFound extends Vue {}
 </script>
 
 <style scoped>

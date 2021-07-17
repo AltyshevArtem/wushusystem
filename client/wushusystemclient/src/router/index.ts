@@ -1,4 +1,6 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import store from '@/store';
+import { sportsman } from '@/store/modules/sportsman';
+import { createRouter, createWebHistory, onBeforeRouteUpdate, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
     {
@@ -18,8 +20,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'NotFound',
         component: () => import('../components/NotFound/PageNotFound.vue'),
     },
-];
 
+];
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes,

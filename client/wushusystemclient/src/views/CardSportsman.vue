@@ -3,198 +3,211 @@
         <!-- TODO: Сделать кнопку перехода назад к предыдущей странице -->
         <!--  -->
         <!-- TODO: Для полей без фоток прописать условие, а то ссылки есть, а фоток нет -->
-        <div v-if="isEditable === false" class="container py-4">
-            <div>
-                <div class="pb-3 mb-4 d-flex justify-content-between">
-                    <span class="fs-4">
-                        <strong>
-                            {{ FullName }}
-                        </strong>
-                    </span>
-                    <div class="pb-3 mb-3">
-                        <button type="button" @click="isEditable = true" class="btn btn-primary">
-                            Редактировать
-                        </button>
-                        <button
-                            type="button"
-                            @click="isConfirmModalVisible = true"
-                            class="btn btn-danger"
-                        >
-                            Удалить
-                        </button>
+        <div v-if="this.sportsmanMap.error === false">
+            <div v-if="isEditable === false" class="container py-4">
+                <div>
+                    <div class="pb-3 mb-4 d-flex justify-content-between">
+                        <span class="fs-4">
+                            <strong>
+                                {{ FullName }}
+                            </strong>
+                        </span>
+                        <div class="pb-3 mb-3">
+                            <button
+                                type="button"
+                                @click="isEditable = true"
+                                class="btn btn-primary"
+                            >
+                                Редактировать
+                            </button>
+                            <button
+                                type="button"
+                                @click="isConfirmModalVisible = true"
+                                class="btn btn-danger"
+                            >
+                                Удалить
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="p-5 mb-4 bg-light rounded-3">
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Информация о спортсмене:</h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            ФИО: <strong>{{ FullName }}</strong>
+                                        </li>
+                                        <li class="list-group-item">
+                                            Пол: <strong>{{ Gender }}</strong>
+                                        </li>
+                                        <li class="list-group-item">
+                                            Дата рождения: <strong> {{ DateOfBirth }}</strong>
+                                        </li>
+                                        <li class="list-group-item">
+                                            Разряд: <strong> {{ Rank }} </strong>
+                                        </li>
+                                        <li class="list-group-item">
+                                            Дуань/Цзи: <strong>{{ DuanCzi }}</strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <img class="photo" :src="SportsmanPhoto" alt="Card image cap" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Принадлежность:</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    Страна: <strong>{{ NameOfCountry }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    Федеральный округ:
+                                    <strong
+                                        >{{ NameOfFederalRegion }} ({{
+                                            AbbrOfFederalRegion
+                                        }})</strong
+                                    >
+                                </li>
+                                <li class="list-group-item">
+                                    Край/Республика: <strong>{{ NameOfRegion }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    Город: <strong>{{ NameOfCity }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    Адрес прописки: <strong>{{ Address }}</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Документы:</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    Справка о регистрации по месту жительства:
+                                    <a :href="ConfirmAddress" class="card-link">Просмотр</a>
+                                </li>
+                                <li class="list-group-item">
+                                    Фотография паспорта:
+                                    <a :href="SportsmanPhoto" class="card-link">Просмотр</a>
+                                </li>
+                                <li class="list-group-item">
+                                    Сертификат РУСАДА:
+                                    <a :href="Rusada" class="card-link">Просмотр</a>
+                                </li>
+                                <li class="list-group-item">
+                                    Справка об отсутствии контактов с инфекционными больными:
+                                    <a :href="CovidContact" class="card-link">Просмотр</a>
+                                </li>
+                                <li class="list-group-item">
+                                    ПЦР-тест COVID-19:
+                                    <a :href="CovidTest" class="card-link">Просмотр</a>
+                                </li>
+                                <li class="list-group-item">
+                                    Согласие родителя:
+                                    <a :href="ParentDoc" class="card-link">Просмотр</a>
+                                </li>
+                                <li class="list-group-item">
+                                    Справка из школы:
+                                    <a :href="SchoolDoc" class="card-link">Просмотр</a>
+                                </li>
+                                <li class="list-group-item">
+                                    Страховка:
+                                    <a :href="InsuranceDoc" class="card-link">Просмотр</a>
+                                    Срок действия: с
+                                    <strong>{{ InsuranceDateStart }}</strong>
+                                    по
+                                    <strong>{{ InsuranceDateEnd }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    Сведительство о рождении:
+                                    <a :href="BirthCertificateDoc" class="card-link">Просмотр</a>
+                                    Номер: <strong>{{ BirthCertificateNumber }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    Полис ОМС:
+                                    <a :href="OMSDoc" class="card-link">Просмотр</a>
+                                    Номер: <strong>{{ OMSNumber }}</strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="row g-0">
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">Информация о тренере спортсмена:</h5>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">
+                                            ФИО тренера: <strong>{{ TrainerFullName }}</strong>
+                                        </li>
+                                        <li class="list-group-item">
+                                            Пол:
+                                            <strong>{{ TrainerGender }}</strong>
+                                        </li>
+                                        <li class="list-group-item">
+                                            Дата рождения тренера:
+                                            <strong>{{ TrainerDateOfBirth }}</strong>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <img class="photo" :src="TrainerPhoto" alt="Card image cap" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">Информация о клубе:</h5>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item">
+                                    Название: <strong>{{ NameOfClub }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    Адрес: <strong>{{ AddressOfClub }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    Владелец:
+                                    <strong> {{ NameOfClubOwner }} </strong>
+                                </li>
+                                <li class="list-group-item">
+                                    Принадлежность к федерации ушу:
+                                    <strong>{{ ClubFederation }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    Регион: <strong>{{ ClubRegion }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    Федеральный округ:
+                                    <strong
+                                        >{{ ClubFederalRegion }} ({{
+                                            ClubAbbrFederalRegion
+                                        }})</strong
+                                    >
+                                </li>
+                                <li class="list-group-item">
+                                    Страна: <strong>{{ ClubNameOfCountry }}</strong>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="p-5 mb-4 bg-light rounded-3">
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Информация о спортсмене:</h5>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        ФИО: <strong>{{ FullName }}</strong>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Пол: <strong>{{ Gender }}</strong>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Дата рождения: <strong> {{ DateOfBirth }}</strong>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Разряд: <strong> {{ Rank }} </strong>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Дуань/Цзи: <strong>{{ DuanCzi }}</strong>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <img class="photo" :src="SportsmanPhoto" alt="Card image cap" />
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Принадлежность:</h5>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                Страна: <strong>{{ NameOfCountry }}</strong>
-                            </li>
-                            <li class="list-group-item">
-                                Федеральный округ:
-                                <strong
-                                    >{{ NameOfFederalRegion }} ({{ AbbrOfFederalRegion }})</strong
-                                >
-                            </li>
-                            <li class="list-group-item">
-                                Край/Республика: <strong>{{ NameOfRegion }}</strong>
-                            </li>
-                            <li class="list-group-item">
-                                Город: <strong>{{ NameOfCity }}</strong>
-                            </li>
-                            <li class="list-group-item">
-                                Адрес прописки: <strong>{{ Address }}</strong>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Документы:</h5>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                Справка о регистрации по месту жительства:
-                                <a :href="ConfirmAddress" class="card-link">Просмотр</a>
-                            </li>
-                            <li class="list-group-item">
-                                Фотография паспорта:
-                                <a :href="SportsmanPhoto" class="card-link">Просмотр</a>
-                            </li>
-                            <li class="list-group-item">
-                                Сертификат РУСАДА:
-                                <a :href="Rusada" class="card-link">Просмотр</a>
-                            </li>
-                            <li class="list-group-item">
-                                Справка об отсутствии контактов с инфекционными больными:
-                                <a :href="CovidContact" class="card-link">Просмотр</a>
-                            </li>
-                            <li class="list-group-item">
-                                ПЦР-тест COVID-19:
-                                <a :href="CovidTest" class="card-link">Просмотр</a>
-                            </li>
-                            <li class="list-group-item">
-                                Согласие родителя:
-                                <a :href="ParentDoc" class="card-link">Просмотр</a>
-                            </li>
-                            <li class="list-group-item">
-                                Справка из школы:
-                                <a :href="SchoolDoc" class="card-link">Просмотр</a>
-                            </li>
-                            <li class="list-group-item">
-                                Страховка:
-                                <a :href="InsuranceDoc" class="card-link">Просмотр</a>
-                                Срок действия: с
-                                <strong>{{ InsuranceDateStart }}</strong>
-                                по
-                                <strong>{{ InsuranceDateEnd }}</strong>
-                            </li>
-                            <li class="list-group-item">
-                                Сведительство о рождении:
-                                <a :href="BirthCertificateDoc" class="card-link">Просмотр</a>
-                                Номер: <strong>{{ BirthCertificateNumber }}</strong>
-                            </li>
-                            <li class="list-group-item">
-                                Полис ОМС:
-                                <a :href="OMSDoc" class="card-link">Просмотр</a>
-                                Номер: <strong>{{ OMSNumber }}</strong>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="card mb-3">
-                    <div class="row g-0">
-                        <div class="col-md-8">
-                            <div class="card-body">
-                                <h5 class="card-title">Информация о тренере спортсмена:</h5>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">
-                                        ФИО тренера: <strong>{{ TrainerFullName }}</strong>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Пол:
-                                        <strong>{{ TrainerGender }}</strong>
-                                    </li>
-                                    <li class="list-group-item">
-                                        Дата рождения тренера:
-                                        <strong>{{ TrainerDateOfBirth }}</strong>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <img class="photo" :src="TrainerPhoto" alt="Card image cap" />
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <h5 class="card-title">Информация о клубе:</h5>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                Название: <strong>{{ NameOfClub }}</strong>
-                            </li>
-                            <li class="list-group-item">
-                                Адрес: <strong>{{ AddressOfClub }}</strong>
-                            </li>
-                            <li class="list-group-item">
-                                Владелец:
-                                <strong> {{ NameOfClubOwner }} </strong>
-                            </li>
-                            <li class="list-group-item">
-                                Принадлежность к федерации ушу:
-                                <strong>{{ ClubFederation }}</strong>
-                            </li>
-                            <li class="list-group-item">
-                                Регион: <strong>{{ ClubRegion }}</strong>
-                            </li>
-                            <li class="list-group-item">
-                                Федеральный округ:
-                                <strong
-                                    >{{ ClubFederalRegion }} ({{ ClubAbbrFederalRegion }})</strong
-                                >
-                            </li>
-                            <li class="list-group-item">
-                                Страна: <strong>{{ ClubNameOfCountry }}</strong>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <div v-else>
+                <EditCardSportsman />
             </div>
         </div>
         <div v-else>
-            <EditCardSportsman />
+            <PageNotFound />
         </div>
     </div>
     <confirmationModal
@@ -213,12 +226,14 @@ import { ISportsmanState } from '../store/modules/sportsman/types';
 import confirmationModal from '../components/Modal/confirmationModal.vue';
 import EditCardSportsman from '../components/EditCardSportsman/EditCardSportsman.vue';
 const namespace = 'sportsman';
+import PageNotFound from '../components/NotFound/PageNotFound.vue';
 
 @Options({
     name: 'CardSportsman',
     components: {
         confirmationModal,
         EditCardSportsman,
+        PageNotFound,
     },
     methods: {},
 })
@@ -315,6 +330,7 @@ export default class Sportsman extends Vue {
 
     mounted(): void {
         this.getSportsman(this.$route.params.id);
+        if (this.sportsmanMap.error === true) this.$router.push('/:NotFound(.*)*');
     }
 
     deleteSportsmanMethod(): void {
