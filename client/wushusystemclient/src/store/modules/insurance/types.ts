@@ -1,6 +1,6 @@
 import { IInsurance } from '@/models/sportsman';
 
 export interface IInsuranceState {
-    insurance: IInsurance | undefined;
+    insurance?: IInsurance;
     error: boolean;
 }

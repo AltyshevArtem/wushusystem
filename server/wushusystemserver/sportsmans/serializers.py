@@ -102,14 +102,14 @@ class Proxy_docSerialize(serializers.ModelSerializer):
 
 class SportsmanSerialize(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
-    city = CitySerialize()
-    trainer = TrainerSerialize()
-    insurance = InsuranceSerialize()
-    club = ClubSerialize()
-    passport = PassportSerialize()
-    birth_certificate = Birth_CertificateSerialize()
-    proxy = Proxy_docSerialize()
-    oms = OMSSerialize()
+    city = CitySerialize(required=False)
+    trainer = TrainerSerialize(required=False)
+    insurance = InsuranceSerialize(required=False)
+    club = ClubSerialize(required=False)
+    passport = PassportSerialize(required=False)
+    birth_certificate = Birth_CertificateSerialize(required=False)
+    proxy = Proxy_docSerialize(required=False)
+    oms = OMSSerialize(required=False)
 
     class Meta:
         model = Sportsman

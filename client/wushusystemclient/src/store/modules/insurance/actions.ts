@@ -16,7 +16,8 @@ export const actions: ActionTree<IInsuranceState, null> = {
                 }
             })
             .then((response) => {
-                commit('postInsurance', insurance);
+                const payload: IInsurance = response && response.data;
+                commit('postInsurance', payload);
             })
             .catch((error) => {
                 console.log(error);

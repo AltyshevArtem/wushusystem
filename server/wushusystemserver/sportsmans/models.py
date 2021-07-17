@@ -63,7 +63,8 @@ class Region(models.Model):
 
 class City (models.Model):
     name_of_city = models.TextField(
-        blank=False, 
+        blank=True,
+        primary_key=True, 
         verbose_name="Наименование города"
     )
     name_of_region = models.ForeignKey(
@@ -83,11 +84,11 @@ class City (models.Model):
 
 class Trainer(models.Model):
     name = models.TextField(
-        blank=False, 
+        blank=True, 
         verbose_name="Имя тренера"
     )
     surname = models.TextField(
-        blank=False, 
+        blank=True,  
         verbose_name="Фамилия тренера"
     )
     patronymic = models.TextField(
@@ -320,7 +321,8 @@ class Sportsman(models.Model):
         verbose_name="Фотография спортсмена"
     )
     date_of_birth = models.DateField(
-        blank=False, 
+        blank= True,
+        null = True, 
         verbose_name="Дата рождения"
     )
     address = models.TextField(

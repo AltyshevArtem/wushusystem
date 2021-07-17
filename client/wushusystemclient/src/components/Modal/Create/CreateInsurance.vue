@@ -135,9 +135,14 @@ const namespaceSportsman = 'sportsman';
             };
             this.postInsurance(insurance);
 
-            this.sportsmanMap.sportsman.insurance = insurance;
+            console.log('Sportsman = ', this.sportsmanMap.sportsman);
+            console.log('Insurance map = ', this.insuranceMap);
+            const target_copy = Object.assign({}, this.insuranceMap);
+            console.log('target_copy   = ', target_copy);
+            console.log('Assign of insurance = ', this.insuranceMap.insurance);
+            // this.sportsmanMap.sportsman.insurance = this.insuranceMap.insurance;
 
-            // this.putSportsman(this.sportsmanMap.sportsman);
+            this.putSportsman(this.sportsmanMap.sportsman);
 
             this.$emit('AddInsurance');
         },
@@ -164,7 +169,6 @@ export default class CreateInsurance extends Vue {
     postInsurance: any;
     @Action('putSportsman', { namespace: namespaceSportsman })
     putSportsman: any;
-
 
     // @Action('putInsurance', { namespace: namespaceInsurance })
     // putInsurance: any;
