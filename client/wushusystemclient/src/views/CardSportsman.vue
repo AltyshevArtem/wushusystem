@@ -92,10 +92,51 @@
                             <h5 class="card-title">Документы:</h5>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
+                                    <p>
+                                        Скан паспорта:
+                                        <a :href="PassportScan" class="card-link">Просмотр</a>
+                                    </p>
+                                    <p>
+                                        Серия и номер паспорта:
+                                        <strong>{{ PassportNumber }}</strong>
+                                    </p>
+                                    <p>
+                                        Кем выдан: <strong>{{ PassportIssue }}</strong>
+                                    </p>
+                                    <p>
+                                        Дата выдачи: <strong>{{ PassportDateStart }}</strong>
+                                    </p>
+                                    <p>
+                                        Код подразделения: <strong>{{ PassportCode }}</strong>
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
                                     Справка о регистрации по месту жительства:
                                     <a :href="ConfirmAddress" class="card-link">Просмотр</a>
                                 </li>
                                 <li class="list-group-item">
+                                    Свидетельство о рождении:
+                                    <a :href="BirthCertificateDoc" class="card-link">Просмотр</a>
+                                    Номер: <strong>{{ BirthCertificateNumber }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    <p>
+                                        Заверенная копия паспорта:
+                                        <a :href="ProxyPassport" class="card-link">Просмотр</a>
+                                    </p>
+                                    <p>
+                                        Заверенная копия свидетельства о рождении:
+                                        <a :href="ProxyBirthCert" class="card-link">Просмотр</a>
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p>
+                                        Доверенность:
+                                        <a :href="ProxyScan" class="card-link">Просмотр</a>
+                                        Дата окончания действия доверенности:
+                                        <strong>{{ ProxyDateEnd }}</strong>
+                                    </p>
+
                                     Фотография паспорта:
                                     <a :href="SportsmanPhoto" class="card-link">Просмотр</a>
                                 </li>
@@ -227,7 +268,6 @@ import confirmationModal from '../components/Modal/confirmationModal.vue';
 import EditCardSportsman from '../components/EditCardSportsman/EditCardSportsman.vue';
 import PageNotFound from '../components/NotFound/PageNotFound.vue';
 const namespace = 'sportsman';
-
 @Options({
     name: 'CardSportsman',
     components: {
@@ -243,15 +283,12 @@ export default class Sportsman extends Vue {
     /* STATE */
     @State('sportsman')
     sportsmanMap!: ISportsmanState;
-
     /* ACTION */
     @Action('getSportsman', { namespace })
     getSportsman: any;
     @Action('deleteSportsman', { namespace })
     deleteSportsman: any;
-
     // TODO: Вынести GETTTER-ы, если это возможно
-
     /* GETTER */
     @Getter('FullName', { namespace })
     FullName: string | undefined;
@@ -263,6 +300,24 @@ export default class Sportsman extends Vue {
     DateOfBirth: string | undefined;
     @Getter('Address', { namespace })
     Address: string | undefined;
+    @Getter('PassportNumber', { namespace })
+    PassportNumber: string | undefined;
+    @Getter('PassportDateStart', { namespace })
+    PassportDateStart: string | undefined;
+    @Getter('PassportIssue', { namespace })
+    PassportIssue: string | undefined;
+    @Getter('PassportCode', { namespace })
+    PassportCode: string | undefined;
+    @Getter('PassportScan', { namespace })
+    PassportScan: string | undefined;
+    @Getter('ProxyScan', { namespace })
+    ProxyScan: string | undefined;
+    @Getter('ProxyPassport', { namespace })
+    ProxyPassport: string | undefined;
+    @Getter('ProxyBirthCert', { namespace })
+    ProxyBirthCert: string | undefined;
+    @Getter('ProxyDateEnd', { namespace })
+    ProxyDateEnd: string | undefined;
     @Getter('Rusada', { namespace })
     Rusada: string | undefined;
     @Getter('Rank', { namespace })
@@ -327,12 +382,10 @@ export default class Sportsman extends Vue {
     ClubAbbrFederalRegion: string | undefined;
     @Getter('ClubNameOfCountry', { namespace })
     ClubNameOfCountry: string | undefined;
-
     mounted(): void {
         this.getSportsman(this.$route.params.id);
         // if (this.sportsmanMap.error === true) this.$router.push('/:NotFound(.*)*');
     }
-
     deleteSportsmanMethod(): void {
         this.deleteSportsman(this.$route.params.id);
         this.isConfirmModalVisible = false;
