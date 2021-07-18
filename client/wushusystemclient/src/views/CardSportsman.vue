@@ -92,12 +92,54 @@
                             <h5 class="card-title">Документы:</h5>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
+                                    <p>
+                                        Фотография паспорта:
+                                        <a :href="SportsmanPhoto" class="card-link">Просмотр</a>
+                                    </p>
+                                    <p>
+                                        Скан паспорта:
+                                        <a :href="PassportScan" class="card-link">Просмотр</a>
+                                    </p>
+                                    <p>
+                                        Серия и номер паспорта:
+                                        <strong>{{ PassportNumber }}</strong>
+                                    </p>
+                                    <p>
+                                        Кем выдан: <strong>{{ PassportIssue }}</strong>
+                                    </p>
+                                    <p>
+                                        Дата выдачи: <strong>{{ PassportDateStart }}</strong>
+                                    </p>
+                                    <p>
+                                        Код подразделения: <strong>{{ PassportCode }}</strong>
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
                                     Справка о регистрации по месту жительства:
                                     <a :href="ConfirmAddress" class="card-link">Просмотр</a>
                                 </li>
                                 <li class="list-group-item">
-                                    Фотография паспорта:
-                                    <a :href="SportsmanPhoto" class="card-link">Просмотр</a>
+                                    Сведительство о рождении:
+                                    <a :href="BirthCertificateDoc" class="card-link">Просмотр</a>
+                                    Номер: <strong>{{ BirthCertificateNumber }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    <p>
+                                        Заверенная копия паспорта:
+                                        <a :href="ProxyPassport" class="card-link">Просмотр</a>
+                                    </p>
+                                    <p>
+                                        Заверенная копия свидительства о рождении:
+                                        <a :href="ProxyBirthCert" class="card-link">Просмотр</a>
+                                    </p>
+                                </li>
+                                <li class="list-group-item">
+                                    <p>
+                                        Доверенность:
+                                        <a :href="ProxyScan" class="card-link">Просмотр</a>
+                                        Дата окончания действия доверенности:
+                                        <strong>{{ PassportCode }}</strong>
+                                    </p>
                                 </li>
                                 <li class="list-group-item">
                                     Сертификат РУСАДА:
@@ -126,11 +168,6 @@
                                     <strong>{{ InsuranceDateStart }}</strong>
                                     по
                                     <strong>{{ InsuranceDateEnd }}</strong>
-                                </li>
-                                <li class="list-group-item">
-                                    Сведительство о рождении:
-                                    <a :href="BirthCertificateDoc" class="card-link">Просмотр</a>
-                                    Номер: <strong>{{ BirthCertificateNumber }}</strong>
                                 </li>
                                 <li class="list-group-item">
                                     Полис ОМС:
@@ -218,7 +255,6 @@
         <span> Вы уверены, что собираетесь удалить спортсмена?</span>
     </confirmationModal>
 </template>
-
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
 import { State, Action, Getter } from 'vuex-class';
@@ -263,6 +299,24 @@ export default class Sportsman extends Vue {
     DateOfBirth: string | undefined;
     @Getter('Address', { namespace })
     Address: string | undefined;
+    @Getter('PassportNumber', { namespace })
+    PassportNumber: string | undefined;
+    @Getter('PassportDateStart', { namespace })
+    PassportDateStart: string | undefined;
+    @Getter('PassportIssue', { namespace })
+    PassportIssue: string | undefined;
+    @Getter('PassportCode', { namespace })
+    PassportCode: string | undefined;
+    @Getter('PassportScan', { namespace })
+    PassportScan: string | undefined;
+    @Getter('ProxyScan', { namespace })
+    ProxyScan: string | undefined;
+    @Getter('ProxyPassport', { namespace })
+    ProxyPassport: string | undefined;
+    @Getter('ProxyBirthCert', { namespace })
+    ProxyBirthCert: string | undefined;
+    @Getter('ProxyDateEnd', { namespace })
+    ProxyDateEnd: string | undefined;
     @Getter('Rusada', { namespace })
     Rusada: string | undefined;
     @Getter('Rank', { namespace })
@@ -341,7 +395,6 @@ export default class Sportsman extends Vue {
     }
 }
 </script>
-
 <style>
 .photo {
     padding-top: 50px;
