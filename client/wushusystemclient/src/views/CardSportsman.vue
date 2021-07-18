@@ -92,6 +92,7 @@
                             <h5 class="card-title">Документы:</h5>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
+
                                     <p>
                                         Фотография паспорта:
                                         <a :href="SportsmanPhoto" class="card-link">Просмотр</a>
@@ -119,6 +120,7 @@
                                     <a :href="ConfirmAddress" class="card-link">Просмотр</a>
                                 </li>
                                 <li class="list-group-item">
+
                                     Сведительство о рождении:
                                     <a :href="BirthCertificateDoc" class="card-link">Просмотр</a>
                                     Номер: <strong>{{ BirthCertificateNumber }}</strong>
@@ -140,6 +142,10 @@
                                         Дата окончания действия доверенности:
                                         <strong>{{ PassportCode }}</strong>
                                     </p>
+
+                                    Фотография паспорта:
+                                    <a :href="SportsmanPhoto" class="card-link">Просмотр</a>
+
                                 </li>
                                 <li class="list-group-item">
                                     Сертификат РУСАДА:
@@ -170,6 +176,14 @@
                                     <strong>{{ InsuranceDateEnd }}</strong>
                                 </li>
                                 <li class="list-group-item">
+
+
+                                    Сведительство о рождении:
+                                    <a :href="BirthCertificateDoc" class="card-link">Просмотр</a>
+                                    Номер: <strong>{{ BirthCertificateNumber }}</strong>
+                                </li>
+                                <li class="list-group-item">
+
                                     Полис ОМС:
                                     <a :href="OMSDoc" class="card-link">Просмотр</a>
                                     Номер: <strong>{{ OMSNumber }}</strong>
