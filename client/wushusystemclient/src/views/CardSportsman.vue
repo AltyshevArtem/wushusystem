@@ -134,7 +134,7 @@
                                         Доверенность:
                                         <a :href="ProxyScan" class="card-link">Просмотр</a>
                                         Дата окончания действия доверенности:
-                                        <strong>{{ PassportCode }}</strong>
+                                        <strong>{{ ProxyDateEnd }}</strong>
                                     </p>
 
                                     Фотография паспорта:
