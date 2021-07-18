@@ -18,8 +18,8 @@ const routes: Array<RouteRecordRaw> = [
         name: 'NotFound',
         component: () => import('../components/NotFound/PageNotFound.vue'),
     },
-
 ];
+
 const router = createRouter({
     history: createWebHistory(process.env.BASE_URL),
     routes,
