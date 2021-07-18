@@ -1,6 +1,4 @@
-import store from '@/store';
-import { sportsman } from '@/store/modules/sportsman';
-import { createRouter, createWebHistory, onBeforeRouteUpdate, RouteRecordRaw } from 'vue-router';
+import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 
 const routes: Array<RouteRecordRaw> = [
     {

@@ -225,8 +225,8 @@ import { State, Action, Getter } from 'vuex-class';
 import { ISportsmanState } from '../store/modules/sportsman/types';
 import confirmationModal from '../components/Modal/confirmationModal.vue';
 import EditCardSportsman from '../components/EditCardSportsman/EditCardSportsman.vue';
-const namespace = 'sportsman';
 import PageNotFound from '../components/NotFound/PageNotFound.vue';
+const namespace = 'sportsman';
 
 @Options({
     name: 'CardSportsman',
@@ -330,7 +330,7 @@ export default class Sportsman extends Vue {
 
     mounted(): void {
         this.getSportsman(this.$route.params.id);
-        if (this.sportsmanMap.error === true) this.$router.push('/:NotFound(.*)*');
+        // if (this.sportsmanMap.error === true) this.$router.push('/:NotFound(.*)*');
     }
 
     deleteSportsmanMethod(): void {
