@@ -136,6 +136,9 @@
                                         Дата окончания действия доверенности:
                                         <strong>{{ PassportCode }}</strong>
                                     </p>
+
+                                    Фотография паспорта:
+                                    <a :href="SportsmanPhoto" class="card-link">Просмотр</a>
                                 </li>
                                 <li class="list-group-item">
                                     Сертификат РУСАДА:
@@ -164,6 +167,11 @@
                                     <strong>{{ InsuranceDateStart }}</strong>
                                     по
                                     <strong>{{ InsuranceDateEnd }}</strong>
+                                </li>
+                                <li class="list-group-item">
+                                    Сведительство о рождении:
+                                    <a :href="BirthCertificateDoc" class="card-link">Просмотр</a>
+                                    Номер: <strong>{{ BirthCertificateNumber }}</strong>
                                 </li>
                                 <li class="list-group-item">
                                     Полис ОМС:
