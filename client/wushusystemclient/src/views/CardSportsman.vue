@@ -93,10 +93,6 @@
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <p>
-                                        Фотография паспорта:
-                                        <a :href="SportsmanPhoto" class="card-link">Просмотр</a>
-                                    </p>
-                                    <p>
                                         Скан паспорта:
                                         <a :href="PassportScan" class="card-link">Просмотр</a>
                                     </p>
@@ -119,7 +115,7 @@
                                     <a :href="ConfirmAddress" class="card-link">Просмотр</a>
                                 </li>
                                 <li class="list-group-item">
-                                    Сведительство о рождении:
+                                    Свидетельство о рождении:
                                     <a :href="BirthCertificateDoc" class="card-link">Просмотр</a>
                                     Номер: <strong>{{ BirthCertificateNumber }}</strong>
                                 </li>
@@ -129,7 +125,7 @@
                                         <a :href="ProxyPassport" class="card-link">Просмотр</a>
                                     </p>
                                     <p>
-                                        Заверенная копия свидительства о рождении:
+                                        Заверенная копия свидетельства о рождении:
                                         <a :href="ProxyBirthCert" class="card-link">Просмотр</a>
                                     </p>
                                 </li>
@@ -264,7 +260,6 @@ import confirmationModal from '../components/Modal/confirmationModal.vue';
 import EditCardSportsman from '../components/EditCardSportsman/EditCardSportsman.vue';
 import PageNotFound from '../components/NotFound/PageNotFound.vue';
 const namespace = 'sportsman';
-
 @Options({
     name: 'CardSportsman',
     components: {
@@ -280,15 +275,12 @@ export default class Sportsman extends Vue {
     /* STATE */
     @State('sportsman')
     sportsmanMap!: ISportsmanState;
-
     /* ACTION */
     @Action('getSportsman', { namespace })
     getSportsman: any;
     @Action('deleteSportsman', { namespace })
     deleteSportsman: any;
-
     // TODO: Вынести GETTTER-ы, если это возможно
-
     /* GETTER */
     @Getter('FullName', { namespace })
     FullName: string | undefined;
@@ -382,12 +374,10 @@ export default class Sportsman extends Vue {
     ClubAbbrFederalRegion: string | undefined;
     @Getter('ClubNameOfCountry', { namespace })
     ClubNameOfCountry: string | undefined;
-
     mounted(): void {
         this.getSportsman(this.$route.params.id);
         // if (this.sportsmanMap.error === true) this.$router.push('/:NotFound(.*)*');
     }
-
     deleteSportsmanMethod(): void {
         this.deleteSportsman(this.$route.params.id);
         this.isConfirmModalVisible = false;
