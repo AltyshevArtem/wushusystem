@@ -255,6 +255,7 @@
         <span> Вы уверены, что собираетесь удалить спортсмена?</span>
     </confirmationModal>
 </template>
+
 <script lang="ts">
 import { Vue, Options } from 'vue-class-component';
 import { State, Action, Getter } from 'vuex-class';
@@ -395,6 +396,7 @@ export default class Sportsman extends Vue {
     }
 }
 </script>
+
 <style>
 .photo {
     padding-top: 50px;
