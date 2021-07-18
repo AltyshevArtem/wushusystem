@@ -14,7 +14,6 @@ export const actions: ActionTree<ISportsmanState, null> = {
                 console.log(error);
                 commit('getSportsmanError');
             });
-
     },
     deleteSportsman({ commit }, id:number): any {
         axios
