@@ -11,51 +11,40 @@
                 <div class="modal-body" v-if="mode">
                     <div>
                         <h6>Дата начала страхования</h6>
-                        <Datepicker
-                            v-model="insurance['date_start']"
-                            :locale="locale"
-                            :upperLimit="to"
-                            :lowerLimit="from"
-                        />
+                        <input placeholder="YYYY-MM-DD" v-model="insurance.date_start" required />
                     </div>
                     <div>
                         <h6>Дата окончания страхования</h6>
-                        <Datepicker
-                            v-model="insurance['date_end']"
-                            :locale="locale"
-                            :upperLimit="to"
-                            :lowerLimit="from"
-                        />
+                        <input placeholder="YYYY-MM-DD" v-model="insurance.date_end" required />
                     </div>
                     <div>
                         <h6>Скан фото:</h6>
-                        <a :href="insurance['file_insurance']" class="card-link">Просмотр</a>
-                        <!-- <input
-                            type="file"
-                            id="file_insurance"
-                            ref="insurance['file_insurance']"
-                            v-on:change="InsuranseFileUpload()"
-                        /> -->
+                        <!--TODO: При открытии картинки открывается модалка с большой картинкой -->
+                        <!-- TODO: При повторной загрузке картинки в file_insurance
+                        File object, а не путь к картинке  -->
+                        <div v-if="insurance.file_insurance">
+                            <a :href="insurance.file_insurance" class="card-link">Просмотр</a>
+                            <button @click="insurance.file_insurance = null">Удалить</button>
+                        </div>
+                        <div v-else>
+                            <input
+                                type="file"
+                                id="file"
+                                ref="file"
+                                @change="InsuranseFileUpload()"
+                            />
+                        </div>
                     </div>
                 </div>
                 <div v-else class="modal-body">
                     <div>
                         <h6>Дата начала страхования</h6>
-                        <Datepicker
-                            v-model="DateStart"
-                            :locale="locale"
-                            :upperLimit="to"
-                            :lowerLimit="from"
-                        />
+                        <input placeholder="YYYY-MM-DD" v-model="DateStart" required />
                     </div>
                     <div>
                         <h6>Дата окончания страхования</h6>
-                        <Datepicker
-                            v-model="DateEnd"
-                            :locale="locale"
-                            :upperLimit="to"
-                            :lowerLimit="from"
-                        />
+                        <input placeholder="YYYY-MM-DD" v-model="DateEnd" required />
+                        <!-- <Datepicker v-model="DateEnd" /> -->
                     </div>
                     <div>
                         <h6>Скан фото:</h6>
@@ -89,6 +78,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
@@ -101,17 +91,15 @@ import Datepicker from 'vue3-datepicker';
 
 /* STATE */
 import { IInsuranceState } from '@/store/modules/insurance/types';
-import { ISportsmanState } from '@/store/modules/sportsman/types';
 
 /* MODELS */
 import { IInsurance } from '@/models/sportsman';
 
 /* NAMESPACE */
-const namespaceInsurance = 'insurance';
-const namespaceSportsman = 'sportsman';
+const namespace = 'insurance';
 
 @Options({
-    name: 'CreateInsurance',
+    name: 'InsuranceModal',
     components: {
         Datepicker,
     },
@@ -135,47 +123,39 @@ const namespaceSportsman = 'sportsman';
             };
             this.postInsurance(insurance);
 
-            console.log('Sportsman = ', this.sportsmanMap.sportsman);
-            console.log('Insurance map = ', this.insuranceMap);
-            const target_copy = Object.assign({}, this.insuranceMap);
-            console.log('target_copy   = ', target_copy);
-            console.log('Assign of insurance = ', this.insuranceMap.insurance);
-            // this.sportsmanMap.sportsman.insurance = this.insuranceMap.insurance;
+            //TODO: Прокси объекты
+            // this.sportsmanMap.sportsman.insurance = this.insuranceMap;
+            // this.putSportsman(this.sportsmanMap.sportsman);
 
-            this.putSportsman(this.sportsmanMap.sportsman);
-
-            this.$emit('AddInsurance');
+            this.closeModal();
         },
         SaveInsurance() {
-            this.$emit('saveInsurance');
+            this.putInsurance(this.insurance);
+
+            this.closeModal();
         },
         InsuranseFileUpload() {
-            this.File = this.$refs.file.files[0];
+            if (this.mode) {
+                this.insurance.file_insurance = this.$refs.file.files[0];
+            } else {
+                this.File = this.$refs.file.files[0];
+            }
         },
     },
 })
-export default class CreateInsurance extends Vue {
+export default class InsuranceModal extends Vue {
     @Prop({ default: undefined }) insurance!: IInsurance;
     @Prop({ default: true }) mode!: boolean;
 
     /* STATE */
     @State('insurance')
     insuranceMap!: IInsuranceState;
-    @State('sportsman')
-    sportsmanMap!: ISportsmanState;
 
     /* ACTION */
-    @Action('postInsurance', { namespace: namespaceInsurance })
+    @Action('postInsurance', { namespace })
     postInsurance: any;
-    @Action('putSportsman', { namespace: namespaceSportsman })
-    putSportsman: any;
-
-    // @Action('putInsurance', { namespace: namespaceInsurance })
-    // putInsurance: any;
-    // @Action('deleteInsurance', { namespace: namespaceInsurance })
-    // deleteInsurance: any;
-    // @Action('getInsurance', { namespace: namespaceInsurance })
-    // getInsurance: any;
+    @Action('putInsurance', { namespace })
+    putInsurance: any;
 }
 </script>
 

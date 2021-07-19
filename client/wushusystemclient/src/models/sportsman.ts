@@ -15,32 +15,32 @@ export interface IInsurance {
 export interface IPassport {
     id: number;
     number: number;
-    scan?: string;
+    scan: string;
     date_start?: Date;
     issue?: string;
     code?: number;
 }
 
-export interface IBirthCeritifcate {
+export interface IBirthCertificate {
     id: number;
     number: number;
-    scan?: string;
+    scan: string;
 }
 
 export interface IProxyDoc {
     id: number;
-    scan?: string;
-    original_passport?: IPassport;
-    original_birth_certificate?: IBirthCeritifcate;
+    scan: string;
+    original_passport: IPassport;
+    original_birth_certificate: IBirthCertificate;
     date_end: Date;
 }
 
 //TODO: Поля number и scan повторяются во многих интерфейсах
 //Можно сделать отдельно интерфейс IDocument например
-interface IOms{
+export interface IOms{
     id: number;
     number: number;
-    scan?: string;
+    scan: string;
 }
 
 export interface ISportsman {
@@ -54,7 +54,7 @@ export interface ISportsman {
     confirm_address?: string;
     gender: IGender;
     passport?: IPassport;
-    birth_certificate?: IBirthCeritifcate;
+    birth_certificate?: IBirthCertificate;
     proxy?: IProxyDoc;
     oms?: IOms;
     city?: ICity;

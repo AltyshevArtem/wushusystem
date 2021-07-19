@@ -12,7 +12,7 @@ export const actions: ActionTree<IInsuranceState, null> = {
         axios
             .post('/api/insurance/', data, {
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'multipart/form-data; boundary=----something'
                 }
             })
             .then((response) => {
@@ -25,10 +25,21 @@ export const actions: ActionTree<IInsuranceState, null> = {
             });
     },
     putInsurance({ commit }, insurance: IInsurance): any {
+        const data = new FormData();
+        data.append('date_start', String(insurance.date_start));
+        data.append('date_end', String(insurance.date_end));
+        if(insurance.file_insurance['name']!==undefined) {
+            data.append('file_insurance', insurance.file_insurance);
+        }
         axios
-            .put(`/api/insurance/${insurance.id}`, insurance)
+            .put(`/api/insurance/${insurance.id}/`, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data; boundary=----something'
+                }
+            })
             .then((response) => {
-                commit('putInsurance', insurance);
+                const payload: IInsurance = response && response.data;
+                commit('putInsurance', payload);
             })
             .catch((error) => {
                 console.log(error);

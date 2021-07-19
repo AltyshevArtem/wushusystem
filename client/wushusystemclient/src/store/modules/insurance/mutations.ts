@@ -16,6 +16,7 @@ export const mutations: MutationTree<IInsuranceState> = {
         state.error = false;
     },
     putInsuranceError(state) {
+        state.insurance = undefined;
         state.error = true;
     },
     deleteInsurance(state) {

@@ -12,12 +12,7 @@
         <li>Тренер: <input v-model="Trainer" /></li>
         <li>
             Дата рождения:
-            <Datepicker
-                v-model="SelectedDate"
-                :locale="locale"
-                :upperLimit="to"
-                :lowerLimit="from"
-            />
+            <Datepicker v-model="SelectedDate" />
         </li>
         <li>Разряд: <SelectRank mode="single" /></li>
         <!-- Селектор для ФО -->
@@ -61,7 +56,7 @@
             />
         </li>
         <li>
-            <template v-if="!sportsmanMap.sportsman.insurance">
+            <template v-if="!insuranceMap.insurance">
                 Страховой полис:
                 <button
                     @click="
@@ -87,13 +82,152 @@
                     Редактировать страховой полис
                 </button>
             </template>
-            {{ sportsmanMap.sportsman.insurance }}
-            <CreateInsurance
+            {{ insuranceMap.insurance }}
+            <InsuranceModal
                 v-if="isModalInsurance"
                 :mode="isEdit"
-                :insurance="sportsmanMap.sportsman.insurance"
+                :insurance="insuranceMap.insurance"
                 @closeModal="isModalInsurance = false"
-                @AddInsurance="isModalInsurance = false"
+            />
+        </li>
+        <li>
+            <template v-if="!birthCertificateMap.birthCertificate">
+                Свидетельство о рождении:
+                <button
+                    @click="
+                        {
+                            isModalBirthCertificate = true;
+                            isEdit = false;
+                        }
+                    "
+                >
+                    Добавить новое свидетельство о рождении
+                </button>
+            </template>
+            <template v-else>
+                Свидетельство о рождении:
+                <button
+                    @click="
+                        {
+                            isModalBirthCertificate = true;
+                            isEdit = true;
+                        }
+                    "
+                >
+                    Редактировать свидетельство о рождении
+                </button>
+            </template>
+            {{ birthCertificateMap.birthCertificate }}
+            <BirthCertificateModal
+                v-if="isModalBirthCertificate"
+                :mode="isEdit"
+                :birthCertificate="birthCertificateMap.birthCertificate"
+                @closeModal="isModalBirthCertificate = false"
+            />
+        </li>
+        <li>
+            <template v-if="!omsMap.oms">
+                Полис ОМС:
+                <button
+                    @click="
+                        {
+                            isModalOms = true;
+                            isEdit = false;
+                        }
+                    "
+                >
+                    Добавить новый полис ОМС
+                </button>
+            </template>
+            <template v-else>
+                Полис ОМС:
+                <button
+                    @click="
+                        {
+                            isModalOms = true;
+                            isEdit = true;
+                        }
+                    "
+                >
+                    Редактировать полис ОМС
+                </button>
+            </template>
+            {{ omsMap.oms }}
+            <OmsModal
+                v-if="isModalOms"
+                :mode="isEdit"
+                :oms="omsMap.oms"
+                @closeModal="isModalOms = false"
+            />
+        </li>
+        <li>
+            <template v-if="!passportMap.passport">
+                Паспорт:
+                <button
+                    @click="
+                        {
+                            isModalPassport = true;
+                            isEdit = false;
+                        }
+                    "
+                >
+                    Добавить новый паспорт
+                </button>
+            </template>
+            <template v-else>
+                Паспорт:
+                <button
+                    @click="
+                        {
+                            isModalPassport = true;
+                            isEdit = true;
+                        }
+                    "
+                >
+                    Редактировать паспорт
+                </button>
+            </template>
+            {{ passportMap.passport }}
+            <PassportModal
+                v-if="isModalPassport"
+                :mode="isEdit"
+                :passport="passportMap.passport"
+                @closeModal="isModalPassport = false"
+            />
+        </li>
+        <li>
+            <template v-if="!proxyMap.proxy">
+                Паспорт:
+                <button
+                    @click="
+                        {
+                            isModalProxy = true;
+                            isEdit = false;
+                        }
+                    "
+                >
+                    Добавить новый паспорт
+                </button>
+            </template>
+            <template v-else>
+                Паспорт:
+                <button
+                    @click="
+                        {
+                            isModalProxy = true;
+                            isEdit = true;
+                        }
+                    "
+                >
+                    Редактировать паспорт
+                </button>
+            </template>
+            {{ proxyMap.proxy }}
+            <ProxyModal
+                v-if="isModalProxy"
+                :mode="isEdit"
+                :passport="proxyMap.proxy"
+                @closeModal="isModalProxy = false"
             />
         </li>
         <!-- А также поля
@@ -118,12 +252,21 @@ import { State, Action, Getter } from 'vuex-class';
 
 /* STATE */
 import { ISportsmanState } from '@/store/modules/sportsman/types';
+import { IInsuranceState } from '@/store/modules/insurance/types';
+import { IBirthCertificateState } from '@/store/modules/birth_certificate/types';
+import { IOmsState } from '@/store/modules/oms/types';
+import { IPassportState } from '@/store/modules/passport/types';
+import { IProxyDocState } from '@/store/modules/proxy/types';
 
 /* COMPONENTS */
 import Datepicker from 'vue3-datepicker';
 import SelectGender from '../Select/SelectGender.vue';
 import SelectRank from '../Select/SelectRank.vue';
-import CreateInsurance from '../Modal/Create/CreateInsurance.vue';
+import InsuranceModal from '../Modal/Documents/InsuranceModal.vue';
+import BirthCertificateModal from '../Modal/Documents/BirthCertificateModal.vue';
+import OmsModal from '../Modal/Documents/OmsModal.vue';
+import PassportModal from '../Modal/Documents/PassportModal.vue';
+import ProxyModal from '../Modal/Documents/ProxyModal.vue';
 
 /* NAMESPACE */
 const namespace = 'sportsman';
@@ -161,17 +304,35 @@ const namespace = 'sportsman';
         SelectGender,
         SelectRank,
         Datepicker,
-        CreateInsurance,
+        InsuranceModal,
+        BirthCertificateModal,
+        OmsModal,
+        PassportModal,
+        ProxyModal,
     },
 })
 export default class EditCardSportsman extends Vue {
     /* MODAL */
     isEdit = false;
     isModalInsurance = false;
+    isModalBirthCertificate = false;
+    isModalOms = false;
+    isModalPassport = false;
+    isModalProxy = false;
 
     /* STATE */
     @State('sportsman')
     sportsmanMap!: ISportsmanState;
+    @State('insurance')
+    insuranceMap!: IInsuranceState;
+    @State('birth_certificate')
+    birthCertificateMap!: IBirthCertificateState;
+    @State('oms')
+    omsMap!: IOmsState;
+    @State('passport')
+    passportMap!: IPassportState;
+    @State('proxy')
+    proxyMap!: IProxyDocState;
 
     /* ACTION */
     @Action('getSportsman', { namespace })
