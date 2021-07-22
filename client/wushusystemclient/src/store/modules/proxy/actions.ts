@@ -9,20 +9,9 @@ export const actions: ActionTree<IProxyDocState, null> = {
         data.append('scan', proxy.scan);
         data.append('date_end', String(proxy.date_end));
         /* PASSPORT */
-        data.append(`original_passport['number']`, String(proxy['original_passport'].number));
-        data.append(`original_passport['scan']`, proxy['original_passport'].scan);
-        data.append(
-            `original_passport['date_start']`,
-            String(proxy['original_passport'].date_start),
-        );
-        data.append(`original_passport['issue']`, String(proxy['original_passport'].issue));
-        data.append(`original_passport['code']`, String(proxy['original_passport'].code));
+        data.append('original_passport', proxy.original_passport);
         /* BIRTH_CERTIFICATE */
-        data.append(
-            `original_birth_certificate['number']`,
-            String(proxy['original_birth_certificate'].number),
-        );
-        data.append(`original_birth_certificate['scan']`, proxy['original_birth_certificate'].scan);
+        data.append('original_birth_certificate', proxy.original_birth_certificate);
         axios
             .post('/api/passport/', data, {
                 headers: {
@@ -41,6 +30,7 @@ export const actions: ActionTree<IProxyDocState, null> = {
     putProxy({ commit }, proxy: IProxyDoc): any {
         const data = new FormData();
         data.append('date_end', String(proxy.date_end));
+        //TODO: Сделать 3 условия(т.к. 3 скана будет)
         if (proxy.scan['name'] !== undefined) {
             data.append('scan', proxy.scan);
         }

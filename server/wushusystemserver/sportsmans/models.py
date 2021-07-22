@@ -286,6 +286,7 @@ class Proxy_doc(models.Model):
         blank = True,
         verbose_name="Скан доверенности"
     )
+    #TODO: Сделать upload_to в original_passport, original_birth_certificate
     original_passport = models.ForeignKey(
         Passport, 
         blank = True,

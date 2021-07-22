@@ -226,7 +226,7 @@
             <ProxyModal
                 v-if="isModalProxy"
                 :mode="isEdit"
-                :passport="proxyMap.proxy"
+                :proxy="proxyMap.proxy"
                 @closeModal="isModalProxy = false"
             />
         </li>

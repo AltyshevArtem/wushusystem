@@ -28,6 +28,7 @@ export const actions: ActionTree<IPassportState, null> = {
     },
     putPassport({ commit }, passport: IPassport): any {
         const data = new FormData();
+        // TODO: Добавить все оставшиеся поля из IPassport
         data.append('number', String(passport.number));
         if (passport.scan['name'] !== undefined) {
             data.append('scan', passport.scan);
