@@ -11,8 +11,8 @@ export const actions: ActionTree<IOmsState, null> = {
         axios
             .post('/api/oms/', data, {
                 headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something'
-                }
+                    'Content-Type': 'multipart/form-data; boundary=----something',
+                },
             })
             .then((response) => {
                 const payload: IOms = response && response.data;
@@ -26,14 +26,14 @@ export const actions: ActionTree<IOmsState, null> = {
     putOMS({ commit }, oms: IOms): any {
         const data = new FormData();
         data.append('number', String(oms.number));
-        if(oms.scan['name']!==undefined) {
+        if (oms.scan['name'] !== undefined) {
             data.append('scan', oms.scan);
         }
         axios
             .put(`/api/oms/${oms.id}/`, data, {
                 headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something'
-                }
+                    'Content-Type': 'multipart/form-data; boundary=----something',
+                },
             })
             .then((response) => {
                 const payload: IOms = response && response.data;
@@ -66,5 +66,5 @@ export const actions: ActionTree<IOmsState, null> = {
                 console.log(error);
                 commit('getOMSError');
             });
-    }
+    },
 };

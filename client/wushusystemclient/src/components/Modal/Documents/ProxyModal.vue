@@ -3,7 +3,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Паспорт</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Прокси</h5>
                     <button type="button" class="close close_btn" @click="closeModal">
                         <img src="../../../assets/x.svg" alt="close" />
                     </button>
@@ -43,7 +43,7 @@
                 <div v-else class="modal-body">
                     <div>
                         <h6>Дата окончания доверенности</h6>
-                        <input v-model="DateEnd" required />
+                        <input placeholder="YYYY-MM-DD" v-model="DateEnd" required />
                     </div>
                     <div>
                         <h6>Оригинал паспорта</h6>
@@ -108,13 +108,13 @@
     <PassportModal
         v-if="isModalPassport"
         :mode="isEdit"
-        :passport="proxyMap.proxy.original_passport"
+        :passport="proxyMap.proxy['original_passport']"
         @closeModal="isModalPassport = false"
     />
     <BirthCertificateModal
         v-if="isModalBirthCertificate"
         :mode="isEdit"
-        :birthCertificate="proxyMap.proxy.original_birth_certificate"
+        :birthCertificate="proxyMap.proxy['original_birth_certificate']"
         @closeModal="isModalBirthCertificate = false"
     />
     <div class="modal-backdrop fade show"></div>
@@ -205,6 +205,9 @@ export default class proxyModal extends Vue {
 <style scoped>
 .modal {
     display: block;
+}
+.modal-dialog {
+    max-width: 700px;
 }
 .close_btn {
     border: 0;

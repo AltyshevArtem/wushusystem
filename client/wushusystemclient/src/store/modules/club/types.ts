@@ -1,4 +1,4 @@
-import { IClub } from "@/models/club";
+import { IClub } from '@/models/club';
 
 export interface IClubState {
     clubs: Array<IClub>;

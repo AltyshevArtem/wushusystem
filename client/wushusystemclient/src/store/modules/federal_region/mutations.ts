@@ -1,6 +1,6 @@
 import { MutationTree } from 'vuex';
 import { IFederalRegionState } from './types';
-import { IFederalRegion } from "@/models/city";
+import { IFederalRegion } from '@/models/city';
 
 export const mutations: MutationTree<IFederalRegionState> = {
     getFederalRegion(state, payload: Array<IFederalRegion>) {

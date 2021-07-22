@@ -1,6 +1,6 @@
 import { MutationTree } from 'vuex';
 import { IClubState } from './types';
-import { IClub } from "@/models/club";
+import { IClub } from '@/models/club';
 
 export const mutations: MutationTree<IClubState> = {
     getClub(state, payload: Array<IClub>) {

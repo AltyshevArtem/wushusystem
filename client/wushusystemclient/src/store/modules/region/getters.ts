@@ -7,7 +7,7 @@ export const getters: GetterTree<IRegionState, null> = {
         const arr: Array<string> = [];
         region_list.forEach((region) => {
             arr.push(region.name_of_region);
-        })
+        });
         return arr;
     },
 };

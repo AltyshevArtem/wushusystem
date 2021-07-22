@@ -19,7 +19,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
                 commit('getSportsmanError');
             });
     },
-    deleteSportsman({ commit }, id:number): any {
+    deleteSportsman({ commit }, id: number): any {
         axios
             .delete(`/api/sportsmans/${id}`)
             .then((response) => {
@@ -30,7 +30,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
                 commit('deleteSportsmanError');
             });
     },
-    putSportsman({ commit }, sportsman:ISportsman): any {
+    putSportsman({ commit }, sportsman: ISportsman): any {
         axios
             .patch(`/api/sportsmans/${sportsman.id}/`, sportsman, {
                 // name: sportsman.name,
@@ -59,7 +59,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
                 // school_doc: sportsman.school_doc,
                 // duan_czi: sportsman.duan_czi,
                 headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxk'
+                    'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxk',
                 },
             })
             .then((response) => {
@@ -69,5 +69,5 @@ export const actions: ActionTree<ISportsmanState, null> = {
                 console.log(error);
                 commit('putSportsmanError');
             });
-    }
+    },
 };

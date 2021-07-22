@@ -31,5 +31,6 @@ export default createStore({
         birth_certificate,
         oms,
         passport,
+        proxy,
     },
 });

@@ -4,12 +4,12 @@ import { ISportsmanState } from './types';
 export const getters: GetterTree<ISportsmanState, null> = {
     Name(state): string {
         const { sportsman } = state;
-        const name = (sportsman && sportsman.name) || ''
+        const name = (sportsman && sportsman.name) || '';
         return `${name}`;
     },
     Surname(state): string {
         const { sportsman } = state;
-        const surname = (sportsman && sportsman.surname) || ''
+        const surname = (sportsman && sportsman.surname) || '';
         return `${surname}`;
     },
     Patronymic(state): string {

@@ -11,8 +11,8 @@ export const actions: ActionTree<IBirthCertificateState, null> = {
         axios
             .post('/api/birth_certificate/', data, {
                 headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something'
-                }
+                    'Content-Type': 'multipart/form-data; boundary=----something',
+                },
             })
             .then((response) => {
                 const payload: IBirthCertificate = response && response.data;
@@ -26,14 +26,14 @@ export const actions: ActionTree<IBirthCertificateState, null> = {
     putBirthCertificate({ commit }, birthCertificate: IBirthCertificate): any {
         const data = new FormData();
         data.append('number', String(birthCertificate.number));
-        if(birthCertificate.scan['name']!==undefined) {
+        if (birthCertificate.scan['name'] !== undefined) {
             data.append('scan', birthCertificate.scan);
         }
         axios
             .put(`/api/birth_certificate/${birthCertificate.id}/`, data, {
                 headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something'
-                }
+                    'Content-Type': 'multipart/form-data; boundary=----something',
+                },
             })
             .then((response) => {
                 const payload: IBirthCertificate = response && response.data;
@@ -66,5 +66,5 @@ export const actions: ActionTree<IBirthCertificateState, null> = {
                 console.log(error);
                 commit('getBirthCertificateError');
             });
-    }
+    },
 };

@@ -197,7 +197,7 @@
         </li>
         <li>
             <template v-if="!proxyMap.proxy">
-                Паспорт:
+                Прокси:
                 <button
                     @click="
                         {
@@ -206,11 +206,11 @@
                         }
                     "
                 >
-                    Добавить новый паспорт
+                    Добавить новый прокси
                 </button>
             </template>
             <template v-else>
-                Паспорт:
+                Прокси:
                 <button
                     @click="
                         {
@@ -219,7 +219,7 @@
                         }
                     "
                 >
-                    Редактировать паспорт
+                    Редактировать прокси
                 </button>
             </template>
             {{ proxyMap.proxy }}

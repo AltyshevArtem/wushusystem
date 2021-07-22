@@ -1,4 +1,4 @@
-import { IRegion } from "@/models/city";
+import { IRegion } from '@/models/city';
 
 export interface IRegionState {
     region_list: Array<IRegion>;

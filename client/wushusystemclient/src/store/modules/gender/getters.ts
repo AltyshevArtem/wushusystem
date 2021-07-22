@@ -7,7 +7,7 @@ export const getters: GetterTree<IGenderState, null> = {
         const arr: Array<string> = [];
         genders.forEach((duan_czi) => {
             arr.push(duan_czi.name_of_gender);
-        })
+        });
         return arr;
     },
 };

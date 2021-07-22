@@ -1,6 +1,6 @@
 import { MutationTree } from 'vuex';
 import { IGenderState } from './types';
-import { IGender } from "@/models/gender";
+import { IGender } from '@/models/gender';
 
 export const mutations: MutationTree<IGenderState> = {
     getGender(state, payload: Array<IGender>) {

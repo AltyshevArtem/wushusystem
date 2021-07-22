@@ -7,7 +7,7 @@ export const getters: GetterTree<ITrainerState, null> = {
         const { trainers } = state;
         const arr: Array<string> = [];
         trainers.forEach((trainer) => {
-            arr.push(`${trainer.surname} ${trainer.name} ${trainer.patronymic}`)
+            arr.push(`${trainer.surname} ${trainer.name} ${trainer.patronymic}`);
         });
         return arr;
     },

@@ -37,7 +37,7 @@ export interface IProxyDoc {
 
 //TODO: Поля number и scan повторяются во многих интерфейсах
 //Можно сделать отдельно интерфейс IDocument например
-export interface IOms{
+export interface IOms {
     id: number;
     number: number;
     scan: string;
@@ -66,7 +66,7 @@ export interface ISportsman {
     covid_test?: string;
     covid_contact?: string;
     parent_doc?: string;
-    school_doc?: string
+    school_doc?: string;
     duan_czi?: IDuanCzi;
 
     // TODO: хз откуда это

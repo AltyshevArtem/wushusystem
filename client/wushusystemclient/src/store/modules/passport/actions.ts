@@ -14,8 +14,8 @@ export const actions: ActionTree<IPassportState, null> = {
         axios
             .post('/api/passport/', data, {
                 headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something'
-                }
+                    'Content-Type': 'multipart/form-data; boundary=----something',
+                },
             })
             .then((response) => {
                 const payload: IPassport = response && response.data;
@@ -29,14 +29,14 @@ export const actions: ActionTree<IPassportState, null> = {
     putPassport({ commit }, passport: IPassport): any {
         const data = new FormData();
         data.append('number', String(passport.number));
-        if(passport.scan['name']!==undefined) {
+        if (passport.scan['name'] !== undefined) {
             data.append('scan', passport.scan);
         }
         axios
             .put(`/api/passport/${passport.id}/`, data, {
                 headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something'
-                }
+                    'Content-Type': 'multipart/form-data; boundary=----something',
+                },
             })
             .then((response) => {
                 const payload: IPassport = response && response.data;
@@ -69,5 +69,5 @@ export const actions: ActionTree<IPassportState, null> = {
                 console.log(error);
                 commit('getPassportError');
             });
-    }
+    },
 };
