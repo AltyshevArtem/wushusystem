@@ -30,8 +30,8 @@ export interface IBirthCertificate {
 export interface IProxyDoc {
     id: number;
     scan: string;
-    original_passport: IPassport;
-    original_birth_certificate: IBirthCertificate;
+    original_passport: string;
+    original_birth_certificate: string;
     date_end: Date;
 }
 

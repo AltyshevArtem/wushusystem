@@ -286,17 +286,14 @@ class Proxy_doc(models.Model):
         blank = True,
         verbose_name="Скан доверенности"
     )
-    #TODO: Сделать upload_to в original_passport, original_birth_certificate
-    original_passport = models.ForeignKey(
-        Passport, 
+    original_passport = models.FileField(
+        upload_to="original_passport/",
         blank = True,
-        on_delete=models.CASCADE, 
         verbose_name="Оригинал паспорта"
     )
-    original_birth_certificate = models.ForeignKey(
-        Birth_Certificate, 
+    original_birth_certificate = models.FileField(
+        upload_to="original_birth_certificate/",
         blank = True,
-        on_delete=models.CASCADE, 
         verbose_name="Оригинал свидетельства о рождении"
     )
     date_end = models.DateField(
