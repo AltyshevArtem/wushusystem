@@ -8,10 +8,23 @@ export const actions: ActionTree<IProxyDocState, null> = {
         const data = new FormData();
         data.append('scan', proxy.scan);
         data.append('date_end', String(proxy.date_end));
+        //TODO: В этом коммите https://github.com/AltyshevArtem/wushusystem/commit/f3bb40d36ea0e429a53f9b856cc512df15bbe21b
+        // Дима убрал поля, но перестало компилиться, я быстро не смог разобраться что тут надо, и вернул обратно
         /* PASSPORT */
-        data.append('original_passport', proxy.original_passport);
+        data.append(`original_passport['number']`, String(proxy['original_passport'].number));
+        data.append(`original_passport['scan']`, proxy['original_passport'].scan);
+        data.append(
+            `original_passport['date_start']`,
+            String(proxy['original_passport'].date_start),
+        );
+        data.append(`original_passport['issue']`, String(proxy['original_passport'].issue));
+        data.append(`original_passport['code']`, String(proxy['original_passport'].code));
         /* BIRTH_CERTIFICATE */
-        data.append('original_birth_certificate', proxy.original_birth_certificate);
+        data.append(
+            `original_birth_certificate['number']`,
+            String(proxy['original_birth_certificate'].number),
+        );
+        data.append(`original_birth_certificate['scan']`, proxy['original_birth_certificate'].scan);
         axios
             .post('/api/passport/', data, {
                 headers: {
