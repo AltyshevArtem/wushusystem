@@ -1,3 +1,4 @@
+<!-- Перенести из папки views в компоненты всё-->
 <template>
     <div>
         <!-- TODO: Для полей без фоток прописать условие, а то ссылки есть, а фоток нет -->
@@ -59,34 +60,33 @@
                 </div>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <!-- <h5 class="card-title">Информация о регионе:</h5> -->
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
-                                Город: <strong>{{ NameOfCity }}</strong>
+                                Федеральный округ: <strong>{{ NameOfFederalRegion }}</strong>
                             </li>
                             <li class="list-group-item">
                                 Край/Республика: <strong>{{ NameOfRegion }}</strong>
                             </li>
                             <li class="list-group-item">
-                                Федеральный округ: <strong>{{ NameOfFederalRegion }}</strong>
+                                Город: <strong>{{ NameOfCity }}</strong>
                             </li>
                             <li class="list-group-item">
                                 Адрес прописки: <strong>{{ Address }}</strong>
                             </li>
-                            <li class="list-group-item">
-                                Справка о регистрации по месту жительства:
-                                <a :href="ConfirmAddress" class="card-link">Просмотр</a>
-                            </li>
+
                         </ul>
                     </div>
                 </div>
                 <div class="card mb-3">
                     <div class="card-body">
-                        <!-- <h5 class="card-title">Документы:</h5> -->
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 Фотография паспорта:
                                 <a :href="SportsmanPhoto" class="card-link">Просмотр</a>
+                            </li>
+                            <li class="list-group-item">
+                                Справка о регистрации по месту жительства:
+                                <a :href="ConfirmAddress" class="card-link">Просмотр</a>
                             </li>
                             <li class="list-group-item">
                                 РУСАДА:
