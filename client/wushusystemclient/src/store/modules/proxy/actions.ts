@@ -8,8 +8,10 @@ export const actions: ActionTree<IProxyDocState, null> = {
         const data = new FormData();
         data.append('scan', proxy.scan);
         data.append('date_end', String(proxy.date_end));
-        //TODO: В этом коммите https://github.com/AltyshevArtem/wushusystem/commit/f3bb40d36ea0e429a53f9b856cc512df15bbe21b
-        // Дима убрал поля, но перестало компилиться, я быстро не смог разобраться что тут надо, и вернул обратно
+        //TODO: В этом коммите
+//https://github.com/AltyshevArtem/wushusystem/commit/f3bb40d36ea0e429a53f9b856cc512df15bbe21b
+        //Дима убрал поля, но перестало компилиться,
+        //я быстро не смог разобраться что тут надо, и вернул обратно
         /* PASSPORT */
         data.append(`original_passport['number']`, String(proxy['original_passport'].number));
         data.append(`original_passport['scan']`, proxy['original_passport'].scan);
