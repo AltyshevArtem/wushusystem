@@ -13,7 +13,7 @@ export const actions: ActionTree<IProxyDocState, null> = {
         /* BIRTH_CERTIFICATE */
         data.append('original_birth_certificate', proxy.original_birth_certificate);
         axios
-            .post('/api/passport/', data, {
+            .post('/api/proxy/', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data; boundary=----something',
                 },
@@ -30,12 +30,17 @@ export const actions: ActionTree<IProxyDocState, null> = {
     putProxy({ commit }, proxy: IProxyDoc): any {
         const data = new FormData();
         data.append('date_end', String(proxy.date_end));
-        //TODO: Сделать 3 условия(т.к. 3 скана будет)
         if (proxy.scan['name'] !== undefined) {
             data.append('scan', proxy.scan);
         }
+        if (proxy.original_passport['name'] !== undefined) {
+            data.append('original_passport', proxy.original_passport);
+        }
+        if (proxy.original_birth_certificate['name'] !== undefined) {
+            data.append('original_birth_certificate', proxy.original_birth_certificate);
+        }
         axios
-            .put(`/api/passport/${proxy.id}/`, data, {
+            .put(`/api/proxy/${proxy.id}/`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data; boundary=----something',
                 },
@@ -51,7 +56,7 @@ export const actions: ActionTree<IProxyDocState, null> = {
     },
     deleteProxy({ commit }, id: number): any {
         axios
-            .delete(`/api/passport/${id}`)
+            .delete(`/api/proxy/${id}`)
             .then((response) => {
                 commit('deleteProxy');
             })
@@ -62,7 +67,7 @@ export const actions: ActionTree<IProxyDocState, null> = {
     },
     getProxy({ commit }, id: number): any {
         axios
-            .get(`/api/passport/${id}`)
+            .get(`/api/proxy/${id}`)
             .then((response) => {
                 const payload: IProxyDoc = response && response.data;
                 commit('getProxy', payload);

@@ -14,20 +14,38 @@
                         <input placeholder="YYYY-MM-DD" v-model="proxy.date_end" required />
                     </div>
                     <div>
-                        <h6>Оригинал паспорта</h6>
-                        <button
-                            @click="
-                                {
-                                    isModalPassport = true;
-                                    isEdit = true;
-                                }
-                            "
-                        >
-                            Редактировать паспорт
-                        </button>
+                        <h6>Скан оригинального паспорта:</h6>
+                        <div v-if="proxy.original_passport">
+                            <a :href="proxy.original_passport" class="card-link">Просмотр</a>
+                            <button @click="proxy.original_passport = null">Удалить</button>
+                        </div>
+                        <div v-else>
+                            <input
+                                type="file"
+                                id="passport"
+                                ref="passport"
+                                @change="proxyPassportUpload()"
+                            />
+                        </div>
                     </div>
                     <div>
-                        <h6>Оригинал свидетельство о рождении</h6>
+                        <h6>Скан оригинального свидетельства о рождении:</h6>
+                        <div v-if="proxy.original_birth_certificate">
+                            <a :href="proxy.original_birth_certificate" class="card-link">
+                                Просмотр
+                            </a>
+                            <button @click="proxy.original_birth_certificate = null">
+                                Удалить
+                            </button>
+                        </div>
+                        <div v-else>
+                            <input
+                                type="file"
+                                id="birth"
+                                ref="birth"
+                                @change="proxyBirthUpload()"
+                            />
+                        </div>
                     </div>
                     <div>
                         <h6>Скан фото:</h6>
@@ -46,30 +64,24 @@
                         <input placeholder="YYYY-MM-DD" v-model="DateEnd" required />
                     </div>
                     <div>
-                        <h6>Оригинал паспорта</h6>
-                        <button
-                            @click="
-                                {
-                                    isModalPassport = true;
-                                    isEdit = false;
-                                }
-                            "
-                        >
-                            Добавить новый паспорт
-                        </button>
+                        <h6>Скан оригинального паспорта:</h6>
+                        <input
+                            type="file"
+                            id="passport"
+                            ref="passport"
+                            @change="proxyPassportUpload()"
+                            required
+                        />
                     </div>
                     <div>
-                        <h6>Оригинал свидетельство о рождении</h6>
-                        <button
-                            @click="
-                                {
-                                    isModalBirthCertificate = true;
-                                    isEdit = false;
-                                }
-                            "
-                        >
-                            Добавить новое свидетельство о рождении
-                        </button>
+                        <h6>Скан оригинального свидетельства о рождении:</h6>
+                        <input
+                            type="file"
+                            id="birth"
+                            ref="birth"
+                            @change="proxyBirthUpload()"
+                            required
+                        />
                     </div>
                     <div>
                         <h6>Скан фото:</h6>
@@ -105,18 +117,6 @@
             </div>
         </div>
     </div>
-    <PassportModal
-        v-if="isModalPassport"
-        :mode="isEdit"
-        :passport="proxyMap.proxy['original_passport']"
-        @closeModal="isModalPassport = false"
-    />
-    <BirthCertificateModal
-        v-if="isModalBirthCertificate"
-        :mode="isEdit"
-        :birthCertificate="proxyMap.proxy['original_birth_certificate']"
-        @closeModal="isModalBirthCertificate = false"
-    />
     <div class="modal-backdrop fade show"></div>
 </template>
 
@@ -148,6 +148,8 @@ const namespace = 'proxy';
     data() {
         return {
             DateEnd: '',
+            PassportFile: '',
+            BirthFile: '',
             File: '',
         };
     },
@@ -159,9 +161,9 @@ const namespace = 'proxy';
             const proxy = {
                 number: this.number,
                 scan: this.File,
-                date_start: this.DateStart,
-                issue: this.issue,
-                code: this.code,
+                date_end: this.DateEnd,
+                original_passport: this.PassportFile,
+                original_birth_certificate: this.BirthFile,
             };
             this.postProxy(proxy);
 
@@ -177,6 +179,20 @@ const namespace = 'proxy';
                 this.proxy.scan = this.$refs.file.files[0];
             } else {
                 this.File = this.$refs.file.files[0];
+            }
+        },
+        proxyPassportUpload() {
+            if (this.mode) {
+                this.proxy.passport = this.$refs.passport.files[0];
+            } else {
+                this.PassportFile = this.$refs.passport.files[0];
+            }
+        },
+        proxyBirthUpload() {
+            if (this.mode) {
+                this.proxy.birth = this.$refs.birth.files[0];
+            } else {
+                this.BirthFile = this.$refs.birth.files[0];
             }
         },
     },
