@@ -13,7 +13,7 @@ export const actions: ActionTree<IProxyDocState, null> = {
         /* BIRTH_CERTIFICATE */
         data.append('original_birth_certificate', proxy.original_birth_certificate);
         axios
-            .post('/api/passport/', data, {
+            .post('/api/proxy/', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data; boundary=----something',
                 },
@@ -40,7 +40,7 @@ export const actions: ActionTree<IProxyDocState, null> = {
             data.append('original_birth_certificate', proxy.original_birth_certificate);
         }
         axios
-            .put(`/api/passport/${proxy.id}/`, data, {
+            .put(`/api/proxy/${proxy.id}/`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data; boundary=----something',
                 },
@@ -56,7 +56,7 @@ export const actions: ActionTree<IProxyDocState, null> = {
     },
     deleteProxy({ commit }, id: number): any {
         axios
-            .delete(`/api/passport/${id}`)
+            .delete(`/api/proxy/${id}`)
             .then((response) => {
                 commit('deleteProxy');
             })
@@ -67,7 +67,7 @@ export const actions: ActionTree<IProxyDocState, null> = {
     },
     getProxy({ commit }, id: number): any {
         axios
-            .get(`/api/passport/${id}`)
+            .get(`/api/proxy/${id}`)
             .then((response) => {
                 const payload: IProxyDoc = response && response.data;
                 commit('getProxy', payload);

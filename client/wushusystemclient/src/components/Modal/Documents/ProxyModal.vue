@@ -58,8 +58,8 @@
                         <h6>Скан оригинального паспорта:</h6>
                         <input
                             type="file"
-                            id="file"
-                            ref="file"
+                            id="passport"
+                            ref="passport"
                             @change="proxyPassportUpload()"
                             required
                         />
@@ -68,8 +68,8 @@
                         <h6>Скан оригинального свидетельства о рождении:</h6>
                         <input
                             type="file"
-                            id="file"
-                            ref="file"
+                            id="birth"
+                            ref="birth"
                             @change="proxyBirthUpload()"
                             required
                         />
@@ -174,16 +174,16 @@ const namespace = 'proxy';
         },
         proxyPassportUpload() {
             if (this.mode) {
-                this.proxy.passport = this.$refs.file.files[0];
+                this.proxy.passport = this.$refs.passport.files[0];
             } else {
-                this.PassportFile = this.$refs.file.files[0];
+                this.PassportFile = this.$refs.passport.files[0];
             }
         },
         proxyBirthUpload() {
             if (this.mode) {
-                this.proxy.birth = this.$refs.file.files[0];
+                this.proxy.birth = this.$refs.birth.files[0];
             } else {
-                this.BirthFile = this.$refs.file.files[0];
+                this.BirthFile = this.$refs.birth.files[0];
             }
         },
     },
