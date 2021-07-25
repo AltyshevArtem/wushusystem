@@ -153,8 +153,8 @@ const namespace = 'proxy';
                 number: this.number,
                 scan: this.File,
                 date_end: this.DateEnd,
-                passport: this.PassportFile,
-                birth: this.BirthFile,
+                original_passport: this.PassportFile,
+                original_birth_certificate: this.BirthFile,
             };
             this.postProxy(proxy);
 
