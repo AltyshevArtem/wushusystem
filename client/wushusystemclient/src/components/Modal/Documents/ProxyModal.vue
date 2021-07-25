@@ -22,8 +22,8 @@
                         <div v-else>
                             <input
                                 type="file"
-                                id="file"
-                                ref="file"
+                                id="passport"
+                                ref="passport"
                                 @change="proxyPassportUpload()"
                             />
                         </div>
@@ -39,7 +39,12 @@
                             </button>
                         </div>
                         <div v-else>
-                            <input type="file" id="file" ref="file" @change="proxyBirthUpload()" />
+                            <input
+                                type="file"
+                                id="birth"
+                                ref="birth"
+                                @change="proxyBirthUpload()"
+                            />
                         </div>
                     </div>
                     <div>
