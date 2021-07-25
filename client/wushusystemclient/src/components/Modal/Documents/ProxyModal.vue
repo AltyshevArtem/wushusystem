@@ -14,20 +14,29 @@
                         <input placeholder="YYYY-MM-DD" v-model="proxy.date_end" required />
                     </div>
                     <div>
-                        <h6>Оригинал паспорта</h6>
-                        <button
-                            @click="
-                                {
-                                    isModalPassport = true;
-                                    isEdit = true;
-                                }
-                            "
-                        >
-                            Редактировать паспорт
-                        </button>
+                        <h6>Скан оригинального паспорта:</h6>
+                        <div v-if="proxy.passport">
+                            <a :href="proxy.passport" class="card-link">Просмотр</a>
+                            <button @click="proxy.passport = null">Удалить</button>
+                        </div>
+                        <div v-else>
+                            <input
+                                type="file"
+                                id="file"
+                                ref="file"
+                                @change="proxyPassportUpload()"
+                            />
+                        </div>
                     </div>
                     <div>
-                        <h6>Оригинал свидетельства о рождении</h6>
+                        <h6>Скан оригинального свидетельства о рождении:</h6>
+                        <div v-if="proxy.birth">
+                            <a :href="proxy.birth" class="card-link">Просмотр</a>
+                            <button @click="proxy.birth = null">Удалить</button>
+                        </div>
+                        <div v-else>
+                            <input type="file" id="file" ref="file" @change="proxyBirthUpload()" />
+                        </div>
                     </div>
                     <div>
                         <h6>Скан фото:</h6>
