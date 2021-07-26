@@ -1,5 +1,6 @@
 <template>
     <div>
+        <!-- TODO: сделать ездящую шапку при скроле страницы вверх и вниз-->
         <!-- TODO: Сделать кнопку перехода назад к предыдущей странице -->
         <!--  -->
         <!-- TODO: Для полей без фоток прописать условие, а то ссылки есть, а фоток нет -->
@@ -56,7 +57,12 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <img class="photo" :src="SportsmanPhoto" alt="Card image cap" />
+                                <img
+                                    class="photo"
+                                    :src="SportsmanPhoto"
+                                    alt="Card image cap"
+                                    tabindex="0"
+                                />
                             </div>
                         </div>
                     </div>
@@ -202,7 +208,12 @@
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <img class="photo" :src="TrainerPhoto" alt="Card image cap" />
+                                <img
+                                    class="photo"
+                                    :src="TrainerPhoto"
+                                    alt="Card image cap"
+                                    tabindex="0"
+                                />
                             </div>
                         </div>
                     </div>
@@ -396,10 +407,40 @@ export default class Sportsman extends Vue {
 </script>
 
 <style>
+img[tabindex='0'] {
+    cursor: zoom-in;
+}
+img[tabindex='0']:focus {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    box-shadow: 0 0 20px #000, 0 0 0 1000px rgba(59, 59, 59, 0.4);
+}
+img[tabindex='0']:focus,
+img[tabindex='0']:focus ~ * {
+    pointer-events: none;
+}
+.card-mb-3 {
+    max-width: 1920px;
+}
+.col-md-4 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
 .photo {
-    padding-top: 50px;
+    /* padding-top: 50px;
     padding-left: 15px;
-    padding-right: 15px;
+    padding-right: 15px; */
     width: 16rem;
     display: block;
     height: auto;
@@ -409,8 +450,5 @@ export default class Sportsman extends Vue {
     margin-right: auto;
     /* и добавим внешний нижний отступ */
     margin-bottom: 50px;
-}
-.card-mb-3 {
-    max-width: 1920px;
 }
 </style>
