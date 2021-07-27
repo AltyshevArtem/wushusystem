@@ -125,13 +125,9 @@ const namespace = 'birth_certificate';
         },
     },
 })
-export default class birthCertificateModal extends Vue {
+export default class BirthCertificateModal extends Vue {
     @Prop({ default: undefined }) birthCertificate!: IBirthCertificate;
     @Prop({ default: true }) mode!: boolean;
-
-    /* STATE */
-    @State('birthCertificate')
-    birthCertificateMap!: IBirthCertificateState;
 
     /* ACTION */
     @Action('postBirthCertificate', { namespace })

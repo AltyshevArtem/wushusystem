@@ -3,6 +3,7 @@ import { ITrainerState } from './types';
 import { ITrainer } from '@/models/trainer';
 
 export const mutations: MutationTree<ITrainerState> = {
+    /* GET */
     getTrainer(state, payload: Array<ITrainer>) {
         state.error = false;
         state.trainers = payload;
