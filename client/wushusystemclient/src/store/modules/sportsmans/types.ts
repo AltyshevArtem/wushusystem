@@ -1,4 +1,4 @@
-import { ISportsman } from "@/models/sportsman";
+import { ISportsman } from '@/models/sportsman';
 
 export interface ISportsmansState {
     sportsmans: Array<ISportsman>;
@@ -6,4 +6,3 @@ export interface ISportsmansState {
     search: string;
     error: boolean;
 }
-

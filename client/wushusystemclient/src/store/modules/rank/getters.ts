@@ -7,7 +7,7 @@ export const getters: GetterTree<IRankState, null> = {
         const arr: Array<string> = [];
         ranks.forEach((rank) => {
             arr.push(rank.name_of_rank);
-        })
+        });
         return arr;
     },
 };

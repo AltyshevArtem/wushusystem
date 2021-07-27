@@ -7,14 +7,14 @@ import { state } from '.';
 export const actions: ActionTree<ISportsmansState, null> = {
     getSportsmanList({ commit }, page = 1): any {
         axios
-        .get(`/api/sportsmans/${state.search}&page=${page}`)
-        .then((response) => {
-            const payload: ISportsmansState = response && response.data;
-            commit('getSportsmanList', payload);
-        })
-        .catch((error) => {
-            console.log(error);
-            commit('getSportsmanListError');
-        });
+            .get(`/api/sportsmans/${state.search}&page=${page}`)
+            .then((response) => {
+                const payload: ISportsmansState = response && response.data;
+                commit('getSportsmanList', payload);
+            })
+            .catch((error) => {
+                console.log(error);
+                commit('getSportsmanListError');
+            });
     },
 };

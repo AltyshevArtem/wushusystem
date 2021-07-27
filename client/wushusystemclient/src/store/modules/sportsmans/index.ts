@@ -16,4 +16,3 @@ export const sportsmans: Module<ISportsmansState, null> = {
     actions,
     mutations,
 };
-

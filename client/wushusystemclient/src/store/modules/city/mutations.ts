@@ -2,8 +2,8 @@ import { MutationTree } from 'vuex';
 import { ICityState } from './types';
 import { ICity } from '@/models/city';
 
-
 export const mutations: MutationTree<ICityState> = {
+    /* GET */
     getCity(state, payload: Array<ICity>) {
         state.error = false;
         state.cities = payload;

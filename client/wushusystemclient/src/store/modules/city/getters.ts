@@ -9,5 +9,5 @@ export const getters: GetterTree<ICityState, null> = {
             arr.push(city.name_of_city);
         });
         return arr;
-    }
+    },
 };

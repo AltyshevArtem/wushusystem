@@ -1,4 +1,4 @@
-import { IFederalRegion } from "@/models/city";
+import { IFederalRegion } from '@/models/city';
 
 export interface IFederalRegionState {
     federal_region_list: Array<IFederalRegion>;

@@ -5,40 +5,46 @@ import { IDuanCzi } from '@/models/duan_czi';
 import { IRank } from '@/models/rank';
 import { IGender } from '@/models/gender';
 
-interface IInsurance {
+export interface IInsurance {
+    id: number;
     date_start: Date;
     date_end: Date;
     file_insurance: string;
 }
 
-interface IPassport {
+export interface IPassport {
+    id: number;
     number: number;
-    scan?: string;
+    scan: string;
     date_start?: Date;
     issue?: string;
     code?: number;
 }
 
-interface IBirthCeritifcate {
+export interface IBirthCertificate {
+    id: number;
     number: number;
-    scan?: string;
+    scan: string;
 }
 
-interface IProxyDoc {
-    scan?: string;
-    original_passport?: IPassport;
-    original_birth_certificate?: IBirthCeritifcate;
+export interface IProxyDoc {
+    id: number;
+    scan: string;
+    original_passport: string;
+    original_birth_certificate: string;
     date_end: Date;
 }
 
 //TODO: Поля number и scan повторяются во многих интерфейсах
 //Можно сделать отдельно интерфейс IDocument например
-interface IOms{
+export interface IOms {
+    id: number;
     number: number;
-    scan?: string;
+    scan: string;
 }
 
 export interface ISportsman {
+    id: number;
     name: string;
     surname: string;
     patronymic?: string;
@@ -48,7 +54,7 @@ export interface ISportsman {
     confirm_address?: string;
     gender: IGender;
     passport?: IPassport;
-    birth_certificate?: IBirthCeritifcate;
+    birth_certificate?: IBirthCertificate;
     proxy?: IProxyDoc;
     oms?: IOms;
     city?: ICity;
@@ -62,7 +68,4 @@ export interface ISportsman {
     parent_doc?: string;
     school_doc?: string;
     duan_czi?: IDuanCzi;
-
-    // TODO: хз откуда это
-    //file_main_document?: string;
 }

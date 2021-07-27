@@ -9,6 +9,11 @@ import { city } from './modules/city/index';
 import { trainer } from './modules/trainer/index';
 import { federal_region } from './modules/federal_region/index';
 import { region } from './modules/region/index';
+import { insurance } from './modules/insurance/index';
+import { birth_certificate } from './modules/birth_certificate/index';
+import { oms } from './modules/oms/index';
+import { passport } from './modules/passport/index';
+import { proxy } from './modules/proxy/index';
 
 export default createStore({
     modules: {
@@ -22,5 +27,10 @@ export default createStore({
         trainer,
         federal_region,
         region,
+        insurance,
+        birth_certificate,
+        oms,
+        passport,
+        proxy,
     },
 });
