@@ -44,7 +44,6 @@
                     <div>
                         <h6>Дата окончания страхования</h6>
                         <input placeholder="YYYY-MM-DD" v-model="DateEnd" required />
-                        <!-- <Datepicker v-model="DateEnd" /> -->
                     </div>
                     <div>
                         <h6>Скан фото:</h6>
@@ -146,10 +145,6 @@ const namespace = 'insurance';
 export default class InsuranceModal extends Vue {
     @Prop({ default: undefined }) insurance!: IInsurance;
     @Prop({ default: true }) mode!: boolean;
-
-    /* STATE */
-    @State('insurance')
-    insuranceMap!: IInsuranceState;
 
     /* ACTION */
     @Action('postInsurance', { namespace })

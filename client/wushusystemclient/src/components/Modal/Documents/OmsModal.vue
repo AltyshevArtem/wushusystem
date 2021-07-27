@@ -120,13 +120,9 @@ const namespace = 'oms';
         },
     },
 })
-export default class omsModal extends Vue {
+export default class OmsModal extends Vue {
     @Prop({ default: undefined }) oms!: IOms;
     @Prop({ default: true }) mode!: boolean;
-
-    /* STATE */
-    @State('oms')
-    omsMap!: IOmsState;
 
     /* ACTION */
     @Action('postOMS', { namespace })

@@ -3,6 +3,7 @@ import { IDuanCziState } from './types';
 import { IDuanCzi } from '@/models/duan_czi';
 
 export const mutations: MutationTree<IDuanCziState> = {
+    /* GET */
     getDuanCzi(state, payload: Array<IDuanCzi>) {
         state.error = false;
         state.duan_czi_list = payload;

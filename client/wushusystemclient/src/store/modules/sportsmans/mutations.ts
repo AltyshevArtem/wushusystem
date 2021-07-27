@@ -3,6 +3,7 @@ import { ISportsmansState } from './types';
 import { ISportsman } from '@/models/sportsman';
 
 export const mutations: MutationTree<ISportsmansState> = {
+    /* GET */
     getSportsmanList(state, payload: Array<ISportsman>) {
         state.error = false;
         state.sportsmans = payload;
@@ -11,6 +12,7 @@ export const mutations: MutationTree<ISportsmansState> = {
         state.error = true;
         state.sportsmans = [];
     },
+    /* SET */
     setSearch(state, payload: Array<string>) {
         // eslint-disable-next-line max-len
         state.search = `?name=${payload[0] || ''}&gender=${payload[1] || ''}&rank=${
@@ -19,6 +21,7 @@ export const mutations: MutationTree<ISportsmansState> = {
             payload[6] || ''
         }`;
     },
+    /* PAGINATION */
     prevPage(state) {
         state.page--;
     },

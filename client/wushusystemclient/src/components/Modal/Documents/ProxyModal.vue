@@ -197,7 +197,7 @@ const namespace = 'proxy';
         },
     },
 })
-export default class proxyModal extends Vue {
+export default class ProxyModal extends Vue {
     @Prop({ default: undefined }) proxy!: IProxyDoc;
     @Prop({ default: true }) mode!: boolean;
 
@@ -205,10 +205,6 @@ export default class proxyModal extends Vue {
     isEdit = false;
     isModalBirthCertificate = false;
     isModalPassport = false;
-
-    /* STATE */
-    @State('proxy')
-    proxyMap!: IProxyDocState;
 
     /* ACTION */
     @Action('postProxy', { namespace })

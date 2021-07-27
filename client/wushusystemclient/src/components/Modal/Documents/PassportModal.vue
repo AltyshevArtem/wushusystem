@@ -159,10 +159,6 @@ export default class PassportModal extends Vue {
     @Prop({ default: undefined }) passport!: IPassport;
     @Prop({ default: true }) mode!: boolean;
 
-    /* STATE */
-    @State('passport')
-    passportMap!: IPassportState;
-
     /* ACTION */
     @Action('postPassport', { namespace })
     postPassport: any;
