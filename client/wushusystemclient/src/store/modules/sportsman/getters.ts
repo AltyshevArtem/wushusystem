@@ -44,6 +44,51 @@ export const getters: GetterTree<ISportsmanState, null> = {
         const address = (sportsman && sportsman.address) || '';
         return `${address}`;
     },
+    PassportNumber(state): string {
+        const { sportsman } = state;
+        const passport_number = (sportsman && sportsman.passport?.number) || '';
+        return `${passport_number}`;
+    },
+    PassportDateStart(state): string {
+        const { sportsman } = state;
+        const passport_date_start = (sportsman && sportsman.passport?.date_start) || '';
+        return `${passport_date_start}`;
+    },
+    PassportIssue(state): string {
+        const { sportsman } = state;
+        const passport_issue = (sportsman && sportsman.passport?.issue) || '';
+        return `${passport_issue}`;
+    },
+    PassportCode(state): string {
+        const { sportsman } = state;
+        const passport_code = (sportsman && sportsman.passport?.code) || '';
+        return `${passport_code}`;
+    },
+    PassportScan(state): string {
+        const { sportsman } = state;
+        const passport_scan = (sportsman && sportsman.passport?.scan) || '';
+        return `${passport_scan}`;
+    },
+    ProxyScan(state): string {
+        const { sportsman } = state;
+        const proxy_scan = (sportsman && sportsman.proxy?.scan) || '';
+        return `${proxy_scan}`;
+    },
+    ProxyPassport(state): string {
+        const { sportsman } = state;
+        const proxy_passport = (sportsman && sportsman.proxy?.original_passport) || '';
+        return `${proxy_passport}`;
+    },
+    ProxyBirthCert(state): string {
+        const { sportsman } = state;
+        const proxy_birth_cert = (sportsman && sportsman.proxy?.original_birth_certificate) || '';
+        return `${proxy_birth_cert}`;
+    },
+    ProxyDateEnd(state): string {
+        const { sportsman } = state;
+        const proxy_date_end = (sportsman && sportsman.proxy?.date_end) || '';
+        return `${proxy_date_end}`;
+    },
     Rusada(state): string {
         const { sportsman } = state;
         const rusada = (sportsman && sportsman.rusada) || '';
@@ -226,9 +271,7 @@ export const getters: GetterTree<ISportsmanState, null> = {
     ClubNameOfCountry(state): string {
         const { sportsman } = state;
         const sportsman_name_of_club_name_of_country =
-            (sportsman &&
-                sportsman.club?.federation?.name_of_region.name_of_country) ||
-            '';
+            (sportsman && sportsman.club?.federation?.name_of_region.name_of_country) || '';
         return `${sportsman_name_of_club_name_of_country}`;
     },
 };
