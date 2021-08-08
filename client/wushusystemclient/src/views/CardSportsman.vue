@@ -283,7 +283,7 @@ import { State, Action, Getter } from 'vuex-class';
 import { ISportsmanState } from '../store/modules/sportsman/types';
 
 /* COMPONENTS */
-import ConfirmationModal from '../components/Modal/ConfirmationModal.vue';
+import ConfirmationModal from '../components/Modal/123.vue';
 import EditCardSportsman from '../components/EditCardSportsman/EditCardSportsman.vue';
 import PageNotFound from '../components/NotFound/PageNotFound.vue';
 const namespace = 'sportsman';
