@@ -43,27 +43,79 @@
                                             ФИО: <strong>{{ FullName }}</strong>
                                         </li>
                                         <li class="list-group-item">
-                                            Пол: <strong>{{ Gender }}</strong>
+                                            <span>Пол: </span>
+                                            <span v-if="Gender">
+                                                <strong>{{ Gender }}</strong></span
+                                            >
+                                            <span
+                                                v-else
+                                                class="alert alert-danger nodata-message"
+                                                role="alert"
+                                            >
+                                                Информация отсутствует</span
+                                            >
                                         </li>
                                         <li class="list-group-item">
-                                            Дата рождения: <strong> {{ DateOfBirth }}</strong>
+                                            <span>Дата рождения: </span>
+                                            <span v-if="DateOfBirth">
+                                                <strong>{{ DateOfBirth }}</strong></span
+                                            >
+                                            <span
+                                                v-else
+                                                class="alert alert-danger nodata-message"
+                                                role="alert"
+                                            >
+                                                Информация отсутствует</span
+                                            >
                                         </li>
                                         <li class="list-group-item">
-                                            Разряд: <strong> {{ Rank }} </strong>
+                                            <span>Разряд: </span>
+                                            <span v-if="Rank">
+                                                <strong>{{ Rank }}</strong></span
+                                            >
+                                            <span
+                                                v-else
+                                                class="alert alert-danger nodata-message"
+                                                role="alert"
+                                            >
+                                                Информация отсутствует</span
+                                            >
                                         </li>
                                         <li class="list-group-item">
-                                            Дуань/Цзи: <strong>{{ DuanCzi }}</strong>
+                                            <span>Дуань/Цзи: </span>
+                                            <span v-if="DuanCzi">
+                                                <strong>{{ DuanCzi }}</strong></span
+                                            >
+                                            <span
+                                                v-else
+                                                class="alert alert-danger nodata-message"
+                                                role="alert"
+                                            >
+                                                Информация отсутствует</span
+                                            >
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <img
-                                    class="photo"
-                                    :src="SportsmanPhoto"
-                                    alt="Card image cap"
-                                    tabindex="0"
-                                />
+                                <div class="personal__sportsman-photo" v-if="SportsmanPhoto">
+                                    <img
+                                        class="documents"
+                                        :src="SportsmanPhoto"
+                                        alt="Card image cap"
+                                        tabindex="0"
+                                    />
+                                </div>
+                                <div
+                                    v-else
+                                    class="
+                                        alert alert-danger
+                                        nodata-message__photo__sportsman-trainer
+                                    "
+                                    role="alert"
+                                >
+                                    <span class="danger-message__no-photo">Фото отсутствует</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -72,24 +124,73 @@
                             <h5 class="card-title">Принадлежность:</h5>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    Страна: <strong>{{ NameOfCountry }}</strong>
-                                </li>
-                                <li class="list-group-item">
-                                    Федеральный округ:
-                                    <strong
-                                        >{{ NameOfFederalRegion }} ({{
-                                            AbbrOfFederalRegion
-                                        }})</strong
+                                    <span>Страна: </span>
+                                    <span v-if="NameOfCountry">
+                                        <strong>{{ NameOfCountry }}</strong></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
                                     >
                                 </li>
                                 <li class="list-group-item">
-                                    Край/Республика: <strong>{{ NameOfRegion }}</strong>
+                                    <span>Федеральный округ: </span>
+                                    <span v-if="NameOfFederalRegion && AbbrOfFederalRegion">
+                                        <strong
+                                            >{{ NameOfFederalRegion }} ({{
+                                                AbbrOfFederalRegion
+                                            }})</strong
+                                        ></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
+                                    >
                                 </li>
                                 <li class="list-group-item">
-                                    Город: <strong>{{ NameOfCity }}</strong>
+                                    <span>Край/Республика: </span>
+                                    <span v-if="NameOfRegion">
+                                        <strong>{{ NameOfRegion }}</strong></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
+                                    >
                                 </li>
                                 <li class="list-group-item">
-                                    Адрес прописки: <strong>{{ Address }}</strong>
+                                    <span>Город: </span>
+                                    <span v-if="NameOfCity">
+                                        <strong>{{ NameOfCity }}</strong></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
+                                    >
+                                </li>
+                                <li class="list-group-item">
+                                    <span>Адрес прописки: </span>
+                                    <span v-if="Address">
+                                        <strong>{{ Address }}</strong></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
+                                    >
                                 </li>
                             </ul>
                         </div>
@@ -99,91 +200,479 @@
                             <h5 class="card-title">Документы:</h5>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    <p>
-                                        Скан паспорта:
-                                        <a :href="PassportScan" class="card-link">Просмотр</a>
-                                    </p>
-                                    <p>
-                                        Серия и номер паспорта:
-                                        <strong>{{ PassportNumber }}</strong>
-                                    </p>
-                                    <p>
-                                        Кем выдан: <strong>{{ PassportIssue }}</strong>
-                                    </p>
-                                    <p>
-                                        Дата выдачи: <strong>{{ PassportDateStart }}</strong>
-                                    </p>
-                                    <p>
-                                        Код подразделения: <strong>{{ PassportCode }}</strong>
-                                    </p>
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <p><strong>Данные паспорта РФ</strong></p>
+                                            <p>
+                                                <span>Серия и номер паспорта: </span>
+                                                <span v-if="PassportNumber"
+                                                    ><strong>{{ PassportNumber }}</strong></span
+                                                >
+                                                <span
+                                                    v-else
+                                                    class="alert alert-danger nodata-message"
+                                                    role="alert"
+                                                >
+                                                    Информация отсутствует</span
+                                                >
+                                            </p>
+                                            <p>
+                                                <span>Кем выдан: </span>
+                                                <span v-if="PassportIssue"
+                                                    ><strong>{{ PassportIssue }}</strong></span
+                                                >
+                                                <span
+                                                    v-else
+                                                    class="alert alert-danger nodata-message"
+                                                    role="alert"
+                                                >
+                                                    Информация отсутствует</span
+                                                >
+                                            </p>
+                                            <p>
+                                                <span>Дата выдачи: </span>
+                                                <span v-if="PassportDateStart"
+                                                    ><strong>{{ PassportDateStart }}</strong></span
+                                                >
+                                                <span
+                                                    v-else
+                                                    class="alert alert-danger nodata-message"
+                                                    role="alert"
+                                                >
+                                                    Информация отсутствует</span
+                                                >
+                                            </p>
+                                            <p>
+                                                <span>Код подразделения: </span>
+                                                <span v-if="PassportCode"
+                                                    ><strong>{{ PassportCode }}</strong></span
+                                                >
+                                                <span
+                                                    v-else
+                                                    class="alert alert-danger nodata-message"
+                                                    role="alert"
+                                                >
+                                                    Информация отсутствует</span
+                                                >
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="documents__scan-photo" v-if="PassportScan">
+                                                <img
+                                                    class="documents"
+                                                    :src="PassportScan"
+                                                    alt="Card image cap"
+                                                    tabindex="0"
+                                                />
+                                            </div>
+                                            <div
+                                                v-else
+                                                class="alert alert-danger nodata-message__photo"
+                                                role="alert"
+                                            >
+                                                <span class="danger-message"
+                                                    >Скан/фото отсутствует</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    Справка о регистрации по месту жительства:
-                                    <a :href="ConfirmAddress" class="card-link">Просмотр</a>
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <p>
+                                                <strong
+                                                    >Справка о регистрации по месту
+                                                    жительства</strong
+                                                >
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div
+                                                class="documents__scan-photo"
+                                                v-if="ConfirmAddress"
+                                            >
+                                                <img
+                                                    class="documents"
+                                                    :src="ConfirmAddress"
+                                                    alt="Card image cap"
+                                                    tabindex="0"
+                                                />
+                                            </div>
+                                            <div
+                                                v-else
+                                                class="alert alert-danger nodata-message__photo"
+                                                role="alert"
+                                            >
+                                                <span class="danger-message"
+                                                    >Скан/фото отсутствует</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    Свидетельство о рождении:
-                                    <a :href="BirthCertificateDoc" class="card-link">Просмотр</a>
-                                    Номер: <strong>{{ BirthCertificateNumber }}</strong>
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <p><strong>Свидетельство о рождении</strong></p>
+                                            <p>
+                                                <span>Номер: </span>
+                                                <span v-if="BirthCertificateNumber">
+                                                    <strong>{{ BirthCertificateNumber }}</strong>
+                                                </span>
+                                                <span
+                                                    v-else
+                                                    class="alert alert-danger nodata-message"
+                                                    role="alert"
+                                                >
+                                                    Информация отсутствует
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div
+                                                class="documents__scan-photo"
+                                                v-if="ConfirmAddress"
+                                            >
+                                                <img
+                                                    class="documents"
+                                                    :src="BirthCertificateDoc"
+                                                    alt="Card image cap"
+                                                    tabindex="0"
+                                                />
+                                            </div>
+                                            <div
+                                                v-else
+                                                class="alert alert-danger nodata-message__photo"
+                                                role="alert"
+                                            >
+                                                <span class="danger-message"
+                                                    >Скан/фото отсутствует</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    <p>
-                                        Заверенная копия паспорта:
-                                        <a :href="ProxyPassport" class="card-link">Просмотр</a>
-                                    </p>
-                                    <p>
-                                        Заверенная копия свидетельства о рождении:
-                                        <a :href="ProxyBirthCert" class="card-link">Просмотр</a>
-                                    </p>
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <p>
+                                                <strong>Заверенная копия паспорта</strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="documents__scan-photo" v-if="ProxyPassport">
+                                                <img
+                                                    class="documents"
+                                                    :src="ProxyPassport"
+                                                    alt="Card image cap"
+                                                    tabindex="0"
+                                                />
+                                            </div>
+                                            <div
+                                                v-else
+                                                class="alert alert-danger nodata-message__photo"
+                                                role="alert"
+                                            >
+                                                <span class="danger-message"
+                                                    >Скан/фото отсутствует</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <p>
+                                                <strong
+                                                    >Заверенная копия свидетельства о
+                                                    рождении:</strong
+                                                >
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div
+                                                class="documents__scan-photo"
+                                                v-if="ProxyBirthCert"
+                                            >
+                                                <img
+                                                    class="documents"
+                                                    :src="ProxyBirthCert"
+                                                    alt="Card image cap"
+                                                    tabindex="0"
+                                                />
+                                            </div>
+                                            <div
+                                                v-else
+                                                class="alert alert-danger nodata-message__photo"
+                                                role="alert"
+                                            >
+                                                <span class="danger-message"
+                                                    >Скан/фото отсутствует</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    <p>
-                                        Доверенность:
-                                        <a :href="ProxyScan" class="card-link">Просмотр</a>
-                                        Дата окончания действия доверенности:
-                                        <strong>{{ ProxyDateEnd }}</strong>
-                                    </p>
-
-                                    Фотография паспорта:
-                                    <a :href="SportsmanPhoto" class="card-link">Просмотр</a>
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <p><strong>Доверенность</strong></p>
+                                            <p>
+                                                <span>Дата окончания действия доверенности: </span>
+                                                <span v-if="ProxyDateEnd">
+                                                    <strong>{{ ProxyDateEnd }}</strong>
+                                                </span>
+                                                <span
+                                                    v-else
+                                                    class="alert alert-danger nodata-message"
+                                                    role="alert"
+                                                >
+                                                    Информация отсутствует
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="documents__scan-photo" v-if="ProxyScan">
+                                                <img
+                                                    class="documents"
+                                                    :src="ProxyScan"
+                                                    alt="Card image cap"
+                                                    tabindex="0"
+                                                />
+                                            </div>
+                                            <div
+                                                v-else
+                                                class="alert alert-danger nodata-message__photo"
+                                                role="alert"
+                                            >
+                                                <span class="danger-message"
+                                                    >Скан/фото отсутствует</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    Сертификат РУСАДА:
-                                    <a :href="Rusada" class="card-link">Просмотр</a>
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <p>
+                                                <strong>Сертификат РУСАДА</strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="documents__scan-photo" v-if="Rusada">
+                                                <img
+                                                    class="documents"
+                                                    :src="Rusada"
+                                                    alt="Card image cap"
+                                                    tabindex="0"
+                                                />
+                                            </div>
+                                            <div
+                                                v-else
+                                                class="alert alert-danger nodata-message__photo"
+                                                role="alert"
+                                            >
+                                                <span class="danger-message"
+                                                    >Скан/фото отсутствует</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    Справка об отсутствии контактов с инфекционными больными:
-                                    <a :href="CovidContact" class="card-link">Просмотр</a>
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <p>
+                                                <strong
+                                                    >Справка об отсутствии контактов с инфекционными
+                                                    больными</strong
+                                                >
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="documents__scan-photo" v-if="CovidContact">
+                                                <img
+                                                    class="documents"
+                                                    :src="CovidContact"
+                                                    alt="Card image cap"
+                                                    tabindex="0"
+                                                />
+                                            </div>
+                                            <div
+                                                v-else
+                                                class="alert alert-danger nodata-message__photo"
+                                                role="alert"
+                                            >
+                                                <span class="danger-message"
+                                                    >Скан/фото отсутствует</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    ПЦР-тест COVID-19:
-                                    <a :href="CovidTest" class="card-link">Просмотр</a>
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <p>
+                                                <strong>ПЦР-тест COVID-19</strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="documents__scan-photo" v-if="CovidTest">
+                                                <img
+                                                    class="documents"
+                                                    :src="CovidTest"
+                                                    alt="Card image cap"
+                                                    tabindex="0"
+                                                />
+                                            </div>
+                                            <div
+                                                v-else
+                                                class="alert alert-danger nodata-message__photo"
+                                                role="alert"
+                                            >
+                                                <span class="danger-message"
+                                                    >Скан/фото отсутствует</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    Согласие родителя:
-                                    <a :href="ParentDoc" class="card-link">Просмотр</a>
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <p>
+                                                <strong>Согласие родителя</strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="documents__scan-photo" v-if="ParentDoc">
+                                                <img
+                                                    class="documents"
+                                                    :src="ParentDoc"
+                                                    alt="Card image cap"
+                                                    tabindex="0"
+                                                />
+                                            </div>
+                                            <div
+                                                v-else
+                                                class="alert alert-danger nodata-message__photo"
+                                                role="alert"
+                                            >
+                                                <span class="danger-message"
+                                                    >Скан/фото отсутствует</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    Справка из школы:
-                                    <a :href="SchoolDoc" class="card-link">Просмотр</a>
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <p>
+                                                <strong>Справка из школы</strong>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="documents__scan-photo" v-if="SchoolDoc">
+                                                <img
+                                                    class="documents"
+                                                    :src="SchoolDoc"
+                                                    alt="Card image cap"
+                                                    tabindex="0"
+                                                />
+                                            </div>
+                                            <div
+                                                v-else
+                                                class="alert alert-danger nodata-message__photo"
+                                                role="alert"
+                                            >
+                                                <span class="danger-message"
+                                                    >Скан/фото отсутствует</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    Страховка:
-                                    <a :href="InsuranceDoc" class="card-link">Просмотр</a>
-                                    Срок действия: с
-                                    <strong>{{ InsuranceDateStart }}</strong>
-                                    по
-                                    <strong>{{ InsuranceDateEnd }}</strong>
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <p><strong>Страховка</strong></p>
+                                            <p>
+                                                <span>Срок действия: </span>
+                                                <span v-if="InsuranceDateStart && InsuranceDateEnd"
+                                                    >с <strong>{{ InsuranceDateStart }}</strong> по
+                                                    <strong> {{ InsuranceDateEnd }}</strong>
+                                                </span>
+                                                <span
+                                                    v-else
+                                                    class="alert alert-danger nodata-message"
+                                                    role="alert"
+                                                >
+                                                    Информация отсутствует
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="documents__scan-photo" v-if="InsuranceDoc">
+                                                <img
+                                                    class="documents"
+                                                    :src="InsuranceDoc"
+                                                    alt="Card image cap"
+                                                    tabindex="0"
+                                                />
+                                            </div>
+                                            <div
+                                                v-else
+                                                class="alert alert-danger nodata-message__photo"
+                                                role="alert"
+                                            >
+                                                <span class="danger-message"
+                                                    >Скан/фото отсутствует</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                                 <li class="list-group-item">
-                                    Сведительство о рождении:
-                                    <a :href="BirthCertificateDoc" class="card-link">Просмотр</a>
-                                    Номер: <strong>{{ BirthCertificateNumber }}</strong>
-                                </li>
-                                <li class="list-group-item">
-                                    Полис ОМС:
-                                    <a :href="OMSDoc" class="card-link">Просмотр</a>
-                                    Номер: <strong>{{ OMSNumber }}</strong>
+                                    <div class="row g-0">
+                                        <div class="col-md-8">
+                                            <p><strong>Полис ОМС</strong></p>
+                                            <p>
+                                                <span>Номер: </span>
+                                                <span v-if="OMSNumber"
+                                                    ><strong>{{ OMSNumber }}</strong>
+                                                </span>
+                                                <span
+                                                    v-else
+                                                    class="alert alert-danger nodata-message"
+                                                    role="alert"
+                                                >
+                                                    Информация отсутствует
+                                                </span>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="documents__scan-photo" v-if="OMSDoc">
+                                                <img
+                                                    class="documents"
+                                                    :src="OMSDoc"
+                                                    alt="Card image cap"
+                                                    tabindex="0"
+                                                />
+                                            </div>
+                                            <div
+                                                v-else
+                                                class="alert alert-danger nodata-message__photo"
+                                                role="alert"
+                                            >
+                                                <span class="danger-message"
+                                                    >Скан/фото отсутствует</span
+                                                >
+                                            </div>
+                                        </div>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
@@ -195,26 +684,74 @@
                                     <h5 class="card-title">Информация о тренере спортсмена:</h5>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
-                                            ФИО тренера: <strong>{{ TrainerFullName }}</strong>
+                                            <span>ФИО тренера: </span>
+                                            <span
+                                                v-if="
+                                                    TrainerName &&
+                                                    TrainerSurname &&
+                                                    TrainerPatronymic
+                                                "
+                                                ><strong
+                                                    >{{ TrainerName }} {{ TrainerSurname }}
+                                                    {{ TrainerPatronymic }}</strong
+                                                ></span
+                                            >
+                                            <span
+                                                v-else
+                                                class="alert alert-danger nodata-message"
+                                                role="alert"
+                                            >
+                                                Информация отсутствует</span
+                                            >
                                         </li>
                                         <li class="list-group-item">
-                                            Пол:
-                                            <strong>{{ TrainerGender }}</strong>
+                                            <span>Пол: </span>
+                                            <span v-if="TrainerGender">
+                                                <strong>{{ TrainerGender }}</strong></span
+                                            >
+                                            <span
+                                                v-else
+                                                class="alert alert-danger nodata-message"
+                                                role="alert"
+                                            >
+                                                Информация отсутствует</span
+                                            >
                                         </li>
                                         <li class="list-group-item">
-                                            Дата рождения тренера:
-                                            <strong>{{ TrainerDateOfBirth }}</strong>
+                                            <span>Дата рождения тренера: </span>
+                                            <span v-if="TrainerDateOfBirth">
+                                                <strong>{{ TrainerDateOfBirth }}</strong></span
+                                            >
+                                            <span
+                                                v-else
+                                                class="alert alert-danger nodata-message"
+                                                role="alert"
+                                            >
+                                                Информация отсутствует</span
+                                            >
                                         </li>
                                     </ul>
                                 </div>
                             </div>
                             <div class="col-md-4">
-                                <img
-                                    class="photo"
-                                    :src="TrainerPhoto"
-                                    alt="Card image cap"
-                                    tabindex="0"
-                                />
+                                <div class="personal__trainer-photo" v-if="TrainerPhoto">
+                                    <img
+                                        class="documents"
+                                        :src="TrainerPhoto"
+                                        alt="Card image cap"
+                                        tabindex="0"
+                                    />
+                                </div>
+                                <div
+                                    v-else
+                                    class="
+                                        alert alert-danger
+                                        nodata-message__photo__sportsman-trainer
+                                    "
+                                    role="alert"
+                                >
+                                    <span class="danger-message__no-photo">Фото отсутствует</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -223,32 +760,99 @@
                             <h5 class="card-title">Информация о клубе:</h5>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
-                                    Название: <strong>{{ NameOfClub }}</strong>
-                                </li>
-                                <li class="list-group-item">
-                                    Адрес: <strong>{{ AddressOfClub }}</strong>
-                                </li>
-                                <li class="list-group-item">
-                                    Владелец:
-                                    <strong> {{ NameOfClubOwner }} </strong>
-                                </li>
-                                <li class="list-group-item">
-                                    Принадлежность к федерации ушу:
-                                    <strong>{{ ClubFederation }}</strong>
-                                </li>
-                                <li class="list-group-item">
-                                    Регион: <strong>{{ ClubRegion }}</strong>
-                                </li>
-                                <li class="list-group-item">
-                                    Федеральный округ:
-                                    <strong
-                                        >{{ ClubFederalRegion }} ({{
-                                            ClubAbbrFederalRegion
-                                        }})</strong
+                                    <span>Название: </span>
+                                    <span v-if="NameOfClub"
+                                        ><strong>{{ NameOfClub }}</strong></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
                                     >
                                 </li>
                                 <li class="list-group-item">
-                                    Страна: <strong>{{ ClubNameOfCountry }}</strong>
+                                    <span>Адрес: </span>
+                                    <span v-if="AddressOfClub">
+                                        <strong>{{ AddressOfClub }}</strong></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
+                                    >
+                                </li>
+                                <li class="list-group-item">
+                                    <span>Владелец: </span>
+                                    <span v-if="NameOfClubOwner">
+                                        <strong>{{ NameOfClubOwner }}</strong></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
+                                    >
+                                </li>
+                                <li class="list-group-item">
+                                    <span>Принадлежность к федерации ушу: </span>
+                                    <span v-if="ClubFederation">
+                                        <strong>{{ ClubFederation }}</strong></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
+                                    >
+                                </li>
+                                <li class="list-group-item">
+                                    <span>Регион: </span>
+                                    <span v-if="ClubRegion">
+                                        <strong>{{ ClubRegion }}</strong></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
+                                    >
+                                </li>
+                                <li class="list-group-item">
+                                    <span>Федеральный округ: </span>
+                                    <span v-if="ClubFederalRegion && ClubAbbrFederalRegion">
+                                        <strong
+                                            >{{ ClubFederalRegion }} ({{
+                                                ClubAbbrFederalRegion
+                                            }})</strong
+                                        ></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
+                                    >
+                                </li>
+                                <li class="list-group-item">
+                                    <span>Страна: </span>
+                                    <span v-if="ClubNameOfCountry">
+                                        <strong>{{ ClubNameOfCountry }}</strong></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
+                                    >
                                 </li>
                             </ul>
                         </div>
@@ -377,8 +981,12 @@ export default class Sportsman extends Vue {
     OMSDoc: string | undefined;
     @Getter('OMSNumber', { namespace })
     OMSNumber: string | undefined;
-    @Getter('TrainerFullName', { namespace })
-    TrainerFullName: string | undefined;
+    @Getter('TrainerName', { namespace })
+    TrainerName: string | undefined;
+    @Getter('TrainerSurname', { namespace })
+    TrainerSurname: string | undefined;
+    @Getter('TrainerPatronymic', { namespace })
+    TrainerPatronymic: string | undefined;
     @Getter('TrainerPhoto', { namespace })
     TrainerPhoto: string | undefined;
     @Getter('TrainerDateOfBirth', { namespace })
@@ -416,7 +1024,12 @@ export default class Sportsman extends Vue {
 
 <style>
 img[tabindex='0'] {
-    cursor: zoom-in;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+img:hover {
+    box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }
 img[tabindex='0']:focus {
     position: fixed;
@@ -427,8 +1040,8 @@ img[tabindex='0']:focus {
     right: 0;
     width: auto;
     height: auto;
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 80%;
+    max-height: 80%;
     margin: auto;
     box-shadow: 0 0 20px #000, 0 0 0 1000px rgba(59, 59, 59, 0.4);
 }
@@ -446,17 +1059,71 @@ img[tabindex='0']:focus ~ * {
     justify-content: center;
 }
 .photo {
-    /* padding-top: 50px;
-    padding-left: 15px;
-    padding-right: 15px; */
     width: 16rem;
     display: block;
     height: auto;
     max-width: 100%;
-    /* дополнительно их выровняем по центру */
     margin-left: auto;
     margin-right: auto;
-    /* и добавим внешний нижний отступ */
     margin-bottom: 50px;
+}
+.documents__scan-photo {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    padding-left: 20px;
+}
+.personal__sportsman-photo {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    padding-left: 25px;
+    padding-top: 5px;
+}
+.personal__trainer-photo {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    padding-bottom: 170px;
+    /* padding-left: 7px;
+    padding-top: 5px; */
+}
+.documents {
+    position: absolute;
+    width: 16rem;
+    display: block;
+    height: auto;
+    max-width: 70%;
+    margin-top: 5px;
+    margin-left: 2px;
+    margin-right: auto;
+}
+.nodata-message {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 3px 30px 3px 30px;
+}
+div.nodata-message__photo {
+    position: relative;
+    margin-top: 15px;
+    width: 150px;
+    height: 150px;
+}
+div.nodata-message__photo__sportsman-trainer {
+    position: relative;
+    margin-right: 40px;
+    margin-top: 15px;
+    width: 150px;
+    height: 150px;
+}
+span.danger-message {
+    position: absolute;
+    padding: 35px 70px 60px 20px;
+}
+span.danger-message__no-photo {
+    text-align: center;
+    position: absolute;
+    padding: 35px 70px 60px 17px;
 }
 </style>
