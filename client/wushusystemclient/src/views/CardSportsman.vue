@@ -600,9 +600,8 @@
                                         <div class="col-md-8">
                                             <p><strong>Страховка</strong></p>
                                             <p>
-                                                <span>Срок действия: </span>
-                                                <span v-if="InsuranceDateStart && InsuranceDateEnd"
-                                                    >с <strong>{{ InsuranceDateStart }}</strong> по
+                                                <span>Дата окончания: </span>
+                                                <span v-if="InsuranceDateEnd">
                                                     <strong> {{ InsuranceDateEnd }}</strong>
                                                 </span>
                                                 <span
@@ -1085,8 +1084,6 @@ img[tabindex='0']:focus ~ * {
     width: 150px;
     height: 150px;
     padding-bottom: 170px;
-    /* padding-left: 7px;
-    padding-top: 5px; */
 }
 .documents {
     position: absolute;
