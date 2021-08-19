@@ -600,6 +600,12 @@
                                         <div class="col-md-8">
                                             <p><strong>Страховка</strong></p>
                                             <p>
+                                                <span>Дата начала: </span>
+                                                <span v-if="InsuranceDateStart">
+                                                    <strong> {{ InsuranceDateStart }}</strong></span
+                                                >
+                                            </p>
+                                            <p>
                                                 <span>Дата окончания: </span>
                                                 <span v-if="InsuranceDateEnd">
                                                     <strong> {{ InsuranceDateEnd }}</strong>
