@@ -604,6 +604,13 @@
                                                 <span v-if="InsuranceDateStart">
                                                     <strong> {{ InsuranceDateStart }}</strong></span
                                                 >
+                                                <span
+                                                    v-else
+                                                    class="alert alert-danger nodata-message"
+                                                    role="alert"
+                                                >
+                                                    Информация отсутствует
+                                                </span>
                                             </p>
                                             <p>
                                                 <span>Дата окончания: </span>
