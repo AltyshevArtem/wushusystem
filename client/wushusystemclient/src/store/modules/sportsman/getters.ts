@@ -201,12 +201,20 @@ export const getters: GetterTree<ISportsmanState, null> = {
         const oms_number = (sportsman && sportsman.oms?.number) || '';
         return `${oms_number}`;
     },
-    TrainerFullName(state): string {
+    TrainerName(state): string {
         const { sportsman } = state;
         const trainer_name = (sportsman && sportsman.trainer?.name) || '';
+        return `${trainer_name}`;
+    },
+    TrainerSurname(state): string {
+        const { sportsman } = state;
         const trainer_surname = (sportsman && sportsman.trainer?.surname) || '';
+        return `${trainer_surname}`;
+    },
+    TrainerPatronymic(state): string {
+        const { sportsman } = state;
         const trainer_patronymic = (sportsman && sportsman.trainer?.patronymic) || '';
-        return `${trainer_surname} ${trainer_name} ${trainer_patronymic}`;
+        return `${trainer_patronymic}`;
     },
     TrainerPhoto(state): string {
         const { sportsman } = state;
