@@ -208,13 +208,11 @@ export const getters: GetterTree<ISportsmanState, null> = {
     },
     TrainerSurname(state): string {
         const { sportsman } = state;
-
         const trainer_surname = (sportsman && sportsman.trainer?.surname) || '';
-        return `${trainer_surname} `;
+        return `${trainer_surname}`;
     },
     TrainerPatronymic(state): string {
         const { sportsman } = state;
-
         const trainer_patronymic = (sportsman && sportsman.trainer?.patronymic) || '';
         return `${trainer_patronymic}`;
     },

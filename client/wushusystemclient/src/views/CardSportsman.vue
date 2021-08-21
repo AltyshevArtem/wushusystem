@@ -137,21 +137,32 @@
                                     >
                                 </li>
                                 <li class="list-group-item">
-                                    <span>Федеральный округ: </span>
-                                    <span v-if="NameOfFederalRegion && AbbrOfFederalRegion">
-                                        <strong
-                                            >{{ NameOfFederalRegion }} ({{
-                                                AbbrOfFederalRegion
-                                            }})</strong
-                                        ></span
-                                    >
-                                    <span
-                                        v-else
-                                        class="alert alert-danger nodata-message"
-                                        role="alert"
-                                    >
-                                        Информация отсутствует</span
-                                    >
+                                    <p>
+                                        <span>Федеральный округ: </span>
+                                        <span v-if="NameOfFederalRegion">
+                                            <strong>{{ NameOfFederalRegion }}</strong>
+                                        </span>
+                                        <span
+                                            v-else
+                                            class="alert alert-danger nodata-message"
+                                            role="alert"
+                                        >
+                                            Информация отсутствует</span
+                                        >
+                                    </p>
+                                    <p>
+                                        <span>Аббревиатура ФО: </span>
+                                        <span v-if="AbbrOfFederalRegion">
+                                            <strong>{{ AbbrOfFederalRegion }}</strong>
+                                        </span>
+                                        <span
+                                            v-else
+                                            class="alert alert-danger nodata-message"
+                                            role="alert"
+                                        >
+                                            Информация отсутствует</span
+                                        >
+                                    </p>
                                 </li>
                                 <li class="list-group-item">
                                     <span>Край/Республика: </span>
@@ -696,25 +707,47 @@
                                     <h5 class="card-title">Информация о тренере спортсмена:</h5>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
-                                            <span>ФИО тренера: </span>
-                                            <span
-                                                v-if="
-                                                    TrainerName &&
-                                                    TrainerSurname &&
-                                                    TrainerPatronymic
-                                                "
-                                                ><strong
-                                                    >{{ TrainerName }} {{ TrainerSurname }}
-                                                    {{ TrainerPatronymic }}</strong
-                                                ></span
-                                            >
-                                            <span
-                                                v-else
-                                                class="alert alert-danger nodata-message"
-                                                role="alert"
-                                            >
-                                                Информация отсутствует</span
-                                            >
+                                            <p>
+                                                <span>Фамилия: </span>
+                                                <span v-if="TrainerSurname"
+                                                    ><strong> {{ TrainerSurname }}</strong></span
+                                                >
+                                                <span
+                                                    v-else
+                                                    class="alert alert-danger nodata-message"
+                                                    role="alert"
+                                                >
+                                                    Информация отсутствует</span
+                                                >
+                                            </p>
+                                            <p>
+                                                <span>Имя: </span>
+                                                <span v-if="TrainerName"
+                                                    ><strong>
+                                                        {{ TrainerName }}
+                                                    </strong></span
+                                                >
+                                                <span
+                                                    v-else
+                                                    class="alert alert-danger nodata-message"
+                                                    role="alert"
+                                                >
+                                                    Информация отсутствует</span
+                                                >
+                                            </p>
+                                            <p>
+                                                <span>Отчество: </span>
+                                                <span v-if="TrainerPatronymic"
+                                                    ><strong> {{ TrainerPatronymic }}</strong></span
+                                                >
+                                                <span
+                                                    v-else
+                                                    class="alert alert-danger nodata-message"
+                                                    role="alert"
+                                                >
+                                                    Информация отсутствует</span
+                                                >
+                                            </p>
                                         </li>
                                         <li class="list-group-item">
                                             <span>Пол: </span>
@@ -837,21 +870,32 @@
                                     >
                                 </li>
                                 <li class="list-group-item">
-                                    <span>Федеральный округ: </span>
-                                    <span v-if="ClubFederalRegion && ClubAbbrFederalRegion">
-                                        <strong
-                                            >{{ ClubFederalRegion }} ({{
-                                                ClubAbbrFederalRegion
-                                            }})</strong
-                                        ></span
-                                    >
-                                    <span
-                                        v-else
-                                        class="alert alert-danger nodata-message"
-                                        role="alert"
-                                    >
-                                        Информация отсутствует</span
-                                    >
+                                    <p>
+                                        <span>Федеральный округ: </span>
+                                        <span v-if="ClubFederalRegion">
+                                            <strong>{{ ClubFederalRegion }}</strong></span
+                                        >
+                                        <span
+                                            v-else
+                                            class="alert alert-danger nodata-message"
+                                            role="alert"
+                                        >
+                                            Информация отсутствует</span
+                                        >
+                                    </p>
+                                    <p>
+                                        <span>Аббревиатура ФО: </span>
+                                        <span v-if="ClubAbbrFederalRegion">
+                                            <strong> {{ ClubAbbrFederalRegion }}</strong></span
+                                        >
+                                        <span
+                                            v-else
+                                            class="alert alert-danger nodata-message"
+                                            role="alert"
+                                        >
+                                            Информация отсутствует</span
+                                        >
+                                    </p>
                                 </li>
                                 <li class="list-group-item">
                                     <span>Страна: </span>
