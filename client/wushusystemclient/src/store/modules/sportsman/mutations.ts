@@ -1,9 +1,17 @@
-import { sportsman } from './index';
 import { MutationTree } from 'vuex';
 import { ISportsmanState } from './types';
 import { ISportsman } from '@/models/sportsman';
 
 export const mutations: MutationTree<ISportsmanState> = {
+    /* POST */
+    postSportsman(state, payload: ISportsman) {
+        state.sportsman = payload;
+        state.error = false;
+    },
+    postSportsmanError(state) {
+        state.sportsman = undefined;
+        state.error = true;
+    },
     /* PUT */
     putSportsman(state, payload: ISportsman) {
         state.sportsman = payload;

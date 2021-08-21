@@ -102,7 +102,7 @@ import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 
 /* VUEX */
-import { State, Action } from 'vuex-class';
+import { State, Mutation } from 'vuex-class';
 
 /* STATE */
 import { IPassportState } from '@/store/modules/passport/types';
@@ -159,10 +159,14 @@ export default class PassportModal extends Vue {
     @Prop({ default: undefined }) passport!: IPassport;
     @Prop({ default: true }) mode!: boolean;
 
+    /* STATE */
+    @State('passport')
+    passportMap!: IPassportState;
+
     /* ACTION */
-    @Action('postPassport', { namespace })
+    @Mutation('postPassport', { namespace })
     postPassport: any;
-    @Action('putPassport', { namespace })
+    @Mutation('putPassport', { namespace })
     putPassport: any;
 }
 </script>

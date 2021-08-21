@@ -6,7 +6,9 @@ export const mutations: MutationTree<ISportsmansState> = {
     /* GET */
     getSportsmanList(state, payload: Array<ISportsman>) {
         state.error = false;
-        state.sportsmans = payload;
+        state.sportsmans = payload['results'];
+        state.page_size = payload['page_size'];
+        state.count = payload['count'];
     },
     getSportsmanListError(state) {
         state.error = true;

@@ -127,7 +127,7 @@ import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 
 /* VUEX */
-import { State, Action } from 'vuex-class';
+import { State, Mutation } from 'vuex-class';
 
 /* STATE */
 import { IProxyDocState } from '@/store/modules/proxy/types';
@@ -135,16 +135,12 @@ import { IProxyDocState } from '@/store/modules/proxy/types';
 /* MODELS */
 import { IProxyDoc } from '@/models/sportsman';
 
-/* COMPONENTS */
-import PassportModal from './PassportModal.vue';
-import BirthCertificateModal from './BirthCertificateModal.vue';
-
 /* NAMESPACE */
 const namespace = 'proxy';
 
 @Options({
     name: 'ProxyModal',
-    components: { PassportModal, BirthCertificateModal },
+    components: {},
     data() {
         return {
             DateEnd: '',
@@ -201,15 +197,14 @@ export default class ProxyModal extends Vue {
     @Prop({ default: undefined }) proxy!: IProxyDoc;
     @Prop({ default: true }) mode!: boolean;
 
-    /* MODAL */
-    isEdit = false;
-    isModalBirthCertificate = false;
-    isModalPassport = false;
+    /* STATE */
+    @State('proxy')
+    proxyMap!: IProxyDocState;
 
     /* ACTION */
-    @Action('postProxy', { namespace })
+    @Mutation('postProxy', { namespace })
     postProxy: any;
-    @Action('putProxy', { namespace })
+    @Mutation('putProxy', { namespace })
     putProxy: any;
 }
 </script>

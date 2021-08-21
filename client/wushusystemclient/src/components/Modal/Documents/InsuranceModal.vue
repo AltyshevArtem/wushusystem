@@ -83,7 +83,7 @@ import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 
 /* VUEX */
-import { State, Action } from 'vuex-class';
+import { Mutation, State } from 'vuex-class';
 
 /* COMPONENT */
 import Datepicker from 'vue3-datepicker';
@@ -122,10 +122,6 @@ const namespace = 'insurance';
             };
             this.postInsurance(insurance);
 
-            //TODO: Прокси объекты
-            // this.sportsmanMap.sportsman.insurance = this.insuranceMap;
-            // this.putSportsman(this.sportsmanMap.sportsman);
-
             this.closeModal();
         },
         SaveInsurance() {
@@ -146,10 +142,14 @@ export default class InsuranceModal extends Vue {
     @Prop({ default: undefined }) insurance!: IInsurance;
     @Prop({ default: true }) mode!: boolean;
 
-    /* ACTION */
-    @Action('postInsurance', { namespace })
+    /* STATE */
+    @State('insurance')
+    insuranceMap!: IInsuranceState;
+
+    /* MUTATION */
+    @Mutation('postInsurance', { namespace })
     postInsurance: any;
-    @Action('putInsurance', { namespace })
+    @Mutation('putInsurance', { namespace })
     putInsurance: any;
 }
 </script>

@@ -33,14 +33,14 @@ export const actions: ActionTree<IPassportState, null> = {
         if (passport.scan['name'] !== undefined) {
             data.append('scan', passport.scan);
         }
-        if (passport.date_start !== undefined){
+        if (passport.date_start !== undefined) {
             data.append('date_start', String(passport.date_start));
         }
-        if (passport.issue !== undefined){
+        if (passport.issue !== undefined) {
             data.append('issue', String(passport.issue));
         }
-        if (passport.code !== undefined){
-                data.append('code', String(passport.code));
+        if (passport.code !== undefined) {
+            data.append('code', String(passport.code));
         }
         axios
             .put(`/api/passport/${passport.id}/`, data, {

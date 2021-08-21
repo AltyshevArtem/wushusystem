@@ -73,7 +73,7 @@ import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 
 /* VUEX */
-import { State, Action } from 'vuex-class';
+import { Mutation, State } from 'vuex-class';
 
 /* STATE */
 import { IOmsState } from '@/store/modules/oms/types';
@@ -124,10 +124,14 @@ export default class OmsModal extends Vue {
     @Prop({ default: undefined }) oms!: IOms;
     @Prop({ default: true }) mode!: boolean;
 
-    /* ACTION */
-    @Action('postOMS', { namespace })
+    /* STATE */
+    @State('oms')
+    omsMap!: IOmsState;
+
+    /* MUTATION */
+    @Mutation('postOMS', { namespace })
     postOMS: any;
-    @Action('putOMS', { namespace })
+    @Mutation('putOMS', { namespace })
     putOMS: any;
 }
 </script>

@@ -16,6 +16,8 @@
                     <div>
                         <h6>Скан фото:</h6>
                         <div v-if="birthCertificate.scan">
+                            <!-- TODO: Сделать просмотр только что
+                            добавленной картинки(во всех модалках) -->
                             <a :href="birthCertificate.scan" class="card-link">Просмотр</a>
                             <button @click="birthCertificate.scan = null">Удалить</button>
                         </div>
@@ -78,7 +80,7 @@ import { Vue, Options } from 'vue-class-component';
 import { Prop } from 'vue-property-decorator';
 
 /* VUEX */
-import { State, Action } from 'vuex-class';
+import { State, Mutation } from 'vuex-class';
 
 /* STATE */
 import { IBirthCertificateState } from '@/store/modules/birth_certificate/types';
@@ -129,10 +131,14 @@ export default class BirthCertificateModal extends Vue {
     @Prop({ default: undefined }) birthCertificate!: IBirthCertificate;
     @Prop({ default: true }) mode!: boolean;
 
-    /* ACTION */
-    @Action('postBirthCertificate', { namespace })
+    /* STATE */
+    @State('birth_certificate')
+    birthCertificateMap!: IBirthCertificateState;
+
+    /* MUTATIONS */
+    @Mutation('postBirthCertificate', { namespace })
     postBirthCertificate: any;
-    @Action('putBirthCertificate', { namespace })
+    @Mutation('putBirthCertificate', { namespace })
     putBirthCertificate: any;
 }
 </script>

@@ -42,7 +42,7 @@ export default class SelectRank extends Vue {
     @Prop({ type: String, default: 'multiple' }) mode!: string;
 
     /* STATE */
-    @State('rank')
+    @State('trainer')
     listTrainerMap!: ITrainerState;
 
     /* ACTION */

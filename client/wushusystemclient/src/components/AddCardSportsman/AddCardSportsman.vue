@@ -1,112 +1,446 @@
 <template>
-    <ul>
-        <li>Фамилия: <input /></li>
-        <li>Имя: <input /></li>
-        <li>Отчество: <input /></li>
-        <li>
-            Фото спортсмена
-            <input type="file" id="PhotoFile" v-on:change="PhotoFileUpload()" />
-        </li>
-        <li>Пол: <SelectGender mode="single" /></li>
-        <li>
-            Дата рождения:
-            <Datepicker
-                v-model="SelectedDate"
-                :locale="locale"
-                :upperLimit="to"
-                :lowerLimit="from"
-            />
-        </li>
-        <!-- Селектор тренеров -->
-        <li>Тренер: <input v-model="Trainer" /></li>
-        <li>Разряд: <SelectRank mode="single" /></li>
-        <!-- Селектор дуаней -->
-        <li>Дуань/Цзи: <input v-model="DuanCzi" /></li>
+    <div class="container-fluid">
+        <form @submit.prevent>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group">
+                        <input
+                            class="form-control"
+                            placeholder="Фамилия"
+                            id="FIO"
+                            v-model="sportsman.surname"
+                            required
+                        />
+                        <input
+                            class="form-control"
+                            placeholder="Имя"
+                            id="FIO"
+                            v-model="sportsman.name"
+                            required
+                        />
+                        <input
+                            class="form-control"
+                            placeholder="Отчество"
+                            id="FIO"
+                            v-model="sportsman.patronymic"
+                        />
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="input__wrapper-file">
+                        <input
+                            type="file"
+                            name="file"
+                            id="PhotoSportsman"
+                            ref="PhotoSportsman"
+                            class="input input__file"
+                            @change="PhotoSportsmanUpload()"
+                        />
+                        <label class="input__file-button" for="PhotoSportsman">
+                            <span class="input__file-icon-wrapper"
+                                ><img
+                                    class="input__file-icon"
+                                    src="@/assets/attach.svg"
+                                    alt="Фото спортсмена"
+                                    width="25"
+                            /></span>
+                            <span class="input__file-button-text"> Фото спортсмена </span>
+                        </label>
+                        {{ PhotoSportsman }}
+                    </div>
 
-        <!-- Новый блок -->
-        <!-- Селектор стран -->
-        <li>Страна: <input /></li>
-        <!-- Селектор Фо -->
-        <li>Федеральный округ: <input /></li>
-        <!-- Селектор краёв -->
-        <li>Край/Республика: <input /></li>
-        <!-- Селектор городов -->
-        <li>Город: <input /></li>
-        <!-- Селектор клубов -->
-        <li>Клуб: <input v-model="DuanCzi" /></li>
-        <li>Адрес прописки: <input /></li>
+                    <SelectGender v-model="sportsman.gender" mode="single" />
+                    <div class="form-group">
+                        <label for="DateOfBirth">Дата Рождения</label>
+                        <input
+                            placeholder="YYYY-MM-DD"
+                            id="DateOfBirth"
+                            class="form-control"
+                            v-model="sportsman.date_of_birth"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <SelectTrainer mode="single" id="selectTrainer" v-model="sportsman.trainer" />
 
-        <!-- Модалка паспорта -->
-        <li>Паспорт <button>Добавить</button></li>
-        <!-- Модалка паспорта -->
-        <li>Свидетельство о рождении <button>Добавить</button></li>
-        <!-- Модалка доверенности паспорта -->
-        <li>Доверенность на паспорт <button>Добавить</button></li>
-        <li>
-            Подтверждение прописки
-            <input
-                type="file"
-                id="ConfirmAddressFile"
-                ref="ConfirmAddressFile"
-                v-on:change="ConfirmAddressFileUpload()"
-            />
-        </li>
-        <!-- Модалка полиса ОМС -->
-        <li>Полис ОМС<button>Добавить</button></li>
-        <!-- Модалка страховки ОМС -->
-        <li>Страховка<button>Добавить</button></li>
-        <li>
-            Сертификат РУСАДА:
-            <input type="file" id="RusadaFile" ref="RusadaFile" v-on:change="RusadaFileUpload()" />
-        </li>
-        <li>
-            Справка об обучении в школе:
-            <input type="file" id="SchoolFile" ref="SchoolFile" v-on:change="SchoolFileUpload()" />
-        </li>
-        <li>
-            ПЦР-тест COVID-19:
-            <input
-                type="file"
-                id="CovidTestFile"
-                ref="CovidTestFile"
-                v-on:change="CovidTestFileUpload()"
-            />
-        </li>
-        <li>
-            Справка об отсутствии контактов с инфекционными больными:
-            <input
-                type="file"
-                id="CovidContactFile"
-                ref="CovidContactFile"
-                v-on:change="CovidContactFileUpload()"
-            />
-        </li>
-        <li>
-            Доверенность родителя:
-            <input
-                type="file"
-                id="CovidContactFile"
-                ref="CovidContactFile"
-                v-on:change="CovidContactFileUpload()"
-            />
-        </li>
-    </ul>
+                    <SelectRank mode="single" id="selectRank" v-model="sportsman.rank" />
+
+                    <SelectDuanCzi mode="single" id="selectDuanCzi" v-model="sportsman.duan_czi" />
+                </div>
+                <div class="col-6">
+                    <SelectCity mode="single" v-model="sportsman.city" />
+                    <SelectClub mode="single" v-model="sportsman.club" />
+                    <div class="form-group">
+                        <input
+                            placeholder="Адрес"
+                            class="form-control"
+                            v-model="sportsman.address"
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <template v-if="!insuranceMap.insurance">
+                    Страховой полис:
+                    <button
+                        @click="
+                            {
+                                isModalInsurance = true;
+                                isEdit = false;
+                            }
+                        "
+                    >
+                        Добавить новый страховой полис
+                    </button>
+                </template>
+                <template v-else>
+                    Страховой полис:
+                    <button
+                        @click="
+                            {
+                                isModalInsurance = true;
+                                isEdit = true;
+                            }
+                        "
+                    >
+                        Редактировать страховой полис
+                    </button>
+                </template>
+                {{ insuranceMap.insurance }}
+                <InsuranceModal
+                    v-if="isModalInsurance"
+                    :mode="isEdit"
+                    :insurance="insuranceMap.insurance"
+                    @closeModal="isModalInsurance = false"
+                />
+            </div>
+            <div class="row">
+                <template v-if="!birthCertificateMap.birthCertificate">
+                    Свидетельство о рождении:
+                    <button
+                        @click="
+                            {
+                                isModalBirthCertificate = true;
+                                isEdit = false;
+                            }
+                        "
+                    >
+                        Добавить новое свидетельство о рождении
+                    </button>
+                </template>
+                <template v-else>
+                    Свидетельство о рождении:
+                    <button
+                        @click="
+                            {
+                                isModalBirthCertificate = true;
+                                isEdit = true;
+                            }
+                        "
+                    >
+                        Редактировать свидетельство о рождении
+                    </button>
+                </template>
+                {{ birthCertificateMap.birthCertificate }}
+                <BirthCertificateModal
+                    v-if="isModalBirthCertificate"
+                    :mode="isEdit"
+                    :birthCertificate="birthCertificateMap.birthCertificate"
+                    @closeModal="isModalBirthCertificate = false"
+                />
+            </div>
+            <div class="row">
+                <template v-if="!omsMap.oms">
+                    Полис ОМС:
+                    <button
+                        @click="
+                            {
+                                isModalOms = true;
+                                isEdit = false;
+                            }
+                        "
+                    >
+                        Добавить новый полис ОМС
+                    </button>
+                </template>
+                <template v-else>
+                    Полис ОМС:
+                    <button
+                        @click="
+                            {
+                                isModalOms = true;
+                                isEdit = true;
+                            }
+                        "
+                    >
+                        Редактировать полис ОМС
+                    </button>
+                </template>
+                {{ omsMap.oms }}
+                <OmsModal
+                    v-if="isModalOms"
+                    :mode="isEdit"
+                    :oms="omsMap.oms"
+                    @closeModal="isModalOms = false"
+                />
+            </div>
+            <div class="row">
+                <template v-if="!passportMap.passport">
+                    Паспорт:
+                    <button
+                        @click="
+                            {
+                                isModalPassport = true;
+                                isEdit = false;
+                            }
+                        "
+                    >
+                        Добавить новый паспорт
+                    </button>
+                </template>
+                <template v-else>
+                    Паспорт:
+                    <button
+                        @click="
+                            {
+                                isModalPassport = true;
+                                isEdit = true;
+                            }
+                        "
+                    >
+                        Редактировать паспорт
+                    </button>
+                </template>
+                {{ passportMap.passport }}
+                <PassportModal
+                    v-if="isModalPassport"
+                    :mode="isEdit"
+                    :passport="passportMap.passport"
+                    @closeModal="isModalPassport = false"
+                />
+            </div>
+            <div class="row">
+                <template v-if="!proxyMap.proxy">
+                    Прокси:
+                    <button
+                        @click="
+                            {
+                                isModalProxy = true;
+                                isEdit = false;
+                            }
+                        "
+                    >
+                        Добавить новый прокси
+                    </button>
+                </template>
+                <template v-else>
+                    Прокси:
+                    <button
+                        @click="
+                            {
+                                isModalProxy = true;
+                                isEdit = true;
+                            }
+                        "
+                    >
+                        Редактировать прокси
+                    </button>
+                </template>
+                {{ proxyMap.proxy }}
+                <ProxyModal
+                    v-if="isModalProxy"
+                    :mode="isEdit"
+                    :proxy="proxyMap.proxy"
+                    @closeModal="isModalProxy = false"
+                />
+            </div>
+            <div class="input__wrapper-file">
+                <input
+                    type="file"
+                    name="file"
+                    id="ConfirmAddressFile"
+                    ref="ConfirmAddressFile"
+                    class="input input__file"
+                    @change="ConfirmAddressFileUpload()"
+                />
+                <label class="input__file-button" for="ConfirmAddressFile">
+                    <span class="input__file-icon-wrapper"
+                        ><img
+                            class="input__file-icon"
+                            src="@/assets/attach.svg"
+                            alt="Подтверждение прописки"
+                            width="25"
+                    /></span>
+                    <span class="input__file-button-text"> Подтверждение прописки </span>
+                </label>
+                {{ ConfirmAddressFile }}
+            </div>
+            <div class="input__wrapper-file">
+                <input
+                    type="file"
+                    name="file"
+                    id="RusadaFile"
+                    ref="RusadaFile"
+                    class="input input__file"
+                    @change="RusadaFileUpload()"
+                />
+                <label class="input__file-button" for="RusadaFile">
+                    <span class="input__file-icon-wrapper"
+                        ><img
+                            class="input__file-icon"
+                            src="@/assets/attach.svg"
+                            alt="Сертификат РУСАДА"
+                            width="25"
+                    /></span>
+                    <span class="input__file-button-text"> Сертификат РУСАДА </span>
+                </label>
+                {{ RusadaFile }}
+            </div>
+            <div class="input__wrapper-file">
+                <input
+                    type="file"
+                    name="file"
+                    id="SchoolFile"
+                    ref="SchoolFile"
+                    class="input input__file"
+                    @change="SchoolFileUpload()"
+                />
+                <label class="input__file-button" for="SchoolFile">
+                    <span class="input__file-icon-wrapper"
+                        ><img
+                            class="input__file-icon"
+                            src="@/assets/attach.svg"
+                            alt="Справка об обучении в школе"
+                            width="25"
+                    /></span>
+                    <span class="input__file-button-text"> Справка об обучении в школе </span>
+                </label>
+                {{ SchoolFile }}
+            </div>
+            <div class="input__wrapper-file">
+                <input
+                    type="file"
+                    name="file"
+                    id="CovidTestFile"
+                    ref="CovidTestFile"
+                    class="input input__file"
+                    @change="CovidTestFileUpload()"
+                />
+                <label class="input__file-button" for="CovidTestFile">
+                    <span class="input__file-icon-wrapper"
+                        ><img
+                            class="input__file-icon"
+                            src="@/assets/attach.svg"
+                            alt="ПЦР-тест COVID-19"
+                            width="25"
+                    /></span>
+                    <span class="input__file-button-text"> ПЦР-тест COVID-19 </span>
+                </label>
+                {{ CovidTestFile }}
+            </div>
+            <div class="input__wrapper-file">
+                <input
+                    type="file"
+                    name="file"
+                    id="CovidContactFile"
+                    ref="CovidContactFile"
+                    class="input input__file"
+                    @change="CovidContactFileUpload()"
+                />
+                <label class="input__file-button" for="CovidContactFile">
+                    <span class="input__file-icon-wrapper"
+                        ><img
+                            class="input__file-icon"
+                            src="@/assets/attach.svg"
+                            alt="Справка об отсутствии контактов с инфекционными больными"
+                            width="25"
+                    /></span>
+                    <span class="input__file-button-text">
+                        Справка об отсутствии контактов с инфекционными больными
+                    </span>
+                </label>
+                {{ CovidContactFile }}
+            </div>
+            <div class="input__wrapper-file">
+                <input
+                    type="file"
+                    name="file"
+                    id="ParentDocFile"
+                    ref="ParentDocFile"
+                    class="input input__file"
+                    @change="ParentDocFileUpload()"
+                />
+                <label class="input__file-button" for="ParentDocFile">
+                    <span class="input__file-icon-wrapper"
+                        ><img
+                            class="input__file-icon"
+                            src="@/assets/attach.svg"
+                            alt="Доверенность родителя"
+                            width="25"
+                    /></span>
+                    <span class="input__file-button-text"> Доверенность родителя </span>
+                </label>
+                {{ ParentDocFile }}
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-primary" @click="addNewSportsman">
+                    Добавить нового спортсмена
+                </button>
+            </div>
+        </form>
+    </div>
 </template>
 
 <script lang="ts">
-import Datepicker from 'vue3-datepicker';
+/* eslint-disable camelcase */
+// import Datepicker from 'vue3-datepicker';
+/* VUE */
 import { Vue, Options } from 'vue-class-component';
 
-/* COMPONENTS */
-import SelectGender from '../Select/SelectGender.vue';
-import SelectRank from '../Select/SelectRank.vue';
+/* VUEX */
+import { State, Action, Getter } from 'vuex-class';
 
-//const namespace = 'sportsman';
+/* COMPONENTS */
+import SelectGender from '@/components/Select/SelectGender.vue';
+import SelectRank from '@/components/Select/SelectRank.vue';
+import SelectTrainer from '@/components/Select/SelectTrainer.vue';
+import SelectDuanCzi from '@/components/Select/SelectDuanCzi.vue';
+import SelectClub from '@/components/Select/SelectClub.vue';
+import SelectCity from '@/components/Select/SelectCity.vue';
+import InsuranceModal from '../Modal/Documents/InsuranceModal.vue';
+import BirthCertificateModal from '../Modal/Documents/BirthCertificateModal.vue';
+import OmsModal from '../Modal/Documents/OmsModal.vue';
+import PassportModal from '../Modal/Documents/PassportModal.vue';
+import ProxyModal from '../Modal/Documents/ProxyModal.vue';
+
+/* STATE */
+import { ISportsmanState } from '@/store/modules/sportsman/types';
+import { ICityState } from '@/store/modules/city/types';
+import { IClubState } from '@/store/modules/club/types';
+import { ITrainerState } from '@/store/modules/trainer/types';
+import { IInsuranceState } from '@/store/modules/insurance/types';
+import { IBirthCertificateState } from '@/store/modules/birth_certificate/types';
+import { IOmsState } from '@/store/modules/oms/types';
+import { IPassportState } from '@/store/modules/passport/types';
+import { IProxyDocState } from '@/store/modules/proxy/types';
+
+/* NAMESPACE */
+const namespace = 'sportsman';
+
+const namespaceCity = 'city';
+const namespaceClub = 'club';
+const namespaceTrainer = 'trainer';
+
 @Options({
     name: 'AddCardSportsman',
     methods: {
+        PhotoSportsmanUpload() {
+            this.PhotoSportsman = this.$refs.PhotoSportsman.files[0];
+        },
         ConfirmAddressFileUpload() {
-            this.ConfirmAddress = this.$refs.ConfirmAddress.files[0];
+            this.ConfirmAddressFile = this.$refs.ConfirmAddressFile.files[0];
         },
         RusadaFileUpload() {
             this.RusadaFile = this.$refs.RusadaFile.files[0];
@@ -120,24 +454,174 @@ import SelectRank from '../Select/SelectRank.vue';
         CovidContactFileUpload() {
             this.CovidContactFile = this.$refs.CovidContactFile.files[0];
         },
+        ParentDocFileUpload() {
+            this.ParentDocFile = this.$refs.ParentDocFile.files[0];
+        },
+        addNewSportsman() {
+            this.sportsman.photo = this.PhotoSportsman;
+            this.sportsman.confirm_address = this.ConfirmAddressFile;
+            this.sportsman.rusada = this.RusadaFile;
+            this.sportsman.school_doc = this.SchoolFile;
+            this.sportsman.covid_test = this.CovidTestFile;
+            this.sportsman.covid_contact = this.CovidContactFile;
+            this.sportsman.parent_doc = this.ParentDocFile;
+
+            this.sportsman.birth_certificate = this.birthCertificateMap.birthCertificate;
+            this.sportsman.insurance = this.insuranceMap.insurance;
+            this.sportsman.oms = this.omsMap.oms;
+            this.sportsman.proxy = this.proxyMap.proxy;
+            this.sportsman.passport = this.passportMap.passport;
+
+            const cityId = this.arrValueCity.indexOf(this.sportsman.city);
+            const clubId = this.arrValueClub.indexOf(this.sportsman.club);
+            const trainerId = this.arrValueTrainer.indexOf(this.sportsman.trainer);
+
+            this.sportsman.city = this.cityMap.cities[cityId];
+            this.sportsman.club = this.clubMap.clubs[clubId];
+            this.sportsman.trainer = this.trainerMap.trainers[trainerId];
+
+            this.postSportsman(this.sportsman);
+        },
     },
     data() {
         return {
-            ConfirmAddress: '',
-            RusadaFile: '',
+            sportsman: {
+                name: '',
+                surname: '',
+                patronymic: '',
+                photo: '',
+                date_of_birth: '',
+                address: '',
+                confirm_address: '',
+                gender: '',
+                passport: '',
+                birth_certificate: '',
+                proxy: '',
+                oms: '',
+                city: '',
+                trainer: '',
+                club: '',
+                insurance: '',
+                rank: '',
+                rusada: '',
+                covid_test: '',
+                covid_contact: '',
+                parent_doc: '',
+                school_doc: '',
+                duan_czi: '',
+            },
+            PhotoSportsman: '',
+            ConfirmAddressFile: '',
             SchoolFile: '',
+            RusadaFile: '',
             CovidTestFile: '',
             CovidContactFile: '',
-            SelectedDate: '',
+            ParentDocFile: '',
         };
     },
     components: {
         SelectGender,
         SelectRank,
-        Datepicker,
+        SelectTrainer,
+        SelectDuanCzi,
+        SelectClub,
+        SelectCity,
+        InsuranceModal,
+        BirthCertificateModal,
+        OmsModal,
+        PassportModal,
+        ProxyModal,
     },
 })
-export default class Sportsman extends Vue {}
+export default class AddCardSportsman extends Vue {
+    /* MODAL */
+    isEdit = false;
+    isModalInsurance = false;
+    isModalBirthCertificate = false;
+    isModalOms = false;
+    isModalPassport = false;
+    isModalProxy = false;
+
+    /* STATE */
+    @State('sportsman')
+    sportsmanMap!: ISportsmanState;
+    @State('city')
+    cityMap!: ICityState;
+    @State('club')
+    clubMap!: IClubState;
+    @State('trainer')
+    trainerMap!: ITrainerState;
+    @State('insurance')
+    insuranceMap!: IInsuranceState;
+    @State('birth_certificate')
+    birthCertificateMap!: IBirthCertificateState;
+    @State('oms')
+    omsMap!: IOmsState;
+    @State('passport')
+    passportMap!: IPassportState;
+    @State('proxy')
+    proxyMap!: IProxyDocState;
+
+    /* GETTERS */
+    @Getter('arrValueCity', { namespace: namespaceCity })
+    arrValueCity: Array<string> | undefined;
+    @Getter('arrValueClub', { namespace: namespaceClub })
+    arrValueClub: Array<string> | undefined;
+    @Getter('arrValueTrainer', { namespace: namespaceTrainer })
+    arrValueTrainer: Array<string> | undefined;
+
+    /* ACTION */
+    @Action('postSportsman', { namespace })
+    postSportsman: any;
+}
 </script>
 
-<style scoped></style>
+<style scoped>
+.input__wrapper-file {
+    width: 100%;
+    position: relative;
+    margin: 15px 0;
+    text-align: center;
+}
+
+.input__file {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+
+.input__file-icon-wrapper {
+    height: 60px;
+    width: 60px;
+    margin-right: 15px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    border-right: 1px solid #fff;
+}
+
+.input__file-button-text {
+    line-height: 1;
+    margin-top: 1px;
+}
+
+.input__file-button {
+    width: 25%;
+    height: 40px;
+    background: #000000;
+    color: #fff;
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 0 auto;
+}
+</style>

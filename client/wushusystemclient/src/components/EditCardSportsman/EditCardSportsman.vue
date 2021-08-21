@@ -1,267 +1,456 @@
 <template>
-    <ul>
-        <li>Фамилия: <input v-model="Name" /></li>
-        <li>Имя: <input v-model="Surname" /></li>
-        <li>Отчество: <input v-model="Patronymic" /></li>
-        <li>
-            Фото спортсмена
-            <input type="file" id="PhotoFile" ref="PhotoFile" v-on:change="PhotoFileUpload()" />
-        </li>
-        <li>Пол: <SelectGender mode="single" /></li>
-        <!-- Селектор нужен-->
-        <li>Тренер: <input v-model="Trainer" /></li>
-        <li>
-            Дата рождения:
-            <Datepicker v-model="SelectedDate" />
-        </li>
-        <li>Разряд: <SelectRank mode="single" /></li>
-        <!-- Селектор для ФО -->
-        <li>Федеральный округ: <input v-model="NameOfFederalRegion" /></li>
-        <!-- Селектор для краёв/республик -->
-        <li>Край/Республика: <input v-model="NameOfRegion" /></li>
-        <!-- Селектор для городов с учетом фильтров краёв/республик-->
-        <li>Город: <input v-model="NameOfCity" /></li>
-        <li>Адрес прописки: <input v-model="Address" /></li>
-        <!-- Как сделать загрузку фотки паспорта?  -->
-        <li>
-            Фотография паспорта:
-            <input
-                type="file"
-                id="PassportFile"
-                ref="PassportFile"
-                v-on:change="PassportFileUpload()"
-            />
-        </li>
-        <li>
-            РУСАДА:
-            <input type="file" id="RusadaFile" ref="RusadaFile" v-on:change="RusadaFileUpload()" />
-        </li>
-        <li>Дуань/Цзи: <input v-model="DuanCzi" /></li>
-        <li>
-            Справка об отсутствии контактов с инфекционными больными:
-            <input
-                type="file"
-                id="CovidContactFile"
-                ref="CovidContactFile"
-                v-on:change="CovidContactFileUpload()"
-            />
-        </li>
-        <li>
-            ПЦР-тест COVID-19:
-            <input
-                type="file"
-                id="CovidTestFile"
-                ref="CovidTestFile"
-                v-on:change="CovidTestFileUpload()"
-            />
-        </li>
-        <li>
-            <template v-if="!insuranceMap.insurance">
-                Страховой полис:
-                <button
-                    @click="
-                        {
-                            isModalInsurance = true;
-                            isEdit = false;
-                        }
-                    "
-                >
-                    Добавить новый страховой полис
-                </button>
-            </template>
-            <template v-else>
-                Страховой полис:
-                <button
-                    @click="
-                        {
-                            isModalInsurance = true;
-                            isEdit = true;
-                        }
-                    "
-                >
-                    Редактировать страховой полис
-                </button>
-            </template>
-            {{ insuranceMap.insurance }}
-            <InsuranceModal
-                v-if="isModalInsurance"
-                :mode="isEdit"
-                :insurance="insuranceMap.insurance"
-                @closeModal="isModalInsurance = false"
-            />
-        </li>
-        <li>
-            <template v-if="!birthCertificateMap.birthCertificate">
-                Свидетельство о рождении:
-                <button
-                    @click="
-                        {
-                            isModalBirthCertificate = true;
-                            isEdit = false;
-                        }
-                    "
-                >
-                    Добавить новое свидетельство о рождении
-                </button>
-            </template>
-            <template v-else>
-                Свидетельство о рождении:
-                <button
-                    @click="
-                        {
-                            isModalBirthCertificate = true;
-                            isEdit = true;
-                        }
-                    "
-                >
-                    Редактировать свидетельство о рождении
-                </button>
-            </template>
-            {{ birthCertificateMap.birthCertificate }}
-            <BirthCertificateModal
-                v-if="isModalBirthCertificate"
-                :mode="isEdit"
-                :birthCertificate="birthCertificateMap.birthCertificate"
-                @closeModal="isModalBirthCertificate = false"
-            />
-        </li>
-        <li>
-            <template v-if="!omsMap.oms">
-                Полис ОМС:
-                <button
-                    @click="
-                        {
-                            isModalOms = true;
-                            isEdit = false;
-                        }
-                    "
-                >
-                    Добавить новый полис ОМС
-                </button>
-            </template>
-            <template v-else>
-                Полис ОМС:
-                <button
-                    @click="
-                        {
-                            isModalOms = true;
-                            isEdit = true;
-                        }
-                    "
-                >
-                    Редактировать полис ОМС
-                </button>
-            </template>
-            {{ omsMap.oms }}
-            <OmsModal
-                v-if="isModalOms"
-                :mode="isEdit"
-                :oms="omsMap.oms"
-                @closeModal="isModalOms = false"
-            />
-        </li>
-        <li>
-            <template v-if="!passportMap.passport">
-                Паспорт:
-                <button
-                    @click="
-                        {
-                            isModalPassport = true;
-                            isEdit = false;
-                        }
-                    "
-                >
-                    Добавить новый паспорт
-                </button>
-            </template>
-            <template v-else>
-                Паспорт:
-                <button
-                    @click="
-                        {
-                            isModalPassport = true;
-                            isEdit = true;
-                        }
-                    "
-                >
-                    Редактировать паспорт
-                </button>
-            </template>
-            {{ passportMap.passport }}
-            <PassportModal
-                v-if="isModalPassport"
-                :mode="isEdit"
-                :passport="passportMap.passport"
-                @closeModal="isModalPassport = false"
-            />
-        </li>
-        <li>
-            <template v-if="!proxyMap.proxy">
-                Прокси:
-                <button
-                    @click="
-                        {
-                            isModalProxy = true;
-                            isEdit = false;
-                        }
-                    "
-                >
-                    Добавить новый прокси
-                </button>
-            </template>
-            <template v-else>
-                Прокси:
-                <button
-                    @click="
-                        {
-                            isModalProxy = true;
-                            isEdit = true;
-                        }
-                    "
-                >
-                    Редактировать прокси
-                </button>
-            </template>
-            {{ proxyMap.proxy }}
-            <ProxyModal
-                v-if="isModalProxy"
-                :mode="isEdit"
-                :proxy="proxyMap.proxy"
-                @closeModal="isModalProxy = false"
-            />
-        </li>
-        <!-- А также поля
-            Док с пропиской -> ещё нету в спортсменах
-            Доверенность на паспорт/свидетельство -> ещё нету в спортсменах
-            Полис омс -> ещё нету в спортсменах
-            Клуб
-            Страховки
-            Ранга
-            Доверенность родителей
-            Справка о школе
-        -->
-    </ul>
+    <div class="container">
+        <ul>
+            <li>
+                Фамилия:
+                <input @change="this.Editable = true" v-model="sportsmanMap.sportsman.name" />
+            </li>
+            <li>
+                Имя:
+                <input @change="this.Editable = true" v-model="sportsmanMap.sportsman.surname" />
+            </li>
+            <li>
+                Отчество:
+                <input @change="this.Editable = true" v-model="sportsmanMap.sportsman.patronymic" />
+            </li>
+            <li>
+                Фото спортсмена
+                <div v-if="sportsmanMap.sportsman.photo !== (undefined || null)">
+                    <img class="photo" :src="sportsmanMap.sportsman.photo" alt="PhotoSportsman" />
+                    <button
+                        @click="
+                            sportsmanMap.sportsman.photo = null;
+                            Editable = true;
+                        "
+                    >
+                        Удалить
+                    </button>
+                </div>
+                <div v-else>
+                    <input
+                        type="file"
+                        id="PhotoSportsman"
+                        ref="PhotoSportsman"
+                        @change="PhotoSportsmanUpload()"
+                    />
+                </div>
+            </li>
+            <li>
+                Пол:
+                <SelectGender
+                    @change="Editable = true"
+                    mode="single"
+                    v-model="sportsmanMap.sportsman.gender"
+                />
+            </li>
+            <li>
+                Тренер:
+                <SelectTrainer
+                    @change="Editable = true"
+                    mode="single"
+                    v-model="sportsmanMap.sportsman.trainer"
+                />
+            </li>
+            <li>
+                Дата рождения:
+                <input
+                    placeholder="YYYY-MM-DD"
+                    @change="this.Editable = true"
+                    v-model="sportsmanMap.sportsman.date_of_birth"
+                />
+            </li>
+            <li>
+                Разряд:
+                <SelectRank
+                    mode="single"
+                    @change="Editable = true"
+                    v-model="sportsmanMap.sportsman.rank"
+                />
+            </li>
+            <li>
+                Город:
+                <SelectCity
+                    mode="single"
+                    @change="Editable = true"
+                    v-model="sportsmanMap.sportsman.city"
+                />
+            </li>
+            <li>
+                Адрес прописки:
+                <input @change="this.Editable = true" v-model="sportsmanMap.sportsman.address" />
+            </li>
+            <li>
+                Подтверждение подписки:
+                <div v-if="sportsmanMap.sportsman.confirm_address !== (undefined || null)">
+                    <img
+                        class="photo"
+                        :src="sportsmanMap.sportsman.confirm_address"
+                        alt="ConfirmAddressFile"
+                    />
+                    <button
+                        @click="
+                            sportsmanMap.sportsman.confirm_address = null;
+                            Editable = true;
+                        "
+                    >
+                        Удалить
+                    </button>
+                </div>
+                <div v-else>
+                    <input
+                        type="file"
+                        id="ConfirmAddressFile"
+                        ref="ConfirmAddressFile"
+                        @change="ConfirmAddressFileUpload()"
+                    />
+                </div>
+            </li>
+            <li>
+                РУСАДА:
+                <div v-if="sportsmanMap.sportsman.rusada !== (undefined || null)">
+                    <img class="photo" :src="sportsmanMap.sportsman.rusada" alt="RusadaFile" />
+                    <button
+                        @click="
+                            sportsmanMap.sportsman.rusada = null;
+                            Editable = true;
+                        "
+                    >
+                        Удалить
+                    </button>
+                </div>
+                <div v-else>
+                    <input
+                        type="file"
+                        id="RusadaFile"
+                        ref="RusadaFile"
+                        @change="RusadaFileUpload()"
+                    />
+                </div>
+            </li>
+            <li>
+                Дуань/Цзи:
+                <SelectDuanDzi
+                    @change="Editable = true"
+                    mode="single"
+                    v-model="sportsmanMap.sportsman.duan_czi"
+                />
+            </li>
+            <li>
+                Справка об отсутствии контактов с инфекционными больными:
+                <div v-if="sportsmanMap.sportsman.covid_contact !== (undefined || null)">
+                    <img
+                        class="photo"
+                        :src="sportsmanMap.sportsman.covid_contact"
+                        alt="CovidContactFile"
+                    />
+                    <button
+                        @click="
+                            sportsmanMap.sportsman.covid_contact = null;
+                            Editable = true;
+                        "
+                    >
+                        Удалить
+                    </button>
+                </div>
+                <div v-else>
+                    <input
+                        type="file"
+                        id="CovidContactFile"
+                        ref="CovidContactFile"
+                        @change="CovidContactFileUpload()"
+                    />
+                </div>
+            </li>
+            <li>
+                ПЦР-тест COVID-19:
+                <div v-if="sportsmanMap.sportsman.covid_test !== (undefined || null)">
+                    <img
+                        class="photo"
+                        :src="sportsmanMap.sportsman.covid_test"
+                        alt="CovidTestFile"
+                    />
+                    <button
+                        @click="
+                            sportsmanMap.sportsman.covid_test = null;
+                            Editable = true;
+                        "
+                    >
+                        Удалить
+                    </button>
+                </div>
+                <div v-else>
+                    <input
+                        type="file"
+                        id="CovidTestFile"
+                        ref="CovidTestFile"
+                        @change="CovidTestFileUpload()"
+                    />
+                </div>
+            </li>
+            <li>
+                Доверенность от родителей:
+                <div v-if="sportsmanMap.sportsman.parent_doc !== (undefined || null)">
+                    <img
+                        class="photo"
+                        :src="sportsmanMap.sportsman.parent_doc"
+                        alt="ParentDocFile"
+                    />
+                    <button
+                        @click="
+                            sportsmanMap.sportsman.parent_doc = null;
+                            Editable = true;
+                        "
+                    >
+                        Удалить
+                    </button>
+                </div>
+                <div v-else>
+                    <input
+                        type="file"
+                        id="ParentDocFile"
+                        ref="ParentDocFile"
+                        @change="ParentDocFileUpload()"
+                    />
+                </div>
+            </li>
+            <li>
+                Справка об обучении в школе:
+                <div v-if="sportsmanMap.sportsman.school_doc !== (undefined || null)">
+                    <img class="photo" :src="sportsmanMap.sportsman.school_doc" alt="SchoolFile" />
+                    <button
+                        @click="
+                            sportsmanMap.sportsman.school_doc = null;
+                            Editable = true;
+                        "
+                    >
+                        Удалить
+                    </button>
+                </div>
+                <div v-else>
+                    <input
+                        type="file"
+                        id="SchoolFile"
+                        ref="SchoolFile"
+                        @change="SchoolFileUpload()"
+                    />
+                </div>
+            </li>
+            <li>
+                <template v-if="!sportsmanMap.sportsman.insurance">
+                    Страховой полис:
+                    <button
+                        @click="
+                            {
+                                isModalInsurance = true;
+                                isEdit = false;
+                            }
+                        "
+                    >
+                        Добавить новый страховой полис
+                    </button>
+                </template>
+                <template v-else>
+                    Страховой полис:
+                    <button
+                        @click="
+                            {
+                                isModalInsurance = true;
+                                isEdit = true;
+                            }
+                        "
+                    >
+                        Редактировать страховой полис
+                    </button>
+                </template>
+                {{ sportsmanMap.sportsman.insurance }}
+                <InsuranceModal
+                    v-if="isModalInsurance"
+                    :mode="isEdit"
+                    :insurance="sportsmanMap.sportsman.insurance"
+                    @closeModal="isModalInsurance = false"
+                />
+            </li>
+            <li>
+                <template v-if="!sportsmanMap.sportsman.birth_certificate">
+                    Свидетельство о рождении:
+                    <button
+                        @click="
+                            {
+                                isModalBirthCertificate = true;
+                                isEdit = false;
+                            }
+                        "
+                    >
+                        Добавить новое свидетельство о рождении
+                    </button>
+                </template>
+                <template v-else>
+                    Свидетельство о рождении:
+                    <button
+                        @click="
+                            {
+                                isModalBirthCertificate = true;
+                                isEdit = true;
+                            }
+                        "
+                    >
+                        Редактировать свидетельство о рождении
+                    </button>
+                </template>
+                {{ sportsmanMap.sportsman.birth_certificate }}
+                <BirthCertificateModal
+                    v-if="isModalBirthCertificate"
+                    :mode="isEdit"
+                    :birthCertificate="sportsmanMap.sportsman.birth_certificate"
+                    @closeModal="isModalBirthCertificate = false"
+                />
+            </li>
+            <li>
+                <template v-if="!sportsmanMap.sportsman.oms">
+                    Полис ОМС:
+                    <button
+                        @click="
+                            {
+                                isModalOms = true;
+                                isEdit = false;
+                            }
+                        "
+                    >
+                        Добавить новый полис ОМС
+                    </button>
+                </template>
+                <template v-else>
+                    Полис ОМС:
+                    <button
+                        @click="
+                            {
+                                isModalOms = true;
+                                isEdit = true;
+                            }
+                        "
+                    >
+                        Редактировать полис ОМС
+                    </button>
+                </template>
+                {{ sportsmanMap.sportsman.oms }}
+                <OmsModal
+                    v-if="isModalOms"
+                    :mode="isEdit"
+                    :oms="sportsmanMap.sportsman.oms"
+                    @closeModal="isModalOms = false"
+                />
+            </li>
+            <li>
+                <template v-if="!sportsmanMap.sportsman.passport">
+                    Паспорт:
+                    <button
+                        @click="
+                            {
+                                isModalPassport = true;
+                                isEdit = false;
+                            }
+                        "
+                    >
+                        Добавить новый паспорт
+                    </button>
+                </template>
+                <template v-else>
+                    Паспорт:
+                    <button
+                        @click="
+                            {
+                                isModalPassport = true;
+                                isEdit = true;
+                            }
+                        "
+                    >
+                        Редактировать паспорт
+                    </button>
+                </template>
+                {{ sportsmanMap.sportsman.passport }}
+                <PassportModal
+                    v-if="isModalPassport"
+                    :mode="isEdit"
+                    :passport="sportsmanMap.sportsman.passport"
+                    @closeModal="isModalPassport = false"
+                />
+            </li>
+            <li>
+                <template v-if="!sportsmanMap.sportsman.proxy">
+                    Прокси:
+                    <button
+                        @click="
+                            {
+                                isModalProxy = true;
+                                isEdit = false;
+                            }
+                        "
+                    >
+                        Добавить новый прокси
+                    </button>
+                </template>
+                <template v-else>
+                    Прокси:
+                    <button
+                        @click="
+                            {
+                                isModalProxy = true;
+                                isEdit = true;
+                            }
+                        "
+                    >
+                        Редактировать прокси
+                    </button>
+                </template>
+                {{ sportsmanMap.sportsman.proxy }}
+                <ProxyModal
+                    v-if="isModalProxy"
+                    :mode="isEdit"
+                    :proxy="sportsmanMap.sportsman.proxy"
+                    @closeModal="isModalProxy = false"
+                />
+            </li>
+        </ul>
+    </div>
+    <div class="row">
+        <button
+            type="button"
+            class="btn btn-primary"
+            :class="{ disabled: !Editable }"
+            @click="editSportsman"
+        >
+            Сохранить
+        </button>
+    </div>
 </template>
 
 <script lang="ts">
+/* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
+// import { Watch } from 'vue-property-decorator';
 
 /* VUEX */
 import { State, Action, Getter } from 'vuex-class';
 
 /* STATE */
 import { ISportsmanState } from '@/store/modules/sportsman/types';
-import { IInsuranceState } from '@/store/modules/insurance/types';
-import { IBirthCertificateState } from '@/store/modules/birth_certificate/types';
-import { IOmsState } from '@/store/modules/oms/types';
-import { IPassportState } from '@/store/modules/passport/types';
-import { IProxyDocState } from '@/store/modules/proxy/types';
+import { ICityState } from '@/store/modules/city/types';
+import { IClubState } from '@/store/modules/club/types';
+import { ITrainerState } from '@/store/modules/trainer/types';
+// import { IInsuranceState } from '@/store/modules/insurance/types';
+// import { IBirthCertificateState } from '@/store/modules/birth_certificate/types';
+// import { IOmsState } from '@/store/modules/oms/types';
+// import { IPassportState } from '@/store/modules/passport/types';
+// import { IProxyDocState } from '@/store/modules/proxy/types';
 
 /* COMPONENTS */
-import Datepicker from 'vue3-datepicker';
 import SelectGender from '../Select/SelectGender.vue';
 import SelectRank from '../Select/SelectRank.vue';
+import SelectCity from '../Select/SelectCity.vue';
+import SelectClub from '../Select/SelectClub.vue';
+import SelectTrainer from '../Select/SelectTrainer.vue';
+import SelectDuanDzi from '../Select/SelectDuanCzi.vue';
 import InsuranceModal from '../Modal/Documents/InsuranceModal.vue';
 import BirthCertificateModal from '../Modal/Documents/BirthCertificateModal.vue';
 import OmsModal from '../Modal/Documents/OmsModal.vue';
@@ -271,39 +460,134 @@ import ProxyModal from '../Modal/Documents/ProxyModal.vue';
 /* NAMESPACE */
 const namespace = 'sportsman';
 
+const namespaceCity = 'city';
+const namespaceClub = 'club';
+const namespaceTrainer = 'trainer';
+
 @Options({
     name: 'EditCardSportsman',
     methods: {
-        PassportFileUpload() {
-            this.passportFile = this.$refs.PassportFile.files[0];
+        PhotoSportsmanUpload(): void {
+            this.PhotoSportsman = this.$refs.PhotoSportsman.files[0];
+            this.Editable = true;
         },
-        RusadaFileUpload() {
+        ConfirmAddressFileUpload(): void {
+            this.ConfirmAddressFile = this.$refs.ConfirmAddressFile.files[0];
+            this.Editable = true;
+        },
+        RusadaFileUpload(): void {
             this.RusadaFile = this.$refs.RusadaFile.files[0];
+            this.Editable = true;
         },
-        CovidContactFileUpload() {
-            this.CovidContactFile = this.$refs.CovidContactFile.files[0];
+        SchoolFileUpload(): void {
+            this.SchoolFile = this.$refs.SchoolFile.files[0];
+            this.Editable = true;
         },
-        CovidTestFileUpload() {
+        CovidTestFileUpload(): void {
             this.CovidTestFile = this.$refs.CovidTestFile.files[0];
+            this.Editable = true;
         },
-        PhotoFileUpload() {
-            this.PassportFile = this.$refs.PhotoFile.files[0];
+        CovidContactFileUpload(): void {
+            this.CovidContactFile = this.$refs.CovidContactFile.files[0];
+            this.Editable = true;
+        },
+        ParentDocFileUpload(): void {
+            this.ParentDocFile = this.$refs.ParentDocFile.files[0];
+            this.Editable = true;
+        },
+        editSportsman() {
+            if (this.PhotoSportsman !== '') {
+                this.sportsman.photo = this.PhotoSportsman;
+            }
+            if (this.ConfirmAddressFile !== '') {
+                this.sportsman.confirm_address = this.ConfirmAddressFile;
+            }
+            if (this.RusadaFile !== '') {
+                this.sportsman.rusada = this.RusadaFile;
+            }
+            if (this.SchoolFile !== '') {
+                this.sportsman.school_doc = this.SchoolFile;
+            }
+            if (this.CovidTestFile !== '') {
+                this.sportsman.covid_test = this.CovidTestFile;
+            }
+            if (this.CovidContactFile !== '') {
+                this.sportsman.covid_contact = this.CovidContactFile;
+            }
+            if (this.ParentDocFile !== '') {
+                this.sportsman.parent_doc = this.ParentDocFile;
+            }
+
+            this.sportsman.name = this.sportsmanMap.sportsman.name;
+            this.sportsman.surname = this.sportsmanMap.sportsman.surname;
+            this.sportsman.patronymic = this.sportsmanMap.sportsman.patronymic;
+            this.sportsman.date_of_birth = this.sportsmanMap.sportsman.date_of_birth;
+            this.sportsman.address = this.sportsmanMap.sportsman.address;
+            this.sportsman.gender = this.sportsmanMap.sportsman.gender;
+            this.sportsman.duan_czi = this.sportsmanMap.sportsman.duan_czi;
+            this.sportsman.rank = this.sportsmanMap.sportsman.rank;
+
+            this.sportsman.passport = this.sportsmanMap.sportsman.passport;
+            this.sportsman.birth_certificate = this.sportsmanMap.sportsman.birth_certificate;
+            this.sportsman.proxy = this.sportsmanMap.sportsman.proxy;
+            this.sportsman.oms = this.sportsmanMap.sportsman.oms;
+            this.sportsman.insurance = this.sportsmanMap.sportsman.insurance;
+
+            const cityId = this.arrValueCity.indexOf(this.sportsmanMap.sportsman.city);
+            const clubId = this.arrValueClub.indexOf(this.sportsmanMap.sportsman.club);
+            const trainerId = this.arrValueTrainer.indexOf(this.sportsmanMap.sportsman.trainer);
+
+            this.sportsman.city = this.cityMap.cities[cityId];
+            this.sportsman.club = this.clubMap.clubs[clubId];
+            this.sportsman.trainer = this.trainerMap.trainers[trainerId];
+
+            this.putSportsman(this.sportsman);
         },
     },
     data() {
         return {
-            PhotoFile: '',
-            PassportFile: '',
+            sportsman: {
+                id: this.$route.params.id,
+                name: '',
+                surname: '',
+                patronymic: '',
+                photo: '',
+                date_of_birth: '',
+                address: '',
+                confirm_address: '',
+                gender: '',
+                passport: '',
+                birth_certificate: '',
+                proxy: '',
+                oms: '',
+                city: '',
+                trainer: '',
+                club: '',
+                insurance: '',
+                rank: '',
+                rusada: '',
+                covid_test: '',
+                covid_contact: '',
+                parent_doc: '',
+                school_doc: '',
+                duan_czi: '',
+            },
+            PhotoSportsman: '',
+            ConfirmAddressFile: '',
             RusadaFile: '',
+            SchoolFile: '',
             CovidContactFile: '',
             CovidTestFile: '',
-            SelectedDate: '',
+            ParentDocFile: '',
         };
     },
     components: {
         SelectGender,
         SelectRank,
-        Datepicker,
+        SelectCity,
+        SelectTrainer,
+        SelectClub,
+        SelectDuanDzi,
         InsuranceModal,
         BirthCertificateModal,
         OmsModal,
@@ -320,65 +604,106 @@ export default class EditCardSportsman extends Vue {
     isModalPassport = false;
     isModalProxy = false;
 
+    Editable = false;
+
     /* STATE */
     @State('sportsman')
     sportsmanMap!: ISportsmanState;
-    @State('insurance')
-    insuranceMap!: IInsuranceState;
-    @State('birth_certificate')
-    birthCertificateMap!: IBirthCertificateState;
-    @State('oms')
-    omsMap!: IOmsState;
-    @State('passport')
-    passportMap!: IPassportState;
-    @State('proxy')
-    proxyMap!: IProxyDocState;
+    @State('city')
+    cityMap!: ICityState;
+    @State('club')
+    clubMap!: IClubState;
+    @State('trainer')
+    trainerMap!: ITrainerState;
 
     /* ACTION */
-    @Action('getSportsman', { namespace })
-    getSportsman: any;
+    @Action('putSportsman', { namespace })
+    putSportsman: any;
 
-    /* GETTER */
-    @Getter('Name', { namespace })
-    Name: string | undefined;
-    @Getter('Surname', { namespace })
-    Surname: string | undefined;
-    @Getter('Patronymic', { namespace })
-    Patronymic: string | undefined;
-    @Getter('Gender', { namespace })
-    Gender: string | undefined;
-    @Getter('Trainer', { namespace })
-    Trainer: string | undefined;
-    @Getter('SportsmanPhoto', { namespace })
-    SportsmanPhoto: string | undefined;
-    @Getter('DateOfBirth', { namespace })
-    DateOfBirth: string | undefined;
-    @Getter('Address', { namespace })
-    Address: string | undefined;
-    @Getter('FileMainDocument', { namespace })
-    FileMainDocument: string | undefined;
-    @Getter('Rusada', { namespace })
-    Rusada: string | undefined;
-    @Getter('Rank', { namespace })
-    Rank: string | undefined;
-    @Getter('DuanCzi', { namespace })
-    DuanCzi: string | undefined;
-    @Getter('NameOfCity', { namespace })
-    NameOfCity: string | undefined;
-    @Getter('NameOfRegion', { namespace })
-    NameOfRegion: string | undefined;
-    @Getter('NameOfFederalRegion', { namespace })
-    NameOfFederalRegion: string | undefined;
-    @Getter('ConfirmAddress', { namespace })
-    ConfirmAddress: string | undefined;
-    @Getter('CovidTest', { namespace })
-    CovidTest: string | undefined;
-    @Getter('CovidContact', { namespace })
-    CovidContact: string | undefined;
+    /* GETTERS */
+    @Getter('arrValueCity', { namespace: namespaceCity })
+    arrValueCity: Array<string> | undefined;
+    @Getter('arrValueClub', { namespace: namespaceClub })
+    arrValueClub: Array<string> | undefined;
+    @Getter('arrValueTrainer', { namespace: namespaceTrainer })
+    arrValueTrainer: Array<string> | undefined;
 
-    mounted(): void {
-        this.getSportsman(this.$route.params.id);
-    }
+    // mounted(): void {
+    // }
+
+    // /* INSURANCE */
+    // @Watch('sportsmanMap.sportsman.insurance.date_start')
+    // handlerInsuranceDS(newVal: Date, oldVal: Date): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+    // @Watch('sportsmanMap.sportsman.insurance.date_end')
+    // handlerInsuranceDE(newVal: Date, oldVal: Date): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+    // @Watch('sportsmanMap.sportsman.insurance.file_insurance')
+    // handlerInsuranceFI(newVal: string, oldVal: string): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+
+    // /* BIRTHCERTIFICATE */
+    // @Watch('sportsmanMap.sportsman.birth_certificate.number')
+    // handlerBirthCertificateNumber(newVal: string, oldVal: string): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+    // @Watch('sportsmanMap.sportsman.birth_certificate.scan')
+    // handlerBirthCertificateScan(newVal: number, oldVal: number): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+
+    // /* OMS */
+    // @Watch('sportsmanMap.sportsman.oms.number')
+    // handlerOMSNumber(newVal: number, oldVal: number): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+    // @Watch('sportsmanMap.sportsman.oms.scan')
+    // handlerOMSScan(newVal: string, oldVal: string): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+
+    // /* PASSPORT */
+    // @Watch('sportsmanMap.sportsman.passport.number')
+    // handlerPassportNumber(newVal: number, oldVal: number): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+    // @Watch('sportsmanMap.sportsman.passport.scan')
+    // handlerPassportScan(newVal: string, oldVal: string): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+    // @Watch('sportsmanMap.sportsman.passport.date_start')
+    // handlerPassportDS(newVal: Date, oldVal: Date): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+    // @Watch('sportsmanMap.sportsman.passport.issue')
+    // handlerPassportIssue(newVal: string, oldVal: string): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+    // @Watch('sportsmanMap.sportsman.passport.code')
+    // handlerPassportCode(newVal: number, oldVal: number): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+
+    // /* PROXY */
+    // @Watch('sportsmanMap.sportsman.proxy.scan')
+    // handlerProxyScan(newVal: string, oldVal: string): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+    // @Watch('sportsmanMap.sportsman.proxy.original_passport')
+    // handlerProxyOP(newVal: string, oldVal: string): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+    // @Watch('sportsmanMap.sportsman.proxy.original_birth_certificate')
+    // handlerProxyOBC(newVal: string, oldVal: string): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
+    // @Watch('sportsmanMap.sportsman.proxy.date_end')
+    // handlerProxyDE(newVal: Date, oldVal: Date): void {
+    //     if (oldVal !== newVal) this.Editable = true;
+    // }
 }
 </script>
 

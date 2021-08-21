@@ -1,7 +1,7 @@
 <template>
     <div class="container-sm">
         <br />
-        <router-link :to="'/sportsman/add_new'">
+        <router-link :to="'/sportsmans/new'">
             <button>Добавить нового</button>
         </router-link>
         <div class="listSportsman">
@@ -53,7 +53,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="sportsman in sportsmansMap.sportsmans.results" :key="sportsman.key">
+                <tr v-for="sportsman in sportsmansMap.sportsmans" :key="sportsman.key">
                     <!-- Полное имя -->
                     <td v-if="sportsman.patronymic">
                         <router-link :to="'/sportsman/' + sportsman.id">
@@ -100,7 +100,7 @@
         </table>
         <nav aria-label="..." v-if="pageCount > 1">
             <ul class="pagination">
-                <li class="page-item" :class="{ disabled: listSportsmanMap.page === 1 }">
+                <li class="page-item" :class="{ disabled: sportsmansMap.page === 1 }">
                     <a class="page-link" @click="prevPage" tabindex="-1" aria-disabled="true">
                         Previous
                     </a>
@@ -131,7 +131,8 @@
                 <!-- TODO: Если страниц больше limitPage, то мы не видим страницы больше
                 этого значения. Нужно либо использовать скролл,
                 либо при нажатии в списке менять нумерацию -->
-                <li class="page-item" :class="{ disabled: listSportsmanMap.page === pageCount }">
+                <!-- TODO: При переходе на страницу всегда отображать первую страницу -->
+                <li class="page-item" :class="{ disabled: sportsmansMap.page === pageCount }">
                     <a class="page-link" @click="nextPage"> Next </a>
                 </li>
             </ul>

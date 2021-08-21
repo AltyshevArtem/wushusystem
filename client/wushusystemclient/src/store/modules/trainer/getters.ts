@@ -1,4 +1,3 @@
-import { trainer } from './index';
 import { GetterTree } from 'vuex';
 import { ITrainerState } from './types';
 
