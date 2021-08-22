@@ -656,6 +656,10 @@ const namespaceTrainer = 'trainer';
             this.sportsman.oms = this.sportsmanMap.sportsman.oms;
             this.sportsman.insurance = this.sportsmanMap.sportsman.insurance;
 
+            const oldCity = this.sportsman.city;
+            const oldClub = this.sportsman.club;
+            const oldTrainer = this.sportsman.trainer;
+
             const cityId = this.arrValueCity.indexOf(this.sportsmanMap.sportsman.city);
             const clubId = this.arrValueClub.indexOf(this.sportsmanMap.sportsman.club);
             const trainerId = this.arrValueTrainer.indexOf(this.sportsmanMap.sportsman.trainer);
@@ -665,6 +669,10 @@ const namespaceTrainer = 'trainer';
             this.sportsman.trainer = this.trainerMap.trainers[trainerId];
 
             this.putSportsman(this.sportsman);
+
+            this.sportsman.city = oldCity;
+            this.sportsman.club = oldClub;
+            this.sportsman.trainer = oldTrainer;
         },
     },
     data() {

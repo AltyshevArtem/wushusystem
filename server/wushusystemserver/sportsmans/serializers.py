@@ -118,43 +118,43 @@ class SportsmanSerialize(serializers.ModelSerializer):
         else:
             city = None
 
-        if(validated_data.get('city') is not None):
+        if(validated_data.get('trainer') is not None):
             trainer_data = validated_data.pop('trainer')
             trainer = Trainer.objects.get(id=trainer_data['id'])
         else:
             trainer = None
 
-        if(validated_data.get('city') is not None):
+        if(validated_data.get('club') is not None):
             club_data = validated_data.pop('club')
             club = Club.objects.get(id=club_data['id'])
         else:
             club = None
 
-        if(validated_data.get('city') is not None):
+        if(validated_data.get('insurance') is not None):
             insurance_data = validated_data.pop('insurance')
             insurance = Insurance.objects.create(**insurance_data)
         else:
             insurance = None
 
-        if(validated_data.get('city') is not None):
+        if(validated_data.get('passport') is not None):
             passport_data = validated_data.pop('passport')
             passport = Passport.objects.create(**passport_data)
         else:
             passport = None
 
-        if(validated_data.get('city') is not None):
+        if(validated_data.get('birth_certificate') is not None):
             birth_certificate_data = validated_data.pop('birth_certificate')
             birth_certificate = Birth_Certificate.objects.create(**birth_certificate_data)
         else:
             birth_certificate = None
 
-        if(validated_data.get('city') is not None):
+        if(validated_data.get('proxy') is not None):
             proxy_data = validated_data.pop('proxy')
             proxy = Proxy_doc.objects.create(**proxy_data)
         else:
             proxy = None
 
-        if(validated_data.get('city') is not None):
+        if(validated_data.get('oms') is not None):
             oms_data = validated_data.pop('oms')
             oms = OMS.objects.create(**oms_data)
         else:

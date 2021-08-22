@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <form @submit.prevent @click="addNewSportsman">
+        <form @submit.prevent>
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
@@ -395,7 +395,9 @@
                 {{ ParentDocFile }}
             </div>
             <div class="row">
-                <button type="submit" class="btn btn-primary">Добавить нового спортсмена</button>
+                <button type="submit" class="btn btn-primary" @click="addNewSportsman">
+                    Добавить нового спортсмена
+                </button>
             </div>
         </form>
     </div>
@@ -480,6 +482,10 @@ const namespaceTrainer = 'trainer';
             this.sportsman.proxy = this.proxyMap.proxy;
             this.sportsman.passport = this.passportMap.passport;
 
+            const oldCity = this.sportsman.city;
+            const oldClub = this.sportsman.club;
+            const oldTrainer = this.sportsman.trainer;
+
             const cityId = this.arrValueCity.indexOf(this.sportsman.city);
             const clubId = this.arrValueClub.indexOf(this.sportsman.club);
             const trainerId = this.arrValueTrainer.indexOf(this.sportsman.trainer);
@@ -490,6 +496,10 @@ const namespaceTrainer = 'trainer';
 
             this.postSportsman(this.sportsman);
             //TODO: Сделать роутер пуш на созданного спортсмена в случае успеха
+
+            this.sportsman.city = oldCity;
+            this.sportsman.club = oldClub;
+            this.sportsman.trainer = oldTrainer;
         },
     },
     data() {
