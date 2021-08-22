@@ -24,7 +24,9 @@
                         File object, а не путь к картинке  -->
                         <div v-if="insurance.file_insurance">
                             <a :href="insurance.file_insurance" class="card-link">Просмотр</a>
-                            <button @click="insurance.file_insurance = null">Удалить</button>
+                            <button class="btn btn-danger" @click="insurance.file_insurance = null">
+                                Удалить
+                            </button>
                         </div>
                         <div v-else>
                             <input
@@ -86,7 +88,6 @@ import { Prop } from 'vue-property-decorator';
 import { Mutation, State } from 'vuex-class';
 
 /* COMPONENT */
-import Datepicker from 'vue3-datepicker';
 
 /* STATE */
 import { IInsuranceState } from '@/store/modules/insurance/types';
@@ -99,9 +100,7 @@ const namespace = 'insurance';
 
 @Options({
     name: 'InsuranceModal',
-    components: {
-        Datepicker,
-    },
+    components: {},
     data() {
         return {
             DateStart: '',

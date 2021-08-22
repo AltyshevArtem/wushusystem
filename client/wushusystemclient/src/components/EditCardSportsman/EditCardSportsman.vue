@@ -3,21 +3,33 @@
         <ul>
             <li>
                 Фамилия:
-                <input @change="this.Editable = true" v-model="sportsmanMap.sportsman.name" />
+                <input
+                    @change="this.Editable = true"
+                    placeholder="Фамилия"
+                    v-model="sportsmanMap.sportsman.name"
+                />
             </li>
             <li>
                 Имя:
-                <input @change="this.Editable = true" v-model="sportsmanMap.sportsman.surname" />
+                <input
+                    @change="this.Editable = true"
+                    placeholder="Имя"
+                    v-model="sportsmanMap.sportsman.surname"
+                />
             </li>
             <li>
                 Отчество:
-                <input @change="this.Editable = true" v-model="sportsmanMap.sportsman.patronymic" />
+                <input
+                    @change="this.Editable = true"
+                    placeholder="Отчество"
+                    v-model="sportsmanMap.sportsman.patronymic"
+                />
             </li>
             <li>
-                Фото спортсмена
                 <div v-if="sportsmanMap.sportsman.photo !== (undefined || null)">
                     <img class="photo" :src="sportsmanMap.sportsman.photo" alt="PhotoSportsman" />
                     <button
+                        class="btn btn-primary"
                         @click="
                             sportsmanMap.sportsman.photo = null;
                             Editable = true;
@@ -26,13 +38,26 @@
                         Удалить
                     </button>
                 </div>
-                <div v-else>
+                <div v-else class="input__wrapper-file">
                     <input
                         type="file"
+                        name="file"
                         id="PhotoSportsman"
                         ref="PhotoSportsman"
+                        class="input input__file"
                         @change="PhotoSportsmanUpload()"
                     />
+                    <label class="input__file-button" for="PhotoSportsman">
+                        <span class="input__file-icon-wrapper"
+                            ><img
+                                class="input__file-icon"
+                                src="@/assets/attach.svg"
+                                alt="Фото спортсмена"
+                                width="25"
+                        /></span>
+                        <span class="input__file-button-text"> Фото спортсмена </span>
+                    </label>
+                    {{ PhotoSportsman }}
                 </div>
             </li>
             <li>
@@ -52,12 +77,14 @@
                 />
             </li>
             <li>
-                Дата рождения:
-                <input
-                    placeholder="YYYY-MM-DD"
-                    @change="this.Editable = true"
-                    v-model="sportsmanMap.sportsman.date_of_birth"
-                />
+                <div class="form-group">
+                    <label for="DateOfBirth">Дата Рождения</label>
+                    <input
+                        placeholder="YYYY-MM-DD"
+                        @change="this.Editable = true"
+                        v-model="sportsmanMap.sportsman.date_of_birth"
+                    />
+                </div>
             </li>
             <li>
                 Разряд:
@@ -88,6 +115,7 @@
                         alt="ConfirmAddressFile"
                     />
                     <button
+                        class="btn btn-primary"
                         @click="
                             sportsmanMap.sportsman.confirm_address = null;
                             Editable = true;
@@ -96,13 +124,26 @@
                         Удалить
                     </button>
                 </div>
-                <div v-else>
+                <div v-else class="input__wrapper-file">
                     <input
                         type="file"
+                        name="file"
                         id="ConfirmAddressFile"
                         ref="ConfirmAddressFile"
+                        class="input input__file"
                         @change="ConfirmAddressFileUpload()"
                     />
+                    <label class="input__file-button" for="ConfirmAddressFile">
+                        <span class="input__file-icon-wrapper"
+                            ><img
+                                class="input__file-icon"
+                                src="@/assets/attach.svg"
+                                alt="Подтверждение прописки"
+                                width="25"
+                        /></span>
+                        <span class="input__file-button-text"> Подтверждение прописки </span>
+                    </label>
+                    {{ ConfirmAddressFile }}
                 </div>
             </li>
             <li>
@@ -110,6 +151,7 @@
                 <div v-if="sportsmanMap.sportsman.rusada !== (undefined || null)">
                     <img class="photo" :src="sportsmanMap.sportsman.rusada" alt="RusadaFile" />
                     <button
+                        class="btn btn-primary"
                         @click="
                             sportsmanMap.sportsman.rusada = null;
                             Editable = true;
@@ -118,13 +160,26 @@
                         Удалить
                     </button>
                 </div>
-                <div v-else>
+                <div v-else class="input__wrapper-file">
                     <input
                         type="file"
+                        name="file"
                         id="RusadaFile"
                         ref="RusadaFile"
+                        class="input input__file"
                         @change="RusadaFileUpload()"
                     />
+                    <label class="input__file-button" for="RusadaFile">
+                        <span class="input__file-icon-wrapper"
+                            ><img
+                                class="input__file-icon"
+                                src="@/assets/attach.svg"
+                                alt="Сертификат РУСАДА"
+                                width="25"
+                        /></span>
+                        <span class="input__file-button-text"> Сертификат РУСАДА </span>
+                    </label>
+                    {{ RusadaFile }}
                 </div>
             </li>
             <li>
@@ -144,6 +199,7 @@
                         alt="CovidContactFile"
                     />
                     <button
+                        class="btn btn-primary"
                         @click="
                             sportsmanMap.sportsman.covid_contact = null;
                             Editable = true;
@@ -152,13 +208,28 @@
                         Удалить
                     </button>
                 </div>
-                <div v-else>
+                <div v-else class="input__wrapper-file">
                     <input
                         type="file"
+                        name="file"
                         id="CovidContactFile"
                         ref="CovidContactFile"
+                        class="input input__file"
                         @change="CovidContactFileUpload()"
                     />
+                    <label class="input__file-button" for="CovidContactFile">
+                        <span class="input__file-icon-wrapper"
+                            ><img
+                                class="input__file-icon"
+                                src="@/assets/attach.svg"
+                                alt="Справка об отсутствии контактов с инфекционными больными"
+                                width="25"
+                        /></span>
+                        <span class="input__file-button-text">
+                            Справка об отсутствии контактов с инфекционными больными
+                        </span>
+                    </label>
+                    {{ CovidContactFile }}
                 </div>
             </li>
             <li>
@@ -170,6 +241,7 @@
                         alt="CovidTestFile"
                     />
                     <button
+                        class="btn btn-primary"
                         @click="
                             sportsmanMap.sportsman.covid_test = null;
                             Editable = true;
@@ -178,13 +250,26 @@
                         Удалить
                     </button>
                 </div>
-                <div v-else>
+                <div v-else class="input__wrapper-file">
                     <input
                         type="file"
+                        name="file"
                         id="CovidTestFile"
                         ref="CovidTestFile"
+                        class="input input__file"
                         @change="CovidTestFileUpload()"
                     />
+                    <label class="input__file-button" for="CovidTestFile">
+                        <span class="input__file-icon-wrapper"
+                            ><img
+                                class="input__file-icon"
+                                src="@/assets/attach.svg"
+                                alt="ПЦР-тест COVID-19"
+                                width="25"
+                        /></span>
+                        <span class="input__file-button-text"> ПЦР-тест COVID-19 </span>
+                    </label>
+                    {{ CovidTestFile }}
                 </div>
             </li>
             <li>
@@ -196,6 +281,7 @@
                         alt="ParentDocFile"
                     />
                     <button
+                        class="btn btn-primary"
                         @click="
                             sportsmanMap.sportsman.parent_doc = null;
                             Editable = true;
@@ -204,13 +290,26 @@
                         Удалить
                     </button>
                 </div>
-                <div v-else>
+                <div v-else class="input__wrapper-file">
                     <input
                         type="file"
+                        name="file"
                         id="ParentDocFile"
                         ref="ParentDocFile"
+                        class="input input__file"
                         @change="ParentDocFileUpload()"
                     />
+                    <label class="input__file-button" for="ParentDocFile">
+                        <span class="input__file-icon-wrapper"
+                            ><img
+                                class="input__file-icon"
+                                src="@/assets/attach.svg"
+                                alt="Доверенность родителя"
+                                width="25"
+                        /></span>
+                        <span class="input__file-button-text"> Доверенность родителя </span>
+                    </label>
+                    {{ ParentDocFile }}
                 </div>
             </li>
             <li>
@@ -218,6 +317,7 @@
                 <div v-if="sportsmanMap.sportsman.school_doc !== (undefined || null)">
                     <img class="photo" :src="sportsmanMap.sportsman.school_doc" alt="SchoolFile" />
                     <button
+                        class="btn btn-primary"
                         @click="
                             sportsmanMap.sportsman.school_doc = null;
                             Editable = true;
@@ -226,19 +326,33 @@
                         Удалить
                     </button>
                 </div>
-                <div v-else>
+                <div class="input__wrapper-file">
                     <input
                         type="file"
+                        name="file"
                         id="SchoolFile"
                         ref="SchoolFile"
+                        class="input input__file"
                         @change="SchoolFileUpload()"
                     />
+                    <label class="input__file-button" for="SchoolFile">
+                        <span class="input__file-icon-wrapper"
+                            ><img
+                                class="input__file-icon"
+                                src="@/assets/attach.svg"
+                                alt="Справка об обучении в школе"
+                                width="25"
+                        /></span>
+                        <span class="input__file-button-text"> Справка об обучении в школе </span>
+                    </label>
+                    {{ SchoolFile }}
                 </div>
             </li>
             <li>
                 <template v-if="!sportsmanMap.sportsman.insurance">
                     Страховой полис:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalInsurance = true;
@@ -252,6 +366,7 @@
                 <template v-else>
                     Страховой полис:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalInsurance = true;
@@ -274,6 +389,7 @@
                 <template v-if="!sportsmanMap.sportsman.birth_certificate">
                     Свидетельство о рождении:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalBirthCertificate = true;
@@ -287,6 +403,7 @@
                 <template v-else>
                     Свидетельство о рождении:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalBirthCertificate = true;
@@ -309,6 +426,7 @@
                 <template v-if="!sportsmanMap.sportsman.oms">
                     Полис ОМС:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalOms = true;
@@ -322,6 +440,7 @@
                 <template v-else>
                     Полис ОМС:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalOms = true;
@@ -344,6 +463,7 @@
                 <template v-if="!sportsmanMap.sportsman.passport">
                     Паспорт:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalPassport = true;
@@ -357,6 +477,7 @@
                 <template v-else>
                     Паспорт:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalPassport = true;
@@ -379,6 +500,7 @@
                 <template v-if="!sportsmanMap.sportsman.proxy">
                     Прокси:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalProxy = true;
@@ -392,6 +514,7 @@
                 <template v-else>
                     Прокси:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalProxy = true;
@@ -414,8 +537,8 @@
     </div>
     <div class="row">
         <button
-            type="button"
             class="btn btn-primary"
+            type="button"
             :class="{ disabled: !Editable }"
             @click="editSportsman"
         >

@@ -1,28 +1,29 @@
 <template>
     <div class="container-fluid">
-        <form @submit.prevent>
+        <form @submit.prevent @click="addNewSportsman">
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
                         <input
                             class="form-control"
                             placeholder="Фамилия"
-                            id="FIO"
+                            id="surname"
                             v-model="sportsman.surname"
                             required
                         />
                         <input
                             class="form-control"
                             placeholder="Имя"
-                            id="FIO"
+                            id="name"
                             v-model="sportsman.name"
                             required
                         />
                         <input
                             class="form-control"
                             placeholder="Отчество"
-                            id="FIO"
+                            id="patronymic"
                             v-model="sportsman.patronymic"
+                            required
                         />
                     </div>
                 </div>
@@ -48,7 +49,6 @@
                         </label>
                         {{ PhotoSportsman }}
                     </div>
-
                     <SelectGender v-model="sportsman.gender" mode="single" />
                     <div class="form-group">
                         <label for="DateOfBirth">Дата Рождения</label>
@@ -57,6 +57,7 @@
                             id="DateOfBirth"
                             class="form-control"
                             v-model="sportsman.date_of_birth"
+                            required
                         />
                     </div>
                 </div>
@@ -70,7 +71,7 @@
                     <SelectDuanCzi mode="single" id="selectDuanCzi" v-model="sportsman.duan_czi" />
                 </div>
                 <div class="col-6">
-                    <SelectCity mode="single" v-model="sportsman.city" />
+                    <SelectCity mode="single" v-model="sportsman.city" required />
                     <SelectClub mode="single" v-model="sportsman.club" />
                     <div class="form-group">
                         <input
@@ -85,6 +86,7 @@
                 <template v-if="!insuranceMap.insurance">
                     Страховой полис:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalInsurance = true;
@@ -98,6 +100,7 @@
                 <template v-else>
                     Страховой полис:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalInsurance = true;
@@ -120,6 +123,7 @@
                 <template v-if="!birthCertificateMap.birthCertificate">
                     Свидетельство о рождении:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalBirthCertificate = true;
@@ -155,6 +159,7 @@
                 <template v-if="!omsMap.oms">
                     Полис ОМС:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalOms = true;
@@ -168,6 +173,7 @@
                 <template v-else>
                     Полис ОМС:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalOms = true;
@@ -190,6 +196,7 @@
                 <template v-if="!passportMap.passport">
                     Паспорт:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalPassport = true;
@@ -203,6 +210,7 @@
                 <template v-else>
                     Паспорт:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalPassport = true;
@@ -225,6 +233,7 @@
                 <template v-if="!proxyMap.proxy">
                     Прокси:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalProxy = true;
@@ -238,6 +247,7 @@
                 <template v-else>
                     Прокси:
                     <button
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalProxy = true;
@@ -385,9 +395,7 @@
                 {{ ParentDocFile }}
             </div>
             <div class="row">
-                <button type="button" class="btn btn-primary" @click="addNewSportsman">
-                    Добавить нового спортсмена
-                </button>
+                <button type="submit" class="btn btn-primary">Добавить нового спортсмена</button>
             </div>
         </form>
     </div>
@@ -481,6 +489,7 @@ const namespaceTrainer = 'trainer';
             this.sportsman.trainer = this.trainerMap.trainers[trainerId];
 
             this.postSportsman(this.sportsman);
+            //TODO: Сделать роутер пуш на созданного спортсмена в случае успеха
         },
     },
     data() {
@@ -576,52 +585,4 @@ export default class AddCardSportsman extends Vue {
 }
 </script>
 
-<style scoped>
-.input__wrapper-file {
-    width: 100%;
-    position: relative;
-    margin: 15px 0;
-    text-align: center;
-}
-
-.input__file {
-    opacity: 0;
-    visibility: hidden;
-    position: absolute;
-}
-
-.input__file-icon-wrapper {
-    height: 60px;
-    width: 60px;
-    margin-right: 15px;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    border-right: 1px solid #fff;
-}
-
-.input__file-button-text {
-    line-height: 1;
-    margin-top: 1px;
-}
-
-.input__file-button {
-    width: 25%;
-    height: 40px;
-    background: #000000;
-    color: #fff;
-    font-weight: 400;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    border-radius: 6px;
-    cursor: pointer;
-    margin: 0 auto;
-}
-</style>
+<style scoped></style>

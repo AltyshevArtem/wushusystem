@@ -17,7 +17,9 @@
                         <h6>Скан оригинального паспорта:</h6>
                         <div v-if="proxy.original_passport">
                             <a :href="proxy.original_passport" class="card-link">Просмотр</a>
-                            <button @click="proxy.original_passport = null">Удалить</button>
+                            <button class="btn btn-danger" @click="proxy.original_passport = null">
+                                Удалить
+                            </button>
                         </div>
                         <div v-else>
                             <input
@@ -34,7 +36,10 @@
                             <a :href="proxy.original_birth_certificate" class="card-link">
                                 Просмотр
                             </a>
-                            <button @click="proxy.original_birth_certificate = null">
+                            <button
+                                class="btn btn-danger"
+                                @click="proxy.original_birth_certificate = null"
+                            >
                                 Удалить
                             </button>
                         </div>
@@ -51,7 +56,9 @@
                         <h6>Скан фото:</h6>
                         <div v-if="proxy.scan">
                             <a :href="proxy.scan" class="card-link">Просмотр</a>
-                            <button @click="proxy.scan = null">Удалить</button>
+                            <button class="btn btn-danger" @click="proxy.scan = null">
+                                Удалить
+                            </button>
                         </div>
                         <div v-else>
                             <input type="file" id="file" ref="file" @change="proxyFileUpload()" />

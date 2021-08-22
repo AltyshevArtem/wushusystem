@@ -29,7 +29,9 @@
                         <h6>Скан фото:</h6>
                         <div v-if="passport.scan">
                             <a :href="passport.scan" class="card-link">Просмотр</a>
-                            <button @click="passport.scan = null">Удалить</button>
+                            <button class="btn btn-danger" @click="passport.scan = null">
+                                Удалить
+                            </button>
                         </div>
                         <div v-else>
                             <input

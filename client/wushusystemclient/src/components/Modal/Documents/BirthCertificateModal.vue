@@ -19,7 +19,9 @@
                             <!-- TODO: Сделать просмотр только что
                             добавленной картинки(во всех модалках) -->
                             <a :href="birthCertificate.scan" class="card-link">Просмотр</a>
-                            <button @click="birthCertificate.scan = null">Удалить</button>
+                            <button class="btn btn-danger" @click="birthCertificate.scan = null">
+                                Удалить
+                            </button>
                         </div>
                         <div v-else>
                             <input

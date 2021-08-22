@@ -17,7 +17,7 @@
                         <h6>Скан фото:</h6>
                         <div v-if="oms.scan">
                             <a :href="oms.scan" class="card-link">Просмотр</a>
-                            <button @click="oms.scan = null">Удалить</button>
+                            <button class="btn btn-danger" @click="oms.scan = null">Удалить</button>
                         </div>
                         <div v-else>
                             <input type="file" id="file" ref="file" @change="OmsFileUpload()" />

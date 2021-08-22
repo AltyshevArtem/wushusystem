@@ -3,6 +3,7 @@ import { ISportsmanState } from './types';
 import { ISportsman } from '@/models/sportsman';
 
 export const mutations: MutationTree<ISportsmanState> = {
+    //TODO: Мутации это не запросы, а действия со стейтом(нужно все переделать)
     /* POST */
     postSportsman(state, payload: ISportsman) {
         state.sportsman = payload;

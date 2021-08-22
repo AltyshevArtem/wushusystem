@@ -112,29 +112,53 @@ class SportsmanSerialize(serializers.ModelSerializer):
         fields = "__all__"
 
     def create(self, validated_data):
-        city_data = validated_data.pop('city')
-        city = City.objects.get(id=city_data['id'])
+        if(validated_data.get('city') is not None):
+            city_data = validated_data.pop('city')
+            city = City.objects.get(id=city_data['id'])
+        else:
+            city = None
 
-        trainer_data = validated_data.pop('trainer')
-        trainer = Trainer.objects.get(id=trainer_data['id'])
+        if(validated_data.get('city') is not None):
+            trainer_data = validated_data.pop('trainer')
+            trainer = Trainer.objects.get(id=trainer_data['id'])
+        else:
+            trainer = None
 
-        club_data = validated_data.pop('club')
-        club = Club.objects.get(id=club_data['id'])
+        if(validated_data.get('city') is not None):
+            club_data = validated_data.pop('club')
+            club = Club.objects.get(id=club_data['id'])
+        else:
+            club = None
 
-        insurance_data = validated_data.pop('insurance')
-        insurance = Insurance.objects.create(**insurance_data)
+        if(validated_data.get('city') is not None):
+            insurance_data = validated_data.pop('insurance')
+            insurance = Insurance.objects.create(**insurance_data)
+        else:
+            insurance = None
 
-        passport_data = validated_data.pop('passport')
-        passport = Passport.objects.create(**passport_data)
+        if(validated_data.get('city') is not None):
+            passport_data = validated_data.pop('passport')
+            passport = Passport.objects.create(**passport_data)
+        else:
+            passport = None
 
-        birth_certificate_data = validated_data.pop('birth_certificate')
-        birth_certificate = Birth_Certificate.objects.create(**birth_certificate_data)
+        if(validated_data.get('city') is not None):
+            birth_certificate_data = validated_data.pop('birth_certificate')
+            birth_certificate = Birth_Certificate.objects.create(**birth_certificate_data)
+        else:
+            birth_certificate = None
 
-        proxy_data = validated_data.pop('proxy')
-        proxy = Proxy_doc.objects.create(**proxy_data)
+        if(validated_data.get('city') is not None):
+            proxy_data = validated_data.pop('proxy')
+            proxy = Proxy_doc.objects.create(**proxy_data)
+        else:
+            proxy = None
 
-        oms_data = validated_data.pop('oms')
-        oms = OMS.objects.create(**oms_data)
+        if(validated_data.get('city') is not None):
+            oms_data = validated_data.pop('oms')
+            oms = OMS.objects.create(**oms_data)
+        else:
+            oms = None
 
         sportsman = Sportsman.objects.create(insurance=insurance, 
                                             passport=passport, 
