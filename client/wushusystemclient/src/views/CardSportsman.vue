@@ -956,18 +956,20 @@ const namespace = 'sportsman';
     },
     methods: {},
 })
-export default class Sportsman extends Vue {
+export default class CardSportsman extends Vue {
     isConfirmModalVisible = false;
     isEditable = false;
+
     /* STATE */
     @State('sportsman')
     sportsmanMap!: ISportsmanState;
+
     /* ACTION */
     @Action('getSportsman', { namespace })
     getSportsman: any;
     @Action('deleteSportsman', { namespace })
     deleteSportsman: any;
-    // TODO: Вынести GETTTER-ы, если это возможно
+
     /* GETTER */
     @Getter('FullName', { namespace })
     FullName: string | undefined;

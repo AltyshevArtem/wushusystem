@@ -534,16 +534,16 @@
                 />
             </li>
         </ul>
-    </div>
-    <div class="row">
-        <button
-            class="btn btn-primary"
-            type="button"
-            :class="{ disabled: !Editable }"
-            @click="editSportsman"
-        >
-            Сохранить
-        </button>
+        <div class="row">
+            <button
+                class="btn btn-primary"
+                type="button"
+                :class="{ disabled: !Editable }"
+                @click="editSportsman"
+            >
+                Сохранить
+            </button>
+        </div>
     </div>
 </template>
 
