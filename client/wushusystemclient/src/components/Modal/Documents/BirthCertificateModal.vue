@@ -1,10 +1,10 @@
 <template>
-    <div class="modal fade show" @click.self="closeModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade show" @click.stop="hideDialog" tabindex="-1" role="dialog">
+        <div class="modal-dialog" @click.stop role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Свидетельство о рождении</h5>
-                    <button type="button" class="close close_btn" @click="closeModal">
+                    <button type="button" class="close close_btn" @click.stop="hideDialog">
                         <img src="../../../assets/x.svg" alt="close" />
                     </button>
                 </div>
@@ -52,7 +52,7 @@
                 <div class="modal-footer">
                     <button
                         type="button"
-                        @click="closeModal"
+                        @click.stop="hideDialog"
                         class="btn btn-secondary"
                         data-dismiss="modal"
                     >
@@ -79,7 +79,7 @@
 /* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
+import { Prop, Emit } from 'vue-property-decorator';
 
 /* VUEX */
 import { State, Mutation } from 'vuex-class';
@@ -103,9 +103,6 @@ const namespace = 'birth_certificate';
         };
     },
     methods: {
-        closeModal() {
-            this.$emit('closeModal');
-        },
         AddBirthCertificate() {
             const birthCertificate = {
                 number: this.number,
@@ -113,12 +110,12 @@ const namespace = 'birth_certificate';
             };
             this.postBirthCertificate(birthCertificate);
 
-            this.closeModal();
+            this.hideDialog();
         },
         SaveBirthCertificate() {
             this.putBirthCertificate(this.birthCertificate);
 
-            this.closeModal();
+            this.hideDialog();
         },
         BirthCertificateFileUpload() {
             if (this.mode) {
@@ -132,6 +129,12 @@ const namespace = 'birth_certificate';
 export default class BirthCertificateModal extends Vue {
     @Prop({ default: undefined }) birthCertificate!: IBirthCertificate;
     @Prop({ default: true }) mode!: boolean;
+    @Prop({ default: false }) show!: boolean;
+
+    @Emit('update:show')
+    hideDialog(): boolean {
+        return false;
+    }
 
     /* STATE */
     @State('birth_certificate')

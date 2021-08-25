@@ -1,10 +1,10 @@
 <template>
-    <div class="modal fade show" @click.self="closeModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade show" @click.stop="hideDialog" tabindex="-1" role="dialog">
+        <div class="modal-dialog" @click.stop role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Паспорт</h5>
-                    <button type="button" class="close close_btn" @click="closeModal">
+                    <button type="button" class="close close_btn" @click.stop="hideDialog">
                         <img src="../../../assets/x.svg" alt="close" />
                     </button>
                 </div>
@@ -74,7 +74,7 @@
                 <div class="modal-footer">
                     <button
                         type="button"
-                        @click="closeModal"
+                        @click.stop="hideDialog"
                         class="btn btn-secondary"
                         data-dismiss="modal"
                     >
@@ -101,7 +101,7 @@
 /* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
+import { Prop, Emit } from 'vue-property-decorator';
 
 /* VUEX */
 import { State, Mutation } from 'vuex-class';
@@ -128,9 +128,6 @@ const namespace = 'passport';
         };
     },
     methods: {
-        closeModal() {
-            this.$emit('closeModal');
-        },
         AddPassport() {
             const passport = {
                 number: this.number,
@@ -141,12 +138,12 @@ const namespace = 'passport';
             };
             this.postPassport(passport);
 
-            this.closeModal();
+            this.hideDialog();
         },
         SavePassport() {
             this.putPassport(this.passport);
 
-            this.closeModal();
+            this.hideDialog();
         },
         PassportFileUpload() {
             if (this.mode) {
@@ -160,6 +157,12 @@ const namespace = 'passport';
 export default class PassportModal extends Vue {
     @Prop({ default: undefined }) passport!: IPassport;
     @Prop({ default: true }) mode!: boolean;
+    @Prop({ default: false }) show!: boolean;
+
+    @Emit('update:show')
+    hideDialog(): boolean {
+        return false;
+    }
 
     /* STATE */
     @State('passport')

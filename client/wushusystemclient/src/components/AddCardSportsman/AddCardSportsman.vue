@@ -1,6 +1,6 @@
 <template>
     <div class="container-fluid">
-        <form @submit.prevent>
+        <form @submit.prevent="addNewSportsman">
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
@@ -9,21 +9,18 @@
                             placeholder="Фамилия"
                             id="surname"
                             v-model="sportsman.surname"
-                            required
                         />
                         <input
                             class="form-control"
                             placeholder="Имя"
                             id="name"
                             v-model="sportsman.name"
-                            required
                         />
                         <input
                             class="form-control"
                             placeholder="Отчество"
                             id="patronymic"
                             v-model="sportsman.patronymic"
-                            required
                         />
                     </div>
                 </div>
@@ -57,7 +54,6 @@
                             id="DateOfBirth"
                             class="form-control"
                             v-model="sportsman.date_of_birth"
-                            required
                         />
                     </div>
                 </div>
@@ -71,7 +67,7 @@
                     <SelectDuanCzi mode="single" id="selectDuanCzi" v-model="sportsman.duan_czi" />
                 </div>
                 <div class="col-6">
-                    <SelectCity mode="single" v-model="sportsman.city" required />
+                    <SelectCity mode="single" v-model="sportsman.city" />
                     <SelectClub mode="single" v-model="sportsman.club" />
                     <div class="form-group">
                         <input
@@ -86,6 +82,7 @@
                 <template v-if="!insuranceMap.insurance">
                     Страховой полис:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -100,6 +97,7 @@
                 <template v-else>
                     Страховой полис:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -112,17 +110,12 @@
                     </button>
                 </template>
                 {{ insuranceMap.insurance }}
-                <InsuranceModal
-                    v-if="isModalInsurance"
-                    :mode="isEdit"
-                    :insurance="insuranceMap.insurance"
-                    @closeModal="isModalInsurance = false"
-                />
             </div>
             <div class="row">
                 <template v-if="!birthCertificateMap.birthCertificate">
                     Свидетельство о рождении:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -137,6 +130,8 @@
                 <template v-else>
                     Свидетельство о рождении:
                     <button
+                        type="button"
+                        class="btn btn-primary"
                         @click="
                             {
                                 isModalBirthCertificate = true;
@@ -148,17 +143,12 @@
                     </button>
                 </template>
                 {{ birthCertificateMap.birthCertificate }}
-                <BirthCertificateModal
-                    v-if="isModalBirthCertificate"
-                    :mode="isEdit"
-                    :birthCertificate="birthCertificateMap.birthCertificate"
-                    @closeModal="isModalBirthCertificate = false"
-                />
             </div>
             <div class="row">
                 <template v-if="!omsMap.oms">
                     Полис ОМС:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -173,6 +163,7 @@
                 <template v-else>
                     Полис ОМС:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -185,17 +176,12 @@
                     </button>
                 </template>
                 {{ omsMap.oms }}
-                <OmsModal
-                    v-if="isModalOms"
-                    :mode="isEdit"
-                    :oms="omsMap.oms"
-                    @closeModal="isModalOms = false"
-                />
             </div>
             <div class="row">
                 <template v-if="!passportMap.passport">
                     Паспорт:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -210,6 +196,7 @@
                 <template v-else>
                     Паспорт:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -222,17 +209,12 @@
                     </button>
                 </template>
                 {{ passportMap.passport }}
-                <PassportModal
-                    v-if="isModalPassport"
-                    :mode="isEdit"
-                    :passport="passportMap.passport"
-                    @closeModal="isModalPassport = false"
-                />
             </div>
             <div class="row">
                 <template v-if="!proxyMap.proxy">
                     Прокси:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -247,6 +229,7 @@
                 <template v-else>
                     Прокси:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -259,12 +242,6 @@
                     </button>
                 </template>
                 {{ proxyMap.proxy }}
-                <ProxyModal
-                    v-if="isModalProxy"
-                    :mode="isEdit"
-                    :proxy="proxyMap.proxy"
-                    @closeModal="isModalProxy = false"
-                />
             </div>
             <div class="input__wrapper-file">
                 <input
@@ -395,12 +372,40 @@
                 {{ ParentDocFile }}
             </div>
             <div class="row">
-                <button type="submit" class="btn btn-primary" @click="addNewSportsman">
-                    Добавить нового спортсмена
-                </button>
+                <button type="submit" class="btn btn-primary">Добавить нового спортсмена</button>
             </div>
         </form>
     </div>
+    <InsuranceModal
+        v-if="isModalInsurance"
+        v-model:mode="isEdit"
+        v-model:insurance="insuranceMap.insurance"
+        v-model:show="isModalInsurance"
+    />
+    <BirthCertificateModal
+        v-if="isModalBirthCertificate"
+        v-model:mode="isEdit"
+        v-model:birthCertificate="birthCertificateMap.birthCertificate"
+        v-model:show="isModalBirthCertificate"
+    />
+    <OmsModal
+        v-if="isModalOms"
+        v-model:mode="isEdit"
+        v-model:oms="omsMap.oms"
+        v-model:show="isModalOms"
+    />
+    <PassportModal
+        v-if="isModalPassport"
+        v-model:mode="isEdit"
+        v-model:passport="passportMap.passport"
+        v-model:show="isModalPassport"
+    />
+    <ProxyModal
+        v-if="isModalProxy"
+        v-model:mode="isEdit"
+        v-model:proxy="proxyMap.proxy"
+        v-model:show="isModalProxy"
+    />
 </template>
 
 <script lang="ts">
@@ -438,7 +443,6 @@ import { IProxyDocState } from '@/store/modules/proxy/types';
 
 /* NAMESPACE */
 const namespace = 'sportsman';
-
 const namespaceCity = 'city';
 const namespaceClub = 'club';
 const namespaceTrainer = 'trainer';
@@ -467,39 +471,52 @@ const namespaceTrainer = 'trainer';
         ParentDocFileUpload() {
             this.ParentDocFile = this.$refs.ParentDocFile.files[0];
         },
+        //TODO: Сделать нормальную валидацию формы, используя сторонние библиотеки
+        validateForm(): boolean {
+            if (!this.sportsman.name) return false;
+            if (!this.sportsman.surname) return false;
+            if (!this.sportsman.patronymic) return false;
+            if (!this.sportsman.date_of_birth) return false;
+            if (!this.sportsman.city) return false;
+            return true;
+        },
         addNewSportsman() {
-            this.sportsman.photo = this.PhotoSportsman;
-            this.sportsman.confirm_address = this.ConfirmAddressFile;
-            this.sportsman.rusada = this.RusadaFile;
-            this.sportsman.school_doc = this.SchoolFile;
-            this.sportsman.covid_test = this.CovidTestFile;
-            this.sportsman.covid_contact = this.CovidContactFile;
-            this.sportsman.parent_doc = this.ParentDocFile;
+            if (this.validateForm()) {
+                this.sportsman.photo = this.PhotoSportsman;
+                this.sportsman.confirm_address = this.ConfirmAddressFile;
+                this.sportsman.rusada = this.RusadaFile;
+                this.sportsman.school_doc = this.SchoolFile;
+                this.sportsman.covid_test = this.CovidTestFile;
+                this.sportsman.covid_contact = this.CovidContactFile;
+                this.sportsman.parent_doc = this.ParentDocFile;
 
-            this.sportsman.birth_certificate = this.birthCertificateMap.birthCertificate;
-            this.sportsman.insurance = this.insuranceMap.insurance;
-            this.sportsman.oms = this.omsMap.oms;
-            this.sportsman.proxy = this.proxyMap.proxy;
-            this.sportsman.passport = this.passportMap.passport;
+                this.sportsman.birth_certificate = this.birthCertificateMap.birthCertificate;
+                this.sportsman.insurance = this.insuranceMap.insurance;
+                this.sportsman.oms = this.omsMap.oms;
+                this.sportsman.proxy = this.proxyMap.proxy;
+                this.sportsman.passport = this.passportMap.passport;
 
-            const oldCity = this.sportsman.city;
-            const oldClub = this.sportsman.club;
-            const oldTrainer = this.sportsman.trainer;
+                const oldCity = this.sportsman.city;
+                const oldClub = this.sportsman.club;
+                const oldTrainer = this.sportsman.trainer;
 
-            const cityId = this.arrValueCity.indexOf(this.sportsman.city);
-            const clubId = this.arrValueClub.indexOf(this.sportsman.club);
-            const trainerId = this.arrValueTrainer.indexOf(this.sportsman.trainer);
+                const cityId = this.arrValueCity.indexOf(this.sportsman.city);
+                const clubId = this.arrValueClub.indexOf(this.sportsman.club);
+                const trainerId = this.arrValueTrainer.indexOf(this.sportsman.trainer);
 
-            this.sportsman.city = this.cityMap.cities[cityId];
-            this.sportsman.club = this.clubMap.clubs[clubId];
-            this.sportsman.trainer = this.trainerMap.trainers[trainerId];
+                this.sportsman.city = this.cityMap.cities[cityId];
+                this.sportsman.club = this.clubMap.clubs[clubId];
+                this.sportsman.trainer = this.trainerMap.trainers[trainerId];
 
-            this.postSportsman(this.sportsman);
-            //TODO: Сделать роутер пуш на созданного спортсмена в случае успеха
+                this.postSportsman(this.sportsman);
+                //TODO: Сделать роутер пуш на созданного спортсмена в случае успеха
 
-            this.sportsman.city = oldCity;
-            this.sportsman.club = oldClub;
-            this.sportsman.trainer = oldTrainer;
+                this.sportsman.city = oldCity;
+                this.sportsman.club = oldClub;
+                this.sportsman.trainer = oldTrainer;
+            } else {
+                console.log('Не все поля заполнены');
+            }
         },
     },
     data() {

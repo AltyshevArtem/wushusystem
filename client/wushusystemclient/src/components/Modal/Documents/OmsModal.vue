@@ -1,10 +1,10 @@
 <template>
-    <div class="modal fade show" @click.self="closeModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade show" @click.stop="hideDialog" tabindex="-1" role="dialog">
+        <div class="modal-dialog" @click.stop role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Полис ОМС</h5>
-                    <button type="button" class="close close_btn" @click="closeModal">
+                    <button type="button" class="close close_btn" @click.stop="hideDialog">
                         <img src="../../../assets/x.svg" alt="close" />
                     </button>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="modal-footer">
                     <button
                         type="button"
-                        @click="closeModal"
+                        @click.stop="hideDialog"
                         class="btn btn-secondary"
                         data-dismiss="modal"
                     >
@@ -70,7 +70,7 @@
 /* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
+import { Prop, Emit } from 'vue-property-decorator';
 
 /* VUEX */
 import { Mutation, State } from 'vuex-class';
@@ -94,9 +94,6 @@ const namespace = 'oms';
         };
     },
     methods: {
-        closeModal() {
-            this.$emit('closeModal');
-        },
         AddOms() {
             const oms = {
                 number: this.number,
@@ -104,12 +101,12 @@ const namespace = 'oms';
             };
             this.postOMS(oms);
 
-            this.closeModal();
+            this.hideDialog();
         },
         SaveOms() {
             this.putOMS(this.oms);
 
-            this.closeModal();
+            this.hideDialog();
         },
         OmsFileUpload() {
             if (this.mode) {
@@ -123,6 +120,12 @@ const namespace = 'oms';
 export default class OmsModal extends Vue {
     @Prop({ default: undefined }) oms!: IOms;
     @Prop({ default: true }) mode!: boolean;
+    @Prop({ default: false }) show!: boolean;
+
+    @Emit('update:show')
+    hideDialog(): boolean {
+        return false;
+    }
 
     /* STATE */
     @State('oms')

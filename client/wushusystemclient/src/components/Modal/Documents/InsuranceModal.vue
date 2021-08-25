@@ -1,10 +1,10 @@
 <template>
-    <div class="modal fade show" @click.self="closeModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade show" @click.stop="hideDialog" tabindex="-1" role="dialog">
+        <div class="modal-dialog" @click.stop role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Страховой полис</h5>
-                    <button type="button" class="close close_btn" @click="closeModal">
+                    <button type="button" class="close close_btn" @click.stop="hideDialog">
                         <img src="../../../assets/x.svg" alt="close" />
                     </button>
                 </div>
@@ -54,8 +54,8 @@
                 </div>
                 <div class="modal-footer">
                     <button
+                        @click.stop="hideDialog"
                         type="button"
-                        @click="closeModal"
                         class="btn btn-secondary"
                         data-dismiss="modal"
                     >
@@ -82,12 +82,10 @@
 /* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
+import { Prop, Emit } from 'vue-property-decorator';
 
 /* VUEX */
 import { Mutation, State } from 'vuex-class';
-
-/* COMPONENT */
 
 /* STATE */
 import { IInsuranceState } from '@/store/modules/insurance/types';
@@ -109,9 +107,6 @@ const namespace = 'insurance';
         };
     },
     methods: {
-        closeModal() {
-            this.$emit('closeModal');
-        },
         AddInsurance() {
             const insurance = {
                 //TODO: формат даты вынести
@@ -121,12 +116,12 @@ const namespace = 'insurance';
             };
             this.postInsurance(insurance);
 
-            this.closeModal();
+            this.hideDialog();
         },
         SaveInsurance() {
             this.putInsurance(this.insurance);
 
-            this.closeModal();
+            this.hideDialog();
         },
         InsuranseFileUpload() {
             if (this.mode) {
@@ -140,6 +135,12 @@ const namespace = 'insurance';
 export default class InsuranceModal extends Vue {
     @Prop({ default: undefined }) insurance!: IInsurance;
     @Prop({ default: true }) mode!: boolean;
+    @Prop({ default: false }) show!: boolean;
+
+    @Emit('update:show')
+    hideDialog(): boolean {
+        return false;
+    }
 
     /* STATE */
     @State('insurance')

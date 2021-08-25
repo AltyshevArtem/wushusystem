@@ -3,6 +3,7 @@ import { ActionTree } from 'vuex';
 import axios from 'axios';
 import { ISportsmanState } from './types';
 import isEmpty from '@/scripts/isEmpty';
+import router from '@/router';
 
 export const actions: ActionTree<ISportsmanState, null> = {
     getSportsman({ commit }, id: number): any {
@@ -21,6 +22,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
         axios
             .delete(`/api/sportsmans/${id}`)
             .then((response) => {
+                router.push('/sportsmans');
                 commit('deleteSportsman');
             })
             .catch((error) => {
@@ -186,6 +188,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
             })
             .then((response) => {
                 const payload: ISportsman = response && response.data;
+                router.push(`/sportsman/${payload.id}`);
                 commit('postSportsman', payload);
             })
             .catch((error) => {

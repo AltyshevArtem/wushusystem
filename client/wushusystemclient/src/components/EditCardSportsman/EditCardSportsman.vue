@@ -349,9 +349,10 @@
                 </div>
             </li>
             <li>
-                <template v-if="!sportsmanMap.sportsman.insurance">
+                <template v-if="!sportsmanMap.sportsman.insurance && !insuranceMap.insurance">
                     Страховой полис:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -366,6 +367,7 @@
                 <template v-else>
                     Страховой полис:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -377,18 +379,23 @@
                         Редактировать страховой полис
                     </button>
                 </template>
-                {{ sportsmanMap.sportsman.insurance }}
-                <InsuranceModal
-                    v-if="isModalInsurance"
-                    :mode="isEdit"
-                    :insurance="sportsmanMap.sportsman.insurance"
-                    @closeModal="isModalInsurance = false"
-                />
+                <span v-if="sportsmanMap.sportsman.insurance">
+                    {{ sportsmanMap.sportsman.insurance }}
+                </span>
+                <span v-else>
+                    {{ insuranceMap.insurance }}
+                </span>
             </li>
             <li>
-                <template v-if="!sportsmanMap.sportsman.birth_certificate">
+                <template
+                    v-if="
+                        !sportsmanMap.sportsman.birth_certificate &&
+                        !birthCertificateMap.birthCertificate
+                    "
+                >
                     Свидетельство о рождении:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -403,6 +410,7 @@
                 <template v-else>
                     Свидетельство о рождении:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -414,18 +422,18 @@
                         Редактировать свидетельство о рождении
                     </button>
                 </template>
-                {{ sportsmanMap.sportsman.birth_certificate }}
-                <BirthCertificateModal
-                    v-if="isModalBirthCertificate"
-                    :mode="isEdit"
-                    :birthCertificate="sportsmanMap.sportsman.birth_certificate"
-                    @closeModal="isModalBirthCertificate = false"
-                />
+                <span v-if="sportsmanMap.sportsman.birth_certificate">
+                    {{ sportsmanMap.sportsman.birth_certificate }}
+                </span>
+                <span v-else>
+                    {{ birthCertificateMap.birthCertificate }}
+                </span>
             </li>
             <li>
-                <template v-if="!sportsmanMap.sportsman.oms">
+                <template v-if="!sportsmanMap.sportsman.oms && !omsMap.oms">
                     Полис ОМС:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -440,6 +448,7 @@
                 <template v-else>
                     Полис ОМС:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -451,18 +460,18 @@
                         Редактировать полис ОМС
                     </button>
                 </template>
-                {{ sportsmanMap.sportsman.oms }}
-                <OmsModal
-                    v-if="isModalOms"
-                    :mode="isEdit"
-                    :oms="sportsmanMap.sportsman.oms"
-                    @closeModal="isModalOms = false"
-                />
+                <span v-if="sportsmanMap.sportsman.oms">
+                    {{ sportsmanMap.sportsman.oms }}
+                </span>
+                <span v-else>
+                    {{ omsMap.oms }}
+                </span>
             </li>
             <li>
-                <template v-if="!sportsmanMap.sportsman.passport">
+                <template v-if="!sportsmanMap.sportsman.passport && !passportMap.passport">
                     Паспорт:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -477,6 +486,7 @@
                 <template v-else>
                     Паспорт:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -488,18 +498,18 @@
                         Редактировать паспорт
                     </button>
                 </template>
-                {{ sportsmanMap.sportsman.passport }}
-                <PassportModal
-                    v-if="isModalPassport"
-                    :mode="isEdit"
-                    :passport="sportsmanMap.sportsman.passport"
-                    @closeModal="isModalPassport = false"
-                />
+                <span v-if="sportsmanMap.sportsman.passport">
+                    {{ sportsmanMap.sportsman.passport }}
+                </span>
+                <span v-else>
+                    {{ passportMap.passport }}
+                </span>
             </li>
             <li>
-                <template v-if="!sportsmanMap.sportsman.proxy">
+                <template v-if="!sportsmanMap.sportsman.proxy && !proxyMap.proxy">
                     Прокси:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -514,6 +524,7 @@
                 <template v-else>
                     Прокси:
                     <button
+                        type="button"
                         class="btn btn-primary"
                         @click="
                             {
@@ -525,13 +536,12 @@
                         Редактировать прокси
                     </button>
                 </template>
-                {{ sportsmanMap.sportsman.proxy }}
-                <ProxyModal
-                    v-if="isModalProxy"
-                    :mode="isEdit"
-                    :proxy="sportsmanMap.sportsman.proxy"
-                    @closeModal="isModalProxy = false"
-                />
+                <span v-if="sportsmanMap.sportsman.proxy">
+                    {{ sportsmanMap.sportsman.proxy }}
+                </span>
+                <span v-else>
+                    {{ proxyMap.proxy }}
+                </span>
             </li>
         </ul>
         <div class="row">
@@ -545,6 +555,67 @@
             </button>
         </div>
     </div>
+    <InsuranceModal
+        v-if="isModalInsurance && sportsmanMap.sportsman.insurance"
+        v-model:mode="isEdit"
+        v-model:insurance="sportsmanMap.sportsman.insurance"
+        v-model:show="isModalInsurance"
+    />
+    <InsuranceModal
+        v-if="isModalInsurance && !sportsmanMap.sportsman.insurance"
+        v-model:mode="isEdit"
+        v-model:insurance="insuranceMap.insurance"
+        v-model:show="isModalInsurance"
+    />
+
+    <BirthCertificateModal
+        v-if="isModalBirthCertificate && sportsmanMap.sportsman.birth_certificate"
+        v-model:mode="isEdit"
+        v-model:birthCertificate="sportsmanMap.sportsman.birth_certificate"
+        v-model:show="isModalBirthCertificate"
+    />
+    <BirthCertificateModal
+        v-if="isModalBirthCertificate && !sportsmanMap.sportsman.birth_certificate"
+        v-model:mode="isEdit"
+        v-model:birthCertificate="birthCertificateMap.birthCertificate"
+        v-model:show="isModalBirthCertificate"
+    />
+    <OmsModal
+        v-if="isModalOms && sportsmanMap.sportsman.oms"
+        v-model:mode="isEdit"
+        v-model:oms="sportsmanMap.sportsman.oms"
+        v-model:show="isModalOms"
+    />
+    <OmsModal
+        v-if="isModalOms && !sportsmanMap.sportsman.oms"
+        v-model:mode="isEdit"
+        v-model:oms="omsMap.oms"
+        v-model:show="isModalOms"
+    />
+    <PassportModal
+        v-if="isModalPassport && sportsmanMap.sportsman.passport"
+        v-model:mode="isEdit"
+        v-model:passport="sportsmanMap.sportsman.passport"
+        v-model:show="isModalPassport"
+    />
+    <PassportModal
+        v-if="isModalPassport && !sportsmanMap.sportsman.passport"
+        v-model:mode="isEdit"
+        v-model:passport="passportMap.passport"
+        v-model:show="isModalPassport"
+    />
+    <ProxyModal
+        v-if="isModalProxy && sportsmanMap.sportsman.proxy"
+        v-model:mode="isEdit"
+        v-model:proxy="sportsmanMap.sportsman.proxy"
+        v-model:show="isModalProxy"
+    />
+    <ProxyModal
+        v-if="isModalProxy && !sportsmanMap.sportsman.proxy"
+        v-model:mode="isEdit"
+        v-model:proxy="proxyMap.proxy"
+        v-model:show="isModalProxy"
+    />
 </template>
 
 <script lang="ts">
@@ -561,11 +632,11 @@ import { ISportsmanState } from '@/store/modules/sportsman/types';
 import { ICityState } from '@/store/modules/city/types';
 import { IClubState } from '@/store/modules/club/types';
 import { ITrainerState } from '@/store/modules/trainer/types';
-// import { IInsuranceState } from '@/store/modules/insurance/types';
-// import { IBirthCertificateState } from '@/store/modules/birth_certificate/types';
-// import { IOmsState } from '@/store/modules/oms/types';
-// import { IPassportState } from '@/store/modules/passport/types';
-// import { IProxyDocState } from '@/store/modules/proxy/types';
+import { IInsuranceState } from '@/store/modules/insurance/types';
+import { IBirthCertificateState } from '@/store/modules/birth_certificate/types';
+import { IOmsState } from '@/store/modules/oms/types';
+import { IPassportState } from '@/store/modules/passport/types';
+import { IProxyDocState } from '@/store/modules/proxy/types';
 
 /* COMPONENTS */
 import SelectGender from '../Select/SelectGender.vue';
@@ -650,11 +721,31 @@ const namespaceTrainer = 'trainer';
             this.sportsman.duan_czi = this.sportsmanMap.sportsman.duan_czi;
             this.sportsman.rank = this.sportsmanMap.sportsman.rank;
 
-            this.sportsman.passport = this.sportsmanMap.sportsman.passport;
-            this.sportsman.birth_certificate = this.sportsmanMap.sportsman.birth_certificate;
-            this.sportsman.proxy = this.sportsmanMap.sportsman.proxy;
-            this.sportsman.oms = this.sportsmanMap.sportsman.oms;
-            this.sportsman.insurance = this.sportsmanMap.sportsman.insurance;
+            if (this.sportsmanMap.sportsman.passport) {
+                this.sportsman.passport = this.sportsmanMap.sportsman.passport;
+            } else {
+                this.sportsman.passport = this.passportMap.passport;
+            }
+            if (this.sportsmanMap.sportsman.birth_certificate) {
+                this.sportsman.birth_certificate = this.sportsmanMap.sportsman.birth_certificate;
+            } else {
+                this.sportsman.birth_certificate = this.birthCertificateMap.birthCertificate;
+            }
+            if (this.sportsmanMap.sportsman.proxy) {
+                this.sportsman.proxy = this.sportsmanMap.sportsman.proxy;
+            } else {
+                this.sportsman.proxy = this.proxyMap.proxy;
+            }
+            if (this.sportsmanMap.sportsman.oms) {
+                this.sportsman.oms = this.sportsmanMap.sportsman.oms;
+            } else {
+                this.sportsman.oms = this.omsMap.oms;
+            }
+            if (this.sportsmanMap.sportsman.insurance) {
+                this.sportsman.insurance = this.sportsmanMap.sportsman.insurance;
+            } else {
+                this.sportsman.insurance = this.insuranceMap.insurance;
+            }
 
             const oldCity = this.sportsman.city;
             const oldClub = this.sportsman.club;
@@ -746,6 +837,16 @@ export default class EditCardSportsman extends Vue {
     clubMap!: IClubState;
     @State('trainer')
     trainerMap!: ITrainerState;
+    @State('insurance')
+    insuranceMap!: IInsuranceState;
+    @State('birth_certificate')
+    birthCertificateMap!: IBirthCertificateState;
+    @State('oms')
+    omsMap!: IOmsState;
+    @State('passport')
+    passportMap!: IPassportState;
+    @State('proxy')
+    proxyMap!: IProxyDocState;
 
     /* ACTION */
     @Action('putSportsman', { namespace })
@@ -758,83 +859,6 @@ export default class EditCardSportsman extends Vue {
     arrValueClub: Array<string> | undefined;
     @Getter('arrValueTrainer', { namespace: namespaceTrainer })
     arrValueTrainer: Array<string> | undefined;
-
-    // mounted(): void {
-    // }
-
-    // /* INSURANCE */
-    // @Watch('sportsmanMap.sportsman.insurance.date_start')
-    // handlerInsuranceDS(newVal: Date, oldVal: Date): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.insurance.date_end')
-    // handlerInsuranceDE(newVal: Date, oldVal: Date): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.insurance.file_insurance')
-    // handlerInsuranceFI(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-
-    // /* BIRTHCERTIFICATE */
-    // @Watch('sportsmanMap.sportsman.birth_certificate.number')
-    // handlerBirthCertificateNumber(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.birth_certificate.scan')
-    // handlerBirthCertificateScan(newVal: number, oldVal: number): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-
-    // /* OMS */
-    // @Watch('sportsmanMap.sportsman.oms.number')
-    // handlerOMSNumber(newVal: number, oldVal: number): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.oms.scan')
-    // handlerOMSScan(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-
-    // /* PASSPORT */
-    // @Watch('sportsmanMap.sportsman.passport.number')
-    // handlerPassportNumber(newVal: number, oldVal: number): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.passport.scan')
-    // handlerPassportScan(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.passport.date_start')
-    // handlerPassportDS(newVal: Date, oldVal: Date): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.passport.issue')
-    // handlerPassportIssue(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.passport.code')
-    // handlerPassportCode(newVal: number, oldVal: number): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-
-    // /* PROXY */
-    // @Watch('sportsmanMap.sportsman.proxy.scan')
-    // handlerProxyScan(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.proxy.original_passport')
-    // handlerProxyOP(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.proxy.original_birth_certificate')
-    // handlerProxyOBC(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.proxy.date_end')
-    // handlerProxyDE(newVal: Date, oldVal: Date): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
 }
 </script>
 

@@ -1075,7 +1075,6 @@ export default class CardSportsman extends Vue {
         this.deleteSportsman(this.$route.params.id);
         this.isConfirmModalVisible = false;
         // TODO: нужно перерендерить таблицу спортсменов после редиректа
-        this.$router.push('/sportsmans');
     }
 }
 </script>
