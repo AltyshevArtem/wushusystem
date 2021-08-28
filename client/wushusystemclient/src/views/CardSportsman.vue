@@ -946,7 +946,11 @@ import { ISportsmanState } from '../store/modules/sportsman/types';
 import ConfirmationModal from '../components/Modal/ConfirmationModal.vue';
 import EditCardSportsman from '../components/EditCardSportsman/EditCardSportsman.vue';
 import PageNotFound from '../components/NotFound/PageNotFound.vue';
+
+/* NAMESPACE */
 const namespace = 'sportsman';
+
+/* OPTIONS */
 @Options({
     name: 'CardSportsman',
     components: {
@@ -954,8 +958,9 @@ const namespace = 'sportsman';
         EditCardSportsman,
         PageNotFound,
     },
-    methods: {},
 })
+
+/* CLASS */
 export default class CardSportsman extends Vue {
     isConfirmModalVisible = false;
     isEditable = false;
@@ -1067,11 +1072,12 @@ export default class CardSportsman extends Vue {
     ClubAbbrFederalRegion: string | undefined;
     @Getter('ClubNameOfCountry', { namespace })
     ClubNameOfCountry: string | undefined;
+
     mounted(): void {
         this.getSportsman(this.$route.params.id);
-        // if (this.sportsmanMap.error === true) this.$router.push('/:NotFound(.*)*');
     }
-    deleteSportsmanMethod(): void {
+
+    public deleteSportsmanMethod(): void {
         this.deleteSportsman(this.$route.params.id);
         this.isConfirmModalVisible = false;
         // TODO: нужно перерендерить таблицу спортсменов после редиректа

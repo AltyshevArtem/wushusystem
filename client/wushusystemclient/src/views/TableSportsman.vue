@@ -182,7 +182,7 @@ const namespace = 'sportsmans';
     },
     computed: {
         pageCount(): number {
-            return Math.ceil(this.sportsmansMap.count / this.sportsmansMap.page_size);
+            return Math.ceil(this.sportsmansMap.count / this.sportsmansMap.pageSize);
         },
     },
     methods: {
@@ -241,42 +241,34 @@ export default class TableSportsman extends Vue {
     }
 
     /* WATCH */
-
     @Watch('search')
     changeDataSearch(): void {
         this.watchSetSearch();
     }
-
     @Watch('SelectGender')
     changeDataGender(): void {
         this.watchSetSearch();
     }
-
     @Watch('SelectRank')
     changeDataRank(): void {
         this.watchSetSearch();
     }
-
     @Watch('SelectDuanCzi')
     changeDataDuanCzi(): void {
         this.watchSetSearch();
     }
-
     @Watch('SelectClub')
     changeDataClub(): void {
         this.watchSetSearch();
     }
-
     @Watch('SelectCity')
     changeDataCity(): void {
         this.watchSetSearch();
     }
-
     @Watch('SelectTrainer')
     changeDataTrainer(): void {
         this.watchSetSearch();
     }
-
     @Watch('sportsmansMap.page')
     changeSportsmanList(): void {
         this.getSportsmanList(this.sportsmansMap.page);
