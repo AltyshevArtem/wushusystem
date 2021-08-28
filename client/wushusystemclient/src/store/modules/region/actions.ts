@@ -1,18 +1,23 @@
+/* VUEX */
 import { ActionTree } from 'vuex';
-import axios from 'axios';
+
+/* TYPES */
 import { IRegionState } from './types';
+
+/* HTTP */
+import http from '@/http-common';
 
 export const actions: ActionTree<IRegionState, null> = {
     getRegionList({ commit }): any {
-        axios
-            .get('/api/region/')
+        http
+            .get('/region/')
             .then((response) => {
                 const payload: IRegionState = response && response.data;
-                commit('getRegion', payload);
+                commit('setRegion', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('getRegionError');
+                commit('errorRegion');
             });
     },
 };

@@ -1,3 +1,4 @@
+/* MODELS */
 import { IInsurance } from '@/models/sportsman';
 
 export interface IInsuranceState {

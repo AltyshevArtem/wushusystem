@@ -1,14 +1,18 @@
+/* VUEX */
 import { MutationTree } from 'vuex';
+
+/* TYPES */
 import { IFederalRegionState } from './types';
+
+/* MODELS */
 import { IFederalRegion } from '@/models/city';
 
 export const mutations: MutationTree<IFederalRegionState> = {
-    /* GET */
-    getFederalRegion(state, payload: Array<IFederalRegion>) {
+    setFederalRegion(state, payload: Array<IFederalRegion>) {
         state.error = false;
         state.federal_region_list = payload;
     },
-    getFederalRegionError(state) {
+    errorFederalRegion(state) {
         state.error = true;
         state.federal_region_list = [];
     },

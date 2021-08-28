@@ -1,14 +1,18 @@
+/* VUEX */
 import { MutationTree } from 'vuex';
+
+/* TYPES */
 import { IDuanCziState } from './types';
+
+/* MODELS */
 import { IDuanCzi } from '@/models/duan_czi';
 
 export const mutations: MutationTree<IDuanCziState> = {
-    /* GET */
-    getDuanCzi(state, payload: Array<IDuanCzi>) {
+    setDuanCzi(state, payload: Array<IDuanCzi>) {
         state.error = false;
         state.duan_czi_list = payload;
     },
-    getDuanCziError(state) {
+    errorDuanCzi(state) {
         state.error = true;
         state.duan_czi_list = [];
     },

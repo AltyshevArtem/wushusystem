@@ -1,14 +1,18 @@
+/* VUEX */
 import { MutationTree } from 'vuex';
+
+/* TYPES */
 import { IRankState } from './types';
+
+/* MODELS */
 import { IRank } from '@/models/rank';
 
 export const mutations: MutationTree<IRankState> = {
-    /* GET */
-    getRank(state, payload: Array<IRank>) {
+    setRank(state, payload: Array<IRank>) {
         state.error = false;
         state.ranks = payload;
     },
-    getRankError(state) {
+    errorRank(state) {
         state.error = true;
         state.ranks = [];
     },

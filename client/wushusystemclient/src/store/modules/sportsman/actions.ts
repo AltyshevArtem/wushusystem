@@ -1,33 +1,45 @@
-import { ISportsman } from '@/models/sportsman';
+/* VUEX */
 import { ActionTree } from 'vuex';
-import axios from 'axios';
+
+/* TYPES */
 import { ISportsmanState } from './types';
+
+/* MODELS */
+import { ISportsman } from '@/models/sportsman';
+
+/* HTTP */
+import http from '@/http-common';
+
+/* SCRIPTS */
 import isEmpty from '@/scripts/isEmpty';
+
+/* ROUTER */
 import router from '@/router';
 
 export const actions: ActionTree<ISportsmanState, null> = {
     getSportsman({ commit }, id: number): any {
-        axios
-            .get(`/api/sportsmans/${id}`)
+        http
+            .get(`/sportsmans/${id}`)
             .then((response) => {
                 const payload: ISportsman = response && response.data;
-                commit('getSportsman', payload);
+                commit('setSportsman', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('getSportsmanError');
+                router.push('/')
+                commit('errorSportsman');
             });
     },
     deleteSportsman({ commit }, id: number): any {
-        axios
-            .delete(`/api/sportsmans/${id}`)
+        http
+            .delete(`/sportsmans/${id}`)
             .then((response) => {
                 router.push('/sportsmans');
                 commit('deleteSportsman');
             })
             .catch((error) => {
                 console.log(error);
-                commit('deleteSportsmanError');
+                commit('errorSportsman');
             });
     },
     postSportsman({ commit }, sportsman: ISportsman): any {
@@ -50,40 +62,22 @@ export const actions: ActionTree<ISportsmanState, null> = {
         if (!isEmpty(sportsman.address)) {
             data.append('address', String(sportsman.address));
         }
-        if (
-            !isEmpty(sportsman.confirm_address) &&
-            typeof sportsman.confirm_address !== 'string'
-        ) {
+        if (!isEmpty(sportsman.confirm_address) && typeof sportsman.confirm_address !== 'string') {
             data.append('confirm_address', sportsman.confirm_address);
         }
-        if (
-            !isEmpty(sportsman.rusada) &&
-            typeof sportsman.rusada !== 'string'
-        ) {
+        if (!isEmpty(sportsman.rusada) && typeof sportsman.rusada !== 'string') {
             data.append('rusada', sportsman.rusada);
         }
-        if (
-            !isEmpty(sportsman.covid_test) &&
-            typeof sportsman.covid_test !== 'string'
-        ) {
+        if (!isEmpty(sportsman.covid_test) && typeof sportsman.covid_test !== 'string') {
             data.append('covid_test', sportsman.covid_test);
         }
-        if (
-            !isEmpty(sportsman.covid_contact) &&
-            typeof sportsman.covid_contact !== 'string'
-        ) {
+        if (!isEmpty(sportsman.covid_contact) && typeof sportsman.covid_contact !== 'string') {
             data.append('covid_contact', sportsman.covid_contact);
         }
-        if (
-            !isEmpty(sportsman.parent_doc) &&
-            typeof sportsman.parent_doc !== 'string'
-        ) {
+        if (!isEmpty(sportsman.parent_doc) && typeof sportsman.parent_doc !== 'string') {
             data.append('parent_doc', sportsman.parent_doc);
         }
-        if (
-            !isEmpty(sportsman.school_doc) &&
-            typeof sportsman.school_doc !== 'string'
-        ) {
+        if (!isEmpty(sportsman.school_doc) && typeof sportsman.school_doc !== 'string') {
             data.append('school_doc', sportsman.school_doc);
         }
         if (!isEmpty(sportsman.gender)) {
@@ -113,24 +107,25 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.birth_certificate.number)) {
                 data.append('birth_certificate.number', String(sportsman.birth_certificate.number));
             }
-            if (!isEmpty(sportsman.birth_certificate.scan) &&
+            if (
+                !isEmpty(sportsman.birth_certificate.scan) &&
                 typeof sportsman.birth_certificate.scan !== 'string'
             ) {
                 data.append('birth_certificate.scan', sportsman.birth_certificate?.scan);
             }
         }
         if (!isEmpty(sportsman.proxy)) {
-            if (!isEmpty(sportsman.proxy.scan) &&
-                typeof sportsman.proxy.scan !== 'string'
-            ) {
+            if (!isEmpty(sportsman.proxy.scan) && typeof sportsman.proxy.scan !== 'string') {
                 data.append('proxy.scan', sportsman.proxy.scan);
             }
-            if (!isEmpty(sportsman.proxy.original_passport) &&
+            if (
+                !isEmpty(sportsman.proxy.original_passport) &&
                 typeof sportsman.proxy.original_passport !== 'string'
             ) {
                 data.append('proxy.original_passport', sportsman.proxy.original_passport);
             }
-            if (!isEmpty(sportsman.proxy.original_birth_certificate) &&
+            if (
+                !isEmpty(sportsman.proxy.original_birth_certificate) &&
                 typeof sportsman.proxy.original_birth_certificate !== 'string'
             ) {
                 data.append(
@@ -146,9 +141,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.oms.number)) {
                 data.append('oms.number', String(sportsman.oms.number));
             }
-            if (!isEmpty(sportsman.oms.scan) &&
-                typeof sportsman.oms.scan !== 'string'
-            ) {
+            if (!isEmpty(sportsman.oms.scan) && typeof sportsman.oms.scan !== 'string') {
                 data.append('oms.scan', sportsman.oms.scan);
             }
         }
@@ -156,9 +149,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.passport.number)) {
                 data.append('passport.number', String(sportsman.passport.number));
             }
-            if (!isEmpty(sportsman.passport.scan) &&
-                typeof sportsman.passport.scan !== 'string'
-            ) {
+            if (!isEmpty(sportsman.passport.scan) && typeof sportsman.passport.scan !== 'string') {
                 data.append('passport.scan', sportsman.passport.scan);
             }
             if (!isEmpty(sportsman.passport.date_start)) {
@@ -180,8 +171,8 @@ export const actions: ActionTree<ISportsmanState, null> = {
         if (!isEmpty(sportsman.trainer)) {
             data.append('trainer.id', String(sportsman.trainer?.id));
         }
-        axios
-            .post('/api/sportsmans/', data, {
+        http
+            .post('/sportsmans/', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data; boundary=----something',
                 },
@@ -189,11 +180,11 @@ export const actions: ActionTree<ISportsmanState, null> = {
             .then((response) => {
                 const payload: ISportsman = response && response.data;
                 router.push(`/sportsman/${payload.id}`);
-                commit('postSportsman', payload);
+                commit('setSportsman', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('postSportsmanError');
+                commit('deleteSportsman');
             });
     },
     putSportsman({ commit }, sportsman: ISportsman): any {
@@ -216,34 +207,22 @@ export const actions: ActionTree<ISportsmanState, null> = {
         if (!isEmpty(sportsman.address)) {
             data.append('address', String(sportsman.address));
         }
-        if (!isEmpty(sportsman.confirm_address) &&
-            typeof sportsman.confirm_address !== 'string'
-        ) {
+        if (!isEmpty(sportsman.confirm_address) && typeof sportsman.confirm_address !== 'string') {
             data.append('confirm_address', sportsman.confirm_address);
         }
-        if (!isEmpty(sportsman.rusada) &&
-            typeof sportsman.rusada !== 'string'
-        ) {
+        if (!isEmpty(sportsman.rusada) && typeof sportsman.rusada !== 'string') {
             data.append('rusada', sportsman.rusada);
         }
-        if (!isEmpty(sportsman.covid_test) &&
-            typeof sportsman.covid_test !== 'string'
-        ) {
+        if (!isEmpty(sportsman.covid_test) && typeof sportsman.covid_test !== 'string') {
             data.append('covid_test', sportsman.covid_test);
         }
-        if (!isEmpty(sportsman.covid_contact) &&
-            typeof sportsman.covid_contact !== 'string'
-        ) {
+        if (!isEmpty(sportsman.covid_contact) && typeof sportsman.covid_contact !== 'string') {
             data.append('covid_contact', sportsman.covid_contact);
         }
-        if (!isEmpty(sportsman.parent_doc) &&
-            typeof sportsman.parent_doc !== 'string'
-        ) {
+        if (!isEmpty(sportsman.parent_doc) && typeof sportsman.parent_doc !== 'string') {
             data.append('parent_doc', sportsman.parent_doc);
         }
-        if (!isEmpty(sportsman.school_doc) &&
-            typeof sportsman.school_doc !== 'string'
-        ) {
+        if (!isEmpty(sportsman.school_doc) && typeof sportsman.school_doc !== 'string') {
             data.append('school_doc', sportsman.school_doc);
         }
         if (!isEmpty(sportsman.gender)) {
@@ -265,7 +244,8 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.insurance.date_end)) {
                 data.append('insurance.date_end', String(sportsman.insurance.date_end));
             }
-            if (!isEmpty(sportsman.insurance.file_insurance) &&
+            if (
+                !isEmpty(sportsman.insurance.file_insurance) &&
                 typeof sportsman.insurance.file_insurance !== 'string'
             ) {
                 data.append('insurance.file_insurance', sportsman.insurance.file_insurance);
@@ -278,7 +258,8 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.birth_certificate.number)) {
                 data.append('birth_certificate.number', String(sportsman.birth_certificate.number));
             }
-            if (!isEmpty(sportsman.birth_certificate.scan) &&
+            if (
+                !isEmpty(sportsman.birth_certificate.scan) &&
                 typeof sportsman.birth_certificate.scan !== 'string'
             ) {
                 data.append('birth_certificate.scan', sportsman.birth_certificate?.scan);
@@ -288,17 +269,17 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.proxy.id)) {
                 data.append('proxy.id', String(sportsman.proxy.id));
             }
-            if (!isEmpty(sportsman.proxy.scan) &&
-                typeof sportsman.proxy.scan !== 'string'
-            ) {
+            if (!isEmpty(sportsman.proxy.scan) && typeof sportsman.proxy.scan !== 'string') {
                 data.append('proxy.scan', sportsman.proxy.scan);
             }
-            if (!isEmpty(sportsman.proxy.original_passport) &&
+            if (
+                !isEmpty(sportsman.proxy.original_passport) &&
                 typeof sportsman.proxy.original_passport !== 'string'
             ) {
                 data.append('proxy.original_passport', sportsman.proxy.original_passport);
             }
-            if (!isEmpty(sportsman.proxy.original_birth_certificate) &&
+            if (
+                !isEmpty(sportsman.proxy.original_birth_certificate) &&
                 typeof sportsman.proxy.original_birth_certificate !== 'string'
             ) {
                 data.append(
@@ -317,9 +298,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.oms.number)) {
                 data.append('oms.number', String(sportsman.oms.number));
             }
-            if (!isEmpty(sportsman.oms.scan) &&
-                typeof sportsman.oms.scan !== 'string'
-            ) {
+            if (!isEmpty(sportsman.oms.scan) && typeof sportsman.oms.scan !== 'string') {
                 data.append('oms.scan', sportsman.oms.scan);
             }
         }
@@ -330,9 +309,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.passport.number)) {
                 data.append('passport.number', String(sportsman.passport.number));
             }
-            if (!isEmpty(sportsman.passport.scan) &&
-                typeof sportsman.passport.scan !== 'string'
-            ) {
+            if (!isEmpty(sportsman.passport.scan) && typeof sportsman.passport.scan !== 'string') {
                 data.append('passport.scan', sportsman.passport.scan);
             }
             if (!isEmpty(sportsman.passport.date_start)) {
@@ -354,19 +331,19 @@ export const actions: ActionTree<ISportsmanState, null> = {
         if (!isEmpty(sportsman.trainer)) {
             data.append('trainer.id', String(sportsman.trainer?.id));
         }
-        axios
-            .put(`/api/sportsmans/${sportsman.id}/`, data, {
+        http
+            .put(`/sportsmans/${sportsman.id}/`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxk',
                 },
             })
             .then((response) => {
                 const payload: ISportsman = response && response.data;
-                commit('putSportsman', payload);
+                commit('setSportsman', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('putSportsmanError');
+                commit('deleteSportsman');
             });
     },
 };

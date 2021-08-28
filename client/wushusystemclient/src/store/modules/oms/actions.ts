@@ -1,26 +1,33 @@
+/* VUEX */
 import { ActionTree } from 'vuex';
-import axios from 'axios';
+
+/* TYPES */
 import { IOmsState } from './types';
+
+/* MODELS */
 import { IOms } from '@/models/sportsman';
+
+/* HTTP */
+import http from '@/http-common';
 
 export const actions: ActionTree<IOmsState, null> = {
     postOMS({ commit }, oms: IOms): any {
         const data = new FormData();
         data.append('number', String(oms.number));
         data.append('scan', oms.scan);
-        axios
-            .post('/api/oms/', data, {
+        http
+            .post('/oms/', data, {
                 headers: {
                     'Content-Type': 'multipart/form-data; boundary=----something',
                 },
             })
             .then((response) => {
                 const payload: IOms = response && response.data;
-                commit('postOMS', payload);
+                commit('setOMS', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('postOMSError');
+                commit('errorOMS');
             });
     },
     putOMS({ commit }, oms: IOms): any {
@@ -29,42 +36,42 @@ export const actions: ActionTree<IOmsState, null> = {
         if (oms.scan['name'] !== undefined) {
             data.append('scan', oms.scan);
         }
-        axios
-            .put(`/api/oms/${oms.id}/`, data, {
+        http
+            .put(`/oms/${oms.id}/`, data, {
                 headers: {
                     'Content-Type': 'multipart/form-data; boundary=----something',
                 },
             })
             .then((response) => {
                 const payload: IOms = response && response.data;
-                commit('putOMS', payload);
+                commit('setOMS', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('putOMSError');
+                commit('errorOMS');
             });
     },
     deleteOMS({ commit }, id: number): any {
-        axios
-            .delete(`/api/oms/${id}`)
+        http
+            .delete(`/oms/${id}`)
             .then((response) => {
                 commit('deleteOMS');
             })
             .catch((error) => {
                 console.log(error);
-                commit('deleteOMSError');
+                commit('errorOMS');
             });
     },
     getOMS({ commit }, id: number): any {
-        axios
-            .get(`/api/oms/${id}`)
+        http
+            .get(`/oms/${id}`)
             .then((response) => {
                 const payload: IOms = response && response.data;
-                commit('getOMS', payload);
+                commit('setOMS', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('getOMSError');
+                commit('errorOMS');
             });
     },
 };

@@ -1,15 +1,19 @@
+/* VUEX */
 import { MutationTree } from 'vuex';
+
+/* TYPES */
 import { IRegionState } from './types';
+
+/* MODELS */
 import { IRegion } from '@/models/city';
 
 export const mutations: MutationTree<IRegionState> = {
-    /* GET */
-    getRegion(state, payload: Array<IRegion>) {
+    setRegion(state, payload: Array<IRegion>) {
         state.error = false;
-        state.region_list = payload;
+        state.regions = payload;
     },
-    getRegionError(state) {
+    errorRegion(state) {
         state.error = true;
-        state.region_list = [];
+        state.regions = [];
     },
 };

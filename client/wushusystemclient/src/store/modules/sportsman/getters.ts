@@ -1,4 +1,7 @@
+/* GETTER */
 import { GetterTree } from 'vuex';
+
+/* TYPES */
 import { ISportsmanState } from './types';
 
 export const getters: GetterTree<ISportsmanState, null> = {

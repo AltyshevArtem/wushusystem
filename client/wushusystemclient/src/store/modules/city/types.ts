@@ -1,3 +1,4 @@
+/* MODELS */
 import { ICity } from '@/models/city';
 
 export interface ICityState {

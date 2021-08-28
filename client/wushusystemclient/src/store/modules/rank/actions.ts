@@ -1,18 +1,23 @@
+/* VUEX */
 import { ActionTree } from 'vuex';
-import axios from 'axios';
+
+/* TYPES */
 import { IRankState } from './types';
+
+/* HTTP */
+import http from '@/http-common';
 
 export const actions: ActionTree<IRankState, null> = {
     getRankList({ commit }): any {
-        axios
-            .get('/api/rank/')
+        http
+            .get('/rank/')
             .then((response) => {
                 const payload: IRankState = response && response.data;
-                commit('getRank', payload);
+                commit('setRank', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('getRankError');
+                commit('errorRank');
             });
     },
 };

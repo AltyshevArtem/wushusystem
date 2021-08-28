@@ -1,18 +1,23 @@
+/* VUEX */
 import { ActionTree } from 'vuex';
-import axios from 'axios';
+
+/* TYPES */
 import { IFederalRegionState } from './types';
+
+/* HTTP */
+import http from '@/http-common';
 
 export const actions: ActionTree<IFederalRegionState, null> = {
     getFederalRegionList({ commit }): any {
-        axios
-            .get('/api/federal_region/')
+        http
+            .get('/federal_region/')
             .then((response) => {
                 const payload: IFederalRegionState = response && response.data;
-                commit('getFederalRegion', payload);
+                commit('setFederalRegion', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('getFederalRegionError');
+                commit('errorFederalRegion');
             });
     },
 };

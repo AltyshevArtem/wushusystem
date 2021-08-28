@@ -1,3 +1,4 @@
+/* MODELS */
 import { IFederalRegion } from '@/models/city';
 
 export interface IFederalRegionState {
