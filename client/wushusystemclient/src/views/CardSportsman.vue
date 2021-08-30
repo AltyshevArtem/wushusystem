@@ -554,7 +554,10 @@
                                     <div class="row g-0">
                                         <div class="col-md-8">
                                             <p>
-                                                <strong>Согласие родителя</strong>
+                                                <strong
+                                                    >Согласие родителя на заселение в
+                                                    гостиницу</strong
+                                                >
                                             </p>
                                         </div>
                                         <div class="col-md-4">
@@ -1137,6 +1140,7 @@ img[tabindex='0']:focus ~ * {
     height: 250px;
     padding-left: 25px;
     padding-top: 5px;
+    overflow: hidden;
 }
 .personal__trainer-photo {
     position: relative;

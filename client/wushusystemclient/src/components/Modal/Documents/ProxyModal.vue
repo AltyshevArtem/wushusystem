@@ -3,7 +3,9 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Прокси</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Заверенные копии и доверенность родителя
+                    </h5>
                     <button type="button" class="close close_btn" @click="closeModal">
                         <img src="../../../assets/x.svg" alt="close" />
                     </button>
@@ -67,10 +69,6 @@
                 </div>
                 <div v-else class="modal-body">
                     <div>
-                        <h6>Дата окончания доверенности</h6>
-                        <input placeholder="YYYY-MM-DD" v-model="DateEnd" required />
-                    </div>
-                    <div>
                         <h6>Скан оригинального паспорта:</h6>
                         <input
                             type="file"
@@ -91,7 +89,7 @@
                         />
                     </div>
                     <div>
-                        <h6>Скан фото:</h6>
+                        <h6>Скан доверенности:</h6>
                         <input
                             type="file"
                             id="file"
@@ -99,6 +97,10 @@
                             @change="proxyFileUpload()"
                             required
                         />
+                    </div>
+                    <div>
+                        <h6>Дата окончания доверенности</h6>
+                        <input placeholder="YYYY-MM-DD" v-model="DateEnd" required />
                     </div>
                 </div>
                 <div class="modal-footer">
