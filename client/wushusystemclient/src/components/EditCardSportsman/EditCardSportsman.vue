@@ -70,11 +70,7 @@
             </li>
             <li>
                 Тренер:
-                <SelectTrainer
-                    @change="Editable = true"
-                    mode="single"
-                    v-model="sportsmanMap.sportsman.trainer"
-                />
+                <SelectTrainer mode="single" @change="Editable = true" v-model="trainerName" />
             </li>
             <li>
                 <div class="form-group">
@@ -87,6 +83,10 @@
                 </div>
             </li>
             <li>
+                Клуб:
+                <SelectClub mode="single" @change="Editable = true" v-model="clubName" />
+            </li>
+            <li>
                 Разряд:
                 <SelectRank
                     mode="single"
@@ -96,11 +96,7 @@
             </li>
             <li>
                 Город:
-                <SelectCity
-                    mode="single"
-                    @change="Editable = true"
-                    v-model="sportsmanMap.sportsman.city"
-                />
+                <SelectCity mode="single" @change="Editable = true" v-model="cityName" />
             </li>
             <li>
                 Адрес прописки:
@@ -326,7 +322,7 @@
                         Удалить
                     </button>
                 </div>
-                <div class="input__wrapper-file">
+                <div v-else class="input__wrapper-file">
                     <input
                         type="file"
                         name="file"
@@ -689,26 +685,54 @@ const namespaceTrainer = 'trainer';
             this.ParentDocFile = this.$refs.ParentDocFile.files[0];
             this.Editable = true;
         },
+        initSelectors(): void {
+            if (this.sportsmanMap.sportsman.trainer !== '') {
+                const trainer = this.sportsmanMap.sportsman.trainer;
+                this.trainerName = `${trainer.surname} ${trainer.name} ${trainer.patronymic}`;
+            }
+            if (this.sportsmanMap.sportsman.club !== '') {
+                this.clubName = this.sportsmanMap.sportsman.club.name_of_club;
+            }
+            if (this.sportsmanMap.sportsman.city !== '') {
+                this.cityName = this.sportsmanMap.sportsman.city.name_of_city;
+            }
+        },
         editSportsman() {
-            if (this.PhotoSportsman !== '') {
+            console.log('SportsmanMap = ', this.sportsmanMap);
+            console.log('sportsman = ', this.sportsman);
+            if (this.sportsmanMap.photo) {
+                this.sportsman.photo = this.sportsmanMap.photo;
+            } else {
                 this.sportsman.photo = this.PhotoSportsman;
             }
-            if (this.ConfirmAddressFile !== '') {
+            if (this.sportsmanMap.confirm_address) {
+                this.sportsman.confirm_address = this.sportsmanMap.confirm_address;
+            } else {
                 this.sportsman.confirm_address = this.ConfirmAddressFile;
             }
-            if (this.RusadaFile !== '') {
+            if (this.sportsmanMap.rusada) {
+                this.sportsman.rusada = this.sportsmanMap.rusada;
+            } else {
                 this.sportsman.rusada = this.RusadaFile;
             }
-            if (this.SchoolFile !== '') {
+            if (this.sportsmanMap.school_doc) {
+                this.sportsman.school_doc = this.sportsmanMap.school_doc;
+            } else {
                 this.sportsman.school_doc = this.SchoolFile;
             }
-            if (this.CovidTestFile !== '') {
+            if (this.sportsmanMap.covid_test) {
+                this.sportsman.covid_test = this.sportsmanMap.covid_test;
+            } else {
                 this.sportsman.covid_test = this.CovidTestFile;
             }
-            if (this.CovidContactFile !== '') {
+            if (this.sportsmanMap.covid_contact) {
+                this.sportsman.covid_contact = this.sportsmanMap.covid_contact;
+            } else {
                 this.sportsman.covid_contact = this.CovidContactFile;
             }
-            if (this.ParentDocFile !== '') {
+            if (this.sportsmanMap.parent_doc) {
+                this.sportsman.parent_doc = this.sportsmanMap.parent_doc;
+            } else {
                 this.sportsman.parent_doc = this.ParentDocFile;
             }
 
@@ -747,13 +771,13 @@ const namespaceTrainer = 'trainer';
                 this.sportsman.insurance = this.insuranceMap.insurance;
             }
 
-            const oldCity = this.sportsman.city;
-            const oldClub = this.sportsman.club;
-            const oldTrainer = this.sportsman.trainer;
+            const oldCity = this.cityName;
+            const oldClub = this.clubName;
+            const oldTrainer = this.trainerName;
 
-            const cityId = this.arrValueCity.indexOf(this.sportsmanMap.sportsman.city);
-            const clubId = this.arrValueClub.indexOf(this.sportsmanMap.sportsman.club);
-            const trainerId = this.arrValueTrainer.indexOf(this.sportsmanMap.sportsman.trainer);
+            const cityId = this.arrValueCity.indexOf(oldCity);
+            const clubId = this.arrValueClub.indexOf(oldClub);
+            const trainerId = this.arrValueTrainer.indexOf(oldTrainer);
 
             this.sportsman.city = this.cityMap.cities[cityId];
             this.sportsman.club = this.clubMap.clubs[clubId];
@@ -761,9 +785,9 @@ const namespaceTrainer = 'trainer';
 
             this.putSportsman(this.sportsman);
 
-            this.sportsman.city = oldCity;
-            this.sportsman.club = oldClub;
-            this.sportsman.trainer = oldTrainer;
+            this.cityName = oldCity;
+            this.clubName = oldClub;
+            this.trainerName = oldTrainer;
         },
     },
     data() {
@@ -794,6 +818,9 @@ const namespaceTrainer = 'trainer';
                 school_doc: '',
                 duan_czi: '',
             },
+            clubName: '',
+            cityName: '',
+            trainerName: '',
             PhotoSportsman: '',
             ConfirmAddressFile: '',
             RusadaFile: '',
@@ -802,6 +829,9 @@ const namespaceTrainer = 'trainer';
             CovidTestFile: '',
             ParentDocFile: '',
         };
+    },
+    mounted() {
+        this.initSelectors();
     },
     components: {
         SelectGender,
