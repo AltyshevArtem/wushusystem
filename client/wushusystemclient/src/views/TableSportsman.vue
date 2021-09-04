@@ -2,7 +2,7 @@
     <div class="container-sm">
         <br />
         <router-link :to="'/sportsmans/new'">
-            <button>Добавить нового</button>
+            <button type="button" class="btn btn-dark">Добавить нового</button>
         </router-link>
         <div class="listSportsman">
             <input placeholder="Поиск" class="form-control" v-model="search" />

@@ -67,10 +67,6 @@
                 </div>
                 <div v-else class="modal-body">
                     <div>
-                        <h6>Дата окончания доверенности</h6>
-                        <input placeholder="YYYY-MM-DD" v-model="DateEnd" required />
-                    </div>
-                    <div>
                         <h6>Скан оригинального паспорта:</h6>
                         <input
                             type="file"
@@ -91,7 +87,7 @@
                         />
                     </div>
                     <div>
-                        <h6>Скан фото:</h6>
+                        <h6>Скан доверенности:</h6>
                         <input
                             type="file"
                             id="file"
@@ -99,6 +95,10 @@
                             @change="proxyFileUpload()"
                             required
                         />
+                    </div>
+                    <div>
+                        <h6>Дата окончания доверенности</h6>
+                        <input placeholder="YYYY-MM-DD" v-model="DateEnd" required />
                     </div>
                 </div>
                 <div class="modal-footer">

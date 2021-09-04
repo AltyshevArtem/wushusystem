@@ -14,11 +14,11 @@
                                 {{ FullName }}
                             </strong>
                         </span>
-                        <div class="pb-3 mb-3">
+                        <div class="pb-3 mb-3 buttons__delete-edit">
                             <button
                                 type="button"
                                 @click="isEditable = true"
-                                class="btn btn-primary"
+                                class="btn btn-secondary edit-button"
                             >
                                 Редактировать
                             </button>
@@ -35,9 +35,9 @@
                 <div class="p-5 mb-4 bg-light rounded-3">
                     <div class="card mb-3">
                         <div class="row g-0">
+                            <h5 class="card-header">Информация о спортсмене:</h5>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">Информация о спортсмене:</h5>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
                                             ФИО: <strong>{{ FullName }}</strong>
@@ -120,8 +120,8 @@
                         </div>
                     </div>
                     <div class="card mb-3">
+                        <h5 class="card-header">Принадлежность:</h5>
                         <div class="card-body">
-                            <h5 class="card-title">Принадлежность:</h5>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <span>Страна: </span>
@@ -554,7 +554,10 @@
                                     <div class="row g-0">
                                         <div class="col-md-8">
                                             <p>
-                                                <strong>Согласие родителя</strong>
+                                                <strong
+                                                    >Согласие родителя на заселение в
+                                                    гостиницу</strong
+                                                >
                                             </p>
                                         </div>
                                         <div class="col-md-4">
@@ -1136,6 +1139,7 @@ img[tabindex='0']:focus ~ * {
     height: 250px;
     padding-left: 25px;
     padding-top: 5px;
+    overflow: hidden;
 }
 .personal__trainer-photo {
     position: relative;
@@ -1180,5 +1184,11 @@ span.danger-message__no-photo {
     text-align: center;
     position: absolute;
     padding: 35px 70px 60px 17px;
+}
+.buttons__delete-edit {
+    width: 250px;
+}
+.edit-button {
+    margin-right: 5px;
 }
 </style>
