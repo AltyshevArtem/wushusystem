@@ -1,3 +1,4 @@
+import { sportsman } from './index';
 import { ISportsman } from '@/models/sportsman';
 import { ActionTree } from 'vuex';
 import axios from 'axios';
@@ -207,7 +208,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
         if (!isEmpty(sportsman.patronymic)) {
             data.append('patronymic', sportsman.patronymic);
         }
-        if (!isEmpty(sportsman.photo) && typeof sportsman.photo !== 'string') {
+        if (typeof sportsman.photo !== 'string' || sportsman.photo === '') {
             data.append('photo', sportsman.photo);
         }
         if (!isEmpty(sportsman.date_of_birth)) {
@@ -216,34 +217,22 @@ export const actions: ActionTree<ISportsmanState, null> = {
         if (!isEmpty(sportsman.address)) {
             data.append('address', String(sportsman.address));
         }
-        if (!isEmpty(sportsman.confirm_address) &&
-            typeof sportsman.confirm_address !== 'string'
-        ) {
+        if (typeof sportsman.confirm_address !== 'string' || sportsman.confirm_address === '') {
             data.append('confirm_address', sportsman.confirm_address);
         }
-        if (!isEmpty(sportsman.rusada) &&
-            typeof sportsman.rusada !== 'string'
-        ) {
+        if (typeof sportsman.rusada !== 'string' || sportsman.rusada === '') {
             data.append('rusada', sportsman.rusada);
         }
-        if (!isEmpty(sportsman.covid_test) &&
-            typeof sportsman.covid_test !== 'string'
-        ) {
+        if (typeof sportsman.covid_test !== 'string' || sportsman.covid_test === '') {
             data.append('covid_test', sportsman.covid_test);
         }
-        if (!isEmpty(sportsman.covid_contact) &&
-            typeof sportsman.covid_contact !== 'string'
-        ) {
+        if (typeof sportsman.covid_contact !== 'string' || sportsman.covid_contact === '') {
             data.append('covid_contact', sportsman.covid_contact);
         }
-        if (!isEmpty(sportsman.parent_doc) &&
-            typeof sportsman.parent_doc !== 'string'
-        ) {
+        if (typeof sportsman.parent_doc !== 'string'  || sportsman.parent_doc === '') {
             data.append('parent_doc', sportsman.parent_doc);
         }
-        if (!isEmpty(sportsman.school_doc) &&
-            typeof sportsman.school_doc !== 'string'
-        ) {
+        if (typeof sportsman.school_doc !== 'string' || sportsman.school_doc === '') {
             data.append('school_doc', sportsman.school_doc);
         }
         if (!isEmpty(sportsman.gender)) {
