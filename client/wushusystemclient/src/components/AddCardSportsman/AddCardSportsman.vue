@@ -1,381 +1,505 @@
 <template>
-    <div class="container-fluid">
-        <form @submit.prevent="addNewSportsman">
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-group">
-                        <input
-                            class="form-control"
-                            placeholder="Фамилия"
-                            id="surname"
-                            v-model="sportsman.surname"
-                        />
-                        <input
-                            class="form-control"
-                            placeholder="Имя"
-                            id="name"
-                            v-model="sportsman.name"
-                        />
-                        <input
-                            class="form-control"
-                            placeholder="Отчество"
-                            id="patronymic"
-                            v-model="sportsman.patronymic"
-                        />
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="input__wrapper-file">
-                        <input
-                            type="file"
-                            name="file"
-                            id="PhotoSportsman"
-                            ref="PhotoSportsman"
-                            class="input input__file"
-                            @change="PhotoSportsmanUpload()"
-                        />
-                        <label class="input__file-button" for="PhotoSportsman">
-                            <span class="input__file-icon-wrapper"
-                                ><img
-                                    class="input__file-icon"
-                                    src="@/assets/attach.svg"
-                                    alt="Фото спортсмена"
-                                    width="25"
-                            /></span>
-                            <span class="input__file-button-text"> Фото спортсмена </span>
-                        </label>
-                        {{ PhotoSportsman }}
-                    </div>
-                    <SelectGender v-model="sportsman.gender" mode="single" />
-                    <div class="form-group">
-                        <label for="DateOfBirth">Дата Рождения</label>
-                        <input
-                            placeholder="YYYY-MM-DD"
-                            id="DateOfBirth"
-                            class="form-control"
-                            v-model="sportsman.date_of_birth"
-                        />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <SelectTrainer mode="single" id="selectTrainer" v-model="sportsman.trainer" />
-
-                    <SelectRank mode="single" id="selectRank" v-model="sportsman.rank" />
-
-                    <SelectDuanCzi mode="single" id="selectDuanCzi" v-model="sportsman.duan_czi" />
-                </div>
-                <div class="col-6">
-                    <SelectCity mode="single" v-model="sportsman.city" />
-                    <SelectClub mode="single" v-model="sportsman.club" />
-                    <div class="form-group">
-                        <input
-                            placeholder="Адрес"
-                            class="form-control"
-                            v-model="sportsman.address"
-                        />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <template v-if="!insuranceMap.insurance">
-                    Страховой полис:
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="
-                            {
-                                isModalInsurance = true;
-                                isEdit = false;
-                            }
-                        "
-                    >
-                        Добавить новый страховой полис
-                    </button>
-                </template>
-                <template v-else>
-                    Страховой полис:
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="
-                            {
-                                isModalInsurance = true;
-                                isEdit = true;
-                            }
-                        "
-                    >
-                        Редактировать страховой полис
-                    </button>
-                </template>
-                {{ insuranceMap.insurance }}
-            </div>
-            <div class="row">
-                <template v-if="!birthCertificateMap.birthCertificate">
-                    Свидетельство о рождении:
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="
-                            {
-                                isModalBirthCertificate = true;
-                                isEdit = false;
-                            }
-                        "
-                    >
-                        Добавить новое свидетельство о рождении
-                    </button>
-                </template>
-                <template v-else>
-                    Свидетельство о рождении:
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="
-                            {
-                                isModalBirthCertificate = true;
-                                isEdit = true;
-                            }
-                        "
-                    >
-                        Редактировать свидетельство о рождении
-                    </button>
-                </template>
-                {{ birthCertificateMap.birthCertificate }}
-            </div>
-            <div class="row">
-                <template v-if="!omsMap.oms">
-                    Полис ОМС:
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="
-                            {
-                                isModalOms = true;
-                                isEdit = false;
-                            }
-                        "
-                    >
-                        Добавить новый полис ОМС
-                    </button>
-                </template>
-                <template v-else>
-                    Полис ОМС:
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="
-                            {
-                                isModalOms = true;
-                                isEdit = true;
-                            }
-                        "
-                    >
-                        Редактировать полис ОМС
-                    </button>
-                </template>
-                {{ omsMap.oms }}
-            </div>
-            <div class="row">
-                <template v-if="!passportMap.passport">
-                    Паспорт:
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="
-                            {
-                                isModalPassport = true;
-                                isEdit = false;
-                            }
-                        "
-                    >
-                        Добавить новый паспорт
-                    </button>
-                </template>
-                <template v-else>
-                    Паспорт:
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="
-                            {
-                                isModalPassport = true;
-                                isEdit = true;
-                            }
-                        "
-                    >
-                        Редактировать паспорт
-                    </button>
-                </template>
-                {{ passportMap.passport }}
-            </div>
-            <div class="row">
-                <template v-if="!proxyMap.proxy">
-                    Прокси:
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="
-                            {
-                                isModalProxy = true;
-                                isEdit = false;
-                            }
-                        "
-                    >
-                        Добавить новый прокси
-                    </button>
-                </template>
-                <template v-else>
-                    Прокси:
-                    <button
-                        type="button"
-                        class="btn btn-primary"
-                        @click="
-                            {
-                                isModalProxy = true;
-                                isEdit = true;
-                            }
-                        "
-                    >
-                        Редактировать прокси
-                    </button>
-                </template>
-                {{ proxyMap.proxy }}
-            </div>
-            <div class="input__wrapper-file">
-                <input
-                    type="file"
-                    name="file"
-                    id="ConfirmAddressFile"
-                    ref="ConfirmAddressFile"
-                    class="input input__file"
-                    @change="ConfirmAddressFileUpload()"
-                />
-                <label class="input__file-button" for="ConfirmAddressFile">
-                    <span class="input__file-icon-wrapper"
-                        ><img
-                            class="input__file-icon"
-                            src="@/assets/attach.svg"
-                            alt="Подтверждение прописки"
-                            width="25"
-                    /></span>
-                    <span class="input__file-button-text"> Подтверждение прописки </span>
-                </label>
-                {{ ConfirmAddressFile }}
-            </div>
-            <div class="input__wrapper-file">
-                <input
-                    type="file"
-                    name="file"
-                    id="RusadaFile"
-                    ref="RusadaFile"
-                    class="input input__file"
-                    @change="RusadaFileUpload()"
-                />
-                <label class="input__file-button" for="RusadaFile">
-                    <span class="input__file-icon-wrapper"
-                        ><img
-                            class="input__file-icon"
-                            src="@/assets/attach.svg"
-                            alt="Сертификат РУСАДА"
-                            width="25"
-                    /></span>
-                    <span class="input__file-button-text"> Сертификат РУСАДА </span>
-                </label>
-                {{ RusadaFile }}
-            </div>
-            <div class="input__wrapper-file">
-                <input
-                    type="file"
-                    name="file"
-                    id="SchoolFile"
-                    ref="SchoolFile"
-                    class="input input__file"
-                    @change="SchoolFileUpload()"
-                />
-                <label class="input__file-button" for="SchoolFile">
-                    <span class="input__file-icon-wrapper"
-                        ><img
-                            class="input__file-icon"
-                            src="@/assets/attach.svg"
-                            alt="Справка об обучении в школе"
-                            width="25"
-                    /></span>
-                    <span class="input__file-button-text"> Справка об обучении в школе </span>
-                </label>
-                {{ SchoolFile }}
-            </div>
-            <div class="input__wrapper-file">
-                <input
-                    type="file"
-                    name="file"
-                    id="CovidTestFile"
-                    ref="CovidTestFile"
-                    class="input input__file"
-                    @change="CovidTestFileUpload()"
-                />
-                <label class="input__file-button" for="CovidTestFile">
-                    <span class="input__file-icon-wrapper"
-                        ><img
-                            class="input__file-icon"
-                            src="@/assets/attach.svg"
-                            alt="ПЦР-тест COVID-19"
-                            width="25"
-                    /></span>
-                    <span class="input__file-button-text"> ПЦР-тест COVID-19 </span>
-                </label>
-                {{ CovidTestFile }}
-            </div>
-            <div class="input__wrapper-file">
-                <input
-                    type="file"
-                    name="file"
-                    id="CovidContactFile"
-                    ref="CovidContactFile"
-                    class="input input__file"
-                    @change="CovidContactFileUpload()"
-                />
-                <label class="input__file-button" for="CovidContactFile">
-                    <span class="input__file-icon-wrapper"
-                        ><img
-                            class="input__file-icon"
-                            src="@/assets/attach.svg"
-                            alt="Справка об отсутствии контактов с инфекционными больными"
-                            width="25"
-                    /></span>
-                    <span class="input__file-button-text">
-                        Справка об отсутствии контактов с инфекционными больными
+    <form @submit.prevent="addNewSportsman">
+        <div class="container py-4">
+            <div>
+                <div class="pb-3 mb-4 d-flex justify-content-between">
+                    <span class="fs-4">
+                        <strong>Добававление нового спортсмена</strong>
                     </span>
-                </label>
-                {{ CovidContactFile }}
+                </div>
             </div>
-            <div class="input__wrapper-file">
-                <input
-                    type="file"
-                    name="file"
-                    id="ParentDocFile"
-                    ref="ParentDocFile"
-                    class="input input__file"
-                    @change="ParentDocFileUpload()"
-                />
-                <label class="input__file-button" for="ParentDocFile">
-                    <span class="input__file-icon-wrapper"
-                        ><img
-                            class="input__file-icon"
-                            src="@/assets/attach.svg"
-                            alt="Доверенность родителя"
-                            width="25"
-                    /></span>
-                    <span class="input__file-button-text"> Доверенность родителя </span>
-                </label>
-                {{ ParentDocFile }}
+            <div class="p-5 mb-4 bg-light rounded-3">
+                <div class="row row-cols-1 row-cols-md-2">
+                    <div class="col mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">
+                                        <div class="input__wrapper-file upload">
+                                            <input
+                                                type="file"
+                                                name="file"
+                                                id="PhotoSportsman"
+                                                ref="PhotoSportsman"
+                                                class="input input__file"
+                                                @change="PhotoSportsmanUpload($event)"
+                                            />
+                                            <label
+                                                class="input__file-button load-file"
+                                                for="PhotoSportsman"
+                                            >
+                                                <span class="input__file-icon-wrapper"
+                                                    ><img
+                                                        class="input__file-icon"
+                                                        src="@/assets/attach.svg"
+                                                        alt="Фото спортсмена"
+                                                        width="25"
+                                                /></span>
+                                                <span class="input__file-button-text">
+                                                    Загрузить файл
+                                                </span>
+                                            </label>
+                                            <!-- <img src="" alt="PhotoSportsman"
+                                            id="TestImage" /> -->
+                                            {{ PhotoSportsman }}
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item">
+                                        <div class="form-group">
+                                            <input
+                                                class="form-control"
+                                                placeholder="Фамилия"
+                                                id="surname"
+                                                v-model="sportsman.surname"
+                                            />
+                                            <input
+                                                class="form-control"
+                                                placeholder="Имя"
+                                                id="name"
+                                                v-model="sportsman.name"
+                                            />
+                                            <input
+                                                class="form-control"
+                                                placeholder="Отчество"
+                                                id="patronymic"
+                                                v-model="sportsman.patronymic"
+                                            />
+                                            <div class="form-group">
+                                                <input
+                                                    placeholder="YYYY-MM-DD"
+                                                    class="form-control"
+                                                    v-model="sportsman.date_of_birth"
+                                                />
+                                            </div>
+                                            <SelectGender
+                                                v-model="sportsman.gender"
+                                                mode="single"
+                                            />
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item second-list">
+                                        <SelectTrainer
+                                            mode="single"
+                                            id="selectTrainer"
+                                            v-model="sportsman.trainer"
+                                        />
+
+                                        <SelectRank
+                                            mode="single"
+                                            id="selectRank"
+                                            v-model="sportsman.rank"
+                                        />
+
+                                        <SelectDuanCzi
+                                            mode="single"
+                                            id="selectDuanCzi"
+                                            v-model="sportsman.duan_czi"
+                                        />
+                                        <SelectCity mode="single" v-model="sportsman.city" />
+                                        <SelectClub mode="single" v-model="sportsman.club" />
+                                        <div class="form-group">
+                                            <input
+                                                placeholder="Адрес"
+                                                class="form-control"
+                                                v-model="sportsman.address"
+                                            />
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item four-list">
+                                        <template v-if="!passportMap.passport">
+                                            <p><strong>Данные паспорта</strong></p>
+                                            <span>Добавить данные о паспорте: </span>
+                                            <button
+                                                type="button"
+                                                class="btn btn-dark"
+                                                @click="
+                                                    {
+                                                        isModalPassport = true;
+                                                        isEdit = false;
+                                                    }
+                                                "
+                                            >
+                                                Добавить
+                                            </button>
+                                        </template>
+                                        <template v-else>
+                                            Паспорт:
+                                            <button
+                                                type="button"
+                                                class="btn btn-primary"
+                                                @click="
+                                                    {
+                                                        isModalPassport = true;
+                                                        isEdit = true;
+                                                    }
+                                                "
+                                            >
+                                                Редактировать паспорт
+                                            </button>
+                                        </template>
+                                        {{ passportMap.passport }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <template v-if="!insuranceMap.insurance">
+                                            <p><strong>Страховка</strong></p>
+                                            <span>Добавить данные о страховке: </span>
+                                            <button
+                                                type="button"
+                                                class="btn btn-dark"
+                                                @click="
+                                                    {
+                                                        isModalInsurance = true;
+                                                        isEdit = false;
+                                                    }
+                                                "
+                                            >
+                                                Добавить
+                                            </button>
+                                        </template>
+                                        <template v-else>
+                                            Страховой полис:
+                                            <button
+                                                type="button"
+                                                class="btn btn-primary"
+                                                @click="
+                                                    {
+                                                        isModalInsurance = true;
+                                                        isEdit = true;
+                                                    }
+                                                "
+                                            >
+                                                Редактировать страховой полис
+                                            </button>
+                                        </template>
+                                        {{ insuranceMap.insurance }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <template v-if="!birthCertificateMap.birthCertificate">
+                                            <p><strong>Свидетельство о рождении</strong></p>
+                                            <span>Добавить данные о сведительстве рождения: </span>
+                                            <button
+                                                type="button"
+                                                class="btn btn-dark"
+                                                @click="
+                                                    {
+                                                        isModalBirthCertificate = true;
+                                                        isEdit = false;
+                                                    }
+                                                "
+                                            >
+                                                Добавить
+                                            </button>
+                                        </template>
+                                        <template v-else>
+                                            Свидетельство о рождении:
+                                            <button
+                                                type="button"
+                                                class="btn btn-primary"
+                                                @click="
+                                                    {
+                                                        isModalBirthCertificate = true;
+                                                        isEdit = true;
+                                                    }
+                                                "
+                                            >
+                                                Редактировать свидетельство о рождении
+                                            </button>
+                                        </template>
+                                        {{ birthCertificateMap.birthCertificate }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <template v-if="!omsMap.oms">
+                                            <p><strong>Полис ОМС</strong></p>
+                                            <span>Добавить данные о полисе ОМС: </span>
+                                            <button
+                                                type="button"
+                                                class="btn btn-dark"
+                                                @click="
+                                                    {
+                                                        isModalOms = true;
+                                                        isEdit = false;
+                                                    }
+                                                "
+                                            >
+                                                Добавить
+                                            </button>
+                                        </template>
+                                        <template v-else>
+                                            Полис ОМС:
+                                            <button
+                                                type="button"
+                                                class="btn btn-dark"
+                                                @click="
+                                                    {
+                                                        isModalOms = true;
+                                                        isEdit = true;
+                                                    }
+                                                "
+                                            >
+                                                Редактировать полис ОМС
+                                            </button>
+                                        </template>
+                                        {{ omsMap.oms }}
+                                    </li>
+                                    <li class="list-group-item">
+                                        <template v-if="!proxyMap.proxy">
+                                            <p>
+                                                <strong
+                                                    >Заверенные копии и доверенность
+                                                    родителя</strong
+                                                >
+                                            </p>
+                                            <span
+                                                >Добавить данные о заверенной копии и доверенности
+                                                родителя:
+                                            </span>
+                                            <button
+                                                type="button"
+                                                class="btn btn-dark"
+                                                @click="
+                                                    {
+                                                        isModalProxy = true;
+                                                        isEdit = false;
+                                                    }
+                                                "
+                                            >
+                                                Добавить
+                                            </button>
+                                        </template>
+                                        <template v-else>
+                                            Прокси:
+                                            <button
+                                                type="button"
+                                                class="btn btn-primary"
+                                                @click="
+                                                    {
+                                                        isModalProxy = true;
+                                                        isEdit = true;
+                                                    }
+                                                "
+                                            >
+                                                Редактировать прокси
+                                            </button>
+                                        </template>
+                                        {{ proxyMap.proxy }}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item button-list">
+                                        <span><strong>Подтверждение прописки</strong></span>
+                                        <div class="input__wrapper-file upload">
+                                            <input
+                                                type="file"
+                                                name="file"
+                                                id="ConfirmAddressFile"
+                                                ref="ConfirmAddressFile"
+                                                class="input input__file"
+                                                @change="ConfirmAddressFileUpload()"
+                                            />
+                                            <label
+                                                class="input__file-button load-file"
+                                                for="ConfirmAddressFile"
+                                            >
+                                                <span class="input__file-icon-wrapper"
+                                                    ><img
+                                                        class="input__file-icon"
+                                                        src="@/assets/attach.svg"
+                                                        alt="Подтверждение прописки"
+                                                        width="25"
+                                                /></span>
+                                                <span class="input__file-button-text">
+                                                    Загрузить файл
+                                                </span>
+                                            </label>
+                                            {{ ConfirmAddressFile }}
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item button-list">
+                                        <span><strong>Сертификат РУСАДА</strong></span>
+                                        <div class="input__wrapper-file upload">
+                                            <input
+                                                type="file"
+                                                name="file"
+                                                id="RusadaFile"
+                                                ref="RusadaFile"
+                                                class="input input__file"
+                                                @change="RusadaFileUpload()"
+                                            />
+                                            <label
+                                                class="input__file-button load-file"
+                                                for="RusadaFile"
+                                            >
+                                                <span class="input__file-icon-wrapper"
+                                                    ><img
+                                                        class="input__file-icon"
+                                                        src="@/assets/attach.svg"
+                                                        alt="Сертификат РУСАДА"
+                                                        width="25"
+                                                /></span>
+                                                <span class="input__file-button-text">
+                                                    Загрузить файл
+                                                </span>
+                                            </label>
+                                            {{ RusadaFile }}
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item button-list">
+                                        <span><strong>Справка из школы</strong></span>
+                                        <div class="input__wrapper-file upload">
+                                            <input
+                                                type="file"
+                                                name="file"
+                                                id="SchoolFile"
+                                                ref="SchoolFile"
+                                                class="input input__file"
+                                                @change="SchoolFileUpload()"
+                                            />
+                                            <label
+                                                class="input__file-button load-file"
+                                                for="SchoolFile"
+                                            >
+                                                <span class="input__file-icon-wrapper"
+                                                    ><img
+                                                        class="input__file-icon"
+                                                        src="@/assets/attach.svg"
+                                                        alt="Справка об обучении в школе"
+                                                        width="25"
+                                                /></span>
+                                                <span class="input__file-button-text">
+                                                    Загрузить файл
+                                                </span>
+                                            </label>
+                                            {{ SchoolFile }}
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item button-list">
+                                        <span><strong>ПЦР-тест COVID-19</strong></span>
+                                        <div class="input__wrapper-file upload">
+                                            <input
+                                                type="file"
+                                                name="file"
+                                                id="CovidTestFile"
+                                                ref="CovidTestFile"
+                                                class="input input__file"
+                                                @change="CovidTestFileUpload()"
+                                            />
+                                            <label
+                                                class="input__file-button load-file"
+                                                for="CovidTestFile"
+                                            >
+                                                <span class="input__file-icon-wrapper"
+                                                    ><img
+                                                        class="input__file-icon"
+                                                        src="@/assets/attach.svg"
+                                                        alt="ПЦР-тест COVID-19"
+                                                        width="25"
+                                                /></span>
+                                                <span class="input__file-button-text">
+                                                    Загрузить файл
+                                                </span>
+                                            </label>
+                                            {{ CovidTestFile }}
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item button-list">
+                                        <span
+                                            ><strong
+                                                >Справка об отсутствии контактов с инфекционными
+                                                больными</strong
+                                            ></span
+                                        >
+                                        <div class="input__wrapper-file upload">
+                                            <input
+                                                type="file"
+                                                name="file"
+                                                id="CovidContactFile"
+                                                ref="CovidContactFile"
+                                                class="input input__file"
+                                                @change="CovidContactFileUpload()"
+                                            />
+                                            <label
+                                                class="input__file-button load-file"
+                                                for="CovidContactFile"
+                                            >
+                                                <span class="input__file-icon-wrapper"
+                                                    ><img
+                                                        class="input__file-icon"
+                                                        src="@/assets/attach.svg"
+                                                        alt="Справка об отсутствии
+                                                        контактов с инфекционными больными"
+                                                        width="25"
+                                                /></span>
+                                                <span class="input__file-button-text">
+                                                    Загрузить файл
+                                                </span>
+                                            </label>
+                                            {{ CovidContactFile }}
+                                        </div>
+                                    </li>
+                                    <li class="list-group-item button-list">
+                                        <span><strong>Доверенность родителя</strong></span>
+                                        <div class="input__wrapper-file upload">
+                                            <input
+                                                type="file"
+                                                name="file"
+                                                id="ParentDocFile"
+                                                ref="ParentDocFile"
+                                                class="input input__file"
+                                                @change="ParentDocFileUpload()"
+                                            />
+                                            <label
+                                                class="input__file-button load-file"
+                                                for="ParentDocFile"
+                                            >
+                                                <span class="input__file-icon-wrapper"
+                                                    ><img
+                                                        class="input__file-icon"
+                                                        src="@/assets/attach.svg"
+                                                        alt="Доверенность родителя"
+                                                        width="25"
+                                                /></span>
+                                                <span class="input__file-button-text">
+                                                    Загрузить файл
+                                                </span>
+                                            </label>
+                                            {{ ParentDocFile }}
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <button type="submit" class="btn btn-success">
+                        Добавить нового спортсмена
+                    </button>
+                </div>
             </div>
-            <div class="row">
-                <button type="submit" class="btn btn-primary">Добавить нового спортсмена</button>
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
     <InsuranceModal
         v-if="isModalInsurance"
         v-model:mode="isEdit"
@@ -452,6 +576,25 @@ const namespaceTrainer = 'trainer';
     methods: {
         PhotoSportsmanUpload() {
             this.PhotoSportsman = this.$refs.PhotoSportsman.files[0];
+            // let reader = new FileReader();
+            // const imageReader = document.getElementById('TestImage') as HTMLImageElement;
+            // reader.onload = () => {
+            //     imageReader.src = event.target.result;
+            // };
+            // reader.readAsDataURL(this.PhotoSportsman);
+
+            //
+
+            // console.log(this.PhotoSportsman);
+            // const reader = new FileReader();
+            // const csv: string | ArrayBuffer | null = reader.result;
+            // if (!(csv === null)) {
+            //     reader.onload = function () {
+            //         imageReader.src = csv.toString();
+            //     };
+            // }
+            // reader.readAsDataURL(this.PhotoSportsman);
+            // console.log(imageReader.src);
         },
         ConfirmAddressFileUpload() {
             this.ConfirmAddressFile = this.$refs.ConfirmAddressFile.files[0];
@@ -611,4 +754,19 @@ export default class AddCardSportsman extends Vue {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.second-list {
+    height: 290px;
+}
+.upload {
+    width: 300px;
+}
+.load-file {
+    width: 69%;
+    height: 35px;
+    margin: 0;
+}
+.custom-input {
+    color: blue;
+}
+</style>
