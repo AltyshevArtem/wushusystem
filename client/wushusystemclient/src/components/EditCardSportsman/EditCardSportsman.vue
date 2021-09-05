@@ -140,7 +140,7 @@
                                     <SelectCity
                                         mode="single"
                                         @change="Editable = true"
-                                        v-model="sportsmanMap.sportsman.city"
+                                        v-model="cityName"
                                     />
                                 </span>
                             </li>
@@ -774,9 +774,21 @@
                                     <div class="col-md-8">
                                         <p><strong>Тренер</strong></p>
                                         <SelectTrainer
-                                            @change="Editable = true"
                                             mode="single"
-                                            v-model="sportsmanMap.sportsman.trainer"
+                                            @change="Editable = true"
+                                            v-model="trainerName"
+                                        />
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="row g-0">
+                                    <div class="col-md-8">
+                                        <p><strong>Клуб</strong></p>
+                                        <SelectClub
+                                            mode="single"
+                                            @change="Editable = true"
+                                            v-model="clubName"
                                         />
                                     </div>
                                 </div>
@@ -809,7 +821,6 @@
         v-model:insurance="insuranceMap.insurance"
         v-model:show="isModalInsurance"
     />
-
     <BirthCertificateModal
         v-if="isModalBirthCertificate && sportsmanMap.sportsman.birth_certificate"
         v-model:mode="isEdit"
@@ -944,8 +955,6 @@ const namespaceTrainer = 'trainer';
             }
         },
         editSportsman() {
-            console.log('SportsmanMap = ', this.sportsmanMap);
-            console.log('sportsman = ', this.sportsman);
             if (this.sportsmanMap.photo) {
                 this.sportsman.photo = this.sportsmanMap.photo;
             } else {
@@ -1137,83 +1146,6 @@ export default class EditCardSportsman extends Vue {
     arrValueTrainer: Array<string> | undefined;
     @Getter('FullName', { namespace })
     FullName: string | undefined;
-
-    // mounted(): void {
-    // }
-
-    // /* INSURANCE */
-    // @Watch('sportsmanMap.sportsman.insurance.date_start')
-    // handlerInsuranceDS(newVal: Date, oldVal: Date): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.insurance.date_end')
-    // handlerInsuranceDE(newVal: Date, oldVal: Date): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.insurance.file_insurance')
-    // handlerInsuranceFI(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-
-    // /* BIRTHCERTIFICATE */
-    // @Watch('sportsmanMap.sportsman.birth_certificate.number')
-    // handlerBirthCertificateNumber(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.birth_certificate.scan')
-    // handlerBirthCertificateScan(newVal: number, oldVal: number): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-
-    // /* OMS */
-    // @Watch('sportsmanMap.sportsman.oms.number')
-    // handlerOMSNumber(newVal: number, oldVal: number): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.oms.scan')
-    // handlerOMSScan(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-
-    // /* PASSPORT */
-    // @Watch('sportsmanMap.sportsman.passport.number')
-    // handlerPassportNumber(newVal: number, oldVal: number): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.passport.scan')
-    // handlerPassportScan(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.passport.date_start')
-    // handlerPassportDS(newVal: Date, oldVal: Date): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.passport.issue')
-    // handlerPassportIssue(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.passport.code')
-    // handlerPassportCode(newVal: number, oldVal: number): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-
-    // /* PROXY */
-    // @Watch('sportsmanMap.sportsman.proxy.scan')
-    // handlerProxyScan(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.proxy.original_passport')
-    // handlerProxyOP(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.proxy.original_birth_certificate')
-    // handlerProxyOBC(newVal: string, oldVal: string): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
-    // @Watch('sportsmanMap.sportsman.proxy.date_end')
-    // handlerProxyDE(newVal: Date, oldVal: Date): void {
-    //     if (oldVal !== newVal) this.Editable = true;
-    // }
 }
 </script>
 

@@ -652,7 +652,6 @@ const namespaceTrainer = 'trainer';
                 this.sportsman.trainer = this.trainerMap.trainers[trainerId];
 
                 this.postSportsman(this.sportsman);
-                //TODO: Сделать роутер пуш на созданного спортсмена в случае успеха
 
                 this.sportsman.city = oldCity;
                 this.sportsman.club = oldClub;
