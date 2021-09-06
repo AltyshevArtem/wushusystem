@@ -15,7 +15,7 @@ export const state: ISportsmansState = {
     page: 1,
     pageSize: 0,
     count: 0,
-    search: '?name=&gender=&club=&city=&rank=&duan_czi=&trainer=',
+    search: '?name=&gender=&club=&city=&rank=&duan_czi=&trainer=&federal_region=&region=',
     error: false,
 };
 

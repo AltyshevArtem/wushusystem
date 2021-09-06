@@ -106,6 +106,8 @@ class SportsmanSetFilter(FilterSet):
     trainer = CharFilter(method="get_trainer")
     rank = CharFilter(method="get_rank")
     duan_czi = CharFilter(method="get_duan_czi")
+    get_federal_region_name = CharFilter(field_name='federal_region', method="get_federal_region")
+    get_region_name = CharFilter(field_name='region', method="get_region")
 
     def get_name(self, queryset, name, value):
         if value:
@@ -119,11 +121,11 @@ class SportsmanSetFilter(FilterSet):
     def get_gender(self, queryset, name, value):
         if value:
             value_list = value.replace('[', "").replace(']', "").replace(
-                "'", "").split(',')  # парсим queryset
-            querysetresult = Sportsman.objects.none()  # создание пустого queryset-a
+                "'", "").split(',')
+            querysetresult = Sportsman.objects.none()
             for value in value_list:
                 temp_query = queryset.filter(
-                    Q(gender__name_of_gender__icontains=value)
+                    Q(gender__name_of_gender__iexact=value)
                 )
                 querysetresult = querysetresult | temp_query
             queryset = querysetresult
@@ -132,11 +134,11 @@ class SportsmanSetFilter(FilterSet):
     def get_club(self, queryset, name,  value):
         if value:
             value_list = value.replace('[', "").replace(']', "").replace(
-                "'", "").split(',')  # парсим queryset
-            querysetresult = Sportsman.objects.none()  # создание пустого queryset-a
+                "'", "").split(',')
+            querysetresult = Sportsman.objects.none()
             for value in value_list:
                 temp_query = queryset.filter(
-                    Q(club__name_of_club__icontains=value)
+                    Q(club__name_of_club__iexact=value)
                 )
                 querysetresult = querysetresult | temp_query
             queryset = querysetresult
@@ -145,11 +147,11 @@ class SportsmanSetFilter(FilterSet):
     def get_city(self, queryset, name,  value):
         if value:
             value_list = value.replace('[', "").replace(']', "").replace(
-                "'", "").split(',')  # парсим queryset
-            querysetresult = Sportsman.objects.none()  # создание пустого queryset-a
+                "'", "").split(',')
+            querysetresult = Sportsman.objects.none()
             for value in value_list:
                 temp_query = queryset.filter(
-                    Q(city__name_of_city__icontains=value)
+                    Q(city__name_of_city__iexact=value)
                 )
                 querysetresult = querysetresult | temp_query
             queryset = querysetresult
@@ -157,15 +159,16 @@ class SportsmanSetFilter(FilterSet):
 
     def get_trainer(self, queryset, name,  value):
         if value:
+            print(value)
             value_list = value.replace('[', "").replace(']', "").replace(
-                "'", "").split(',')  # парсим queryset
-            querysetresult = Sportsman.objects.none()  # создание пустого queryset-a
-            #TODO: с фронта приходит в формате Ф И О (нужно распарсить)
+                "'", "").split(',')
+            querysetresult = Sportsman.objects.none()
             for value in value_list:
+                fio_arr = value.split(' ')
                 temp_query = queryset.filter(
-                    Q(trainer__name__icontains=value) |
-                    Q(trainer__surname__icontains=value) |
-                    Q(trainer__patronymic__icontains=value)
+                    Q(trainer__name__iexact=fio_arr[1]) |
+                    Q(trainer__surname__iexact=fio_arr[0]) |
+                    Q(trainer__patronymic__iexact=fio_arr[2])
                 )
                 querysetresult = querysetresult | temp_query
             queryset = querysetresult
@@ -174,12 +177,11 @@ class SportsmanSetFilter(FilterSet):
     def get_rank(self, queryset, name,  value):
         if value:
             value_list = value.replace('[', "").replace(']', "").replace(
-                "'", "").split(',')  # парсим queryset
-            querysetresult = Sportsman.objects.none()  # создание пустого queryset-a
+                "'", "").split(',')
+            querysetresult = Sportsman.objects.none()
             for value in value_list:
                 temp_query = queryset.filter(
-                    #TODO: icontains не подходит в этом случае
-                    Q(rank__name_of_rank__icontains=value)
+                    Q(rank__name_of_rank__iexact=value)
                 )
                 querysetresult = querysetresult | temp_query
             queryset = querysetresult
@@ -188,19 +190,48 @@ class SportsmanSetFilter(FilterSet):
     def get_duan_czi(self, queryset, name,  value):
         if value:
             value_list = value.replace('[', "").replace(']', "").replace(
-                "'", "").split(',')  # парсим queryset
-            querysetresult = Sportsman.objects.none()  # создание пустого queryset-a
+                "'", "").split(',')
+            querysetresult = Sportsman.objects.none()
             for value in value_list:
                 temp_query = queryset.filter(
-                    Q(duan_czi__name_of_rank__icontains=value)
+                    Q(duan_czi__name_of_rank__iexact=value)
                 )
                 querysetresult = querysetresult | temp_query
             queryset = querysetresult
         return queryset
 
-# TODO:Подумать над фильтрацией даты со стороны клиента и сервера (через DateFilter отдельной функцией)
+    def get_federal_region(self, queryset, name, value):
+        if value:
+            value_list = value.replace('[', "").replace(']', "").replace(
+                "'", "").split(',')
+            querysetresult = Sportsman.objects.none()
+            for value in value_list:
+                print(value)
+                temp_query = queryset.filter(
+                    Q(city__name_of_region__name_of_federal_region__name_of_federal_region__iexact=value)
+                )
+                querysetresult = querysetresult | temp_query
+            queryset = querysetresult
+        return queryset
 
-# TODO:Разнести бы на файлы:
+    def get_region(self, queryset, name, value):
+        if value:
+            value_list = value.replace('[', "").replace(']', "").replace(
+                "'", "").split(',')
+            querysetresult = Sportsman.objects.none()
+            for value in value_list:
+                print(value)
+                temp_query = queryset.filter(
+                    Q(city__name_of_region__name_of_region__iexact=value)
+                )
+                querysetresult = querysetresult | temp_query
+            queryset = querysetresult
+        return queryset
+
+
+# TODO:Подумать над фильтрацией даты со стороны клиента и сервера (через DateFilter отдельной функцией)? А нужно ли?
+
+# TODO:Разнести бы на файлы:? А нужно ли?
 # 1) Основные ViewSet-ы которые есть в запросах
 # 2) Дополнительные ViewSet-ы
 # 3) SetFilter-ы

@@ -236,6 +236,8 @@ export default class TableSportsman extends Vue {
             this.SelectClub,
             this.SelectCity,
             this.SelectTrainer,
+            this.SelectFederalRegion,
+            this.SelectRegion,
         ]);
         this.getSportsmanList();
     }
@@ -267,6 +269,14 @@ export default class TableSportsman extends Vue {
     }
     @Watch('SelectTrainer')
     changeDataTrainer(): void {
+        this.watchSetSearch();
+    }
+    @Watch('SelectFederalRegion')
+    changeDataFederalRegion(): void {
+        this.watchSetSearch();
+    }
+    @Watch('SelectRegion')
+    changeDataRegion(): void {
         this.watchSetSearch();
     }
     @Watch('sportsmansMap.page')

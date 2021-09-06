@@ -432,6 +432,12 @@ class Sportsman(models.Model):
         verbose_name="Ранг Дуань Цзи"
     )
 
+    def get_region_name(self):
+        return self.city.name_of_region.name_of_region
+
+    def get_federal_region_name(self):
+        return self.city.name_of_region.name_of_federal_region.abbr_of_federal_region
+
     class Meta():
         verbose_name = "Спортсмен"
         verbose_name_plural = "Спортсмены"
