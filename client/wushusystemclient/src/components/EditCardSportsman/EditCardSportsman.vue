@@ -1043,6 +1043,7 @@ const namespaceTrainer = 'trainer';
             this.cityName = oldCity;
             this.clubName = oldClub;
             this.trainerName = oldTrainer;
+
         },
     },
     data() {

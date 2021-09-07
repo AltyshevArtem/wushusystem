@@ -1,10 +1,11 @@
-import { sportsman } from './index';
 import { ISportsman } from '@/models/sportsman';
 import { ActionTree } from 'vuex';
 import axios from 'axios';
 import { ISportsmanState } from './types';
 import isEmpty from '@/scripts/isEmpty';
 import router from '@/router';
+import Swal from 'sweetalert2'
+
 
 export const actions: ActionTree<ISportsmanState, null> = {
     getSportsman({ commit }, id: number): any {
@@ -350,10 +351,22 @@ export const actions: ActionTree<ISportsmanState, null> = {
                 },
             })
             .then((response) => {
+                Swal.fire({
+                    title: 'Успех!',
+                    text: 'Новые данные будут отображены на странице спортсмена',
+                    icon: 'success',
+                    confirmButtonText: 'Продолжить'
+                })
                 const payload: ISportsman = response && response.data;
                 commit('putSportsman', payload);
             })
             .catch((error) => {
+                Swal.fire({
+                    title: 'Ошибка!',
+                    text: 'Произошла непредвиденная ошибка, попробуйте повторить позже',
+                    icon: 'error',
+                    confirmButtonText: 'Продолжить'
+                })
                 console.log(error);
                 commit('putSportsmanError');
             });
