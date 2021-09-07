@@ -174,6 +174,7 @@ class Insurance(models.Model):
         blank = True, 
         verbose_name="Дата окончания страхования"
     )
+    # TODO: А если сканов несколько?
     file_insurance = models.FileField(
         upload_to='insurance_files_pdf/',
         blank = True, 
