@@ -1086,6 +1086,7 @@ const namespaceTrainer = 'trainer';
         };
     },
     mounted() {
+        this.getSportsman(this.$route.params.id);
         this.initSelectors();
     },
     components: {
@@ -1136,6 +1137,8 @@ export default class EditCardSportsman extends Vue {
     /* ACTION */
     @Action('putSportsman', { namespace })
     putSportsman: any;
+    @Action('getSportsman', { namespace })
+    getSportsman: any;
 
     /* GETTERS */
     @Getter('arrValueCity', { namespace: namespaceCity })

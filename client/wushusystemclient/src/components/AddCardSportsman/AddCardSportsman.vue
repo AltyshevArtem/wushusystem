@@ -367,60 +367,84 @@
                                     </li>
                                     <li class="list-group-item button-list">
                                         <span><strong>Справка из школы</strong></span>
-                                        <div class="input__wrapper-file upload">
-                                            <input
-                                                type="file"
-                                                name="file"
-                                                id="SchoolFile"
-                                                ref="SchoolFile"
-                                                class="input input__file"
-                                                @change="SchoolFileUpload()"
-                                            />
-                                            <label
-                                                class="input__file-button load-file"
-                                                for="SchoolFile"
-                                            >
-                                                <span class="input__file-icon-wrapper"
-                                                    ><img
-                                                        class="input__file-icon"
-                                                        src="@/assets/attach.svg"
-                                                        alt="Справка об обучении в школе"
-                                                        width="25"
-                                                /></span>
-                                                <span class="input__file-button-text">
-                                                    Загрузить файл
-                                                </span>
-                                            </label>
-                                            {{ SchoolFile }}
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <div class="input__wrapper-file upload">
+                                                    <input
+                                                        type="file"
+                                                        name="file"
+                                                        id="SchoolFile"
+                                                        ref="SchoolFile"
+                                                        class="input input__file"
+                                                        @input="SchoolFileUpload"
+                                                    />
+                                                    <label
+                                                        class="input__file-button load-file"
+                                                        for="SchoolFile"
+                                                    >
+                                                        <span class="input__file-icon-wrapper"
+                                                            ><img
+                                                                class="input__file-icon"
+                                                                src="@/assets/attach.svg"
+                                                                alt="Справка об обучении в школе"
+                                                                width="25"
+                                                        /></span>
+                                                        <span class="input__file-button-text">
+                                                            Загрузить файл
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div
+                                                    class="imagePreviewWrapper"
+                                                    :style="{
+                                                        'background-image': `url(${SchoolFileImg})`,
+                                                    }"
+                                                    @click="selectImage"
+                                                ></div>
+                                            </div>
                                         </div>
                                     </li>
                                     <li class="list-group-item button-list">
                                         <span><strong>ПЦР-тест COVID-19</strong></span>
-                                        <div class="input__wrapper-file upload">
-                                            <input
-                                                type="file"
-                                                name="file"
-                                                id="CovidTestFile"
-                                                ref="CovidTestFile"
-                                                class="input input__file"
-                                                @change="CovidTestFileUpload()"
-                                            />
-                                            <label
-                                                class="input__file-button load-file"
-                                                for="CovidTestFile"
-                                            >
-                                                <span class="input__file-icon-wrapper"
-                                                    ><img
-                                                        class="input__file-icon"
-                                                        src="@/assets/attach.svg"
-                                                        alt="ПЦР-тест COVID-19"
-                                                        width="25"
-                                                /></span>
-                                                <span class="input__file-button-text">
-                                                    Загрузить файл
-                                                </span>
-                                            </label>
-                                            {{ CovidTestFile }}
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <div class="input__wrapper-file upload">
+                                                    <input
+                                                        type="file"
+                                                        name="file"
+                                                        id="CovidTestFile"
+                                                        ref="CovidTestFile"
+                                                        class="input input__file"
+                                                        @input="CovidTestFileUpload"
+                                                    />
+                                                    <label
+                                                        class="input__file-button load-file"
+                                                        for="CovidTestFile"
+                                                    >
+                                                        <span class="input__file-icon-wrapper"
+                                                            ><img
+                                                                class="input__file-icon"
+                                                                src="@/assets/attach.svg"
+                                                                alt="ПЦР-тест COVID-19"
+                                                                width="25"
+                                                        /></span>
+                                                        <span class="input__file-button-text">
+                                                            Загрузить файл
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div
+                                                    class="imagePreviewWrapper"
+                                                    :style="{
+                                                        'background-image': `url(${CovidTestImg})`,
+                                                    }"
+                                                    @click="selectImage"
+                                                ></div>
+                                            </div>
                                         </div>
                                     </li>
                                     <li class="list-group-item button-list">
@@ -430,61 +454,85 @@
                                                 больными</strong
                                             ></span
                                         >
-                                        <div class="input__wrapper-file upload">
-                                            <input
-                                                type="file"
-                                                name="file"
-                                                id="CovidContactFile"
-                                                ref="CovidContactFile"
-                                                class="input input__file"
-                                                @change="CovidContactFileUpload()"
-                                            />
-                                            <label
-                                                class="input__file-button load-file"
-                                                for="CovidContactFile"
-                                            >
-                                                <span class="input__file-icon-wrapper"
-                                                    ><img
-                                                        class="input__file-icon"
-                                                        src="@/assets/attach.svg"
-                                                        alt="Справка об отсутствии
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <div class="input__wrapper-file upload">
+                                                    <input
+                                                        type="file"
+                                                        name="file"
+                                                        id="CovidContactFile"
+                                                        ref="CovidContactFile"
+                                                        class="input input__file"
+                                                        @input="CovidContactFileUpload"
+                                                    />
+                                                    <label
+                                                        class="input__file-button load-file"
+                                                        for="CovidContactFile"
+                                                    >
+                                                        <span class="input__file-icon-wrapper"
+                                                            ><img
+                                                                class="input__file-icon"
+                                                                src="@/assets/attach.svg"
+                                                                alt="Справка об отсутствии
                                                         контактов с инфекционными больными"
-                                                        width="25"
-                                                /></span>
-                                                <span class="input__file-button-text">
-                                                    Загрузить файл
-                                                </span>
-                                            </label>
-                                            {{ CovidContactFile }}
+                                                                width="25"
+                                                        /></span>
+                                                        <span class="input__file-button-text">
+                                                            Загрузить файл
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div
+                                                    class="imagePreviewWrapper"
+                                                    :style="{
+                                                        'background-image': `url(${CovidImg})`,
+                                                    }"
+                                                    @click="selectImage"
+                                                ></div>
+                                            </div>
                                         </div>
                                     </li>
                                     <li class="list-group-item button-list">
                                         <span><strong>Доверенность родителя</strong></span>
-                                        <div class="input__wrapper-file upload">
-                                            <input
-                                                type="file"
-                                                name="file"
-                                                id="ParentDocFile"
-                                                ref="ParentDocFile"
-                                                class="input input__file"
-                                                @change="ParentDocFileUpload()"
-                                            />
-                                            <label
-                                                class="input__file-button load-file"
-                                                for="ParentDocFile"
-                                            >
-                                                <span class="input__file-icon-wrapper"
-                                                    ><img
-                                                        class="input__file-icon"
-                                                        src="@/assets/attach.svg"
-                                                        alt="Доверенность родителя"
-                                                        width="25"
-                                                /></span>
-                                                <span class="input__file-button-text">
-                                                    Загрузить файл
-                                                </span>
-                                            </label>
-                                            {{ ParentDocFile }}
+                                        <div class="row">
+                                            <div class="col-md-7">
+                                                <div class="input__wrapper-file upload">
+                                                    <input
+                                                        type="file"
+                                                        name="file"
+                                                        id="ParentDocFile"
+                                                        ref="ParentDocFile"
+                                                        class="input input__file"
+                                                        @input="ParentDocFileUpload"
+                                                    />
+                                                    <label
+                                                        class="input__file-button load-file"
+                                                        for="ParentDocFile"
+                                                    >
+                                                        <span class="input__file-icon-wrapper"
+                                                            ><img
+                                                                class="input__file-icon"
+                                                                src="@/assets/attach.svg"
+                                                                alt="Доверенность родителя"
+                                                                width="25"
+                                                        /></span>
+                                                        <span class="input__file-button-text">
+                                                            Загрузить файл
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-5">
+                                                <div
+                                                    class="imagePreviewWrapper"
+                                                    :style="{
+                                                        'background-image': `url(${ParentDocImg})`,
+                                                    }"
+                                                    @click="selectImage"
+                                                ></div>
+                                            </div>
                                         </div>
                                     </li>
                                 </ul>
@@ -576,25 +624,6 @@ const namespaceTrainer = 'trainer';
     methods: {
         PhotoSportsmanUpload() {
             this.PhotoSportsman = this.$refs.PhotoSportsman.files[0];
-            // let reader = new FileReader();
-            // const imageReader = document.getElementById('TestImage') as HTMLImageElement;
-            // reader.onload = () => {
-            //     imageReader.src = event.target.result;
-            // };
-            // reader.readAsDataURL(this.PhotoSportsman);
-
-            //
-
-            // console.log(this.PhotoSportsman);
-            // const reader = new FileReader();
-            // const csv: string | ArrayBuffer | null = reader.result;
-            // if (!(csv === null)) {
-            //     reader.onload = function () {
-            //         imageReader.src = csv.toString();
-            //     };
-            // }
-            // reader.readAsDataURL(this.PhotoSportsman);
-            // console.log(imageReader.src);
         },
         ConfirmAddressFileUpload() {
             this.ConfirmAddressFile = this.$refs.ConfirmAddressFile.files[0];
@@ -603,16 +632,64 @@ const namespaceTrainer = 'trainer';
             this.RusadaFile = this.$refs.RusadaFile.files[0];
         },
         SchoolFileUpload() {
-            this.SchoolFile = this.$refs.SchoolFile.files[0];
+            const input = this.$refs.SchoolFile;
+            const file = input.files;
+            if (file && file[0]) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    if (event.target != null) {
+                        this.SchoolFileImg = event.target.result;
+                    }
+                };
+                reader.readAsDataURL(file[0]);
+                this.$emit('input', file[0]);
+            }
+            this.SchoolFile = file && file[0];
         },
         CovidTestFileUpload() {
-            this.CovidTestFile = this.$refs.CovidTestFile.files[0];
+            const input = this.$refs.CovidTestFile;
+            const file = input.files;
+            if (file && file[0]) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    if (event.target != null) {
+                        this.CovidTestImg = event.target.result;
+                    }
+                };
+                reader.readAsDataURL(file[0]);
+                this.$emit('input', file[0]);
+            }
+            this.CovidTestFile = file && file[0];
         },
         CovidContactFileUpload() {
-            this.CovidContactFile = this.$refs.CovidContactFile.files[0];
+            const input = this.$refs.CovidContactFile;
+            const file = input.files;
+            if (file && file[0]) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    if (event.target != null) {
+                        this.CovidImg = event.target.result;
+                    }
+                };
+                reader.readAsDataURL(file[0]);
+                this.$emit('input', file[0]);
+            }
+            this.CovidContactFile = file && file[0];
         },
         ParentDocFileUpload() {
-            this.ParentDocFile = this.$refs.ParentDocFile.files[0];
+            const input = this.$refs.ParentDocFile;
+            const file = input.files;
+            if (file && file[0]) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    if (event.target != null) {
+                        this.ParentDocImg = event.target.result;
+                    }
+                };
+                reader.readAsDataURL(file[0]);
+                this.$emit('input', file[0]);
+            }
+            this.ParentDocFile = file && file[0];
         },
         //TODO: Сделать нормальную валидацию формы, используя сторонние библиотеки
         validateForm(): boolean {
@@ -656,9 +733,13 @@ const namespaceTrainer = 'trainer';
                 this.sportsman.city = oldCity;
                 this.sportsman.club = oldClub;
                 this.sportsman.trainer = oldTrainer;
+                console.log(this.CovidContactFile);
             } else {
                 console.log('Не все поля заполнены');
             }
+        },
+        selectImage() {
+            this.$refs.fileInput.click();
         },
     },
     data() {
@@ -695,6 +776,10 @@ const namespaceTrainer = 'trainer';
             CovidTestFile: '',
             CovidContactFile: '',
             ParentDocFile: '',
+            ParentDocImg: '',
+            CovidImg: '',
+            CovidTestImg: '',
+            SchoolFileImg: '',
         };
     },
     components: {
@@ -768,5 +853,14 @@ export default class AddCardSportsman extends Vue {
 }
 .custom-input {
     color: blue;
+}
+.imagePreviewWrapper {
+    background-repeat: no-repeat;
+    width: 150px;
+    height: 150px;
+    display: block;
+    cursor: pointer;
+    background-size: contain;
+    background-position: center center;
 }
 </style>

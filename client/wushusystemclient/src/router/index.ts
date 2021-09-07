@@ -23,6 +23,11 @@ const routes: Array<RouteRecordRaw> = [
         name: 'NotFound',
         component: () => import('@/components/NotFound/PageNotFound.vue'),
     },
+    {
+        path: '/sportsman/edit/:id',
+        name: 'EditSportsman',
+        component: () => import('@/components/EditCardSportsman/EditCardSportsman.vue'),
+    },
 ];
 
 const router = createRouter({
