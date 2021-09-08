@@ -4,8 +4,7 @@ import axios from 'axios';
 import { ISportsmanState } from './types';
 import isEmpty from '@/scripts/isEmpty';
 import router from '@/router';
-import Swal from 'sweetalert2'
-
+import Swal from 'sweetalert2';
 
 export const actions: ActionTree<ISportsmanState, null> = {
     getSportsman({ commit }, id: number): any {
@@ -52,40 +51,22 @@ export const actions: ActionTree<ISportsmanState, null> = {
         if (!isEmpty(sportsman.address)) {
             data.append('address', String(sportsman.address));
         }
-        if (
-            !isEmpty(sportsman.confirm_address) &&
-            typeof sportsman.confirm_address !== 'string'
-        ) {
+        if (!isEmpty(sportsman.confirm_address) && typeof sportsman.confirm_address !== 'string') {
             data.append('confirm_address', sportsman.confirm_address);
         }
-        if (
-            !isEmpty(sportsman.rusada) &&
-            typeof sportsman.rusada !== 'string'
-        ) {
+        if (!isEmpty(sportsman.rusada) && typeof sportsman.rusada !== 'string') {
             data.append('rusada', sportsman.rusada);
         }
-        if (
-            !isEmpty(sportsman.covid_test) &&
-            typeof sportsman.covid_test !== 'string'
-        ) {
+        if (!isEmpty(sportsman.covid_test) && typeof sportsman.covid_test !== 'string') {
             data.append('covid_test', sportsman.covid_test);
         }
-        if (
-            !isEmpty(sportsman.covid_contact) &&
-            typeof sportsman.covid_contact !== 'string'
-        ) {
+        if (!isEmpty(sportsman.covid_contact) && typeof sportsman.covid_contact !== 'string') {
             data.append('covid_contact', sportsman.covid_contact);
         }
-        if (
-            !isEmpty(sportsman.parent_doc) &&
-            typeof sportsman.parent_doc !== 'string'
-        ) {
+        if (!isEmpty(sportsman.parent_doc) && typeof sportsman.parent_doc !== 'string') {
             data.append('parent_doc', sportsman.parent_doc);
         }
-        if (
-            !isEmpty(sportsman.school_doc) &&
-            typeof sportsman.school_doc !== 'string'
-        ) {
+        if (!isEmpty(sportsman.school_doc) && typeof sportsman.school_doc !== 'string') {
             data.append('school_doc', sportsman.school_doc);
         }
         if (!isEmpty(sportsman.gender)) {
@@ -115,24 +96,25 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.birth_certificate.number)) {
                 data.append('birth_certificate.number', String(sportsman.birth_certificate.number));
             }
-            if (!isEmpty(sportsman.birth_certificate.scan) &&
+            if (
+                !isEmpty(sportsman.birth_certificate.scan) &&
                 typeof sportsman.birth_certificate.scan !== 'string'
             ) {
                 data.append('birth_certificate.scan', sportsman.birth_certificate?.scan);
             }
         }
         if (!isEmpty(sportsman.proxy)) {
-            if (!isEmpty(sportsman.proxy.scan) &&
-                typeof sportsman.proxy.scan !== 'string'
-            ) {
+            if (!isEmpty(sportsman.proxy.scan) && typeof sportsman.proxy.scan !== 'string') {
                 data.append('proxy.scan', sportsman.proxy.scan);
             }
-            if (!isEmpty(sportsman.proxy.original_passport) &&
+            if (
+                !isEmpty(sportsman.proxy.original_passport) &&
                 typeof sportsman.proxy.original_passport !== 'string'
             ) {
                 data.append('proxy.original_passport', sportsman.proxy.original_passport);
             }
-            if (!isEmpty(sportsman.proxy.original_birth_certificate) &&
+            if (
+                !isEmpty(sportsman.proxy.original_birth_certificate) &&
                 typeof sportsman.proxy.original_birth_certificate !== 'string'
             ) {
                 data.append(
@@ -148,9 +130,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.oms.number)) {
                 data.append('oms.number', String(sportsman.oms.number));
             }
-            if (!isEmpty(sportsman.oms.scan) &&
-                typeof sportsman.oms.scan !== 'string'
-            ) {
+            if (!isEmpty(sportsman.oms.scan) && typeof sportsman.oms.scan !== 'string') {
                 data.append('oms.scan', sportsman.oms.scan);
             }
         }
@@ -158,9 +138,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.passport.number)) {
                 data.append('passport.number', String(sportsman.passport.number));
             }
-            if (!isEmpty(sportsman.passport.scan) &&
-                typeof sportsman.passport.scan !== 'string'
-            ) {
+            if (!isEmpty(sportsman.passport.scan) && typeof sportsman.passport.scan !== 'string') {
                 data.append('passport.scan', sportsman.passport.scan);
             }
             if (!isEmpty(sportsman.passport.date_start)) {
@@ -230,7 +208,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
         if (typeof sportsman.covid_contact !== 'string' || sportsman.covid_contact === '') {
             data.append('covid_contact', sportsman.covid_contact);
         }
-        if (typeof sportsman.parent_doc !== 'string'  || sportsman.parent_doc === '') {
+        if (typeof sportsman.parent_doc !== 'string' || sportsman.parent_doc === '') {
             data.append('parent_doc', sportsman.parent_doc);
         }
         if (typeof sportsman.school_doc !== 'string' || sportsman.school_doc === '') {
@@ -255,7 +233,8 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.insurance.date_end)) {
                 data.append('insurance.date_end', String(sportsman.insurance.date_end));
             }
-            if (!isEmpty(sportsman.insurance.file_insurance) &&
+            if (
+                !isEmpty(sportsman.insurance.file_insurance) &&
                 typeof sportsman.insurance.file_insurance !== 'string'
             ) {
                 data.append('insurance.file_insurance', sportsman.insurance.file_insurance);
@@ -268,7 +247,8 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.birth_certificate.number)) {
                 data.append('birth_certificate.number', String(sportsman.birth_certificate.number));
             }
-            if (!isEmpty(sportsman.birth_certificate.scan) &&
+            if (
+                !isEmpty(sportsman.birth_certificate.scan) &&
                 typeof sportsman.birth_certificate.scan !== 'string'
             ) {
                 data.append('birth_certificate.scan', sportsman.birth_certificate?.scan);
@@ -278,17 +258,17 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.proxy.id)) {
                 data.append('proxy.id', String(sportsman.proxy.id));
             }
-            if (!isEmpty(sportsman.proxy.scan) &&
-                typeof sportsman.proxy.scan !== 'string'
-            ) {
+            if (!isEmpty(sportsman.proxy.scan) && typeof sportsman.proxy.scan !== 'string') {
                 data.append('proxy.scan', sportsman.proxy.scan);
             }
-            if (!isEmpty(sportsman.proxy.original_passport) &&
+            if (
+                !isEmpty(sportsman.proxy.original_passport) &&
                 typeof sportsman.proxy.original_passport !== 'string'
             ) {
                 data.append('proxy.original_passport', sportsman.proxy.original_passport);
             }
-            if (!isEmpty(sportsman.proxy.original_birth_certificate) &&
+            if (
+                !isEmpty(sportsman.proxy.original_birth_certificate) &&
                 typeof sportsman.proxy.original_birth_certificate !== 'string'
             ) {
                 data.append(
@@ -307,9 +287,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.oms.number)) {
                 data.append('oms.number', String(sportsman.oms.number));
             }
-            if (!isEmpty(sportsman.oms.scan) &&
-                typeof sportsman.oms.scan !== 'string'
-            ) {
+            if (!isEmpty(sportsman.oms.scan) && typeof sportsman.oms.scan !== 'string') {
                 data.append('oms.scan', sportsman.oms.scan);
             }
         }
@@ -320,9 +298,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
             if (!isEmpty(sportsman.passport.number)) {
                 data.append('passport.number', String(sportsman.passport.number));
             }
-            if (!isEmpty(sportsman.passport.scan) &&
-                typeof sportsman.passport.scan !== 'string'
-            ) {
+            if (!isEmpty(sportsman.passport.scan) && typeof sportsman.passport.scan !== 'string') {
                 data.append('passport.scan', sportsman.passport.scan);
             }
             if (!isEmpty(sportsman.passport.date_start)) {
@@ -355,8 +331,8 @@ export const actions: ActionTree<ISportsmanState, null> = {
                     title: 'Успех!',
                     text: 'Новые данные будут отображены на странице спортсмена',
                     icon: 'success',
-                    confirmButtonText: 'Продолжить'
-                })
+                    confirmButtonText: 'Продолжить',
+                });
                 const payload: ISportsman = response && response.data;
                 commit('putSportsman', payload);
             })
@@ -365,8 +341,8 @@ export const actions: ActionTree<ISportsmanState, null> = {
                     title: 'Ошибка!',
                     text: 'Произошла непредвиденная ошибка, попробуйте повторить позже',
                     icon: 'error',
-                    confirmButtonText: 'Продолжить'
-                })
+                    confirmButtonText: 'Продолжить',
+                });
                 console.log(error);
                 commit('putSportsmanError');
             });

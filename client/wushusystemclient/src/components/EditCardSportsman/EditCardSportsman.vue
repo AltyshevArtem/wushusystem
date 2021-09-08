@@ -880,6 +880,8 @@ import { Vue, Options } from 'vue-class-component';
 /* VUEX */
 import { State, Action, Getter } from 'vuex-class';
 
+import Swal from 'sweetalert2';
+
 /* STATE */
 import { ISportsmanState } from '@/store/modules/sportsman/types';
 import { ICityState } from '@/store/modules/city/types';
@@ -1044,7 +1046,31 @@ const namespaceTrainer = 'trainer';
             this.clubName = oldClub;
             this.trainerName = oldTrainer;
 
+            this.Editable = false;
         },
+    },
+    beforeRouteLeave(to, from, next) {
+        if (this.Editable === true) {
+            Swal.fire({
+                title: 'Вы действительно хотите покинуть страницу?',
+                text: 'У вас есть несохраненные данные!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Да, покинуть страницу!',
+                cancelButtonText: 'Отмена',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.Editable = true;
+                    next();
+                } else {
+                    next(false);
+                }
+            });
+        } else {
+            next();
+        }
     },
     data() {
         return {
