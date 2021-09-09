@@ -222,7 +222,7 @@ class Passport(models.Model):
     number = models.TextField(
         blank = True, 
         verbose_name="Серия и номер паспорта"
-    ) #TODO: в бд для хранения ПДн использовать солевые хэши
+    ) #TODO: Спроектировать защиту информационной системы с использование шифрование ПДн
     scan = models.FileField(
         upload_to='passport_files/',
         blank = True,
