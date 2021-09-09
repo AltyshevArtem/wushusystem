@@ -9,7 +9,7 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/sportsman/:id',
         name: 'Sportsman',
-        component: () => import('@/components/Sportsman/CardSportsman.vue'),
+        component: () => import('@/components/Sportsman/CardSportsman/CardSportsman.vue'),
     },
     {
         path: '/sportsmans/new',

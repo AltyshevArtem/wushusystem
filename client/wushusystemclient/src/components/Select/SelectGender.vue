@@ -30,7 +30,7 @@ import { Prop } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
 
 /* STATE */
-import { IGenderState } from '../../store/modules/gender/types';
+import { IGenderState } from '@/store/modules/gender/types';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';

@@ -582,25 +582,26 @@
 
 <script lang="ts">
 /* eslint-disable camelcase */
-// import Datepicker from 'vue3-datepicker';
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 
 /* VUEX */
 import { State, Action, Getter } from 'vuex-class';
 
-/* COMPONENTS */
+/* SELECT */
 import SelectGender from '@/components/Select/SelectGender.vue';
 import SelectRank from '@/components/Select/SelectRank.vue';
 import SelectTrainer from '@/components/Select/SelectTrainer.vue';
 import SelectDuanCzi from '@/components/Select/SelectDuanCzi.vue';
 import SelectClub from '@/components/Select/SelectClub.vue';
 import SelectCity from '@/components/Select/SelectCity.vue';
-import InsuranceModal from '../Modal/Documents/InsuranceModal.vue';
-import BirthCertificateModal from '../Modal/Documents/BirthCertificateModal.vue';
-import OmsModal from '../Modal/Documents/OmsModal.vue';
-import PassportModal from '../Modal/Documents/PassportModal.vue';
-import ProxyModal from '../Modal/Documents/ProxyModal.vue';
+
+/* MODALS */
+import InsuranceModal from '@/components/Modal/Documents/InsuranceModal.vue';
+import BirthCertificateModal from '@/components/Modal/Documents/BirthCertificateModal.vue';
+import OmsModal from '@/components/Modal/Documents/OmsModal.vue';
+import PassportModal from '@/components/Modal/Documents/PassportModal.vue';
+import ProxyModal from '@/components/Modal/Documents/ProxyModal.vue';
 
 /* STATE */
 import { ISportsmanState } from '@/store/modules/sportsman/types';

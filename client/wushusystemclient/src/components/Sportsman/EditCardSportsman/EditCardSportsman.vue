@@ -893,18 +893,20 @@ import { IOmsState } from '@/store/modules/oms/types';
 import { IPassportState } from '@/store/modules/passport/types';
 import { IProxyDocState } from '@/store/modules/proxy/types';
 
-/* COMPONENTS */
-import SelectGender from '../Select/SelectGender.vue';
-import SelectRank from '../Select/SelectRank.vue';
-import SelectCity from '../Select/SelectCity.vue';
-import SelectClub from '../Select/SelectClub.vue';
-import SelectTrainer from '../Select/SelectTrainer.vue';
-import SelectDuanDzi from '../Select/SelectDuanCzi.vue';
-import InsuranceModal from '../Modal/Documents/InsuranceModal.vue';
-import BirthCertificateModal from '../Modal/Documents/BirthCertificateModal.vue';
-import OmsModal from '../Modal/Documents/OmsModal.vue';
-import PassportModal from '../Modal/Documents/PassportModal.vue';
-import ProxyModal from '../Modal/Documents/ProxyModal.vue';
+/* SELECT */
+import SelectGender from '@/components/Select/SelectGender.vue';
+import SelectRank from '@/components/Select/SelectRank.vue';
+import SelectCity from '@/components/Select/SelectCity.vue';
+import SelectClub from '@/components/Select/SelectClub.vue';
+import SelectTrainer from '@/components/Select/SelectTrainer.vue';
+import SelectDuanDzi from '@/components/Select/SelectDuanCzi.vue';
+
+/* MODAL */
+import InsuranceModal from '@/components/Modal/Documents/InsuranceModal.vue';
+import BirthCertificateModal from '@/components/Modal/Documents/BirthCertificateModal.vue';
+import OmsModal from '@/components/Modal/Documents/OmsModal.vue';
+import PassportModal from '@/components/Modal/Documents/PassportModal.vue';
+import ProxyModal from '@/components/Modal/Documents/ProxyModal.vue';
 
 /* NAMESPACE */
 const namespace = 'sportsman';

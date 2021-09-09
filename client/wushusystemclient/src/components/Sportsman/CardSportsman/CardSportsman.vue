@@ -942,12 +942,12 @@ import { Vue, Options } from 'vue-class-component';
 import { State, Action, Getter } from 'vuex-class';
 
 /* STATE */
-import { ISportsmanState } from '../../../store/modules/sportsman/types';
+import { ISportsmanState } from '@/store/modules/sportsman/types';
 
 /* COMPONENTS */
-import ConfirmationModal from '../../Modal/ConfirmationModal.vue';
-import EditCardSportsman from '../../EditCardSportsman/EditCardSportsman.vue';
-import PageNotFound from '../../NotFound/PageNotFound.vue';
+import ConfirmationModal from '@/components/Modal/ConfirmationModal.vue';
+import EditCardSportsman from '@/components/Sportsman/EditCardSportsman/EditCardSportsman.vue';
+import PageNotFound from '@/components/NotFound/PageNotFound.vue';
 
 /* NAMESPACE */
 const namespace = 'sportsman';
