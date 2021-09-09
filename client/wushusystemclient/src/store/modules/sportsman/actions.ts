@@ -16,6 +16,9 @@ import isEmpty from '@/scripts/isEmpty';
 /* ROUTER */
 import router from '@/router';
 
+/* SWAL */
+import Swal from 'sweetalert2';
+
 export const actions: ActionTree<ISportsmanState, null> = {
     getSportsman({ commit }, id: number): any {
         http
@@ -219,7 +222,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
         if (typeof sportsman.covid_contact !== 'string' || sportsman.covid_contact === '') {
             data.append('covid_contact', sportsman.covid_contact);
         }
-        if (typeof sportsman.parent_doc !== 'string'  || sportsman.parent_doc === '') {
+        if (typeof sportsman.parent_doc !== 'string' || sportsman.parent_doc === '') {
             data.append('parent_doc', sportsman.parent_doc);
         }
         if (typeof sportsman.school_doc !== 'string' || sportsman.school_doc === '') {
@@ -338,10 +341,22 @@ export const actions: ActionTree<ISportsmanState, null> = {
                 },
             })
             .then((response) => {
+                Swal.fire({
+                    title: 'Успех!',
+                    text: 'Новые данные будут отображены на странице спортсмена',
+                    icon: 'success',
+                    confirmButtonText: 'Продолжить',
+                });
                 const payload: ISportsman = response && response.data;
                 commit('setSportsman', payload);
             })
             .catch((error) => {
+                Swal.fire({
+                    title: 'Ошибка!',
+                    text: 'Произошла непредвиденная ошибка, попробуйте повторить позже',
+                    icon: 'error',
+                    confirmButtonText: 'Продолжить',
+                });
                 console.log(error);
                 commit('deleteSportsman');
             });

@@ -21,5 +21,4 @@ import 'bootstrap';
 /* VUE FORM STYLES */
 import '@vueform/multiselect/themes/default.css';
 
-
 createApp(App).use(devtools).use(store).use(router).mount('#app');

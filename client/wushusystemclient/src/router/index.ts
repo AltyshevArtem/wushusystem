@@ -17,6 +17,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/components/Sportsman/AddCardSportsman/AddCardSportsman.vue'),
     },
     {
+        path: '/sportsman/edit/:id',
+        name: 'EditSportsman',
+        component: () => import('@/components/Sportsman/EditCardSportsman/EditCardSportsman.vue'),
+    },
+    {
         //TODO: Сделать так, чтобы на домашней странице не было 404(добавь главную страницу лол)
         path: '/:NotFound(.*)*',
         name: 'NotFound',

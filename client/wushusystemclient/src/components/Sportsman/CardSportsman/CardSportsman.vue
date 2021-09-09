@@ -12,13 +12,15 @@
                             </strong>
                         </span>
                         <div class="pb-3 mb-3 buttons__delete-edit">
-                            <button
-                                type="button"
-                                @click="isEditable = true"
-                                class="btn btn-secondary edit-button"
-                            >
-                                Редактировать
-                            </button>
+                            <router-link :to="'/sportsman/' + 'edit/' + this.$route.params.id">
+                                <button
+                                    type="button"
+                                    @click="isEditable = true"
+                                    class="btn btn-secondary edit-button"
+                                >
+                                    Редактировать
+                                </button>
+                            </router-link>
                             <button
                                 type="button"
                                 @click="isConfirmModalVisible = true"
