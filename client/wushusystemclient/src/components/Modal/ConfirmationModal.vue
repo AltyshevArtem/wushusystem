@@ -37,14 +37,6 @@ import { Prop, Emit } from 'vue-property-decorator';
 
 @Options({
     name: 'ConfirmationModal',
-    // methods: {
-    //     closeModal() {
-    //         this.$emit('closeModal');
-    //     },
-    //     confirmModal() {
-    //         this.$emit('confirmModal');
-    //     },
-    // },
 })
 export default class ConfirmationModal extends Vue {
     @Prop({ default: false }) show!: boolean;

@@ -927,7 +927,7 @@
     </div>
     <ConfirmationModal
         v-if="isConfirmModalVisible"
-        @closeModal="isConfirmModalVisible = false"
+        v-model:show="isConfirmModalVisible"
         @confirmModal="deleteSportsmanMethod"
     >
         <span> Вы уверены, что собираетесь удалить спортсмена?</span>
