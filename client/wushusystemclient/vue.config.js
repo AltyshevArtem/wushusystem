@@ -10,7 +10,11 @@ const conf = {
                 changeOrigin: true,
             },
             '^/admin': {
-                // TODO: css стили тоже должны работать
+                target: 'http://localhost:8000',
+                ws: true,
+                changeOrigin: true,
+            },
+            '^/static': {
                 target: 'http://localhost:8000',
                 ws: true,
                 changeOrigin: true,

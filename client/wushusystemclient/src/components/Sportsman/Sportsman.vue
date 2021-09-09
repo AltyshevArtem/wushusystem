@@ -1,5 +1,7 @@
 <template>
-    <div class="container-sm">
+    <!-- Научиться правильно использовать svg icon -->
+    <img v-if="!loading" src="@/assets/spin.svg" />
+    <div v-else class="container-sm">
         <br />
         <router-link :to="'/sportsmans/new'">
             <button type="button" class="btn btn-dark">Добавить нового</button>
@@ -39,65 +41,7 @@
                 </div>
             </div>
         </div>
-        <table class="table table-hover table-bordered table-sm table-responsive">
-            <thead>
-                <tr>
-                    <th scope="col">Полное имя</th>
-                    <th scope="col">Пол</th>
-                    <th scope="col">ФО</th>
-                    <th scope="col">Город</th>
-                    <th scope="col">Клуб</th>
-                    <th scope="col">Полное имя тренера</th>
-                    <th scope="col">Разряд</th>
-                    <th scope="col">Дуань</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="sportsman in sportsmansMap.sportsmans" :key="sportsman.key">
-                    <!-- Полное имя -->
-                    <td v-if="sportsman.patronymic">
-                        <router-link :to="'/sportsman/' + sportsman.id">
-                            {{ sportsman.surname }} {{ sportsman.name }} {{ sportsman.patronymic }}
-                        </router-link>
-                    </td>
-                    <td v-else>
-                        <router-link :to="'/sportsman/' + sportsman.id">
-                            {{ sportsman.surname }} {{ sportsman.name }}
-                        </router-link>
-                    </td>
-                    <!-- Пол -->
-                    <td>{{ sportsman.gender }}</td>
-                    <!-- ФО -->
-                    <td v-if="sportsman.city">
-                        {{
-                            sportsman.city.name_of_region.name_of_federal_region
-                                .abbr_of_federal_region
-                        }}
-                    </td>
-                    <td v-else>Не указан</td>
-                    <!-- Город -->
-                    <td v-if="sportsman.city">
-                        {{ sportsman.city.name_of_city }}
-                    </td>
-                    <td v-else>Не указан</td>
-                    <!-- Клуб -->
-                    <td v-if="sportsman.club">{{ sportsman.club.name_of_club }}</td>
-                    <td v-else>Не указан</td>
-                    <!-- Тренер -->
-                    <td v-if="sportsman.trainer">
-                        {{ sportsman.trainer.surname }} {{ sportsman.trainer.name }}
-                        {{ sportsman.trainer.patronymic }}
-                    </td>
-                    <td v-else>Не указан</td>
-                    <!-- Ранк -->
-                    <td v-if="sportsman.rank">{{ sportsman.rank }}</td>
-                    <td v-else>Не указан</td>
-                    <!-- Дуань -->
-                    <td v-if="sportsman.duan_czi">{{ sportsman.duan_czi }}</td>
-                    <td v-else>Не указан</td>
-                </tr>
-            </tbody>
-        </table>
+        <TableSportsman />
         <nav aria-label="..." v-if="pageCount > 1">
             <ul class="pagination">
                 <li class="page-item" :class="{ disabled: sportsmansMap.page === 1 }">
@@ -131,7 +75,6 @@
                 <!-- TODO: Если страниц больше limitPage, то мы не видим страницы больше
                 этого значения. Нужно либо использовать скролл,
                 либо при нажатии в списке менять нумерацию -->
-                <!-- TODO: При переходе на страницу всегда отображать первую страницу -->
                 <li class="page-item" :class="{ disabled: sportsmansMap.page === pageCount }">
                     <a class="page-link" @click="nextPage"> Next </a>
                 </li>
@@ -149,17 +92,20 @@ import { Watch } from 'vue-property-decorator';
 import { State, Action, Mutation } from 'vuex-class';
 
 /* STATE */
-import { ISportsmansState } from '../store/modules/sportsmans/types';
+import { ISportsmansState } from '@/store/modules/sportsmans/types';
 
 /* COMPONENTS */
-import SelectGender from '../components/Select/SelectGender.vue';
-import SelectRank from '../components/Select/SelectRank.vue';
-import SelectCity from '../components/Select/SelectCity.vue';
-import SelectDuanCzi from '../components/Select/SelectDuanCzi.vue';
-import SelectClub from '../components/Select/SelectClub.vue';
-import SelectTrainer from '../components/Select/SelectTrainer.vue';
-import SelectFederalRegion from '../components/Select/SelectFederalRegion.vue';
-import SelectRegion from '../components/Select/SelectRegion.vue';
+import SelectGender from '@/components/Select/SelectGender.vue';
+import SelectRank from '@/components/Select/SelectRank.vue';
+import SelectCity from '@/components/Select/SelectCity.vue';
+import SelectDuanCzi from '@/components/Select/SelectDuanCzi.vue';
+import SelectClub from '@/components/Select/SelectClub.vue';
+import SelectTrainer from '@/components/Select/SelectTrainer.vue';
+import SelectFederalRegion from '@/components/Select/SelectFederalRegion.vue';
+import SelectRegion from '@/components/Select/SelectRegion.vue';
+
+/* TABLE SPORTSMAN */
+import TableSportsman from '@/components/Sportsman/TableSportsmans/TableSportsmans.vue';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';
@@ -168,9 +114,10 @@ import Multiselect from '@vueform/multiselect';
 const namespace = 'sportsmans';
 
 @Options({
-    name: 'TableSportsman',
+    name: 'Sportsman',
     components: {
         Multiselect,
+        TableSportsman,
         SelectGender,
         SelectRank,
         SelectCity,
@@ -191,8 +138,14 @@ const namespace = 'sportsmans';
         },
     },
 })
-export default class TableSportsman extends Vue {
+export default class Sportsman extends Vue {
+    /* LOADING */
+    loading = false;
+
+    /* SEARCH */
     search = '';
+
+    /* PAGINATION LIMIT */
     limitPage = 25;
 
     /* SELECT VALUE */
@@ -209,6 +162,7 @@ export default class TableSportsman extends Vue {
     @State('sportsmans')
     sportsmansMap!: ISportsmansState;
 
+    /* ACTION */
     @Action('getSportsmanList', { namespace })
     getSportsmanList: any;
 
@@ -223,8 +177,10 @@ export default class TableSportsman extends Vue {
     nextPage: any;
 
     mounted(): void {
-        // TODO: loading (вейтер)
+        this.loading = false;
+        this.currentPage(1);
         this.getSportsmanList();
+        this.loading = true;
     }
 
     watchSetSearch(): void {

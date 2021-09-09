@@ -4,17 +4,17 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/sportsmans',
         name: 'Sportsmans',
-        component: () => import('@/views/TableSportsman.vue'),
+        component: () => import('@/components/Sportsman/Sportsman.vue'),
     },
     {
         path: '/sportsman/:id',
         name: 'Sportsman',
-        component: () => import('@/views/CardSportsman.vue'),
+        component: () => import('@/components/Sportsman/CardSportsman.vue'),
     },
     {
         path: '/sportsmans/new',
         name: 'CreateSportsman',
-        component: () => import('@/components/AddCardSportsman/AddCardSportsman.vue'),
+        component: () => import('@/components/Sportsman/AddCardSportsman/AddCardSportsman.vue'),
     },
     {
         //TODO: Сделать так, чтобы на домашней странице не было 404(добавь главную страницу лол)
