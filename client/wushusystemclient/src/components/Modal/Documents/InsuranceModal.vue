@@ -5,7 +5,7 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Страховой полис</h5>
                     <button type="button" class="close close_btn" @click.stop="hideDialog">
-                        <img src="../../../assets/x.svg" alt="close" />
+                        <img src="@/assets/x.svg" alt="close" />
                     </button>
                 </div>
                 <div class="modal-body" v-if="mode">
