@@ -35,8 +35,6 @@ export interface IProxyDoc {
     date_end: Date;
 }
 
-//TODO: Поля number и scan повторяются во многих интерфейсах
-//Можно сделать отдельно интерфейс IDocument например
 export interface IOms {
     id: number;
     number: number;

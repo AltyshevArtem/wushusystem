@@ -19,9 +19,7 @@
                     </div>
                     <div>
                         <h6>Скан фото:</h6>
-                        <!--TODO: При открытии картинки открывается модалка с большой картинкой -->
-                        <!-- TODO: При повторной загрузке картинки в file_insurance
-                        File object, а не путь к картинке  -->
+                        <!-- Выводить маленькую фотку в самой модалке -->
                         <div v-if="insurance.file_insurance">
                             <a :href="insurance.file_insurance" class="card-link">Просмотр</a>
                             <button class="btn btn-danger" @click="insurance.file_insurance = null">
@@ -93,6 +91,9 @@ import { IInsuranceState } from '@/store/modules/insurance/types';
 /* MODELS */
 import { IInsurance } from '@/models/sportsman';
 
+/* SCRIPT */
+import formatDateToString from '@/scripts/formatDateToString';
+
 /* NAMESPACE */
 const namespace = 'insurance';
 
@@ -109,9 +110,8 @@ const namespace = 'insurance';
     methods: {
         AddInsurance() {
             const insurance = {
-                //TODO: формат даты вынести
-                date_start: new Date(this.DateStart).toISOString().slice(0, 10),
-                date_end: new Date(this.DateEnd).toISOString().slice(0, 10),
+                date_start: formatDateToString(this.DateStart),
+                date_end: formatDateToString(this.DateEnd),
                 file_insurance: this.File,
             };
             this.postInsurance(insurance);
