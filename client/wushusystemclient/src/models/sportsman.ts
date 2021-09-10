@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { ICity } from '@/models/city';
 import { IClub } from '@/models/club';
 import { ITrainer } from '@/models/trainer';
@@ -24,7 +25,7 @@ export interface IPassport {
 export interface IBirthCertificate {
     id: number;
     number: number;
-    scan: string | File | null | undefined;
+    scan: string;
 }
 
 export interface IProxyDoc {

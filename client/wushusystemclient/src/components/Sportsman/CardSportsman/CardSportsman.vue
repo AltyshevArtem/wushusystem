@@ -342,7 +342,7 @@
                                         <div class="col-md-4">
                                             <div
                                                 class="documents__scan-photo"
-                                                v-if="ConfirmAddress"
+                                                v-if="BirthCertificateDoc"
                                             >
                                                 <img
                                                     class="documents"

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /* VUEX */
 import { GetterTree } from 'vuex';
 

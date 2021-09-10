@@ -67,16 +67,12 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Emit } from 'vue-property-decorator';
 
 /* VUEX */
-import { Mutation, State } from 'vuex-class';
-
-/* STATE */
-import { IOmsState } from '@/store/modules/oms/types';
+import { Mutation } from 'vuex-class';
 
 /* MODELS */
 import { IOms } from '@/models/sportsman';
@@ -86,56 +82,52 @@ const namespace = 'oms';
 
 @Options({
     name: 'OmsModal',
-    components: {},
-    data() {
-        return {
-            number: '',
-            File: '',
-        };
-    },
-    methods: {
-        AddOms() {
-            const oms = {
-                number: this.number,
-                scan: this.File,
-            };
-            this.postOMS(oms);
-
-            this.hideDialog();
-        },
-        SaveOms() {
-            this.putOMS(this.oms);
-
-            this.hideDialog();
-        },
-        OmsFileUpload() {
-            if (this.mode) {
-                this.oms.scan = this.$refs.file.files[0];
-            } else {
-                this.File = this.$refs.file.files[0];
-            }
-        },
-    },
 })
 export default class OmsModal extends Vue {
+    /* PROP */
     @Prop({ default: undefined }) oms!: IOms;
     @Prop({ default: true }) mode!: boolean;
     @Prop({ default: false }) show!: boolean;
 
+    /* EMIT */
     @Emit('update:show')
     hideDialog(): boolean {
         return false;
     }
 
-    /* STATE */
-    @State('oms')
-    omsMap!: IOmsState;
+    /* DATA */
+    number: string | number | null = '';
+    file: string | File | null | undefined = '';
+
+    /* METHOD */
+    public AddOms(): void {
+        const oms = {
+            number: this.number,
+            scan: this.file,
+        };
+
+        this.setOMS(oms);
+
+        this.hideDialog();
+    }
+    public SaveOms(): void {
+        this.setOMS(this.oms);
+
+        this.hideDialog();
+    }
+    public OmsFileUpload(): void {
+        if (this.mode) {
+            const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
+            fileList?.length !== 0 ? (this.oms.scan = String(fileList?.item(0))) : (this.file = '');
+        } else {
+            const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
+            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = ' ');
+        }
+    }
 
     /* MUTATION */
-    @Mutation('postOMS', { namespace })
-    postOMS: any;
-    @Mutation('putOMS', { namespace })
-    putOMS: any;
+    @Mutation('setOMS', { namespace })
+    setOMS: any;
 }
 </script>
 

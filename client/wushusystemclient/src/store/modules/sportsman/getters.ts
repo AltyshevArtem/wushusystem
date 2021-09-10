@@ -1,3 +1,5 @@
+//TODO: camelcase
+/* eslint-disable camelcase */
 /* GETTER */
 import { GetterTree } from 'vuex';
 

@@ -82,10 +82,7 @@ import { Vue, Options } from 'vue-class-component';
 import { Prop, Emit } from 'vue-property-decorator';
 
 /* VUEX */
-import { State, Mutation } from 'vuex-class';
-
-/* STATE */
-import { IBirthCertificateState } from '@/store/modules/birth_certificate/types';
+import { Mutation } from 'vuex-class';
 
 /* MODELS */
 import { IBirthCertificate } from '@/models/sportsman';
@@ -94,36 +91,7 @@ import { IBirthCertificate } from '@/models/sportsman';
 const namespace = 'birth_certificate';
 
 @Options({
-    name: 'birthCertificateModal',
-    // data() {
-    //     return {
-    //         number: '',
-    //         File: '',
-    //     };
-    // },
-    // methods: {
-    //     AddBirthCertificate() {
-    //         const birthCertificate = {
-    //             number: this.number,
-    //             scan: this.File,
-    //         };
-    //         this.postBirthCertificate(birthCertificate);
-
-    //         this.hideDialog();
-    //     },
-    //     SaveBirthCertificate() {
-    //         this.putBirthCertificate(this.birthCertificate);
-
-    //         this.hideDialog();
-    //     },
-    //     BirthCertificateFileUpload() {
-    //         if (this.mode) {
-    //             this.birthCertificate.scan = this.$refs.file.files[0];
-    //         } else {
-    //             this.File = this.$refs.file.files[0];
-    //         }
-    //     },
-    // },
+    name: 'BirthCertificateModal',
 })
 export default class BirthCertificateModal extends Vue {
     /* PROP */
@@ -138,7 +106,7 @@ export default class BirthCertificateModal extends Vue {
     }
 
     /* DATA */
-    number: number | null = 0;
+    number: string | number | null = '';
     file: string | File | null | undefined = '';
 
     /* METHOD */
@@ -161,17 +129,13 @@ export default class BirthCertificateModal extends Vue {
         if (this.mode) {
             const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
             fileList?.length !== 0
-                ? (this.birthCertificate.scan = fileList?.item(0))
+                ? (this.birthCertificate.scan = String(fileList?.item(0)))
                 : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
             fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = ' ');
         }
     }
-
-    /* STATE */
-    @State('birth_certificate')
-    birthCertificateMap!: IBirthCertificateState;
 
     /* MUTATIONS */
     @Mutation('setBirthCertificate', { namespace })

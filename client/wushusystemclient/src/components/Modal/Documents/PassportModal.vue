@@ -15,7 +15,7 @@
                     </div>
                     <div>
                         <h6>Дата выдачи паспорта</h6>
-                        <input placeholder="YYYY-MM-DD" v-model="passport.date_start" required />
+                        <input placeholder="YYYY-MM-DD" v-model="passport.dateStart" required />
                     </div>
                     <div>
                         <h6>Кем выдан паспорт</h6>
@@ -50,7 +50,7 @@
                     </div>
                     <div>
                         <h6>Дата выдачи паспорта</h6>
-                        <input placeholder="YYYY-MM-DD" v-model="DateStart" required />
+                        <input placeholder="YYYY-MM-DD" v-model="dateStart" required />
                     </div>
                     <div>
                         <h6>Кем выдан паспорт</h6>
@@ -98,16 +98,12 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Emit } from 'vue-property-decorator';
 
 /* VUEX */
-import { State, Mutation } from 'vuex-class';
-
-/* STATE */
-import { IPassportState } from '@/store/modules/passport/types';
+import { Mutation } from 'vuex-class';
 
 /* MODELS */
 import { IPassport } from '@/models/sportsman';
@@ -117,62 +113,59 @@ const namespace = 'passport';
 
 @Options({
     name: 'PassportModal',
-    components: {},
-    data() {
-        return {
-            number: '',
-            File: '',
-            DateStart: '',
-            issue: '',
-            code: '',
-        };
-    },
-    methods: {
-        AddPassport() {
-            const passport = {
-                number: this.number,
-                scan: this.File,
-                date_start: this.DateStart,
-                issue: this.issue,
-                code: this.code,
-            };
-            this.postPassport(passport);
-
-            this.hideDialog();
-        },
-        SavePassport() {
-            this.putPassport(this.passport);
-
-            this.hideDialog();
-        },
-        PassportFileUpload() {
-            if (this.mode) {
-                this.passport.scan = this.$refs.file.files[0];
-            } else {
-                this.File = this.$refs.file.files[0];
-            }
-        },
-    },
 })
 export default class PassportModal extends Vue {
+    /* PROP */
     @Prop({ default: undefined }) passport!: IPassport;
     @Prop({ default: true }) mode!: boolean;
     @Prop({ default: false }) show!: boolean;
 
+    /* EMIT */
     @Emit('update:show')
     hideDialog(): boolean {
         return false;
     }
 
-    /* STATE */
-    @State('passport')
-    passportMap!: IPassportState;
+    /* DATA */
+    number: string | number | null = '';
+    file: string | File | null | undefined = '';
+    dateStart: string | number | null = '';
+    issue: string | number | null = '';
+    code: string | number | null = '';
+
+    /* METHOD */
+    public AddPassport(): void {
+        const passport = {
+            number: this.number,
+            scan: this.file,
+            dateStart: this.dateStart,
+            issue: this.issue,
+            code: this.code,
+        };
+        this.setPassport(passport);
+
+        this.hideDialog();
+    }
+    public SavePassport(): void {
+        this.setPassport(this.passport);
+
+        this.hideDialog();
+    }
+    public PassportFileUpload(): void {
+        if (this.mode) {
+            const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
+            fileList?.length !== 0
+                ? (this.passport.scan = String(fileList?.item(0)))
+                : (this.file = '');
+        } else {
+            const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
+            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = ' ');
+        }
+    }
 
     /* ACTION */
-    @Mutation('postPassport', { namespace })
-    postPassport: any;
-    @Mutation('putPassport', { namespace })
-    putPassport: any;
+    @Mutation('setPassport', { namespace })
+    setPassport: any;
 }
 </script>
 

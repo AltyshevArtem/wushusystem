@@ -34,9 +34,7 @@ export const actions: ActionTree<IInsuranceState, null> = {
         const data = new FormData();
         data.append('date_start', String(insurance.date_start));
         data.append('date_end', String(insurance.date_end));
-        if (insurance.file_insurance['name'] !== undefined) {
-            data.append('file_insurance', insurance.file_insurance);
-        }
+        data.append('file_insurance', insurance.file_insurance);
         http.put(`/insurance/${insurance.id}/`, data, {
             headers: {
                 'Content-Type': 'multipart/form-data; boundary=----something',

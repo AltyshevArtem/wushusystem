@@ -742,7 +742,6 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 

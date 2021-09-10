@@ -32,9 +32,7 @@ export const actions: ActionTree<IOmsState, null> = {
     putOMS({ commit }, oms: IOms): any {
         const data = new FormData();
         data.append('number', String(oms.number));
-        if (oms.scan['name'] !== undefined) {
-            data.append('scan', oms.scan);
-        }
+        data.append('scan', oms.scan);
         http.put(`/oms/${oms.id}/`, data, {
             headers: {
                 'Content-Type': 'multipart/form-data; boundary=----something',

@@ -11,13 +11,13 @@
                 <div class="modal-body" v-if="mode">
                     <div>
                         <h6>Дата окончания доверенности</h6>
-                        <input placeholder="YYYY-MM-DD" v-model="proxy.date_end" required />
+                        <input placeholder="YYYY-MM-DD" v-model="proxy.dateEnd" required />
                     </div>
                     <div>
                         <h6>Скан оригинального паспорта:</h6>
-                        <div v-if="proxy.original_passport">
-                            <a :href="proxy.original_passport" class="card-link">Просмотр</a>
-                            <button class="btn btn-danger" @click="proxy.original_passport = null">
+                        <div v-if="proxy.originalPassport">
+                            <a :href="proxy.originalPassport" class="card-link">Просмотр</a>
+                            <button class="btn btn-danger" @click="proxy.originalPassport = null">
                                 Удалить
                             </button>
                         </div>
@@ -32,13 +32,13 @@
                     </div>
                     <div>
                         <h6>Скан оригинального свидетельства о рождении:</h6>
-                        <div v-if="proxy.original_birth_certificate">
-                            <a :href="proxy.original_birth_certificate" class="card-link">
+                        <div v-if="proxy.originalBirthCertificate">
+                            <a :href="proxy.originalBirthCertificate" class="card-link">
                                 Просмотр
                             </a>
                             <button
                                 class="btn btn-danger"
-                                @click="proxy.original_birth_certificate = null"
+                                @click="proxy.originalBirthCertificate = null"
                             >
                                 Удалить
                             </button>
@@ -61,7 +61,7 @@
                             </button>
                         </div>
                         <div v-else>
-                            <input type="file" id="file" ref="file" @change="proxyFileUpload()" />
+                            <input type="file" id="scan" ref="scan" @change="proxyFileUpload()" />
                         </div>
                     </div>
                 </div>
@@ -90,15 +90,15 @@
                         <h6>Скан доверенности:</h6>
                         <input
                             type="file"
-                            id="file"
-                            ref="file"
+                            id="scan"
+                            ref="scan"
                             @change="proxyFileUpload()"
                             required
                         />
                     </div>
                     <div>
                         <h6>Дата окончания доверенности</h6>
-                        <input placeholder="YYYY-MM-DD" v-model="DateEnd" required />
+                        <input placeholder="YYYY-MM-DD" v-model="dateEnd" required />
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -128,16 +128,12 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Emit } from 'vue-property-decorator';
 
 /* VUEX */
-import { State, Mutation } from 'vuex-class';
-
-/* STATE */
-import { IProxyDocState } from '@/store/modules/proxy/types';
+import { Mutation } from 'vuex-class';
 
 /* MODELS */
 import { IProxyDoc } from '@/models/sportsman';
@@ -147,75 +143,79 @@ const namespace = 'proxy';
 
 @Options({
     name: 'ProxyModal',
-    components: {},
-    data() {
-        return {
-            DateEnd: '',
-            PassportFile: '',
-            BirthFile: '',
-            File: '',
-        };
-    },
-    methods: {
-        AddProxy() {
-            const proxy = {
-                number: this.number,
-                scan: this.File,
-                date_end: this.DateEnd,
-                original_passport: this.PassportFile,
-                original_birth_certificate: this.BirthFile,
-            };
-            this.postProxy(proxy);
-
-            this.hideDialog();
-        },
-        SaveProxy() {
-            this.putProxy(this.proxy);
-
-            this.hideDialog();
-        },
-        proxyFileUpload() {
-            if (this.mode) {
-                this.proxy.scan = this.$refs.file.files[0];
-            } else {
-                this.File = this.$refs.file.files[0];
-            }
-        },
-        proxyPassportUpload() {
-            if (this.mode) {
-                this.proxy.passport = this.$refs.passport.files[0];
-            } else {
-                this.PassportFile = this.$refs.passport.files[0];
-            }
-        },
-        proxyBirthUpload() {
-            if (this.mode) {
-                this.proxy.birth = this.$refs.birth.files[0];
-            } else {
-                this.BirthFile = this.$refs.birth.files[0];
-            }
-        },
-    },
 })
 export default class ProxyModal extends Vue {
+    /* PROP */
     @Prop({ default: undefined }) proxy!: IProxyDoc;
     @Prop({ default: true }) mode!: boolean;
     @Prop({ default: false }) show!: boolean;
 
+    /* EMIT */
     @Emit('update:show')
     hideDialog(): boolean {
         return false;
     }
 
-    /* STATE */
-    @State('proxy')
-    proxyMap!: IProxyDocState;
+    /* DATA */
+    dateEnd: string | number | null = '';
+    filePassport: string | File | null | undefined = '';
+    fileBirth: string | File | null | undefined = '';
+    file: string | File | null | undefined = '';
+
+    /* METHOD */
+    public AddProxy(): void {
+        const proxy = {
+            scan: this.file,
+            dateEnd: this.dateEnd,
+            originalPassport: this.filePassport,
+            originalBirthCertificate: this.fileBirth,
+        };
+        this.setProxy(proxy);
+
+        this.hideDialog();
+    }
+    SaveProxy(): void {
+        this.setProxy(this.proxy);
+
+        this.hideDialog();
+    }
+    public proxyFileUpload(): void {
+        if (this.mode) {
+            const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
+            fileList?.length !== 0
+                ? (this.proxy.scan = String(fileList?.item(0)))
+                : (this.file = '');
+        } else {
+            const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
+            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = ' ');
+        }
+    }
+    proxyPassportUpload(): void {
+        if (this.mode) {
+            const fileList: FileList | null = (this.$refs['passport'] as HTMLInputElement).files;
+            fileList?.length !== 0
+                ? (this.proxy.original_passport = String(fileList?.item(0)))
+                : (this.file = '');
+        } else {
+            const fileList: FileList | null = (this.$refs['passport'] as HTMLInputElement).files;
+            fileList?.length !== 0 ? (this.filePassport = fileList?.item(0)) : (this.file = ' ');
+        }
+    }
+    proxyBirthUpload(): void {
+        if (this.mode) {
+            const fileList: FileList | null = (this.$refs['birth'] as HTMLInputElement).files;
+            fileList?.length !== 0
+                ? (this.proxy.original_birth_certificate = String(fileList?.item(0)))
+                : (this.file = '');
+        } else {
+            const fileList: FileList | null = (this.$refs['birth'] as HTMLInputElement).files;
+            fileList?.length !== 0 ? (this.fileBirth = fileList?.item(0)) : (this.file = ' ');
+        }
+    }
 
     /* ACTION */
-    @Mutation('postProxy', { namespace })
-    postProxy: any;
-    @Mutation('putProxy', { namespace })
-    putProxy: any;
+    @Mutation('setProxy', { namespace })
+    setProxy: any;
 }
 </script>
 

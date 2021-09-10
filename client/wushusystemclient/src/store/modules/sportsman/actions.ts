@@ -34,7 +34,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
     },
     deleteSportsman({ commit }, id: number): any {
         http.delete(`/sportsmans/${id}`)
-            .then((response) => {
+            .then(() => {
                 router.push('/sportsmans');
                 commit('deleteSportsman');
             })
@@ -112,7 +112,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
                 !isEmpty(sportsman.birth_certificate.scan) &&
                 typeof sportsman.birth_certificate.scan !== 'string'
             ) {
-                data.append('birth_certificate.scan', String(sportsman.birth_certificate?.scan));
+                data.append('birth_certificate.scan', sportsman.birth_certificate?.scan);
             }
         }
         if (!isEmpty(sportsman.proxy)) {
@@ -262,7 +262,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
                 !isEmpty(sportsman.birth_certificate.scan) &&
                 typeof sportsman.birth_certificate.scan !== 'string'
             ) {
-                data.append('birth_certificate.scan', String(sportsman.birth_certificate?.scan));
+                data.append('birth_certificate.scan', sportsman.birth_certificate?.scan);
             }
         }
         if (!isEmpty(sportsman.proxy)) {

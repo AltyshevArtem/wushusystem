@@ -34,15 +34,9 @@ export const actions: ActionTree<IProxyDocState, null> = {
     putProxy({ commit }, proxy: IProxyDoc): any {
         const data = new FormData();
         data.append('date_end', String(proxy.date_end));
-        if (proxy.scan['name'] !== undefined) {
-            data.append('scan', proxy.scan);
-        }
-        if (proxy.original_passport['name'] !== undefined) {
-            data.append('original_passport', proxy.original_passport);
-        }
-        if (proxy.original_birth_certificate['name'] !== undefined) {
-            data.append('original_birth_certificate', proxy.original_birth_certificate);
-        }
+        data.append('scan', proxy.scan);
+        data.append('original_passport', proxy.original_passport);
+        data.append('original_birth_certificate', proxy.original_birth_certificate);
         http.put(`/proxy/${proxy.id}/`, data, {
             headers: {
                 'Content-Type': 'multipart/form-data; boundary=----something',
@@ -59,7 +53,7 @@ export const actions: ActionTree<IProxyDocState, null> = {
     },
     deleteProxy({ commit }, id: number): any {
         http.delete(`/proxy/${id}`)
-            .then((response) => {
+            .then(() => {
                 commit('deleteProxy');
             })
             .catch((error) => {

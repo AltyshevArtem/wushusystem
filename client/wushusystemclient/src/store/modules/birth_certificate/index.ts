@@ -15,6 +15,7 @@ export const state: IBirthCertificateState = {
     error: false,
 };
 
+// eslint-disable-next-line camelcase
 export const birth_certificate: Module<IBirthCertificateState, null> = {
     namespaced: true,
     state,

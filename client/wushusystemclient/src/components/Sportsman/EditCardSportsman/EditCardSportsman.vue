@@ -388,7 +388,6 @@
                                                 </button>
                                             </template>
                                         </span>
-                                        {{ sportsmanMap.sportsman.proxy }}
                                     </div>
                                 </div>
                             </li>
@@ -979,11 +978,11 @@
 /* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
-// import { Watch } from 'vue-property-decorator';
 
 /* VUEX */
 import { State, Action, Getter } from 'vuex-class';
 
+/* SWAL */
 import Swal from 'sweetalert2';
 
 /* STATE */
