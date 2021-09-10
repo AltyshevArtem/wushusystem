@@ -193,12 +193,6 @@
                                                     Редактировать
                                                 </button>
                                             </template>
-                                            <PassportModal
-                                                v-if="isModalPassport"
-                                                :mode="isEdit"
-                                                :passport="sportsmanMap.sportsman.passport"
-                                                @closeModal="isModalPassport = false"
-                                            />
                                         </span>
                                     </div>
                                 </div>
@@ -305,14 +299,6 @@
                                                 Редактировать
                                             </button>
                                         </template>
-                                        <BirthCertificateModal
-                                            v-if="isModalBirthCertificate"
-                                            :mode="isEdit"
-                                            :birthCertificate="
-                                                sportsmanMap.sportsman.birth_certificate
-                                            "
-                                            @closeModal="isModalBirthCertificate = false"
-                                        />
                                     </div>
                                 </div>
                             </li>
@@ -361,12 +347,6 @@
                                             </template>
                                         </span>
                                         {{ sportsmanMap.sportsman.proxy }}
-                                        <ProxyModal
-                                            v-if="isModalProxy"
-                                            :mode="isEdit"
-                                            :proxy="sportsmanMap.sportsman.proxy"
-                                            @closeModal="isModalProxy = false"
-                                        />
                                     </div>
                                 </div>
                             </li>
@@ -718,13 +698,6 @@
                                                 Редактировать
                                             </button>
                                         </template>
-
-                                        <InsuranceModal
-                                            v-if="isModalInsurance"
-                                            :mode="isEdit"
-                                            :insurance="sportsmanMap.sportsman.insurance"
-                                            @closeModal="isModalInsurance = false"
-                                        />
                                     </div>
                                 </div>
                             </li>
@@ -760,12 +733,6 @@
                                                 Редактировать
                                             </button>
                                         </template>
-                                        <OmsModal
-                                            v-if="isModalOms"
-                                            :mode="isEdit"
-                                            :oms="sportsmanMap.sportsman.oms"
-                                            @closeModal="isModalOms = false"
-                                        />
                                     </div>
                                 </div>
                             </li>

@@ -54,6 +54,7 @@ const namespace = 'sportsmans';
 @Options({
     name: 'Pagination',
 })
+// TODO: Сделать компонент пагинации независимым от Sportsman
 export default class Pagination extends Vue {
     /* PAGINATION LIMIT */
     limitPage = 25;

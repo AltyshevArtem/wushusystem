@@ -14,7 +14,7 @@ export const actions: ActionTree<IBirthCertificateState, null> = {
     postBirthCertificate({ commit }, birthCertificate: IBirthCertificate): any {
         const data = new FormData();
         data.append('number', String(birthCertificate.number));
-        data.append('scan', birthCertificate.scan);
+        data.append('scan', String(birthCertificate.scan));
         http.post('/birth_certificate/', data, {
             headers: {
                 'Content-Type': 'multipart/form-data; boundary=----something',
@@ -32,8 +32,8 @@ export const actions: ActionTree<IBirthCertificateState, null> = {
     putBirthCertificate({ commit }, birthCertificate: IBirthCertificate): any {
         const data = new FormData();
         data.append('number', String(birthCertificate.number));
-        if (birthCertificate.scan['name'] !== undefined) {
-            data.append('scan', birthCertificate.scan);
+        if (typeof birthCertificate.scan !== 'string') {
+            data.append('scan', String(birthCertificate.scan));
         }
         http.put(`/birth_certificate/${birthCertificate.id}/`, data, {
             headers: {

@@ -24,7 +24,7 @@ export interface IPassport {
 export interface IBirthCertificate {
     id: number;
     number: number;
-    scan: string;
+    scan: string | File | null | undefined;
 }
 
 export interface IProxyDoc {

@@ -29,6 +29,7 @@
                                 id="file"
                                 ref="file"
                                 @change="BirthCertificateFileUpload()"
+                                required
                             />
                         </div>
                     </div>
@@ -76,7 +77,6 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Emit } from 'vue-property-decorator';
@@ -95,45 +95,78 @@ const namespace = 'birth_certificate';
 
 @Options({
     name: 'birthCertificateModal',
-    components: {},
-    data() {
-        return {
-            number: '',
-            File: '',
-        };
-    },
-    methods: {
-        AddBirthCertificate() {
-            const birthCertificate = {
-                number: this.number,
-                scan: this.File,
-            };
-            this.postBirthCertificate(birthCertificate);
+    // data() {
+    //     return {
+    //         number: '',
+    //         File: '',
+    //     };
+    // },
+    // methods: {
+    //     AddBirthCertificate() {
+    //         const birthCertificate = {
+    //             number: this.number,
+    //             scan: this.File,
+    //         };
+    //         this.postBirthCertificate(birthCertificate);
 
-            this.hideDialog();
-        },
-        SaveBirthCertificate() {
-            this.putBirthCertificate(this.birthCertificate);
+    //         this.hideDialog();
+    //     },
+    //     SaveBirthCertificate() {
+    //         this.putBirthCertificate(this.birthCertificate);
 
-            this.hideDialog();
-        },
-        BirthCertificateFileUpload() {
-            if (this.mode) {
-                this.birthCertificate.scan = this.$refs.file.files[0];
-            } else {
-                this.File = this.$refs.file.files[0];
-            }
-        },
-    },
+    //         this.hideDialog();
+    //     },
+    //     BirthCertificateFileUpload() {
+    //         if (this.mode) {
+    //             this.birthCertificate.scan = this.$refs.file.files[0];
+    //         } else {
+    //             this.File = this.$refs.file.files[0];
+    //         }
+    //     },
+    // },
 })
 export default class BirthCertificateModal extends Vue {
+    /* PROP */
     @Prop({ default: undefined }) birthCertificate!: IBirthCertificate;
     @Prop({ default: true }) mode!: boolean;
     @Prop({ default: false }) show!: boolean;
 
+    /* EMIT */
     @Emit('update:show')
     hideDialog(): boolean {
         return false;
+    }
+
+    /* DATA */
+    number: number | null = 0;
+    file: string | File | null | undefined = '';
+
+    /* METHOD */
+    public AddBirthCertificate(): void {
+        const birthCertificate = {
+            number: this.number,
+            scan: this.file,
+        };
+
+        this.setBirthCertificate(birthCertificate);
+
+        this.hideDialog();
+    }
+    public SaveBirthCertificate(): void {
+        this.setBirthCertificate(this.birthCertificate);
+
+        this.hideDialog();
+    }
+    public BirthCertificateFileUpload(): void {
+        if (this.mode) {
+            const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
+            fileList?.length !== 0
+                ? (this.birthCertificate.scan = fileList?.item(0))
+                : (this.file = '');
+        } else {
+            const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
+            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = ' ');
+        }
     }
 
     /* STATE */
@@ -141,10 +174,8 @@ export default class BirthCertificateModal extends Vue {
     birthCertificateMap!: IBirthCertificateState;
 
     /* MUTATIONS */
-    @Mutation('postBirthCertificate', { namespace })
-    postBirthCertificate: any;
-    @Mutation('putBirthCertificate', { namespace })
-    putBirthCertificate: any;
+    @Mutation('setBirthCertificate', { namespace })
+    setBirthCertificate: any;
 }
 </script>
 
