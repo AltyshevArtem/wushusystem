@@ -2,6 +2,9 @@
     <div>
         <div class="container py-4">
             <div>
+                <!--TODO: Сделать кнопку редирект после усешного PUT запроса в модалке Успеха-->
+                <!--TODO: Изменить цвет кнопки редактирования на другой-->
+                <!--TODO: Изменить размер всех кнопок на меньший-->
                 <div class="pb-3 mb-4 d-flex justify-content-between">
                     <span class="fs-4">
                         <strong> Редактирование спортсмена: </strong><span> {{ FullName }}</span>
@@ -113,7 +116,7 @@
                                     id="PhotoSportsman"
                                     ref="PhotoSportsman"
                                     class="input input__file"
-                                    @change="PhotoSportsmanUpload()"
+                                    @input="PhotoSportsmanUpload"
                                 />
                                 <label class="input__file-button load-file" for="PhotoSportsman">
                                     <span class="input__file-icon-wrapper"
@@ -125,7 +128,26 @@
                                     /></span>
                                     <span class="input__file-button-text">Загрузить файл</span>
                                 </label>
-                                {{ PhotoSportsman }}
+                                <div
+                                    v-if="PhotoSportsmanImg !== (undefined || null)"
+                                    class="imagePreviewWrapper PreviewImgSportsman"
+                                    :style="{
+                                        'background-image': `url(${PhotoSportsmanImg})`,
+                                    }"
+                                    @click="selectImage"
+                                >
+                                    <div class="danger-button__new-file btnDeleteSportsman">
+                                        <button
+                                            class="btn btn-danger"
+                                            @click="
+                                                PhotoSportsmanImg = null;
+                                                Editable = true;
+                                            "
+                                        >
+                                            Удалить
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -213,7 +235,7 @@
                                         </p>
                                         <div class="documents-scan__container">
                                             <div class="documents-scan__files">
-                                                <span
+                                                <div
                                                     v-if="
                                                         sportsmanMap.sportsman.confirm_address !==
                                                         (undefined || null)
@@ -240,15 +262,15 @@
                                                     >
                                                         Удалить
                                                     </button>
-                                                </span>
-                                                <span v-else class="input__wrapper-file upload">
+                                                </div>
+                                                <div v-else class="input__wrapper-file upload">
                                                     <input
                                                         type="file"
                                                         name="file"
                                                         id="ConfirmAddressFile"
                                                         ref="ConfirmAddressFile"
                                                         class="input input__file"
-                                                        @change="ConfirmAddressFileUpload()"
+                                                        @input="ConfirmAddressFileUpload"
                                                     />
                                                     <label
                                                         class="input__file-button load-file"
@@ -265,7 +287,27 @@
                                                             Загрузить файл
                                                         </span>
                                                     </label>
-                                                </span>
+                                                    <div
+                                                        v-if="CAImg !== (undefined || null)"
+                                                        class="imagePreviewWrapper"
+                                                        :style="{
+                                                            'background-image': `url(${CAImg})`,
+                                                        }"
+                                                        @click="selectImage"
+                                                    >
+                                                        <div class="danger-button__new-file">
+                                                            <button
+                                                                class="btn btn-danger"
+                                                                @click="
+                                                                    CAImg = null;
+                                                                    Editable = true;
+                                                                "
+                                                            >
+                                                                Удалить
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -412,7 +454,7 @@
                                                         id="ParentDocFile"
                                                         ref="ParentDocFile"
                                                         class="input input__file"
-                                                        @change="ParentDocFileUpload()"
+                                                        @input="ParentDocFileUpload"
                                                     />
                                                     <label
                                                         class="input__file-button load-file"
@@ -429,7 +471,26 @@
                                                             Загрузить файл
                                                         </span>
                                                     </label>
-                                                    {{ ParentDocFile }}
+                                                    <div
+                                                        v-if="ParDocImg !== (undefined || null)"
+                                                        class="imagePreviewWrapper"
+                                                        :style="{
+                                                            'background-image': `url(${ParDocImg})`,
+                                                        }"
+                                                        @click="selectImage"
+                                                    >
+                                                        <div class="danger-button__new-file">
+                                                            <button
+                                                                class="btn btn-danger"
+                                                                @click="
+                                                                    ParDocImg = null;
+                                                                    Editable = true;
+                                                                "
+                                                            >
+                                                                Удалить
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -474,7 +535,7 @@
                                                     id="RusadaFile"
                                                     ref="RusadaFile"
                                                     class="input input__file"
-                                                    @change="RusadaFileUpload()"
+                                                    @input="RusadaFileUpload"
                                                 />
                                                 <label
                                                     class="input__file-button load-file"
@@ -491,7 +552,26 @@
                                                         Загрузить файл
                                                     </span>
                                                 </label>
-                                                {{ RusadaFile }}
+                                                <div
+                                                    v-if="RusadaFileImg !== (undefined || null)"
+                                                    class="imagePreviewWrapper"
+                                                    :style="{
+                                                        'background-image': `url(${RusadaFileImg})`,
+                                                    }"
+                                                    @click="selectImage"
+                                                >
+                                                    <div class="danger-button__new-file">
+                                                        <button
+                                                            class="btn btn-danger"
+                                                            @click="
+                                                                RusadaFileImg = null;
+                                                                Editable = true;
+                                                            "
+                                                        >
+                                                            Удалить
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -540,7 +620,7 @@
                                                     id="CovidContactFile"
                                                     ref="CovidContactFile"
                                                     class="input input__file"
-                                                    @change="CovidContactFileUpload()"
+                                                    @input="CovidContactFileUpload"
                                                 />
                                                 <label
                                                     class="input__file-button load-file"
@@ -558,7 +638,26 @@
                                                         Загрузить файл
                                                     </span>
                                                 </label>
-                                                {{ CovidContactFile }}
+                                                <div
+                                                    v-if="CovidImg !== (undefined || null)"
+                                                    class="imagePreviewWrapper"
+                                                    :style="{
+                                                        'background-image': `url(${CovidImg})`,
+                                                    }"
+                                                    @click="selectImage"
+                                                >
+                                                    <div class="danger-button__new-file">
+                                                        <button
+                                                            class="btn btn-danger"
+                                                            @click="
+                                                                CovidImg = null;
+                                                                Editable = true;
+                                                            "
+                                                        >
+                                                            Удалить
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -602,7 +701,7 @@
                                                     id="CovidTestFile"
                                                     ref="CovidTestFile"
                                                     class="input input__file"
-                                                    @change="CovidTestFileUpload()"
+                                                    @input="CovidTestFileUpload"
                                                 />
                                                 <label
                                                     class="input__file-button load-file"
@@ -619,7 +718,26 @@
                                                         Загрузить файл
                                                     </span>
                                                 </label>
-                                                {{ CovidTestFile }}
+                                                <div
+                                                    v-if="CovidTestImg !== (undefined || null)"
+                                                    class="imagePreviewWrapper"
+                                                    :style="{
+                                                        'background-image': `url(${CovidTestImg})`,
+                                                    }"
+                                                    @click="selectImage"
+                                                >
+                                                    <div class="danger-button__new-file">
+                                                        <button
+                                                            class="btn btn-danger"
+                                                            @click="
+                                                                CovidTestImg = null;
+                                                                Editable = true;
+                                                            "
+                                                        >
+                                                            Удалить
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -663,7 +781,7 @@
                                                     id="SchoolFile"
                                                     ref="SchoolFile"
                                                     class="input input__file"
-                                                    @change="SchoolFileUpload()"
+                                                    @input="SchoolFileUpload"
                                                 />
                                                 <label
                                                     class="input__file-button load-file"
@@ -680,7 +798,26 @@
                                                         Загрузить файл
                                                     </span>
                                                 </label>
-                                                {{ SchoolFile }}
+                                                <div
+                                                    v-if="SchoolFileImg !== (undefined || null)"
+                                                    class="imagePreviewWrapper"
+                                                    :style="{
+                                                        'background-image': `url(${SchoolFileImg})`,
+                                                    }"
+                                                    @click="selectImage"
+                                                >
+                                                    <div class="danger-button__new-file">
+                                                        <button
+                                                            class="btn btn-danger"
+                                                            @click="
+                                                                SchoolFileImg = null;
+                                                                Editable = true;
+                                                            "
+                                                        >
+                                                            Удалить
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -917,32 +1054,119 @@ const namespaceTrainer = 'trainer';
     name: 'EditCardSportsman',
     methods: {
         PhotoSportsmanUpload(): void {
-            this.PhotoSportsman = this.$refs.PhotoSportsman.files[0];
+            const input = this.$refs.PhotoSportsman;
+            const file = input.files;
+            if (file && file[0]) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    if (event.target != null) {
+                        this.PhotoSportsmanImg = event.target.result;
+                    }
+                };
+                reader.readAsDataURL(file[0]);
+                this.$emit('input', file[0]);
+            }
+            this.PhotoSportsman = file && file[0];
             this.Editable = true;
         },
         ConfirmAddressFileUpload(): void {
-            this.ConfirmAddressFile = this.$refs.ConfirmAddressFile.files[0];
+            const input = this.$refs.ConfirmAddressFile;
+            const file = input.files;
+            if (file && file[0]) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    if (event.target != null) {
+                        this.CAImg = event.target.result;
+                    }
+                };
+                reader.readAsDataURL(file[0]);
+                this.$emit('input', file[0]);
+            }
+            this.ConfirmAddressFile = file && file[0];
             this.Editable = true;
         },
         RusadaFileUpload(): void {
-            this.RusadaFile = this.$refs.RusadaFile.files[0];
+            const input = this.$refs.RusadaFile;
+            const file = input.files;
+            if (file && file[0]) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    if (event.target != null) {
+                        this.CAImg = event.target.result;
+                    }
+                };
+                reader.readAsDataURL(file[0]);
+                this.$emit('input', file[0]);
+            }
+            this.RusadaFile = file && file[0];
             this.Editable = true;
         },
         SchoolFileUpload(): void {
-            this.SchoolFile = this.$refs.SchoolFile.files[0];
+            const input = this.$refs.SchoolFile;
+            const file = input.files;
+            if (file && file[0]) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    if (event.target != null) {
+                        this.SchoolFileImg = event.target.result;
+                    }
+                };
+                reader.readAsDataURL(file[0]);
+                this.$emit('input', file[0]);
+            }
+            this.SchoolFile = file && file[0];
             this.Editable = true;
         },
         CovidTestFileUpload(): void {
-            this.CovidTestFile = this.$refs.CovidTestFile.files[0];
+            const input = this.$refs.CovidTestFile;
+            const file = input.files;
+            if (file && file[0]) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    if (event.target != null) {
+                        this.CovidTestImg = event.target.result;
+                    }
+                };
+                reader.readAsDataURL(file[0]);
+                this.$emit('input', file[0]);
+            }
+            this.CovidTestFile = file && file[0];
             this.Editable = true;
         },
         CovidContactFileUpload(): void {
-            this.CovidContactFile = this.$refs.CovidContactFile.files[0];
+            const input = this.$refs.CovidContactFile;
+            const file = input.files;
+            if (file && file[0]) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    if (event.target != null) {
+                        this.CovidImg = event.target.result;
+                    }
+                };
+                reader.readAsDataURL(file[0]);
+                this.$emit('input', file[0]);
+            }
+            this.CovidContactFile = file && file[0];
             this.Editable = true;
         },
         ParentDocFileUpload(): void {
-            this.ParentDocFile = this.$refs.ParentDocFile.files[0];
+            const input = this.$refs.ParentDocFile;
+            const file = input.files;
+            if (file && file[0]) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    if (event.target != null) {
+                        this.ParDocImg = event.target.result;
+                    }
+                };
+                reader.readAsDataURL(file[0]);
+                this.$emit('input', file[0]);
+            }
+            this.ParentDocFile = file && file[0];
             this.Editable = true;
+        },
+        selectImage() {
+            this.$refs.fileInput.click();
         },
         initSelectors(): void {
             if (this.sportsmanMap.sportsman.trainer !== '') {
@@ -1110,6 +1334,13 @@ const namespaceTrainer = 'trainer';
             CovidContactFile: '',
             CovidTestFile: '',
             ParentDocFile: '',
+            ParDocImg: null,
+            CovidImg: null,
+            CovidTestImg: null,
+            SchoolFileImg: null,
+            RusadaFileImg: null,
+            CAImg: null,
+            PhotoSportsmanImg: null,
         };
     },
     mounted() {
@@ -1220,6 +1451,7 @@ export default class EditCardSportsman extends Vue {
     height: 340px;
 }
 .upload {
+    height: 210px;
     width: 300px;
 }
 img[tabindex='0'] {
@@ -1266,5 +1498,29 @@ img[tabindex='0']:focus ~ * {
     position: relative;
     width: 150px;
     height: 100px;
+}
+.imagePreviewWrapper {
+    margin-top: 10px;
+    background-repeat: no-repeat;
+    width: 120px;
+    height: 120px;
+    display: block;
+    cursor: pointer;
+    background-size: contain;
+    background-position: center center;
+}
+.danger-button__new-file {
+    padding-right: 15px;
+    padding-top: 130px;
+}
+.PreviewImgSportsman {
+    width: 220px;
+    height: 220px;
+    margin-top: 20px;
+    margin-left: 50px;
+}
+.btnDeleteSportsman {
+    padding-top: 230px;
+    padding-right: 90px;
 }
 </style>
