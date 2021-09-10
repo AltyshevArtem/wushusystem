@@ -187,7 +187,12 @@
                                     <div class="col-md-8">
                                         <span>
                                             <p><strong>Данные паспорта</strong></p>
-                                            <template v-if="!sportsmanMap.sportsman.passport">
+                                            <template
+                                                v-if="
+                                                    !passportMap.passport &&
+                                                    !sportsmanMap.sportsman.passport
+                                                "
+                                            >
                                                 <span>Добавить данные о паспорте: </span>
                                                 <button
                                                     class="btn btn-dark"
@@ -215,6 +220,7 @@
                                                     Редактировать
                                                 </button>
                                             </template>
+                                            {{ passportMap.passport }}
                                         </span>
                                     </div>
                                 </div>
@@ -311,7 +317,12 @@
                                 <div class="row g-0">
                                     <div class="col-md-8">
                                         <p><strong>Свидетельство о рождении</strong></p>
-                                        <template v-if="!sportsmanMap.sportsman.birth_certificate">
+                                        <template
+                                            v-if="
+                                                !birthCertificateMap.birthCertificate &&
+                                                !sportsmanMap.sportsman.birth_certificate
+                                            "
+                                        >
                                             <span>Добавить данные о свидетельстве рождения: </span>
                                             <button
                                                 class="btn btn-dark"
@@ -341,6 +352,7 @@
                                                 Редактировать
                                             </button>
                                         </template>
+                                        {{ birthCertificateMap.birthCertificate }}
                                     </div>
                                 </div>
                             </li>
@@ -353,7 +365,11 @@
                                             >
                                         </p>
                                         <span
-                                            ><template v-if="!sportsmanMap.sportsman.proxy">
+                                            ><template
+                                                v-if="
+                                                    !proxyMap.proxy && !sportsmanMap.sportsman.proxy
+                                                "
+                                            >
                                                 <span
                                                     >Добавить данные о заверенной копии и
                                                     доверенности родителя:
@@ -387,6 +403,7 @@
                                                     Редактировать
                                                 </button>
                                             </template>
+                                            {{ proxyMap.proxy }}
                                         </span>
                                     </div>
                                 </div>
@@ -806,7 +823,12 @@
                                 <div class="row g-0">
                                     <div class="col-md-8">
                                         <p><strong>Страховка</strong></p>
-                                        <template v-if="!sportsmanMap.sportsman.insurance">
+                                        <template
+                                            v-if="
+                                                !insuranceMap.insurance &&
+                                                !sportsmanMap.sportsman.insurance
+                                            "
+                                        >
                                             <span>Добавить данные о страховке: </span>
                                             <button
                                                 class="btn btn-dark"
@@ -834,6 +856,7 @@
                                                 Редактировать
                                             </button>
                                         </template>
+                                        {{ insuranceMap.insurance }}
                                     </div>
                                 </div>
                             </li>
@@ -841,8 +864,8 @@
                                 <div class="row g-0">
                                     <div class="col-md-8">
                                         <p><strong>Полис ОМС</strong></p>
-                                        <template v-if="!sportsmanMap.sportsman.oms">
-                                            <span>Дабавить данные о полисе ОМС: </span>
+                                        <template v-if="!omsMap.oms && !sportsmanMap.sportsman.oms">
+                                            <span>Добавить данные о полисе ОМС: </span>
                                             <button
                                                 class="btn btn-dark"
                                                 @click="
@@ -869,6 +892,7 @@
                                                 Редактировать
                                             </button>
                                         </template>
+                                        {{ omsMap.oms }}
                                     </div>
                                 </div>
                             </li>
@@ -1011,6 +1035,9 @@ import OmsModal from '@/components/Modal/Documents/OmsModal.vue';
 import PassportModal from '@/components/Modal/Documents/PassportModal.vue';
 import ProxyModal from '@/components/Modal/Documents/ProxyModal.vue';
 
+/* SCRIPT */
+import isEmpty from '@/scripts/isEmpty';
+
 /* NAMESPACE */
 const namespace = 'sportsman';
 
@@ -1137,14 +1164,14 @@ const namespaceTrainer = 'trainer';
             this.$refs.fileInput.click();
         },
         initSelectors(): void {
-            if (this.sportsmanMap.sportsman.trainer !== '') {
+            if (!isEmpty(this.sportsmanMap.sportsman.trainer)) {
                 const trainer = this.sportsmanMap.sportsman.trainer;
                 this.trainerName = `${trainer.surname} ${trainer.name} ${trainer.patronymic}`;
             }
-            if (this.sportsmanMap.sportsman.club !== '') {
+            if (!isEmpty(this.sportsmanMap.sportsman.club)) {
                 this.clubName = this.sportsmanMap.sportsman.club.name_of_club;
             }
-            if (this.sportsmanMap.sportsman.city !== '') {
+            if (!isEmpty(this.sportsmanMap.sportsman.city)) {
                 this.cityName = this.sportsmanMap.sportsman.city.name_of_city;
             }
         },

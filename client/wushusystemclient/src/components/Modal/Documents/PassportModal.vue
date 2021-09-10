@@ -15,7 +15,7 @@
                     </div>
                     <div>
                         <h6>Дата выдачи паспорта</h6>
-                        <input placeholder="YYYY-MM-DD" v-model="passport.dateStart" required />
+                        <input placeholder="YYYY-MM-DD" v-model="passport.date_start" required />
                     </div>
                     <div>
                         <h6>Кем выдан паспорт</h6>
@@ -138,7 +138,8 @@ export default class PassportModal extends Vue {
         const passport = {
             number: this.number,
             scan: this.file,
-            dateStart: this.dateStart,
+            // eslint-disable-next-line camelcase
+            date_start: this.dateStart,
             issue: this.issue,
             code: this.code,
         };

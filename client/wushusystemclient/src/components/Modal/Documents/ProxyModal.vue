@@ -11,13 +11,13 @@
                 <div class="modal-body" v-if="mode">
                     <div>
                         <h6>Дата окончания доверенности</h6>
-                        <input placeholder="YYYY-MM-DD" v-model="proxy.dateEnd" required />
+                        <input placeholder="YYYY-MM-DD" v-model="proxy.date_end" required />
                     </div>
                     <div>
                         <h6>Скан оригинального паспорта:</h6>
-                        <div v-if="proxy.originalPassport">
-                            <a :href="proxy.originalPassport" class="card-link">Просмотр</a>
-                            <button class="btn btn-danger" @click="proxy.originalPassport = null">
+                        <div v-if="proxy.original_passport">
+                            <a :href="proxy.original_passport" class="card-link">Просмотр</a>
+                            <button class="btn btn-danger" @click="proxy.original_passport = null">
                                 Удалить
                             </button>
                         </div>
@@ -32,13 +32,13 @@
                     </div>
                     <div>
                         <h6>Скан оригинального свидетельства о рождении:</h6>
-                        <div v-if="proxy.originalBirthCertificate">
-                            <a :href="proxy.originalBirthCertificate" class="card-link">
+                        <div v-if="proxy.original_birth_certificate">
+                            <a :href="proxy.original_birth_certificate" class="card-link">
                                 Просмотр
                             </a>
                             <button
                                 class="btn btn-danger"
-                                @click="proxy.originalBirthCertificate = null"
+                                @click="proxy.original_birth_certificate = null"
                             >
                                 Удалить
                             </button>
@@ -128,6 +128,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Emit } from 'vue-property-decorator';
@@ -166,9 +167,9 @@ export default class ProxyModal extends Vue {
     public AddProxy(): void {
         const proxy = {
             scan: this.file,
-            dateEnd: this.dateEnd,
-            originalPassport: this.filePassport,
-            originalBirthCertificate: this.fileBirth,
+            date_end: this.dateEnd,
+            original_passport: this.filePassport,
+            original_birth_certificate: this.fileBirth,
         };
         this.setProxy(proxy);
 

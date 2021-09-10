@@ -1,7 +1,6 @@
 <template>
     <form @submit.prevent="addNewSportsman">
         <div class="container py-4">
-            <!-- TODO: Посмотреть что за херня с типом данных в сведительстве о рождения-->
             <div>
                 <div class="pb-3 mb-4 d-flex justify-content-between">
                     <span class="fs-4">
@@ -742,6 +741,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 

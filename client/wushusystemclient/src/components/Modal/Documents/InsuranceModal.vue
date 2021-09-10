@@ -11,17 +11,17 @@
                 <div class="modal-body" v-if="mode">
                     <div>
                         <h6>Дата начала страхования</h6>
-                        <input placeholder="YYYY-MM-DD" v-model="insurance.dateStart" required />
+                        <input placeholder="YYYY-MM-DD" v-model="insurance.date_start" required />
                     </div>
                     <div>
                         <h6>Дата окончания страхования</h6>
-                        <input placeholder="YYYY-MM-DD" v-model="insurance.dateEnd" required />
+                        <input placeholder="YYYY-MM-DD" v-model="insurance.date_end" required />
                     </div>
                     <div>
                         <h6>Скан фото:</h6>
-                        <div v-if="insurance.fileInsurance">
-                            <a :href="insurance.fileInsurance" class="card-link">Просмотр</a>
-                            <button class="btn btn-danger" @click="insurance.fileInsurance = null">
+                        <div v-if="insurance.file_insurance">
+                            <a :href="insurance.file_insurance" class="card-link">Просмотр</a>
+                            <button class="btn btn-danger" @click="insurance.file_insurance = null">
                                 Удалить
                             </button>
                         </div>
@@ -76,6 +76,7 @@
 </template>
 
 <script lang="ts">
+/* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Emit } from 'vue-property-decorator';
@@ -116,9 +117,9 @@ export default class InsuranceModal extends Vue {
 
     public AddInsurance(): void {
         const insurance = {
-            dateStart: formatDateToString(this.dateStart),
-            dateEnd: formatDateToString(this.dateEnd),
-            fileInsurance: this.file,
+            date_start: formatDateToString(this.dateStart),
+            date_end: formatDateToString(this.dateEnd),
+            file_insurance: this.file,
         };
         this.setInsurance(insurance);
 
