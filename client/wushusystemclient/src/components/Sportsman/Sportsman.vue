@@ -42,44 +42,7 @@
             </div>
         </div>
         <TableSportsman />
-        <nav aria-label="..." v-if="pageCount > 1">
-            <ul class="pagination">
-                <li class="page-item" :class="{ disabled: sportsmansMap.page === 1 }">
-                    <a class="page-link" @click="prevPage" tabindex="-1" aria-disabled="true">
-                        Previous
-                    </a>
-                </li>
-                <template v-if="pageCount > limitPage">
-                    <li
-                        class="page-item"
-                        v-for="page in limitPage"
-                        :key="page"
-                        :class="{ disabled: isDisabledPage(page) }"
-                    >
-                        <a class="page-link" @click="currentPage(page)">{{ page }}</a>
-                    </li>
-                    <li class="page-item disabled">
-                        <a class="page-link">...</a>
-                    </li>
-                </template>
-                <template v-else>
-                    <li
-                        class="page-item"
-                        v-for="page in pageCount"
-                        :key="page"
-                        :class="{ disabled: isDisabledPage(page) }"
-                    >
-                        <a class="page-link" @click="currentPage(page)">{{ page }}</a>
-                    </li>
-                </template>
-                <!-- TODO: Если страниц больше limitPage, то мы не видим страницы больше
-                этого значения. Нужно либо использовать скролл,
-                либо при нажатии в списке менять нумерацию -->
-                <li class="page-item" :class="{ disabled: sportsmansMap.page === pageCount }">
-                    <a class="page-link" @click="nextPage"> Next </a>
-                </li>
-            </ul>
-        </nav>
+        <Pagination />
     </div>
 </template>
 
@@ -107,8 +70,8 @@ import SelectRegion from '@/components/Select/SelectRegion.vue';
 /* TABLE SPORTSMAN */
 import TableSportsman from '@/components/Sportsman/TableSportsmans/TableSportsmans.vue';
 
-/* VUE FORM */
-import Multiselect from '@vueform/multiselect';
+/* PAGINATION */
+import Pagination from '@/components/Pagination/Pagination.vue';
 
 /* NAMESPACE */
 const namespace = 'sportsmans';
@@ -116,7 +79,7 @@ const namespace = 'sportsmans';
 @Options({
     name: 'Sportsman',
     components: {
-        Multiselect,
+        Pagination,
         TableSportsman,
         SelectGender,
         SelectRank,
@@ -127,16 +90,6 @@ const namespace = 'sportsmans';
         SelectFederalRegion,
         SelectRegion,
     },
-    computed: {
-        pageCount(): number {
-            return Math.ceil(this.sportsmansMap.count / this.sportsmansMap.pageSize);
-        },
-    },
-    methods: {
-        isDisabledPage(page: number): boolean {
-            return page === this.sportsmansMap.page;
-        },
-    },
 })
 export default class Sportsman extends Vue {
     /* LOADING */
@@ -144,9 +97,6 @@ export default class Sportsman extends Vue {
 
     /* SEARCH */
     search = '';
-
-    /* PAGINATION LIMIT */
-    limitPage = 25;
 
     /* SELECT VALUE */
     SelectGender = null;
@@ -169,16 +119,9 @@ export default class Sportsman extends Vue {
     /* MUTATIONS */
     @Mutation('setSearch', { namespace })
     setSearch: any;
-    @Mutation('prevPage', { namespace })
-    prevPage: any;
-    @Mutation('currentPage', { namespace })
-    currentPage: any;
-    @Mutation('nextPage', { namespace })
-    nextPage: any;
 
     mounted(): void {
         this.loading = false;
-        this.currentPage(1);
         this.getSportsmanList();
         this.loading = true;
     }
@@ -195,7 +138,9 @@ export default class Sportsman extends Vue {
             this.SelectFederalRegion,
             this.SelectRegion,
         ]);
+        this.loading = false;
         this.getSportsmanList();
+        this.loading = true;
     }
 
     /* WATCH */

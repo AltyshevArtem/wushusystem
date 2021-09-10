@@ -9,8 +9,7 @@ import http from '@/http-common';
 
 export const actions: ActionTree<IClubState, null> = {
     getClubList({ commit }): any {
-        http
-            .get('/club/')
+        http.get('/club/')
             .then((response) => {
                 const payload: IClubState = response && response.data;
                 commit('setClub', payload);

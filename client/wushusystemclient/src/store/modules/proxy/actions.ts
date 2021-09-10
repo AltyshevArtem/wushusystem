@@ -17,12 +17,11 @@ export const actions: ActionTree<IProxyDocState, null> = {
         data.append('date_end', String(proxy.date_end));
         data.append('original_passport', proxy.original_passport);
         data.append('original_birth_certificate', proxy.original_birth_certificate);
-        http
-            .post('/proxy/', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.post('/proxy/', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IProxyDoc = response && response.data;
                 commit('setProxy', payload);
@@ -44,12 +43,11 @@ export const actions: ActionTree<IProxyDocState, null> = {
         if (proxy.original_birth_certificate['name'] !== undefined) {
             data.append('original_birth_certificate', proxy.original_birth_certificate);
         }
-        http
-            .put(`/proxy/${proxy.id}/`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.put(`/proxy/${proxy.id}/`, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IProxyDoc = response && response.data;
                 commit('setProxy', payload);
@@ -60,8 +58,7 @@ export const actions: ActionTree<IProxyDocState, null> = {
             });
     },
     deleteProxy({ commit }, id: number): any {
-        http
-            .delete(`/proxy/${id}`)
+        http.delete(`/proxy/${id}`)
             .then((response) => {
                 commit('deleteProxy');
             })
@@ -71,8 +68,7 @@ export const actions: ActionTree<IProxyDocState, null> = {
             });
     },
     getProxy({ commit }, id: number): any {
-        http
-            .get(`/proxy/${id}`)
+        http.get(`/proxy/${id}`)
             .then((response) => {
                 const payload: IProxyDoc = response && response.data;
                 commit('setProxy', payload);

@@ -9,8 +9,7 @@ import http from '@/http-common';
 
 export const actions: ActionTree<IRegionState, null> = {
     getRegionList({ commit }): any {
-        http
-            .get('/region/')
+        http.get('/region/')
             .then((response) => {
                 const payload: IRegionState = response && response.data;
                 commit('setRegion', payload);

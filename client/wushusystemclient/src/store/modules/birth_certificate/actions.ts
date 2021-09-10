@@ -15,12 +15,11 @@ export const actions: ActionTree<IBirthCertificateState, null> = {
         const data = new FormData();
         data.append('number', String(birthCertificate.number));
         data.append('scan', birthCertificate.scan);
-        http
-            .post('/birth_certificate/', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.post('/birth_certificate/', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IBirthCertificate = response && response.data;
                 commit('setBirthCertificate', payload);
@@ -36,12 +35,11 @@ export const actions: ActionTree<IBirthCertificateState, null> = {
         if (birthCertificate.scan['name'] !== undefined) {
             data.append('scan', birthCertificate.scan);
         }
-        http
-            .put(`/birth_certificate/${birthCertificate.id}/`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.put(`/birth_certificate/${birthCertificate.id}/`, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IBirthCertificate = response && response.data;
                 commit('setBirthCertificate', payload);
@@ -52,9 +50,8 @@ export const actions: ActionTree<IBirthCertificateState, null> = {
             });
     },
     deleteBirthCertificate({ commit }, id: number): any {
-        http
-            .delete(`/birth_certificate/${id}`)
-            .then((response) => {
+        http.delete(`/birth_certificate/${id}`)
+            .then(() => {
                 commit('deleteBirthCertificate');
             })
             .catch((error) => {
@@ -63,8 +60,7 @@ export const actions: ActionTree<IBirthCertificateState, null> = {
             });
     },
     getBirthCertificate({ commit }, id: number): any {
-        http
-            .get(`/birth_certificate/${id}`)
+        http.get(`/birth_certificate/${id}`)
             .then((response) => {
                 const payload: IBirthCertificate = response && response.data;
                 commit('setBirthCertificate', payload);

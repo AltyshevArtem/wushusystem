@@ -18,12 +18,11 @@ export const actions: ActionTree<IPassportState, null> = {
         data.append('date_start', String(passport.date_start));
         data.append('issue', String(passport.issue));
         data.append('code', String(passport.code));
-        http
-            .post('/passport/', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.post('/passport/', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IPassport = response && response.data;
                 commit('setPassport', payload);
@@ -49,12 +48,11 @@ export const actions: ActionTree<IPassportState, null> = {
         if (passport.code !== undefined) {
             data.append('code', String(passport.code));
         }
-        http
-            .put(`/passport/${passport.id}/`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.put(`/passport/${passport.id}/`, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IPassport = response && response.data;
                 commit('setPassport', payload);
@@ -65,9 +63,8 @@ export const actions: ActionTree<IPassportState, null> = {
             });
     },
     deletePassport({ commit }, id: number): any {
-        http
-            .delete(`/passport/${id}`)
-            .then((response) => {
+        http.delete(`/passport/${id}`)
+            .then(() => {
                 commit('deletePassport');
             })
             .catch((error) => {
@@ -76,8 +73,7 @@ export const actions: ActionTree<IPassportState, null> = {
             });
     },
     getPassport({ commit }, id: number): any {
-        http
-            .get(`/passport/${id}`)
+        http.get(`/passport/${id}`)
             .then((response) => {
                 const payload: IPassport = response && response.data;
                 commit('setPassport', payload);

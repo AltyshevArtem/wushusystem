@@ -15,12 +15,11 @@ export const actions: ActionTree<IOmsState, null> = {
         const data = new FormData();
         data.append('number', String(oms.number));
         data.append('scan', oms.scan);
-        http
-            .post('/oms/', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.post('/oms/', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IOms = response && response.data;
                 commit('setOMS', payload);
@@ -36,12 +35,11 @@ export const actions: ActionTree<IOmsState, null> = {
         if (oms.scan['name'] !== undefined) {
             data.append('scan', oms.scan);
         }
-        http
-            .put(`/oms/${oms.id}/`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.put(`/oms/${oms.id}/`, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IOms = response && response.data;
                 commit('setOMS', payload);
@@ -52,9 +50,8 @@ export const actions: ActionTree<IOmsState, null> = {
             });
     },
     deleteOMS({ commit }, id: number): any {
-        http
-            .delete(`/oms/${id}`)
-            .then((response) => {
+        http.delete(`/oms/${id}`)
+            .then(() => {
                 commit('deleteOMS');
             })
             .catch((error) => {
@@ -63,8 +60,7 @@ export const actions: ActionTree<IOmsState, null> = {
             });
     },
     getOMS({ commit }, id: number): any {
-        http
-            .get(`/oms/${id}`)
+        http.get(`/oms/${id}`)
             .then((response) => {
                 const payload: IOms = response && response.data;
                 commit('setOMS', payload);

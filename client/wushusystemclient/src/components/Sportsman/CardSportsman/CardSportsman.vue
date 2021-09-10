@@ -1082,7 +1082,6 @@ export default class CardSportsman extends Vue {
     public deleteSportsmanMethod(): void {
         this.deleteSportsman(this.$route.params.id);
         this.isConfirmModalVisible = false;
-        // TODO: нужно перерендерить таблицу спортсменов после редиректа
     }
 }
 </script>

@@ -9,8 +9,7 @@ import http from '@/http-common';
 
 export const actions: ActionTree<ITrainerState, null> = {
     getTrainerList({ commit }): any {
-        http
-            .get('/trainer/')
+        http.get('/trainer/')
             .then((response) => {
                 const payload: ITrainerState = response && response.data;
                 commit('setTrainer', payload);

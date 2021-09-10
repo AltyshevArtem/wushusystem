@@ -9,8 +9,7 @@ import http from '@/http-common';
 
 export const actions: ActionTree<ICityState, null> = {
     getCityList({ commit }): any {
-        http
-            .get('/city/')
+        http.get('/city/')
             .then((response) => {
                 const payload: ICityState = response && response.data;
                 commit('setCity', payload);

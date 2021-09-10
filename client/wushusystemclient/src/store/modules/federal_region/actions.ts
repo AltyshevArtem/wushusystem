@@ -9,8 +9,7 @@ import http from '@/http-common';
 
 export const actions: ActionTree<IFederalRegionState, null> = {
     getFederalRegionList({ commit }): any {
-        http
-            .get('/federal_region/')
+        http.get('/federal_region/')
             .then((response) => {
                 const payload: IFederalRegionState = response && response.data;
                 commit('setFederalRegion', payload);

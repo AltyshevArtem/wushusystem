@@ -21,21 +21,19 @@ import Swal from 'sweetalert2';
 
 export const actions: ActionTree<ISportsmanState, null> = {
     getSportsman({ commit }, id: number): any {
-        http
-            .get(`/sportsmans/${id}`)
+        http.get(`/sportsmans/${id}`)
             .then((response) => {
                 const payload: ISportsman = response && response.data;
                 commit('setSportsman', payload);
             })
             .catch((error) => {
                 console.log(error);
-                router.push('/')
+                router.push('/');
                 commit('errorSportsman');
             });
     },
     deleteSportsman({ commit }, id: number): any {
-        http
-            .delete(`/sportsmans/${id}`)
+        http.delete(`/sportsmans/${id}`)
             .then((response) => {
                 router.push('/sportsmans');
                 commit('deleteSportsman');
@@ -174,12 +172,11 @@ export const actions: ActionTree<ISportsmanState, null> = {
         if (!isEmpty(sportsman.trainer)) {
             data.append('trainer.id', String(sportsman.trainer?.id));
         }
-        http
-            .post('/sportsmans/', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.post('/sportsmans/', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: ISportsman = response && response.data;
                 router.push(`/sportsman/${payload.id}`);
@@ -334,12 +331,11 @@ export const actions: ActionTree<ISportsmanState, null> = {
         if (!isEmpty(sportsman.trainer)) {
             data.append('trainer.id', String(sportsman.trainer?.id));
         }
-        http
-            .put(`/sportsmans/${sportsman.id}/`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxk',
-                },
-            })
+        http.put(`/sportsmans/${sportsman.id}/`, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxk',
+            },
+        })
             .then((response) => {
                 Swal.fire({
                     title: 'Успех!',

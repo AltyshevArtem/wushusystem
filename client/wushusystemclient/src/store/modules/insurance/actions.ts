@@ -16,12 +16,11 @@ export const actions: ActionTree<IInsuranceState, null> = {
         data.append('date_start', String(insurance.date_start));
         data.append('date_end', String(insurance.date_end));
         data.append('file_insurance', insurance.file_insurance);
-        http
-            .post('/insurance/', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.post('/insurance/', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IInsurance = response && response.data;
                 commit('setInsurance', payload);
@@ -38,12 +37,11 @@ export const actions: ActionTree<IInsuranceState, null> = {
         if (insurance.file_insurance['name'] !== undefined) {
             data.append('file_insurance', insurance.file_insurance);
         }
-        http
-            .put(`/insurance/${insurance.id}/`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.put(`/insurance/${insurance.id}/`, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IInsurance = response && response.data;
                 commit('setInsurance', payload);
@@ -54,9 +52,8 @@ export const actions: ActionTree<IInsuranceState, null> = {
             });
     },
     deleteInsurance({ commit }, id: number): any {
-        http
-            .delete(`/insurance/${id}`)
-            .then((response) => {
+        http.delete(`/insurance/${id}`)
+            .then(() => {
                 commit('deleteInsurance');
             })
             .catch((error) => {
@@ -65,8 +62,7 @@ export const actions: ActionTree<IInsuranceState, null> = {
             });
     },
     getInsurance({ commit }, id: number): any {
-        http
-            .get(`/insurance/${id}`)
+        http.get(`/insurance/${id}`)
             .then((response) => {
                 const payload: IInsurance = response && response.data;
                 commit('setInsurance', payload);
