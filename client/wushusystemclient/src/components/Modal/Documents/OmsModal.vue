@@ -20,7 +20,7 @@
                             <button class="btn btn-danger" @click="oms.scan = null">Удалить</button>
                         </div>
                         <div v-else>
-                            <input type="file" id="file" ref="file" @change="OmsFileUpload()" />
+                            <input type="file" id="scan" ref="scan" @change="OmsFileUpload()" />
                         </div>
                     </div>
                 </div>
@@ -33,8 +33,8 @@
                         <h6>Скан фото:</h6>
                         <input
                             type="file"
-                            id="file"
-                            ref="file"
+                            id="scan"
+                            ref="scan"
                             @change="OmsFileUpload()"
                             required
                         />
@@ -117,10 +117,10 @@ export default class OmsModal extends Vue {
     }
     public OmsFileUpload(): void {
         if (this.mode) {
-            const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
+            const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
             fileList?.length !== 0 ? (this.oms.scan = String(fileList?.item(0))) : (this.file = '');
         } else {
-            const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
+            const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
             fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = ' ');
         }
     }

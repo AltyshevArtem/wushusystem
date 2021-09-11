@@ -220,7 +220,6 @@
                                                     Редактировать
                                                 </button>
                                             </template>
-                                            {{ passportMap.passport }}
                                         </span>
                                     </div>
                                 </div>
@@ -352,7 +351,6 @@
                                                 Редактировать
                                             </button>
                                         </template>
-                                        {{ birthCertificateMap.birthCertificate }}
                                     </div>
                                 </div>
                             </li>
@@ -403,7 +401,6 @@
                                                     Редактировать
                                                 </button>
                                             </template>
-                                            {{ proxyMap.proxy }}
                                         </span>
                                     </div>
                                 </div>
@@ -856,7 +853,6 @@
                                                 Редактировать
                                             </button>
                                         </template>
-                                        {{ insuranceMap.insurance }}
                                     </div>
                                 </div>
                             </li>
@@ -892,7 +888,6 @@
                                                 Редактировать
                                             </button>
                                         </template>
-                                        {{ omsMap.oms }}
                                     </div>
                                 </div>
                             </li>
@@ -1037,6 +1032,7 @@ import ProxyModal from '@/components/Modal/Documents/ProxyModal.vue';
 
 /* SCRIPT */
 import isEmpty from '@/scripts/isEmpty';
+import formatFileToBase64 from '@/scripts/formatFileToBase64';
 
 /* NAMESPACE */
 const namespace = 'sportsman';
@@ -1048,121 +1044,6 @@ const namespaceTrainer = 'trainer';
 @Options({
     name: 'EditCardSportsman',
     methods: {
-        PhotoSportsmanUpload(): void {
-            const input = this.$refs.PhotoSportsman;
-            const file = input.files;
-            if (file && file[0]) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (event.target != null) {
-                        this.PhotoSportsmanImg = event.target.result;
-                    }
-                };
-                reader.readAsDataURL(file[0]);
-                this.$emit('input', file[0]);
-            }
-            this.PhotoSportsman = file && file[0];
-            this.Editable = true;
-        },
-        ConfirmAddressFileUpload(): void {
-            const input = this.$refs.ConfirmAddressFile;
-            const file = input.files;
-            if (file && file[0]) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (event.target != null) {
-                        this.CAImg = event.target.result;
-                    }
-                };
-                reader.readAsDataURL(file[0]);
-                this.$emit('input', file[0]);
-            }
-            this.ConfirmAddressFile = file && file[0];
-            this.Editable = true;
-        },
-        RusadaFileUpload(): void {
-            const input = this.$refs.RusadaFile;
-            const file = input.files;
-            if (file && file[0]) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (event.target != null) {
-                        this.CAImg = event.target.result;
-                    }
-                };
-                reader.readAsDataURL(file[0]);
-                this.$emit('input', file[0]);
-            }
-            this.RusadaFile = file && file[0];
-            this.Editable = true;
-        },
-        SchoolFileUpload(): void {
-            const input = this.$refs.SchoolFile;
-            const file = input.files;
-            if (file && file[0]) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (event.target != null) {
-                        this.SchoolFileImg = event.target.result;
-                    }
-                };
-                reader.readAsDataURL(file[0]);
-                this.$emit('input', file[0]);
-            }
-            this.SchoolFile = file && file[0];
-            this.Editable = true;
-        },
-        CovidTestFileUpload(): void {
-            const input = this.$refs.CovidTestFile;
-            const file = input.files;
-            if (file && file[0]) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (event.target != null) {
-                        this.CovidTestImg = event.target.result;
-                    }
-                };
-                reader.readAsDataURL(file[0]);
-                this.$emit('input', file[0]);
-            }
-            this.CovidTestFile = file && file[0];
-            this.Editable = true;
-        },
-        CovidContactFileUpload(): void {
-            const input = this.$refs.CovidContactFile;
-            const file = input.files;
-            if (file && file[0]) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (event.target != null) {
-                        this.CovidImg = event.target.result;
-                    }
-                };
-                reader.readAsDataURL(file[0]);
-                this.$emit('input', file[0]);
-            }
-            this.CovidContactFile = file && file[0];
-            this.Editable = true;
-        },
-        ParentDocFileUpload(): void {
-            const input = this.$refs.ParentDocFile;
-            const file = input.files;
-            if (file && file[0]) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (event.target != null) {
-                        this.ParDocImg = event.target.result;
-                    }
-                };
-                reader.readAsDataURL(file[0]);
-                this.$emit('input', file[0]);
-            }
-            this.ParentDocFile = file && file[0];
-            this.Editable = true;
-        },
-        selectImage() {
-            this.$refs.fileInput.click();
-        },
         initSelectors(): void {
             if (!isEmpty(this.sportsmanMap.sportsman.trainer)) {
                 const trainer = this.sportsmanMap.sportsman.trainer;
@@ -1291,53 +1172,6 @@ const namespaceTrainer = 'trainer';
             next();
         }
     },
-    data() {
-        return {
-            sportsman: {
-                id: this.$route.params.id,
-                name: '',
-                surname: '',
-                patronymic: '',
-                photo: '',
-                date_of_birth: '',
-                address: '',
-                confirm_address: '',
-                gender: '',
-                passport: '',
-                birth_certificate: '',
-                proxy: '',
-                oms: '',
-                city: '',
-                trainer: '',
-                club: '',
-                insurance: '',
-                rank: '',
-                rusada: '',
-                covid_test: '',
-                covid_contact: '',
-                parent_doc: '',
-                school_doc: '',
-                duan_czi: '',
-            },
-            clubName: '',
-            cityName: '',
-            trainerName: '',
-            PhotoSportsman: '',
-            ConfirmAddressFile: '',
-            RusadaFile: '',
-            SchoolFile: '',
-            CovidContactFile: '',
-            CovidTestFile: '',
-            ParentDocFile: '',
-            ParDocImg: null,
-            CovidImg: null,
-            CovidTestImg: null,
-            SchoolFileImg: null,
-            RusadaFileImg: null,
-            CAImg: null,
-            PhotoSportsmanImg: null,
-        };
-    },
     mounted() {
         this.getSportsman(this.$route.params.id);
         this.initSelectors();
@@ -1357,6 +1191,54 @@ const namespaceTrainer = 'trainer';
     },
 })
 export default class EditCardSportsman extends Vue {
+    /* DATA */
+    sportsman: {
+        id: number | string;
+        name: string;
+        surname: '',
+        patronymic: '',
+        photo: '',
+        date_of_birth: '',
+        address: '',
+        confirm_address: '',
+        gender: '',
+        passport: '',
+        birth_certificate: '',
+        proxy: '',
+        oms: '',
+        city: '',
+        trainer: '',
+        club: '',
+        insurance: '',
+        rank: '',
+        rusada: '',
+        covid_test: '',
+        covid_contact: '',
+        parent_doc: '',
+        school_doc: '',
+        duan_czi: '',
+    };
+
+    clubName = '';
+    cityName = '';
+    trainerName = '';
+
+    PhotoSportsman: string | File | null | undefined = '';
+    ConfirmAddressFile: string | File | null | undefined = '';
+    RusadaFile: string | File | null | undefined = '';
+    SchoolFile: string | File | null | undefined = '';
+    CovidContactFile: string | File | null | undefined = '';
+    CovidTestFile: string | File | null | undefined = '';
+    ParentDocFile: string | File | null | undefined = '';
+
+    ParDocImg: null | string = null;
+    CovidImg: null | string = null;
+    CovidTestImg: null | string = null;
+    SchoolFileImg: null | string = null;
+    RusadaFileImg: null | string = null;
+    CAImg: null | string = null;
+    PhotoSportsmanImg: null | string = null;
+
     /* MODAL */
     isEdit = false;
     isModalInsurance = false;
@@ -1364,8 +1246,185 @@ export default class EditCardSportsman extends Vue {
     isModalOms = false;
     isModalPassport = false;
     isModalProxy = false;
-
     Editable = false;
+
+    /* METHOD */
+    public PhotoSportsmanUpload(): void {
+        const fileList: FileList | null = (this.$refs['PhotoSportsman'] as HTMLInputElement).files;
+        this.PhotoSportsman = fileList?.item(0);
+
+        if (fileList?.length !== 0) {
+            this.PhotoSportsmanImg = formatFileToBase64(this.PhotoSportsman);
+        }
+
+        this.Editable = true;
+    }
+    public ConfirmAddressFileUpload(): void {
+        const fileList: FileList | null = (this.$refs['ConfirmAddressFile'] as HTMLInputElement)
+            .files;
+        this.ConfirmAddressFile = fileList?.item(0);
+
+        if (fileList?.length !== 0) {
+            this.CAImg = formatFileToBase64(this.ConfirmAddressFile);
+        }
+
+        this.Editable = true;
+    }
+    public RusadaFileUpload(): void {
+        const fileList: FileList | null = (this.$refs['RusadaFile'] as HTMLInputElement).files;
+        this.RusadaFile = fileList?.item(0);
+
+        if (fileList?.length !== 0) {
+            this.RusadaFileImg = formatFileToBase64(this.RusadaFile);
+        }
+
+        this.Editable = true;
+    }
+    public SchoolFileUpload(): void {
+        const fileList: FileList | null = (this.$refs['SchoolFile'] as HTMLInputElement).files;
+        this.SchoolFile = fileList?.item(0);
+
+        if (fileList?.length !== 0) {
+            this.SchoolFileImg = formatFileToBase64(this.SchoolFile);
+        }
+
+        this.Editable = true;
+    }
+    public CovidTestFileUpload(): void {
+        const fileList: FileList | null = (this.$refs['CovidTestFile'] as HTMLInputElement).files;
+        this.CovidTestFile = fileList?.item(0);
+
+        if (fileList?.length !== 0) {
+            this.CovidTestImg = formatFileToBase64(this.CovidTestFile);
+        }
+
+        this.Editable = true;
+    }
+    public CovidContactFileUpload(): void {
+        const fileList: FileList | null = (this.$refs['CovidContactFile'] as HTMLInputElement)
+            .files;
+        this.CovidContactFile = fileList?.item(0);
+
+        if (fileList?.length !== 0) {
+            this.CovidImg = formatFileToBase64(this.CovidContactFile);
+        }
+
+        this.Editable = true;
+    }
+    public ParentDocFileUpload(): void {
+        const fileList: FileList | null = (this.$refs['ParentDocFile'] as HTMLInputElement).files;
+        this.ParentDocFile = fileList?.item(0);
+
+        if (fileList?.length !== 0) {
+            this.ParDocImg = formatFileToBase64(this.ParentDocFile);
+        }
+
+        this.Editable = true;
+    }
+    public initSelectors(): void {
+        if (!isEmpty(this.sportsmanMap.sportsman.trainer)) {
+            const trainer = this.sportsmanMap.sportsman.trainer;
+            this.trainerName = `${trainer.surname} ${trainer.name} ${trainer.patronymic}`;
+        }
+        if (!isEmpty(this.sportsmanMap.sportsman.club)) {
+            this.clubName = this.sportsmanMap.sportsman.club.name_of_club;
+        }
+        if (!isEmpty(this.sportsmanMap.sportsman.city)) {
+            this.cityName = this.sportsmanMap.sportsman.city.name_of_city;
+        }
+    }
+    public editSportsman(): void {
+        if (this.sportsmanMap.photo) {
+            this.sportsman.photo = this.sportsmanMap.photo;
+        } else {
+            this.sportsman.photo = this.PhotoSportsman;
+        }
+        if (this.sportsmanMap.confirm_address) {
+            this.sportsman.confirm_address = this.sportsmanMap.confirm_address;
+        } else {
+            this.sportsman.confirm_address = this.ConfirmAddressFile;
+        }
+        if (this.sportsmanMap.rusada) {
+            this.sportsman.rusada = this.sportsmanMap.rusada;
+        } else {
+            this.sportsman.rusada = this.RusadaFile;
+        }
+        if (this.sportsmanMap.school_doc) {
+            this.sportsman.school_doc = this.sportsmanMap.school_doc;
+        } else {
+            this.sportsman.school_doc = this.SchoolFile;
+        }
+        if (this.sportsmanMap.covid_test) {
+            this.sportsman.covid_test = this.sportsmanMap.covid_test;
+        } else {
+            this.sportsman.covid_test = this.CovidTestFile;
+        }
+        if (this.sportsmanMap.covid_contact) {
+            this.sportsman.covid_contact = this.sportsmanMap.covid_contact;
+        } else {
+            this.sportsman.covid_contact = this.CovidContactFile;
+        }
+        if (this.sportsmanMap.parent_doc) {
+            this.sportsman.parent_doc = this.sportsmanMap.parent_doc;
+        } else {
+            this.sportsman.parent_doc = this.ParentDocFile;
+        }
+
+        this.sportsman.name = this.sportsmanMap.sportsman.name;
+        this.sportsman.surname = this.sportsmanMap.sportsman.surname;
+        this.sportsman.patronymic = this.sportsmanMap.sportsman.patronymic;
+        this.sportsman.date_of_birth = this.sportsmanMap.sportsman.date_of_birth;
+        this.sportsman.address = this.sportsmanMap.sportsman.address;
+        this.sportsman.gender = this.sportsmanMap.sportsman.gender;
+        this.sportsman.duan_czi = this.sportsmanMap.sportsman.duan_czi;
+        this.sportsman.rank = this.sportsmanMap.sportsman.rank;
+
+        if (this.sportsmanMap.sportsman.passport) {
+            this.sportsman.passport = this.sportsmanMap.sportsman.passport;
+        } else {
+            this.sportsman.passport = this.passportMap.passport;
+        }
+        if (this.sportsmanMap.sportsman.birth_certificate) {
+            this.sportsman.birth_certificate = this.sportsmanMap.sportsman.birth_certificate;
+        } else {
+            this.sportsman.birth_certificate = this.birthCertificateMap.birthCertificate;
+        }
+        if (this.sportsmanMap.sportsman.proxy) {
+            this.sportsman.proxy = this.sportsmanMap.sportsman.proxy;
+        } else {
+            this.sportsman.proxy = this.proxyMap.proxy;
+        }
+        if (this.sportsmanMap.sportsman.oms) {
+            this.sportsman.oms = this.sportsmanMap.sportsman.oms;
+        } else {
+            this.sportsman.oms = this.omsMap.oms;
+        }
+        if (this.sportsmanMap.sportsman.insurance) {
+            this.sportsman.insurance = this.sportsmanMap.sportsman.insurance;
+        } else {
+            this.sportsman.insurance = this.insuranceMap.insurance;
+        }
+
+        const oldCity = this.cityName;
+        const oldClub = this.clubName;
+        const oldTrainer = this.trainerName;
+
+        const cityId = this.arrValueCity.indexOf(oldCity);
+        const clubId = this.arrValueClub.indexOf(oldClub);
+        const trainerId = this.arrValueTrainer.indexOf(oldTrainer);
+
+        this.sportsman.city = this.cityMap.cities[cityId];
+        this.sportsman.club = this.clubMap.clubs[clubId];
+        this.sportsman.trainer = this.trainerMap.trainers[trainerId];
+
+        this.putSportsman(this.sportsman);
+
+        this.cityName = oldCity;
+        this.clubName = oldClub;
+        this.trainerName = oldTrainer;
+
+        this.Editable = false;
+    }
 
     /* STATE */
     @State('sportsman')
@@ -1402,6 +1461,11 @@ export default class EditCardSportsman extends Vue {
     arrValueTrainer: Array<string> | undefined;
     @Getter('FullName', { namespace })
     FullName: string | undefined;
+
+    mounted(): void {
+        this.getSportsman(this.$route.params.id);
+        this.initSelectors();
+    }
 }
 </script>
 
