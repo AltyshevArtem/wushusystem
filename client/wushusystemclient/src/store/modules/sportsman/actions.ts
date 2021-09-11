@@ -196,6 +196,8 @@ export const actions: ActionTree<ISportsmanState, null> = {
         if (!isEmpty(sportsman.patronymic)) {
             data.append('patronymic', sportsman.patronymic);
         }
+        console.log(sportsman.photo);
+        console.log(isFile(sportsman.photo));
         if (isFile(sportsman.photo) || sportsman.photo === '') {
             data.append('photo', sportsman.photo);
         }

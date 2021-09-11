@@ -58,9 +58,9 @@
                                         <div class="form-group">
                                             <label for="DateOfBirth">Дата рождения: </label>
                                             <input
+                                                @change="Editable = true"
                                                 placeholder="YYYY-MM-DD"
                                                 class="form-control"
-                                                @change="Editable = true"
                                                 v-model="sportsmanMap.sportsman.date_of_birth"
                                             />
                                         </div>
@@ -68,8 +68,8 @@
                                     <li class="list-group-item">
                                         Разряд:
                                         <SelectRank
-                                            mode="single"
                                             @change="Editable = true"
+                                            mode="single"
                                             v-model="sportsmanMap.sportsman.rank"
                                         />
                                     </li>
@@ -1030,9 +1030,6 @@ import OmsModal from '@/components/Modal/Documents/OmsModal.vue';
 import PassportModal from '@/components/Modal/Documents/PassportModal.vue';
 import ProxyModal from '@/components/Modal/Documents/ProxyModal.vue';
 
-/* SCRIPT */
-import formatFileToBase64 from '@/scripts/formatFileToBase64';
-
 /* MODELS */
 import { IGender } from '@/models/gender';
 import { IRank } from '@/models/rank';
@@ -1095,10 +1092,10 @@ export default class EditCardSportsman extends Vue {
         name: string | undefined;
         surname: string | undefined;
         patronymic: string | undefined;
-        photo: string | File;
+        photo: string | File | null;
         date_of_birth: Date | undefined;
         address: string | undefined;
-        confirm_address: string | File;
+        confirm_address: string | File | null;
         gender: IGender | undefined;
         passport: IPassport | undefined;
         birth_certificate: IBirthCertificate | undefined;
@@ -1109,11 +1106,11 @@ export default class EditCardSportsman extends Vue {
         club: IClub | undefined;
         insurance: IInsurance | undefined;
         rank: IRank | undefined;
-        rusada: string | File;
-        covid_test: string | File;
-        covid_contact: string | File;
-        parent_doc: string | File;
-        school_doc: string | File;
+        rusada: string | File | null;
+        covid_test: string | File | null;
+        covid_contact: string | File | null;
+        parent_doc: string | File | null;
+        school_doc: string | File | null;
         duan_czi: IDuanCzi | undefined;
     };
 
@@ -1121,21 +1118,21 @@ export default class EditCardSportsman extends Vue {
     cityName = '';
     trainerName = '';
 
-    PhotoSportsman: string | File = '';
-    ConfirmAddressFile: string | File = '';
-    RusadaFile: string | File = '';
-    SchoolFile: string | File = '';
-    CovidContactFile: string | File = '';
-    CovidTestFile: string | File = '';
-    ParentDocFile: string | File = '';
+    PhotoSportsman: string | File | null = '';
+    ConfirmAddressFile: string | File | null = '';
+    RusadaFile: string | File | null = '';
+    SchoolFile: string | File | null = '';
+    CovidContactFile: string | File | null = '';
+    CovidTestFile: string | File | null = '';
+    ParentDocFile: string | File | null = '';
 
-    ParDocImg: null | string = null;
-    CovidImg: null | string = null;
-    CovidTestImg: null | string = null;
-    SchoolFileImg: null | string = null;
-    RusadaFileImg: null | string = null;
-    CAImg: null | string = null;
-    PhotoSportsmanImg: null | string = null;
+    ParDocImg: string | ArrayBuffer | null = null;
+    CovidImg: string | ArrayBuffer | null = null;
+    CovidTestImg: string | ArrayBuffer | null = null;
+    SchoolFileImg: string | ArrayBuffer | null = null;
+    RusadaFileImg: string | ArrayBuffer | null = null;
+    CAImg: string | ArrayBuffer | null = null;
+    PhotoSportsmanImg: string | ArrayBuffer | null = null;
 
     /* MODAL */
     isEdit = false;
@@ -1150,11 +1147,17 @@ export default class EditCardSportsman extends Vue {
     public PhotoSportsmanUpload(): void {
         const fileList: FileList | null = (this.$refs['PhotoSportsman'] as HTMLInputElement).files;
         if (fileList?.item(0)) {
-            this.PhotoSportsman = String(fileList?.item(0));
-        }
-
-        if (fileList?.length !== 0) {
-            this.PhotoSportsmanImg = formatFileToBase64(this.PhotoSportsman);
+            this.PhotoSportsman = fileList?.item(0);
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target != null) {
+                    this.PhotoSportsmanImg = event.target.result;
+                }
+            };
+            console.log(this.PhotoSportsman);
+            if (this.PhotoSportsman) {
+                reader.readAsDataURL(this.PhotoSportsman);
+            }
         }
 
         this.Editable = true;
@@ -1163,50 +1166,67 @@ export default class EditCardSportsman extends Vue {
         const fileList: FileList | null = (this.$refs['ConfirmAddressFile'] as HTMLInputElement)
             .files;
         if (fileList?.item(0)) {
-            this.ConfirmAddressFile = String(fileList?.item(0));
-        }
-
-        if (fileList?.length !== 0) {
-            this.CAImg = formatFileToBase64(this.ConfirmAddressFile);
+            this.ConfirmAddressFile = fileList?.item(0);
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target != null) {
+                    this.CAImg = event.target.result;
+                }
+            };
+            if (this.ConfirmAddressFile) {
+                reader.readAsDataURL(this.ConfirmAddressFile);
+            }
         }
 
         this.Editable = true;
     }
     public RusadaFileUpload(): void {
         const fileList: FileList | null = (this.$refs['RusadaFile'] as HTMLInputElement).files;
-
         if (fileList?.item(0)) {
-            this.RusadaFile = String(fileList?.item(0));
-        }
-
-        if (fileList?.length !== 0) {
-            this.RusadaFileImg = formatFileToBase64(this.RusadaFile);
+            this.RusadaFile = fileList?.item(0);
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target != null) {
+                    this.RusadaFileImg = event.target.result;
+                }
+            };
+            if (this.RusadaFile) {
+                reader.readAsDataURL(this.RusadaFile);
+            }
         }
 
         this.Editable = true;
     }
     public SchoolFileUpload(): void {
         const fileList: FileList | null = (this.$refs['SchoolFile'] as HTMLInputElement).files;
-
         if (fileList?.item(0)) {
-            this.SchoolFile = String(fileList?.item(0));
-        }
-
-        if (fileList?.length !== 0) {
-            this.SchoolFileImg = formatFileToBase64(this.SchoolFile);
+            this.SchoolFile = fileList?.item(0);
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target != null) {
+                    this.SchoolFileImg = event.target.result;
+                }
+            };
+            if (this.SchoolFile) {
+                reader.readAsDataURL(this.SchoolFile);
+            }
         }
 
         this.Editable = true;
     }
     public CovidTestFileUpload(): void {
         const fileList: FileList | null = (this.$refs['CovidTestFile'] as HTMLInputElement).files;
-
         if (fileList?.item(0)) {
-            this.CovidTestFile = String(fileList?.item(0));
-        }
-
-        if (fileList?.length !== 0) {
-            this.CovidTestImg = formatFileToBase64(this.CovidTestFile);
+            this.CovidTestFile = fileList?.item(0);
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target != null) {
+                    this.CovidTestImg = event.target.result;
+                }
+            };
+            if (this.CovidTestFile) {
+                reader.readAsDataURL(this.CovidTestFile);
+            }
         }
 
         this.Editable = true;
@@ -1214,26 +1234,34 @@ export default class EditCardSportsman extends Vue {
     public CovidContactFileUpload(): void {
         const fileList: FileList | null = (this.$refs['CovidContactFile'] as HTMLInputElement)
             .files;
-
         if (fileList?.item(0)) {
-            this.CovidContactFile = String(fileList?.item(0));
-        }
-
-        if (fileList?.length !== 0) {
-            this.CovidImg = formatFileToBase64(this.CovidContactFile);
+            this.CovidContactFile = fileList?.item(0);
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target != null) {
+                    this.CovidImg = event.target.result;
+                }
+            };
+            if (this.CovidContactFile) {
+                reader.readAsDataURL(this.CovidContactFile);
+            }
         }
 
         this.Editable = true;
     }
     public ParentDocFileUpload(): void {
         const fileList: FileList | null = (this.$refs['ParentDocFile'] as HTMLInputElement).files;
-
         if (fileList?.item(0)) {
-            this.ParentDocFile = String(fileList?.item(0));
-        }
-
-        if (fileList?.length !== 0) {
-            this.ParDocImg = formatFileToBase64(this.ParentDocFile);
+            this.ParentDocFile = fileList?.item(0);
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target != null) {
+                    this.ParDocImg = event.target.result;
+                }
+            };
+            if (this.ParentDocFile) {
+                reader.readAsDataURL(this.ParentDocFile);
+            }
         }
 
         this.Editable = true;
@@ -1278,11 +1306,9 @@ export default class EditCardSportsman extends Vue {
             school_doc: '',
             duan_czi: undefined,
         };
-
         if (this.sportsmanMap.sportsman?.id) {
             this.sportsman.id = this.sportsmanMap.sportsman.id;
         }
-
         if (this.sportsmanMap.sportsman?.photo) {
             this.sportsman.photo = this.sportsmanMap.sportsman?.photo;
         } else {
