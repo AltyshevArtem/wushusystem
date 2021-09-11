@@ -1,5 +1,5 @@
-export default function formatFileToBase64(file: File | null | undefined): string {
-    if (file === null || file === undefined) return '';
+export default function formatFileToBase64(file: File | string | null | undefined): string {
+    if (file === null || file === undefined || typeof file === 'string') return '';
 
     let result: string | ArrayBuffer | null = '';
 

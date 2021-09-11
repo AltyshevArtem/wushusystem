@@ -21,7 +21,7 @@
                                     <li class="list-group-item">
                                         <span>Фамилия:</span>
                                         <input
-                                            @change="this.Editable = true"
+                                            @change="Editable = true"
                                             class="form-control"
                                             placeholder="Фамилия"
                                             v-model="sportsmanMap.sportsman.surname"
@@ -30,7 +30,7 @@
                                     <li class="list-group-item">
                                         <span>Имя: </span>
                                         <input
-                                            @change="this.Editable = true"
+                                            @change="Editable = true"
                                             class="form-control"
                                             placeholder="Имя"
                                             v-model="sportsmanMap.sportsman.name"
@@ -39,7 +39,7 @@
                                     <li class="list-group-item">
                                         <span>Отчество: </span>
                                         <input
-                                            @change="this.Editable = true"
+                                            @change="Editable = true"
                                             class="form-control"
                                             placeholder="Отчество"
                                             v-model="sportsmanMap.sportsman.patronymic"
@@ -60,7 +60,7 @@
                                             <input
                                                 placeholder="YYYY-MM-DD"
                                                 class="form-control"
-                                                @change="this.Editable = true"
+                                                @change="Editable = true"
                                                 v-model="sportsmanMap.sportsman.date_of_birth"
                                             />
                                         </div>
@@ -170,7 +170,7 @@
                                 <span>Адрес прописки: </span>
                                 <span
                                     ><input
-                                        @change="this.Editable = true"
+                                        @change="Editable = true"
                                         class="form-control"
                                         v-model="sportsmanMap.sportsman.address"
                                 /></span>
@@ -1031,8 +1031,16 @@ import PassportModal from '@/components/Modal/Documents/PassportModal.vue';
 import ProxyModal from '@/components/Modal/Documents/ProxyModal.vue';
 
 /* SCRIPT */
-import isEmpty from '@/scripts/isEmpty';
 import formatFileToBase64 from '@/scripts/formatFileToBase64';
+
+/* MODELS */
+import { IGender } from '@/models/gender';
+import { IRank } from '@/models/rank';
+import { IDuanCzi } from '@/models/duan_czi';
+import { ICity } from '@/models/city';
+import { IBirthCertificate, IInsurance, IOms, IPassport, IProxyDoc } from '@/models/sportsman';
+import { ITrainer } from '@/models/trainer';
+import { IClub } from '@/models/club';
 
 /* NAMESPACE */
 const namespace = 'sportsman';
@@ -1043,112 +1051,6 @@ const namespaceTrainer = 'trainer';
 
 @Options({
     name: 'EditCardSportsman',
-    methods: {
-        initSelectors(): void {
-            if (!isEmpty(this.sportsmanMap.sportsman.trainer)) {
-                const trainer = this.sportsmanMap.sportsman.trainer;
-                this.trainerName = `${trainer.surname} ${trainer.name} ${trainer.patronymic}`;
-            }
-            if (!isEmpty(this.sportsmanMap.sportsman.club)) {
-                this.clubName = this.sportsmanMap.sportsman.club.name_of_club;
-            }
-            if (!isEmpty(this.sportsmanMap.sportsman.city)) {
-                this.cityName = this.sportsmanMap.sportsman.city.name_of_city;
-            }
-        },
-        editSportsman() {
-            if (this.sportsmanMap.photo) {
-                this.sportsman.photo = this.sportsmanMap.photo;
-            } else {
-                this.sportsman.photo = this.PhotoSportsman;
-            }
-            if (this.sportsmanMap.confirm_address) {
-                this.sportsman.confirm_address = this.sportsmanMap.confirm_address;
-            } else {
-                this.sportsman.confirm_address = this.ConfirmAddressFile;
-            }
-            if (this.sportsmanMap.rusada) {
-                this.sportsman.rusada = this.sportsmanMap.rusada;
-            } else {
-                this.sportsman.rusada = this.RusadaFile;
-            }
-            if (this.sportsmanMap.school_doc) {
-                this.sportsman.school_doc = this.sportsmanMap.school_doc;
-            } else {
-                this.sportsman.school_doc = this.SchoolFile;
-            }
-            if (this.sportsmanMap.covid_test) {
-                this.sportsman.covid_test = this.sportsmanMap.covid_test;
-            } else {
-                this.sportsman.covid_test = this.CovidTestFile;
-            }
-            if (this.sportsmanMap.covid_contact) {
-                this.sportsman.covid_contact = this.sportsmanMap.covid_contact;
-            } else {
-                this.sportsman.covid_contact = this.CovidContactFile;
-            }
-            if (this.sportsmanMap.parent_doc) {
-                this.sportsman.parent_doc = this.sportsmanMap.parent_doc;
-            } else {
-                this.sportsman.parent_doc = this.ParentDocFile;
-            }
-
-            this.sportsman.name = this.sportsmanMap.sportsman.name;
-            this.sportsman.surname = this.sportsmanMap.sportsman.surname;
-            this.sportsman.patronymic = this.sportsmanMap.sportsman.patronymic;
-            this.sportsman.date_of_birth = this.sportsmanMap.sportsman.date_of_birth;
-            this.sportsman.address = this.sportsmanMap.sportsman.address;
-            this.sportsman.gender = this.sportsmanMap.sportsman.gender;
-            this.sportsman.duan_czi = this.sportsmanMap.sportsman.duan_czi;
-            this.sportsman.rank = this.sportsmanMap.sportsman.rank;
-
-            if (this.sportsmanMap.sportsman.passport) {
-                this.sportsman.passport = this.sportsmanMap.sportsman.passport;
-            } else {
-                this.sportsman.passport = this.passportMap.passport;
-            }
-            if (this.sportsmanMap.sportsman.birth_certificate) {
-                this.sportsman.birth_certificate = this.sportsmanMap.sportsman.birth_certificate;
-            } else {
-                this.sportsman.birth_certificate = this.birthCertificateMap.birthCertificate;
-            }
-            if (this.sportsmanMap.sportsman.proxy) {
-                this.sportsman.proxy = this.sportsmanMap.sportsman.proxy;
-            } else {
-                this.sportsman.proxy = this.proxyMap.proxy;
-            }
-            if (this.sportsmanMap.sportsman.oms) {
-                this.sportsman.oms = this.sportsmanMap.sportsman.oms;
-            } else {
-                this.sportsman.oms = this.omsMap.oms;
-            }
-            if (this.sportsmanMap.sportsman.insurance) {
-                this.sportsman.insurance = this.sportsmanMap.sportsman.insurance;
-            } else {
-                this.sportsman.insurance = this.insuranceMap.insurance;
-            }
-
-            const oldCity = this.cityName;
-            const oldClub = this.clubName;
-            const oldTrainer = this.trainerName;
-
-            const cityId = this.arrValueCity.indexOf(oldCity);
-            const clubId = this.arrValueClub.indexOf(oldClub);
-            const trainerId = this.arrValueTrainer.indexOf(oldTrainer);
-
-            this.sportsman.city = this.cityMap.cities[cityId];
-            this.sportsman.club = this.clubMap.clubs[clubId];
-            this.sportsman.trainer = this.trainerMap.trainers[trainerId];
-
-            this.putSportsman(this.sportsman);
-
-            this.cityName = oldCity;
-            this.clubName = oldClub;
-            this.trainerName = oldTrainer;
-
-            this.Editable = false;
-        },
-    },
     beforeRouteLeave(to, from, next) {
         if (this.Editable === true) {
             Swal.fire({
@@ -1172,10 +1074,6 @@ const namespaceTrainer = 'trainer';
             next();
         }
     },
-    mounted() {
-        this.getSportsman(this.$route.params.id);
-        this.initSelectors();
-    },
     components: {
         SelectGender,
         SelectRank,
@@ -1192,44 +1090,44 @@ const namespaceTrainer = 'trainer';
 })
 export default class EditCardSportsman extends Vue {
     /* DATA */
-    sportsman: {
-        id: number | string;
-        name: string;
-        surname: '',
-        patronymic: '',
-        photo: '',
-        date_of_birth: '',
-        address: '',
-        confirm_address: '',
-        gender: '',
-        passport: '',
-        birth_certificate: '',
-        proxy: '',
-        oms: '',
-        city: '',
-        trainer: '',
-        club: '',
-        insurance: '',
-        rank: '',
-        rusada: '',
-        covid_test: '',
-        covid_contact: '',
-        parent_doc: '',
-        school_doc: '',
-        duan_czi: '',
+    sportsman!: {
+        id: number | undefined;
+        name: string | undefined;
+        surname: string | undefined;
+        patronymic: string | undefined;
+        photo: string | File;
+        date_of_birth: Date | undefined;
+        address: string | undefined;
+        confirm_address: string | File;
+        gender: IGender | undefined;
+        passport: IPassport | undefined;
+        birth_certificate: IBirthCertificate | undefined;
+        proxy: IProxyDoc | undefined;
+        oms: IOms | undefined;
+        city: ICity | undefined;
+        trainer: ITrainer | undefined;
+        club: IClub | undefined;
+        insurance: IInsurance | undefined;
+        rank: IRank | undefined;
+        rusada: string | File;
+        covid_test: string | File;
+        covid_contact: string | File;
+        parent_doc: string | File;
+        school_doc: string | File;
+        duan_czi: IDuanCzi | undefined;
     };
 
     clubName = '';
     cityName = '';
     trainerName = '';
 
-    PhotoSportsman: string | File | null | undefined = '';
-    ConfirmAddressFile: string | File | null | undefined = '';
-    RusadaFile: string | File | null | undefined = '';
-    SchoolFile: string | File | null | undefined = '';
-    CovidContactFile: string | File | null | undefined = '';
-    CovidTestFile: string | File | null | undefined = '';
-    ParentDocFile: string | File | null | undefined = '';
+    PhotoSportsman: string | File = '';
+    ConfirmAddressFile: string | File = '';
+    RusadaFile: string | File = '';
+    SchoolFile: string | File = '';
+    CovidContactFile: string | File = '';
+    CovidTestFile: string | File = '';
+    ParentDocFile: string | File = '';
 
     ParDocImg: null | string = null;
     CovidImg: null | string = null;
@@ -1251,7 +1149,9 @@ export default class EditCardSportsman extends Vue {
     /* METHOD */
     public PhotoSportsmanUpload(): void {
         const fileList: FileList | null = (this.$refs['PhotoSportsman'] as HTMLInputElement).files;
-        this.PhotoSportsman = fileList?.item(0);
+        if (fileList?.item(0)) {
+            this.PhotoSportsman = String(fileList?.item(0));
+        }
 
         if (fileList?.length !== 0) {
             this.PhotoSportsmanImg = formatFileToBase64(this.PhotoSportsman);
@@ -1262,7 +1162,9 @@ export default class EditCardSportsman extends Vue {
     public ConfirmAddressFileUpload(): void {
         const fileList: FileList | null = (this.$refs['ConfirmAddressFile'] as HTMLInputElement)
             .files;
-        this.ConfirmAddressFile = fileList?.item(0);
+        if (fileList?.item(0)) {
+            this.ConfirmAddressFile = String(fileList?.item(0));
+        }
 
         if (fileList?.length !== 0) {
             this.CAImg = formatFileToBase64(this.ConfirmAddressFile);
@@ -1272,7 +1174,10 @@ export default class EditCardSportsman extends Vue {
     }
     public RusadaFileUpload(): void {
         const fileList: FileList | null = (this.$refs['RusadaFile'] as HTMLInputElement).files;
-        this.RusadaFile = fileList?.item(0);
+
+        if (fileList?.item(0)) {
+            this.RusadaFile = String(fileList?.item(0));
+        }
 
         if (fileList?.length !== 0) {
             this.RusadaFileImg = formatFileToBase64(this.RusadaFile);
@@ -1282,7 +1187,10 @@ export default class EditCardSportsman extends Vue {
     }
     public SchoolFileUpload(): void {
         const fileList: FileList | null = (this.$refs['SchoolFile'] as HTMLInputElement).files;
-        this.SchoolFile = fileList?.item(0);
+
+        if (fileList?.item(0)) {
+            this.SchoolFile = String(fileList?.item(0));
+        }
 
         if (fileList?.length !== 0) {
             this.SchoolFileImg = formatFileToBase64(this.SchoolFile);
@@ -1292,7 +1200,10 @@ export default class EditCardSportsman extends Vue {
     }
     public CovidTestFileUpload(): void {
         const fileList: FileList | null = (this.$refs['CovidTestFile'] as HTMLInputElement).files;
-        this.CovidTestFile = fileList?.item(0);
+
+        if (fileList?.item(0)) {
+            this.CovidTestFile = String(fileList?.item(0));
+        }
 
         if (fileList?.length !== 0) {
             this.CovidTestImg = formatFileToBase64(this.CovidTestFile);
@@ -1303,7 +1214,10 @@ export default class EditCardSportsman extends Vue {
     public CovidContactFileUpload(): void {
         const fileList: FileList | null = (this.$refs['CovidContactFile'] as HTMLInputElement)
             .files;
-        this.CovidContactFile = fileList?.item(0);
+
+        if (fileList?.item(0)) {
+            this.CovidContactFile = String(fileList?.item(0));
+        }
 
         if (fileList?.length !== 0) {
             this.CovidImg = formatFileToBase64(this.CovidContactFile);
@@ -1313,7 +1227,10 @@ export default class EditCardSportsman extends Vue {
     }
     public ParentDocFileUpload(): void {
         const fileList: FileList | null = (this.$refs['ParentDocFile'] as HTMLInputElement).files;
-        this.ParentDocFile = fileList?.item(0);
+
+        if (fileList?.item(0)) {
+            this.ParentDocFile = String(fileList?.item(0));
+        }
 
         if (fileList?.length !== 0) {
             this.ParDocImg = formatFileToBase64(this.ParentDocFile);
@@ -1322,84 +1239,116 @@ export default class EditCardSportsman extends Vue {
         this.Editable = true;
     }
     public initSelectors(): void {
-        if (!isEmpty(this.sportsmanMap.sportsman.trainer)) {
-            const trainer = this.sportsmanMap.sportsman.trainer;
+        if (this.sportsmanMap.sportsman?.trainer) {
+            const trainer = this.sportsmanMap.sportsman?.trainer;
+
             this.trainerName = `${trainer.surname} ${trainer.name} ${trainer.patronymic}`;
         }
-        if (!isEmpty(this.sportsmanMap.sportsman.club)) {
+        if (this.sportsmanMap.sportsman?.club) {
             this.clubName = this.sportsmanMap.sportsman.club.name_of_club;
         }
-        if (!isEmpty(this.sportsmanMap.sportsman.city)) {
+        if (this.sportsmanMap.sportsman?.city) {
             this.cityName = this.sportsmanMap.sportsman.city.name_of_city;
         }
     }
     public editSportsman(): void {
-        if (this.sportsmanMap.photo) {
-            this.sportsman.photo = this.sportsmanMap.photo;
+        this.sportsman = {
+            id: 0,
+            name: '',
+            surname: '',
+            patronymic: '',
+            photo: '',
+            date_of_birth: undefined,
+            address: '',
+            confirm_address: '',
+            gender: undefined,
+            passport: undefined,
+            birth_certificate: undefined,
+            proxy: undefined,
+            oms: undefined,
+            city: undefined,
+            trainer: undefined,
+            club: undefined,
+            insurance: undefined,
+            rank: undefined,
+            rusada: '',
+            covid_test: '',
+            covid_contact: '',
+            parent_doc: '',
+            school_doc: '',
+            duan_czi: undefined,
+        };
+
+        if (this.sportsmanMap.sportsman?.id) {
+            this.sportsman.id = this.sportsmanMap.sportsman.id;
+        }
+
+        if (this.sportsmanMap.sportsman?.photo) {
+            this.sportsman.photo = this.sportsmanMap.sportsman?.photo;
         } else {
             this.sportsman.photo = this.PhotoSportsman;
         }
-        if (this.sportsmanMap.confirm_address) {
-            this.sportsman.confirm_address = this.sportsmanMap.confirm_address;
+        if (this.sportsmanMap.sportsman?.confirm_address) {
+            this.sportsman.confirm_address = this.sportsmanMap.sportsman?.confirm_address;
         } else {
             this.sportsman.confirm_address = this.ConfirmAddressFile;
         }
-        if (this.sportsmanMap.rusada) {
-            this.sportsman.rusada = this.sportsmanMap.rusada;
+        if (this.sportsmanMap.sportsman?.rusada) {
+            this.sportsman.rusada = this.sportsmanMap.sportsman?.rusada;
         } else {
             this.sportsman.rusada = this.RusadaFile;
         }
-        if (this.sportsmanMap.school_doc) {
-            this.sportsman.school_doc = this.sportsmanMap.school_doc;
+        if (this.sportsmanMap.sportsman?.school_doc) {
+            this.sportsman.school_doc = this.sportsmanMap.sportsman?.school_doc;
         } else {
             this.sportsman.school_doc = this.SchoolFile;
         }
-        if (this.sportsmanMap.covid_test) {
-            this.sportsman.covid_test = this.sportsmanMap.covid_test;
+        if (this.sportsmanMap.sportsman?.covid_test) {
+            this.sportsman.covid_test = this.sportsmanMap.sportsman?.covid_test;
         } else {
             this.sportsman.covid_test = this.CovidTestFile;
         }
-        if (this.sportsmanMap.covid_contact) {
-            this.sportsman.covid_contact = this.sportsmanMap.covid_contact;
+        if (this.sportsmanMap.sportsman?.covid_contact) {
+            this.sportsman.covid_contact = this.sportsmanMap.sportsman?.covid_contact;
         } else {
             this.sportsman.covid_contact = this.CovidContactFile;
         }
-        if (this.sportsmanMap.parent_doc) {
-            this.sportsman.parent_doc = this.sportsmanMap.parent_doc;
+        if (this.sportsmanMap.sportsman?.parent_doc) {
+            this.sportsman.parent_doc = this.sportsmanMap.sportsman?.parent_doc;
         } else {
             this.sportsman.parent_doc = this.ParentDocFile;
         }
 
-        this.sportsman.name = this.sportsmanMap.sportsman.name;
-        this.sportsman.surname = this.sportsmanMap.sportsman.surname;
-        this.sportsman.patronymic = this.sportsmanMap.sportsman.patronymic;
-        this.sportsman.date_of_birth = this.sportsmanMap.sportsman.date_of_birth;
-        this.sportsman.address = this.sportsmanMap.sportsman.address;
-        this.sportsman.gender = this.sportsmanMap.sportsman.gender;
-        this.sportsman.duan_czi = this.sportsmanMap.sportsman.duan_czi;
-        this.sportsman.rank = this.sportsmanMap.sportsman.rank;
+        this.sportsman.name = this.sportsmanMap.sportsman?.name;
+        this.sportsman.surname = this.sportsmanMap.sportsman?.surname;
+        this.sportsman.patronymic = this.sportsmanMap.sportsman?.patronymic;
+        this.sportsman.date_of_birth = this.sportsmanMap.sportsman?.date_of_birth;
+        this.sportsman.address = this.sportsmanMap.sportsman?.address;
+        this.sportsman.gender = this.sportsmanMap.sportsman?.gender;
+        this.sportsman.duan_czi = this.sportsmanMap.sportsman?.duan_czi;
+        this.sportsman.rank = this.sportsmanMap.sportsman?.rank;
 
-        if (this.sportsmanMap.sportsman.passport) {
+        if (this.sportsmanMap.sportsman?.passport) {
             this.sportsman.passport = this.sportsmanMap.sportsman.passport;
         } else {
             this.sportsman.passport = this.passportMap.passport;
         }
-        if (this.sportsmanMap.sportsman.birth_certificate) {
+        if (this.sportsmanMap.sportsman?.birth_certificate) {
             this.sportsman.birth_certificate = this.sportsmanMap.sportsman.birth_certificate;
         } else {
             this.sportsman.birth_certificate = this.birthCertificateMap.birthCertificate;
         }
-        if (this.sportsmanMap.sportsman.proxy) {
+        if (this.sportsmanMap.sportsman?.proxy) {
             this.sportsman.proxy = this.sportsmanMap.sportsman.proxy;
         } else {
             this.sportsman.proxy = this.proxyMap.proxy;
         }
-        if (this.sportsmanMap.sportsman.oms) {
+        if (this.sportsmanMap.sportsman?.oms) {
             this.sportsman.oms = this.sportsmanMap.sportsman.oms;
         } else {
             this.sportsman.oms = this.omsMap.oms;
         }
-        if (this.sportsmanMap.sportsman.insurance) {
+        if (this.sportsmanMap.sportsman?.insurance) {
             this.sportsman.insurance = this.sportsmanMap.sportsman.insurance;
         } else {
             this.sportsman.insurance = this.insuranceMap.insurance;
@@ -1409,13 +1358,19 @@ export default class EditCardSportsman extends Vue {
         const oldClub = this.clubName;
         const oldTrainer = this.trainerName;
 
-        const cityId = this.arrValueCity.indexOf(oldCity);
-        const clubId = this.arrValueClub.indexOf(oldClub);
-        const trainerId = this.arrValueTrainer.indexOf(oldTrainer);
+        const cityId = this.arrValueCity?.indexOf(oldCity);
+        const clubId = this.arrValueClub?.indexOf(oldClub);
+        const trainerId = this.arrValueTrainer?.indexOf(oldTrainer);
 
-        this.sportsman.city = this.cityMap.cities[cityId];
-        this.sportsman.club = this.clubMap.clubs[clubId];
-        this.sportsman.trainer = this.trainerMap.trainers[trainerId];
+        if (cityId) {
+            this.sportsman.city = this.cityMap.cities[cityId];
+        }
+        if (clubId) {
+            this.sportsman.club = this.clubMap.clubs[clubId];
+        }
+        if (trainerId) {
+            this.sportsman.trainer = this.trainerMap.trainers[trainerId];
+        }
 
         this.putSportsman(this.sportsman);
 
