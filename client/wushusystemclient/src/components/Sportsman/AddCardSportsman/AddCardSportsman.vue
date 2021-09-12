@@ -1,5 +1,6 @@
 <template>
-    <form @submit.prevent="addNewSportsman">
+    <img v-if="!loading" src="@/assets/spin.svg" />
+    <form @submit.prevent="addNewSportsman" v-else>
         <div class="container py-4">
             <div>
                 <div class="pb-3 mb-4 d-flex justify-content-between">
@@ -50,7 +51,6 @@
                                                     :style="{
                                                         'background-image': `url(${PhSpImg})`,
                                                     }"
-                                                    @click="selectImage"
                                                 >
                                                     <div
                                                         class="
@@ -343,14 +343,14 @@
                                                     <input
                                                         type="file"
                                                         name="file"
-                                                        id="ConfirmAddressFile"
-                                                        ref="ConfirmAddressFile"
+                                                        id="ConfirmAddress"
+                                                        ref="ConfirmAddress"
                                                         class="input input__file"
                                                         @input="ConfirmAddressFileUpload"
                                                     />
                                                     <label
                                                         class="input__file-button load-file"
-                                                        for="ConfirmAddressFile"
+                                                        for="ConfirmAddress"
                                                     >
                                                         <span class="input__file-icon-wrapper"
                                                             ><img
@@ -389,7 +389,6 @@
                                                     :style="{
                                                         'background-image': `url(${ConfAddrImg})`,
                                                     }"
-                                                    @click="selectImage"
                                                 ></div>
                                             </div>
                                         </div>
@@ -402,14 +401,14 @@
                                                     <input
                                                         type="file"
                                                         name="file"
-                                                        id="RusadaFile"
-                                                        ref="RusadaFile"
+                                                        id="Rusada"
+                                                        ref="Rusada"
                                                         class="input input__file"
                                                         @input="RusadaFileUpload"
                                                     />
                                                     <label
                                                         class="input__file-button load-file"
-                                                        for="RusadaFile"
+                                                        for="Rusada"
                                                     >
                                                         <span class="input__file-icon-wrapper"
                                                             ><img
@@ -448,7 +447,6 @@
                                                     :style="{
                                                         'background-image': `url(${RusadaFileImg})`,
                                                     }"
-                                                    @click="selectImage"
                                                 ></div>
                                             </div>
                                         </div>
@@ -461,14 +459,14 @@
                                                     <input
                                                         type="file"
                                                         name="file"
-                                                        id="SchoolFile"
-                                                        ref="SchoolFile"
+                                                        id="School"
+                                                        ref="School"
                                                         class="input input__file"
                                                         @input="SchoolFileUpload"
                                                     />
                                                     <label
                                                         class="input__file-button load-file"
-                                                        for="SchoolFile"
+                                                        for="School"
                                                     >
                                                         <span class="input__file-icon-wrapper"
                                                             ><img
@@ -507,7 +505,6 @@
                                                     :style="{
                                                         'background-image': `url(${SchoolFileImg})`,
                                                     }"
-                                                    @click="selectImage"
                                                 ></div>
                                             </div>
                                         </div>
@@ -520,14 +517,14 @@
                                                     <input
                                                         type="file"
                                                         name="file"
-                                                        id="CovidTestFile"
-                                                        ref="CovidTestFile"
+                                                        id="CovidTest"
+                                                        ref="CovidTest"
                                                         class="input input__file"
                                                         @input="CovidTestFileUpload"
                                                     />
                                                     <label
                                                         class="input__file-button load-file"
-                                                        for="CovidTestFile"
+                                                        for="CovidTest"
                                                     >
                                                         <span class="input__file-icon-wrapper"
                                                             ><img
@@ -566,7 +563,6 @@
                                                     :style="{
                                                         'background-image': `url(${CovidTestImg})`,
                                                     }"
-                                                    @click="selectImage"
                                                 ></div>
                                             </div>
                                         </div>
@@ -584,14 +580,14 @@
                                                     <input
                                                         type="file"
                                                         name="file"
-                                                        id="CovidContactFile"
-                                                        ref="CovidContactFile"
+                                                        id="CovidContact"
+                                                        ref="CovidContact"
                                                         class="input input__file"
                                                         @input="CovidContactFileUpload"
                                                     />
                                                     <label
                                                         class="input__file-button load-file"
-                                                        for="CovidContactFile"
+                                                        for="CovidContact"
                                                     >
                                                         <span class="input__file-icon-wrapper"
                                                             ><img
@@ -631,7 +627,6 @@
                                                     :style="{
                                                         'background-image': `url(${CovidImg})`,
                                                     }"
-                                                    @click="selectImage"
                                                 ></div>
                                             </div>
                                         </div>
@@ -644,14 +639,14 @@
                                                     <input
                                                         type="file"
                                                         name="file"
-                                                        id="ParentDocFile"
-                                                        ref="ParentDocFile"
+                                                        id="ParentDoc"
+                                                        ref="ParentDoc"
                                                         class="input input__file"
                                                         @input="ParentDocFileUpload"
                                                     />
                                                     <label
                                                         class="input__file-button load-file"
-                                                        for="ParentDocFile"
+                                                        for="ParentDoc"
                                                     >
                                                         <span class="input__file-icon-wrapper"
                                                             ><img
@@ -690,7 +685,6 @@
                                                     :style="{
                                                         'background-image': `url(${ParentDocImg})`,
                                                     }"
-                                                    @click="selectImage"
                                                 ></div>
                                             </div>
                                         </div>
@@ -774,6 +768,15 @@ import { IOmsState } from '@/store/modules/oms/types';
 import { IPassportState } from '@/store/modules/passport/types';
 import { IProxyDocState } from '@/store/modules/proxy/types';
 
+/* MODELS */
+import { IGender } from '@/models/gender';
+import { IBirthCertificate, IInsurance, IOms, IPassport, IProxyDoc } from '@/models/sportsman';
+import { IRank } from '@/models/rank';
+import { IDuanCzi } from '@/models/duan_czi';
+import { ICity } from '@/models/city';
+import { ITrainer } from '@/models/trainer';
+import { IClub } from '@/models/club';
+
 /* NAMESPACE */
 const namespace = 'sportsman';
 const namespaceCity = 'city';
@@ -782,206 +785,6 @@ const namespaceTrainer = 'trainer';
 
 @Options({
     name: 'AddCardSportsman',
-    methods: {
-        PhotoSportsmanUpload() {
-            const input = this.$refs.PhotoSportsman;
-            const file = input.files;
-            if (file && file[0]) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (event.target != null) {
-                        this.PhSpImg = event.target.result;
-                    }
-                };
-                reader.readAsDataURL(file[0]);
-                this.$emit('input', file[0]);
-            }
-            this.PhotoSportsman = file && file[0];
-        },
-        ConfirmAddressFileUpload() {
-            const input = this.$refs.ConfirmAddressFile;
-            const file = input.files;
-            if (file && file[0]) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (event.target != null) {
-                        this.ConfAddrImg = event.target.result;
-                    }
-                };
-                reader.readAsDataURL(file[0]);
-                this.$emit('input', file[0]);
-            }
-            this.ConfirmAddressFile = file && file[0];
-        },
-        RusadaFileUpload() {
-            const input = this.$refs.RusadaFile;
-            const file = input.files;
-            if (file && file[0]) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (event.target != null) {
-                        this.RusadaFileImg = event.target.result;
-                    }
-                };
-                reader.readAsDataURL(file[0]);
-                this.$emit('input', file[0]);
-            }
-            this.RusadaFile = file && file[0];
-        },
-        SchoolFileUpload() {
-            const input = this.$refs.SchoolFile;
-            const file = input.files;
-            if (file && file[0]) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (event.target != null) {
-                        this.SchoolFileImg = event.target.result;
-                    }
-                };
-                reader.readAsDataURL(file[0]);
-                this.$emit('input', file[0]);
-            }
-            this.SchoolFile = file && file[0];
-        },
-        CovidTestFileUpload() {
-            const input = this.$refs.CovidTestFile;
-            const file = input.files;
-            if (file && file[0]) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (event.target != null) {
-                        this.CovidTestImg = event.target.result;
-                    }
-                };
-                reader.readAsDataURL(file[0]);
-                this.$emit('input', file[0]);
-            }
-            this.CovidTestFile = file && file[0];
-        },
-        CovidContactFileUpload() {
-            const input = this.$refs.CovidContactFile;
-            const file = input.files;
-            if (file && file[0]) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (event.target != null) {
-                        this.CovidImg = event.target.result;
-                    }
-                };
-                reader.readAsDataURL(file[0]);
-                this.$emit('input', file[0]);
-            }
-            this.CovidContactFile = file && file[0];
-        },
-        ParentDocFileUpload() {
-            const input = this.$refs.ParentDocFile;
-            const file = input.files;
-            if (file && file[0]) {
-                const reader = new FileReader();
-                reader.onload = (event) => {
-                    if (event.target != null) {
-                        this.ParentDocImg = event.target.result;
-                    }
-                };
-                reader.readAsDataURL(file[0]);
-                this.$emit('input', file[0]);
-            }
-            this.ParentDocFile = file && file[0];
-        },
-        //TODO: Сделать нормальную валидацию формы, используя сторонние библиотеки
-        validateForm(): boolean {
-            if (!this.sportsman.name) return false;
-            if (!this.sportsman.surname) return false;
-            if (!this.sportsman.patronymic) return false;
-            if (!this.sportsman.date_of_birth) return false;
-            if (!this.sportsman.city) return false;
-            return true;
-        },
-        addNewSportsman() {
-            if (this.validateForm()) {
-                this.sportsman.photo = this.PhotoSportsman;
-                this.sportsman.confirm_address = this.ConfirmAddressFile;
-                this.sportsman.rusada = this.RusadaFile;
-                this.sportsman.school_doc = this.SchoolFile;
-                this.sportsman.covid_test = this.CovidTestFile;
-                this.sportsman.covid_contact = this.CovidContactFile;
-                this.sportsman.parent_doc = this.ParentDocFile;
-
-                this.sportsman.birth_certificate = this.birthCertificateMap.birthCertificate;
-                this.sportsman.insurance = this.insuranceMap.insurance;
-                this.sportsman.oms = this.omsMap.oms;
-                this.sportsman.proxy = this.proxyMap.proxy;
-                this.sportsman.passport = this.passportMap.passport;
-
-                const oldCity = this.sportsman.city;
-                const oldClub = this.sportsman.club;
-                const oldTrainer = this.sportsman.trainer;
-
-                const cityId = this.arrValueCity.indexOf(this.sportsman.city);
-                const clubId = this.arrValueClub.indexOf(this.sportsman.club);
-                const trainerId = this.arrValueTrainer.indexOf(this.sportsman.trainer);
-
-                this.sportsman.city = this.cityMap.cities[cityId];
-                this.sportsman.club = this.clubMap.clubs[clubId];
-                this.sportsman.trainer = this.trainerMap.trainers[trainerId];
-
-                this.postSportsman(this.sportsman);
-
-                this.sportsman.city = oldCity;
-                this.sportsman.club = oldClub;
-                this.sportsman.trainer = oldTrainer;
-                console.log(this.CovidContactFile);
-            } else {
-                console.log('Не все поля заполнены');
-            }
-        },
-        selectImage() {
-            this.$refs.fileInput.click();
-        },
-    },
-    data() {
-        return {
-            sportsman: {
-                name: '',
-                surname: '',
-                patronymic: '',
-                photo: '',
-                date_of_birth: '',
-                address: '',
-                confirm_address: '',
-                gender: '',
-                passport: '',
-                birth_certificate: '',
-                proxy: '',
-                oms: '',
-                city: '',
-                trainer: '',
-                club: '',
-                insurance: '',
-                rank: '',
-                rusada: '',
-                covid_test: '',
-                covid_contact: '',
-                parent_doc: '',
-                school_doc: '',
-                duan_czi: '',
-            },
-            PhotoSportsman: '',
-            ConfirmAddressFile: '',
-            SchoolFile: '',
-            RusadaFile: '',
-            CovidTestFile: '',
-            CovidContactFile: '',
-            ParentDocFile: '',
-            ParentDocImg: null,
-            CovidImg: null,
-            CovidTestImg: null,
-            SchoolFileImg: null,
-            RusadaFileImg: null,
-            ConfAddrImg: null,
-            PhSpImg: null,
-        };
-    },
     components: {
         SelectGender,
         SelectRank,
@@ -997,6 +800,52 @@ const namespaceTrainer = 'trainer';
     },
 })
 export default class AddCardSportsman extends Vue {
+    /* LOADING */
+    loading = false;
+
+    /* DATA */
+    sportsman!: {
+        name: string | undefined;
+        surname: string | undefined;
+        patronymic: string | undefined;
+        photo: string | File | null;
+        date_of_birth: Date | undefined;
+        address: string | undefined;
+        confirm_address: string | File | null;
+        gender: IGender | undefined;
+        passport: IPassport | undefined;
+        birth_certificate: IBirthCertificate | undefined;
+        proxy: IProxyDoc | undefined;
+        oms: IOms | undefined;
+        city: ICity | string;
+        trainer: ITrainer | string;
+        club: IClub | string;
+        insurance: IInsurance | undefined;
+        rank: IRank | undefined;
+        rusada: string | File | null;
+        covid_test: string | File | null;
+        covid_contact: string | File | null;
+        parent_doc: string | File | null;
+        school_doc: string | File | null;
+        duan_czi: IDuanCzi | undefined;
+    };
+
+    PhotoSportsmanFile: string | File | null = '';
+    ConfirmAddressFile: string | File | null = '';
+    RusadaFile: string | File | null = '';
+    SchoolFile: string | File | null = '';
+    CovidContactFile: string | File | null = '';
+    CovidTestFile: string | File | null = '';
+    ParentDocFile: string | File | null = '';
+
+    ParentDocImg: string | ArrayBuffer | null = null;
+    CovidImg: string | ArrayBuffer | null = null;
+    CovidTestImg: string | ArrayBuffer | null = null;
+    SchoolFileImg: string | ArrayBuffer | null = null;
+    RusadaFileImg: string | ArrayBuffer | null = null;
+    ConfAddrImg: string | ArrayBuffer | null = null;
+    PhSpImg: string | ArrayBuffer | null = null;
+
     /* MODAL */
     isEdit = false;
     isModalInsurance = false;
@@ -1004,6 +853,180 @@ export default class AddCardSportsman extends Vue {
     isModalOms = false;
     isModalPassport = false;
     isModalProxy = false;
+
+    /* METHOD */
+    public PhotoSportsmanUpload(): void {
+        const fileList: FileList | null = (this.$refs['PhotoSportsman'] as HTMLInputElement).files;
+        const file: File = fileList?.item(0) as File;
+        if (fileList && file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target != null) {
+                    this.PhSpImg = event.target.result;
+                }
+            };
+            if (file) {
+                reader.readAsDataURL(file);
+                this.$emit('PhotoSportsman', file);
+            }
+        }
+
+        this.PhotoSportsmanFile = file;
+    }
+    public ConfirmAddressFileUpload(): void {
+        const fileList: FileList | null = (this.$refs['ConfirmAddress'] as HTMLInputElement).files;
+        const file: File = fileList?.item(0) as File;
+        if (fileList && file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target != null) {
+                    this.ConfAddrImg = event.target.result;
+                }
+            };
+            if (file) {
+                reader.readAsDataURL(file);
+                this.$emit('ConfirmAddress', file);
+            }
+        }
+        this.ConfirmAddressFile = file;
+    }
+    public RusadaFileUpload(): void {
+        const fileList: FileList | null = (this.$refs['Rusada'] as HTMLInputElement).files;
+        const file: File = fileList?.item(0) as File;
+        if (fileList && file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target != null) {
+                    this.RusadaFileImg = event.target.result;
+                }
+            };
+            if (file) {
+                reader.readAsDataURL(file);
+                this.$emit('Rusada', file);
+            }
+        }
+        this.RusadaFile = file;
+    }
+    public SchoolFileUpload(): void {
+        const fileList: FileList | null = (this.$refs['School'] as HTMLInputElement).files;
+        const file: File = fileList?.item(0) as File;
+        if (fileList && file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target != null) {
+                    this.SchoolFileImg = event.target.result;
+                }
+            };
+            if (file) {
+                reader.readAsDataURL(file);
+                this.$emit('School', file);
+            }
+        }
+        this.SchoolFile = file;
+    }
+    public CovidTestFileUpload(): void {
+        const fileList: FileList | null = (this.$refs['CovidTest'] as HTMLInputElement).files;
+        const file: File = fileList?.item(0) as File;
+        if (fileList && file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target != null) {
+                    this.CovidTestImg = event.target.result;
+                }
+            };
+            if (file) {
+                reader.readAsDataURL(file);
+                this.$emit('CovidTest', file);
+            }
+        }
+        this.CovidTestFile = file;
+    }
+    public CovidContactFileUpload(): void {
+        const fileList: FileList | null = (this.$refs['CovidContact'] as HTMLInputElement).files;
+        const file: File = fileList?.item(0) as File;
+        if (fileList && file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target != null) {
+                    this.CovidImg = event.target.result;
+                }
+            };
+            if (file) {
+                reader.readAsDataURL(file);
+                this.$emit('CovidContact', file);
+            }
+        }
+        this.CovidContactFile = file;
+    }
+    public ParentDocFileUpload(): void {
+        const fileList: FileList | null = (this.$refs['ParentDoc'] as HTMLInputElement).files;
+        const file: File = fileList?.item(0) as File;
+        if (fileList && file) {
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                if (event.target != null) {
+                    this.ParentDocImg = event.target.result;
+                }
+            };
+            if (file) {
+                reader.readAsDataURL(file);
+                this.$emit('ParentDoc', file);
+            }
+        }
+        this.ParentDocFile = file;
+    }
+    //TODO: Сделать нормальную валидацию формы, используя сторонние библиотеки
+    public validateForm(): boolean {
+        if (!this.sportsman.name) return false;
+        if (!this.sportsman.surname) return false;
+        if (!this.sportsman.patronymic) return false;
+        if (!this.sportsman.date_of_birth) return false;
+        if (!this.sportsman.city) return false;
+        return true;
+    }
+    public addNewSportsman(): void {
+        if (this.validateForm()) {
+            this.sportsman.photo = this.PhotoSportsmanFile;
+            this.sportsman.confirm_address = this.ConfirmAddressFile;
+            this.sportsman.rusada = this.RusadaFile;
+            this.sportsman.school_doc = this.SchoolFile;
+            this.sportsman.covid_test = this.CovidTestFile;
+            this.sportsman.covid_contact = this.CovidContactFile;
+            this.sportsman.parent_doc = this.ParentDocFile;
+
+            this.sportsman.birth_certificate = this.birthCertificateMap.birthCertificate;
+            this.sportsman.insurance = this.insuranceMap.insurance;
+            this.sportsman.oms = this.omsMap.oms;
+            this.sportsman.proxy = this.proxyMap.proxy;
+            this.sportsman.passport = this.passportMap.passport;
+
+            const oldCity = this.sportsman.city;
+            const oldClub = this.sportsman.club;
+            const oldTrainer = this.sportsman.trainer;
+
+            const cityId = this.arrValueCity?.indexOf(String(oldCity));
+            const clubId = this.arrValueClub?.indexOf(String(oldClub));
+            const trainerId = this.arrValueTrainer?.indexOf(String(oldTrainer));
+
+            if (cityId !== undefined) {
+                this.sportsman.city = this.cityMap.cities[cityId];
+            }
+            if (clubId !== undefined) {
+                this.sportsman.club = this.clubMap.clubs[clubId];
+            }
+            if (trainerId !== undefined) {
+                this.sportsman.trainer = this.trainerMap.trainers[trainerId];
+            }
+
+            this.postSportsman(this.sportsman);
+
+            this.sportsman.city = oldCity;
+            this.sportsman.club = oldClub;
+            this.sportsman.trainer = oldTrainer;
+        } else {
+            console.log('Не все поля заполнены');
+        }
+    }
 
     /* STATE */
     @State('sportsman')
@@ -1036,6 +1059,36 @@ export default class AddCardSportsman extends Vue {
     /* ACTION */
     @Action('postSportsman', { namespace })
     postSportsman: any;
+
+    mounted(): void {
+        this.loading = false;
+        this.sportsman = {
+            name: '',
+            surname: '',
+            patronymic: '',
+            photo: '',
+            date_of_birth: undefined,
+            address: '',
+            confirm_address: '',
+            gender: undefined,
+            passport: undefined,
+            birth_certificate: undefined,
+            proxy: undefined,
+            oms: undefined,
+            city: '',
+            trainer: '',
+            club: '',
+            insurance: undefined,
+            rank: undefined,
+            rusada: '',
+            covid_test: '',
+            covid_contact: '',
+            parent_doc: '',
+            school_doc: '',
+            duan_czi: undefined,
+        };
+        this.loading = true;
+    }
 }
 </script>
 

@@ -1401,6 +1401,7 @@ export default class EditCardSportsman extends Vue {
         const oldCity = this.cityName;
         const oldClub = this.clubName;
         const oldTrainer = this.trainerName;
+
         const cityId = this.arrValueCity?.indexOf(oldCity);
         const clubId = this.arrValueClub?.indexOf(oldClub);
         const trainerId = this.arrValueTrainer?.indexOf(oldTrainer);
