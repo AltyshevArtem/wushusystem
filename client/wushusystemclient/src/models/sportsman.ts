@@ -10,13 +10,13 @@ export interface IInsurance {
     id: number;
     date_start: Date;
     date_end: Date;
-    file_insurance: string;
+    file_insurance: File | string;
 }
 
 export interface IPassport {
     id: number;
     number: number;
-    scan: string;
+    scan: File | string;
     date_start?: Date;
     issue?: string;
     code?: number;
@@ -25,21 +25,21 @@ export interface IPassport {
 export interface IBirthCertificate {
     id: number;
     number: number;
-    scan: string;
+    scan: File | string;
 }
 
 export interface IProxyDoc {
     id: number;
-    scan: string;
-    original_passport: string;
-    original_birth_certificate: string;
+    scan: File | string;
+    original_passport: File | string;
+    original_birth_certificate: File | string;
     date_end: Date;
 }
 
 export interface IOms {
     id: number;
     number: number;
-    scan: string;
+    scan: File | string;
 }
 
 export interface ISportsman {

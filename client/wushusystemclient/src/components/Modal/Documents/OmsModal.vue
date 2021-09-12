@@ -118,7 +118,7 @@ export default class OmsModal extends Vue {
     public OmsFileUpload(): void {
         if (this.mode) {
             const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
-            fileList?.length !== 0 ? (this.oms.scan = String(fileList?.item(0))) : (this.file = '');
+            fileList?.length !== 0 ? (this.oms.scan = fileList?.item(0) as File) : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
             fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = ' ');

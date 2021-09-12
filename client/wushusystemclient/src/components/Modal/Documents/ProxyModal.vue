@@ -184,7 +184,7 @@ export default class ProxyModal extends Vue {
         if (this.mode) {
             const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
             fileList?.length !== 0
-                ? (this.proxy.scan = String(fileList?.item(0)))
+                ? (this.proxy.scan = fileList?.item(0) as File)
                 : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
@@ -195,7 +195,7 @@ export default class ProxyModal extends Vue {
         if (this.mode) {
             const fileList: FileList | null = (this.$refs['passport'] as HTMLInputElement).files;
             fileList?.length !== 0
-                ? (this.proxy.original_passport = String(fileList?.item(0)))
+                ? (this.proxy.original_passport = fileList?.item(0) as File)
                 : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['passport'] as HTMLInputElement).files;
@@ -206,7 +206,7 @@ export default class ProxyModal extends Vue {
         if (this.mode) {
             const fileList: FileList | null = (this.$refs['birth'] as HTMLInputElement).files;
             fileList?.length !== 0
-                ? (this.proxy.original_birth_certificate = String(fileList?.item(0)))
+                ? (this.proxy.original_birth_certificate = fileList?.item(0) as File)
                 : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['birth'] as HTMLInputElement).files;

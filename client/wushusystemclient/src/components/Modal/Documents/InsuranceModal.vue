@@ -136,7 +136,7 @@ export default class InsuranceModal extends Vue {
         if (this.mode) {
             const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
             fileList?.length !== 0
-                ? (this.insurance.file_insurance = String(fileList?.item(0)))
+                ? (this.insurance.file_insurance = fileList?.item(0) as File)
                 : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;

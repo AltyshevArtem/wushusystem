@@ -196,8 +196,6 @@ export const actions: ActionTree<ISportsmanState, null> = {
         if (!isEmpty(sportsman.patronymic)) {
             data.append('patronymic', sportsman.patronymic);
         }
-        console.log(sportsman.photo);
-        console.log(isFile(sportsman.photo));
         if (isFile(sportsman.photo) || sportsman.photo === '') {
             data.append('photo', sportsman.photo);
         }
@@ -259,10 +257,10 @@ export const actions: ActionTree<ISportsmanState, null> = {
                 data.append('birth_certificate.number', String(sportsman.birth_certificate.number));
             }
             if (
-                isFile(sportsman.birth_certificate.scan) &&
+                isFile(sportsman.birth_certificate.scan) ||
                 sportsman.birth_certificate.scan === ''
             ) {
-                data.append('birth_certificate.scan', sportsman.birth_certificate?.scan);
+                data.append('birth_certificate.scan', sportsman.birth_certificate.scan);
             }
         }
         if (!isEmpty(sportsman.proxy)) {

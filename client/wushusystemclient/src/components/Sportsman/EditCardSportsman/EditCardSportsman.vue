@@ -266,14 +266,14 @@
                                                     <input
                                                         type="file"
                                                         name="file"
-                                                        id="ConfirmAddressFile"
-                                                        ref="ConfirmAddressFile"
+                                                        id="ConfirmAddress"
+                                                        ref="ConfirmAddress"
                                                         class="input input__file"
                                                         @input="ConfirmAddressFileUpload"
                                                     />
                                                     <label
                                                         class="input__file-button load-file"
-                                                        for="ConfirmAddressFile"
+                                                        for="ConfirmAddress"
                                                     >
                                                         <span class="input__file-icon-wrapper"
                                                             ><img
@@ -444,14 +444,14 @@
                                                     <input
                                                         type="file"
                                                         name="file"
-                                                        id="ParentDocFile"
-                                                        ref="ParentDocFile"
+                                                        id="ParentDoc"
+                                                        ref="ParentDoc"
                                                         class="input input__file"
                                                         @input="ParentDocFileUpload"
                                                     />
                                                     <label
                                                         class="input__file-button load-file"
-                                                        for="ParentDocFile"
+                                                        for="ParentDoc"
                                                     >
                                                         <span class="input__file-icon-wrapper"
                                                             ><img
@@ -525,14 +525,14 @@
                                                 <input
                                                     type="file"
                                                     name="file"
-                                                    id="RusadaFile"
-                                                    ref="RusadaFile"
+                                                    id="Rusada"
+                                                    ref="Rusada"
                                                     class="input input__file"
                                                     @input="RusadaFileUpload"
                                                 />
                                                 <label
                                                     class="input__file-button load-file"
-                                                    for="RusadaFile"
+                                                    for="Rusada"
                                                 >
                                                     <span class="input__file-icon-wrapper"
                                                         ><img
@@ -610,14 +610,14 @@
                                                 <input
                                                     type="file"
                                                     name="file"
-                                                    id="CovidContactFile"
-                                                    ref="CovidContactFile"
+                                                    id="CovidContact"
+                                                    ref="CovidContact"
                                                     class="input input__file"
                                                     @input="CovidContactFileUpload"
                                                 />
                                                 <label
                                                     class="input__file-button load-file"
-                                                    for="CovidContactFile"
+                                                    for="CovidContact"
                                                 >
                                                     <span class="input__file-icon-wrapper"
                                                         ><img
@@ -691,14 +691,14 @@
                                                 <input
                                                     type="file"
                                                     name="file"
-                                                    id="CovidTestFile"
-                                                    ref="CovidTestFile"
+                                                    id="CovidTest"
+                                                    ref="CovidTest"
                                                     class="input input__file"
                                                     @input="CovidTestFileUpload"
                                                 />
                                                 <label
                                                     class="input__file-button load-file"
-                                                    for="CovidTestFile"
+                                                    for="CovidTest"
                                                 >
                                                     <span class="input__file-icon-wrapper"
                                                         ><img
@@ -771,14 +771,14 @@
                                                 <input
                                                     type="file"
                                                     name="file"
-                                                    id="SchoolFile"
-                                                    ref="SchoolFile"
+                                                    id="School"
+                                                    ref="School"
                                                     class="input input__file"
                                                     @input="SchoolFileUpload"
                                                 />
                                                 <label
                                                     class="input__file-button load-file"
-                                                    for="SchoolFile"
+                                                    for="School"
                                                 >
                                                     <span class="input__file-icon-wrapper"
                                                         ><img
@@ -1118,7 +1118,7 @@ export default class EditCardSportsman extends Vue {
     cityName = '';
     trainerName = '';
 
-    PhotoSportsman: string | File | null = '';
+    PhotoSportsmanFile: string | File | null = '';
     ConfirmAddressFile: string | File | null = '';
     RusadaFile: string | File | null = '';
     SchoolFile: string | File | null = '';
@@ -1146,124 +1146,138 @@ export default class EditCardSportsman extends Vue {
     /* METHOD */
     public PhotoSportsmanUpload(): void {
         const fileList: FileList | null = (this.$refs['PhotoSportsman'] as HTMLInputElement).files;
-        if (fileList?.item(0)) {
-            this.PhotoSportsman = fileList?.item(0);
+        const file: File = fileList?.item(0) as File;
+        if (fileList && file) {
             const reader = new FileReader();
             reader.onload = (event) => {
                 if (event.target != null) {
                     this.PhotoSportsmanImg = event.target.result;
                 }
             };
-            console.log(this.PhotoSportsman);
-            if (this.PhotoSportsman) {
-                reader.readAsDataURL(this.PhotoSportsman);
+            if (file) {
+                reader.readAsDataURL(file);
+                this.$emit('PhotoSportsman', file);
             }
         }
+
+        this.PhotoSportsmanFile = file;
 
         this.Editable = true;
     }
     public ConfirmAddressFileUpload(): void {
-        const fileList: FileList | null = (this.$refs['ConfirmAddressFile'] as HTMLInputElement)
-            .files;
-        if (fileList?.item(0)) {
-            this.ConfirmAddressFile = fileList?.item(0);
+        const fileList: FileList | null = (this.$refs['PhotoSportsman'] as HTMLInputElement).files;
+        const file: File = fileList?.item(0) as File;
+        if (fileList && file) {
             const reader = new FileReader();
             reader.onload = (event) => {
                 if (event.target != null) {
                     this.CAImg = event.target.result;
                 }
             };
-            if (this.ConfirmAddressFile) {
-                reader.readAsDataURL(this.ConfirmAddressFile);
+            if (file) {
+                reader.readAsDataURL(file);
+                this.$emit('ConfirmAddress', file);
             }
         }
+
+        this.ConfirmAddressFile = file;
 
         this.Editable = true;
     }
     public RusadaFileUpload(): void {
-        const fileList: FileList | null = (this.$refs['RusadaFile'] as HTMLInputElement).files;
-        if (fileList?.item(0)) {
-            this.RusadaFile = fileList?.item(0);
+        const fileList: FileList | null = (this.$refs['Rusada'] as HTMLInputElement).files;
+        const file: File = fileList?.item(0) as File;
+        if (fileList && file) {
             const reader = new FileReader();
             reader.onload = (event) => {
                 if (event.target != null) {
                     this.RusadaFileImg = event.target.result;
                 }
             };
-            if (this.RusadaFile) {
-                reader.readAsDataURL(this.RusadaFile);
+            if (file) {
+                reader.readAsDataURL(file);
+                this.$emit('Rusada', file);
             }
         }
+
+        this.RusadaFile = file;
 
         this.Editable = true;
     }
     public SchoolFileUpload(): void {
-        const fileList: FileList | null = (this.$refs['SchoolFile'] as HTMLInputElement).files;
-        if (fileList?.item(0)) {
-            this.SchoolFile = fileList?.item(0);
+        const fileList: FileList | null = (this.$refs['School'] as HTMLInputElement).files;
+        const file: File = fileList?.item(0) as File;
+        if (fileList && file) {
             const reader = new FileReader();
             reader.onload = (event) => {
                 if (event.target != null) {
                     this.SchoolFileImg = event.target.result;
                 }
             };
-            if (this.SchoolFile) {
-                reader.readAsDataURL(this.SchoolFile);
+            if (file) {
+                reader.readAsDataURL(file);
+                this.$emit('School', file);
             }
         }
+
+        this.SchoolFile = file;
 
         this.Editable = true;
     }
     public CovidTestFileUpload(): void {
-        const fileList: FileList | null = (this.$refs['CovidTestFile'] as HTMLInputElement).files;
-        if (fileList?.item(0)) {
-            this.CovidTestFile = fileList?.item(0);
+        const fileList: FileList | null = (this.$refs['CovidTest'] as HTMLInputElement).files;
+        const file: File = fileList?.item(0) as File;
+        if (fileList && file) {
             const reader = new FileReader();
             reader.onload = (event) => {
                 if (event.target != null) {
                     this.CovidTestImg = event.target.result;
                 }
             };
-            if (this.CovidTestFile) {
-                reader.readAsDataURL(this.CovidTestFile);
+            if (file) {
+                reader.readAsDataURL(file);
+                this.$emit('CovidTest', file);
             }
         }
+
+        this.CovidTestFile = file;
 
         this.Editable = true;
     }
     public CovidContactFileUpload(): void {
-        const fileList: FileList | null = (this.$refs['CovidContactFile'] as HTMLInputElement)
-            .files;
-        if (fileList?.item(0)) {
-            this.CovidContactFile = fileList?.item(0);
+        const fileList: FileList | null = (this.$refs['CovidContact'] as HTMLInputElement).files;
+        const file: File = fileList?.item(0) as File;
+        if (fileList && file) {
             const reader = new FileReader();
             reader.onload = (event) => {
                 if (event.target != null) {
                     this.CovidImg = event.target.result;
                 }
             };
-            if (this.CovidContactFile) {
-                reader.readAsDataURL(this.CovidContactFile);
+            if (file) {
+                reader.readAsDataURL(file);
+                this.$emit('CovidContact', file);
             }
         }
-
+        this.CovidContactFile = file;
         this.Editable = true;
     }
     public ParentDocFileUpload(): void {
-        const fileList: FileList | null = (this.$refs['ParentDocFile'] as HTMLInputElement).files;
-        if (fileList?.item(0)) {
-            this.ParentDocFile = fileList?.item(0);
+        const fileList: FileList | null = (this.$refs['ParentDoc'] as HTMLInputElement).files;
+        const file: File = fileList?.item(0) as File;
+        if (fileList && file) {
             const reader = new FileReader();
             reader.onload = (event) => {
                 if (event.target != null) {
                     this.ParDocImg = event.target.result;
                 }
             };
-            if (this.ParentDocFile) {
-                reader.readAsDataURL(this.ParentDocFile);
+            if (file) {
+                reader.readAsDataURL(file);
+                this.$emit('ParentDoc', file);
             }
         }
-
+        this.ParentDocFile = file;
         this.Editable = true;
     }
     public initSelectors(): void {
@@ -1306,13 +1320,16 @@ export default class EditCardSportsman extends Vue {
             school_doc: '',
             duan_czi: undefined,
         };
+        /* ID */
         if (this.sportsmanMap.sportsman?.id) {
             this.sportsman.id = this.sportsmanMap.sportsman.id;
         }
+
+        /* FILES */
         if (this.sportsmanMap.sportsman?.photo) {
             this.sportsman.photo = this.sportsmanMap.sportsman?.photo;
         } else {
-            this.sportsman.photo = this.PhotoSportsman;
+            this.sportsman.photo = this.PhotoSportsmanFile;
         }
         if (this.sportsmanMap.sportsman?.confirm_address) {
             this.sportsman.confirm_address = this.sportsmanMap.sportsman?.confirm_address;
@@ -1354,6 +1371,7 @@ export default class EditCardSportsman extends Vue {
         this.sportsman.duan_czi = this.sportsmanMap.sportsman?.duan_czi;
         this.sportsman.rank = this.sportsmanMap.sportsman?.rank;
 
+        /* MODAL */
         if (this.sportsmanMap.sportsman?.passport) {
             this.sportsman.passport = this.sportsmanMap.sportsman.passport;
         } else {
@@ -1383,18 +1401,17 @@ export default class EditCardSportsman extends Vue {
         const oldCity = this.cityName;
         const oldClub = this.clubName;
         const oldTrainer = this.trainerName;
-
         const cityId = this.arrValueCity?.indexOf(oldCity);
         const clubId = this.arrValueClub?.indexOf(oldClub);
         const trainerId = this.arrValueTrainer?.indexOf(oldTrainer);
 
-        if (cityId) {
+        if (cityId !== undefined) {
             this.sportsman.city = this.cityMap.cities[cityId];
         }
-        if (clubId) {
+        if (clubId !== undefined) {
             this.sportsman.club = this.clubMap.clubs[clubId];
         }
-        if (trainerId) {
+        if (trainerId !== undefined) {
             this.sportsman.trainer = this.trainerMap.trainers[trainerId];
         }
 

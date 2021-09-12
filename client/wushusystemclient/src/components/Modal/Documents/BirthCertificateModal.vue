@@ -129,7 +129,7 @@ export default class BirthCertificateModal extends Vue {
         if (this.mode) {
             const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
             fileList?.length !== 0
-                ? (this.birthCertificate.scan = String(fileList?.item(0)))
+                ? (this.birthCertificate.scan = fileList?.item(0) as File)
                 : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;

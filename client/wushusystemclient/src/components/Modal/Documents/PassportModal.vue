@@ -156,7 +156,7 @@ export default class PassportModal extends Vue {
         if (this.mode) {
             const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
             fileList?.length !== 0
-                ? (this.passport.scan = String(fileList?.item(0)))
+                ? (this.passport.scan = fileList?.item(0) as File)
                 : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
