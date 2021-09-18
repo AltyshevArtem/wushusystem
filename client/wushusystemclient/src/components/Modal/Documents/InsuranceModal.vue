@@ -114,7 +114,6 @@ export default class InsuranceModal extends Vue {
     file: string | File | null | undefined = '';
 
     /* METHOD */
-
     public AddInsurance(): void {
         const insurance = {
             date_start: formatDateToString(this.dateStart),
@@ -122,16 +121,12 @@ export default class InsuranceModal extends Vue {
             file_insurance: this.file,
         };
         this.setInsurance(insurance);
-
         this.hideDialog();
     }
-
     public SaveInsurance(): void {
         this.setInsurance(this.insurance);
-
         this.hideDialog();
     }
-
     public InsuranseFileUpload(): void {
         if (this.mode) {
             const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
@@ -140,7 +135,7 @@ export default class InsuranceModal extends Vue {
                 : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
-            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = ' ');
+            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = '');
         }
     }
 

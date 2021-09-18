@@ -144,12 +144,10 @@ export default class PassportModal extends Vue {
             code: this.code,
         };
         this.setPassport(passport);
-
         this.hideDialog();
     }
     public SavePassport(): void {
         this.setPassport(this.passport);
-
         this.hideDialog();
     }
     public PassportFileUpload(): void {
@@ -160,7 +158,7 @@ export default class PassportModal extends Vue {
                 : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
-            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = ' ');
+            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = '');
         }
     }
 

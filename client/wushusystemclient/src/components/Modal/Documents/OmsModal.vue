@@ -105,14 +105,11 @@ export default class OmsModal extends Vue {
             number: this.number,
             scan: this.file,
         };
-
         this.setOMS(oms);
-
         this.hideDialog();
     }
     public SaveOms(): void {
         this.setOMS(this.oms);
-
         this.hideDialog();
     }
     public OmsFileUpload(): void {
@@ -121,7 +118,7 @@ export default class OmsModal extends Vue {
             fileList?.length !== 0 ? (this.oms.scan = fileList?.item(0) as File) : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
-            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = ' ');
+            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = '');
         }
     }
 

@@ -1,7 +1,5 @@
 <template>
     <div>
-        <!-- TODO: сделать ездящую шапку при скроле страницы вверх и вниз-->
-        <!-- TODO: Сделать кнопку перехода назад к предыдущей странице -->
         <div v-if="this.sportsmanMap.error === false">
             <div v-if="isEditable === false" class="container py-4">
                 <div>
@@ -928,13 +926,15 @@
     <ConfirmationModal
         v-if="isConfirmModalVisible"
         v-model:show="isConfirmModalVisible"
-        @confirmModal="deleteSportsmanMethod"
+        @confirmModal="DeleteSportsmanMethod"
     >
         <span> Вы уверены, что собираетесь удалить спортсмена?</span>
     </ConfirmationModal>
 </template>
 
 <script lang="ts">
+//TODO: сделать ездящую шапку при скроле страницы вверх и вниз
+//TODO: Сделать кнопку перехода назад к предыдущей странице
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 
@@ -1079,7 +1079,7 @@ export default class CardSportsman extends Vue {
         this.getSportsman(this.$route.params.id);
     }
 
-    public deleteSportsmanMethod(): void {
+    public DeleteSportsmanMethod(): void {
         this.deleteSportsman(this.$route.params.id);
         this.isConfirmModalVisible = false;
     }

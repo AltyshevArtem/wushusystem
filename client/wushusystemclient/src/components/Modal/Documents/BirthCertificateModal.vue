@@ -16,8 +16,6 @@
                     <div>
                         <h6>Скан фото:</h6>
                         <div v-if="birthCertificate.scan">
-                            <!-- TODO: Сделать просмотр только что
-                            добавленной картинки(во всех модалках) -->
                             <a :href="birthCertificate.scan" class="card-link">Просмотр</a>
                             <button class="btn btn-danger" @click="birthCertificate.scan = null">
                                 Удалить
@@ -77,6 +75,7 @@
 </template>
 
 <script lang="ts">
+//TODO: Сделать просмотр только что добавленной картинки(во всех модалках)
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Emit } from 'vue-property-decorator';
@@ -115,14 +114,11 @@ export default class BirthCertificateModal extends Vue {
             number: this.number,
             scan: this.file,
         };
-
         this.setBirthCertificate(birthCertificate);
-
         this.hideDialog();
     }
     public SaveBirthCertificate(): void {
         this.setBirthCertificate(this.birthCertificate);
-
         this.hideDialog();
     }
     public BirthCertificateFileUpload(): void {
@@ -133,7 +129,7 @@ export default class BirthCertificateModal extends Vue {
                 : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
-            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = ' ');
+            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = '');
         }
     }
 

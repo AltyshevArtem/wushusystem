@@ -1,6 +1,6 @@
 <template>
     <img v-if="!loading" src="@/assets/spin.svg" />
-    <form @submit.prevent="addNewSportsman" v-else>
+    <form @submit.prevent="AddNewSportsman" v-else>
         <div class="container py-4">
             <div>
                 <div class="pb-3 mb-4 d-flex justify-content-between">
@@ -119,13 +119,11 @@
                                             id="selectTrainer"
                                             v-model="sportsman.trainer"
                                         />
-
                                         <SelectRank
                                             mode="single"
                                             id="selectRank"
                                             v-model="sportsman.rank"
                                         />
-
                                         <SelectDuanCzi
                                             mode="single"
                                             id="selectDuanCzi"
@@ -220,7 +218,7 @@
                                     <li class="list-group-item">
                                         <template v-if="!birthCertificateMap.birthCertificate">
                                             <p><strong>Свидетельство о рождении</strong></p>
-                                            <span>Добавить данные о сведительстве рождения: </span>
+                                            <span>Добавить данные о свидетельстве рождения: </span>
                                             <button
                                                 type="button"
                                                 class="btn btn-dark"
@@ -602,7 +600,7 @@
                                                         </span>
                                                     </label>
                                                     <div
-                                                        v-if="CovidImg !== (undefined || null)"
+                                                        v-if="CovidContImg !== (undefined || null)"
                                                         class="
                                                             danger-button__new-file
                                                             list-btnDeleteSportsman
@@ -611,7 +609,7 @@
                                                         <button
                                                             class="btn btn-danger"
                                                             @click="
-                                                                CovidImg = null;
+                                                                CovidContImg = null;
                                                                 Editable = true;
                                                             "
                                                         >
@@ -622,10 +620,10 @@
                                             </div>
                                             <div class="col-md-5">
                                                 <div
-                                                    v-if="CovidImg !== (undefined || null)"
+                                                    v-if="CovidContImg !== (undefined || null)"
                                                     class="imagePreviewWrapper PreviewImgSportsman"
                                                     :style="{
-                                                        'background-image': `url(${CovidImg})`,
+                                                        'background-image': `url(${CovidContImg})`,
                                                     }"
                                                 ></div>
                                             </div>
@@ -839,7 +837,7 @@ export default class AddCardSportsman extends Vue {
     ParentDocFile: string | File | null = '';
 
     ParentDocImg: string | ArrayBuffer | null = null;
-    CovidImg: string | ArrayBuffer | null = null;
+    CovidContImg: string | ArrayBuffer | null = null;
     CovidTestImg: string | ArrayBuffer | null = null;
     SchoolFileImg: string | ArrayBuffer | null = null;
     RusadaFileImg: string | ArrayBuffer | null = null;
@@ -870,7 +868,6 @@ export default class AddCardSportsman extends Vue {
                 this.$emit('PhotoSportsman', file);
             }
         }
-
         this.PhotoSportsmanFile = file;
     }
     public ConfirmAddressFileUpload(): void {
@@ -948,7 +945,7 @@ export default class AddCardSportsman extends Vue {
             const reader = new FileReader();
             reader.onload = (event) => {
                 if (event.target != null) {
-                    this.CovidImg = event.target.result;
+                    this.CovidContImg = event.target.result;
                 }
             };
             if (file) {
@@ -976,7 +973,7 @@ export default class AddCardSportsman extends Vue {
         this.ParentDocFile = file;
     }
     //TODO: Сделать нормальную валидацию формы, используя сторонние библиотеки
-    public validateForm(): boolean {
+    private validateForm(): boolean {
         if (!this.sportsman.name) return false;
         if (!this.sportsman.surname) return false;
         if (!this.sportsman.patronymic) return false;
@@ -984,7 +981,7 @@ export default class AddCardSportsman extends Vue {
         if (!this.sportsman.city) return false;
         return true;
     }
-    public addNewSportsman(): void {
+    public AddNewSportsman(): void {
         if (this.validateForm()) {
             this.sportsman.photo = this.PhotoSportsmanFile;
             this.sportsman.confirm_address = this.ConfirmAddressFile;
@@ -993,7 +990,6 @@ export default class AddCardSportsman extends Vue {
             this.sportsman.covid_test = this.CovidTestFile;
             this.sportsman.covid_contact = this.CovidContactFile;
             this.sportsman.parent_doc = this.ParentDocFile;
-
             this.sportsman.birth_certificate = this.birthCertificateMap.birthCertificate;
             this.sportsman.insurance = this.insuranceMap.insurance;
             this.sportsman.oms = this.omsMap.oms;
