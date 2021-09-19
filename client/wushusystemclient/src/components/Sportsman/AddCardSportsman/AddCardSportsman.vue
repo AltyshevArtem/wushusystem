@@ -246,22 +246,10 @@
                                                     "
                                                 >
                                                     Добавить
-                                                  </button>
-                                              </div>
-                                              <button
-                                                type="button"
-                                                class="btn btn-dark"
-                                                @click="
-                                                    {
-                                                        isModalBirthCertificate = true;
-                                                        isEdit = false;
-                                                    }
-                                                "
-                                            >
-                                                Добавить
-                                              </button>
-                                          </template>
-                                          <template v-else>
+                                                </button>
+                                            </div>
+                                        </template>
+                                        <template v-else>
                                             Свидетельство о рождении:
                                             <button
                                                 type="button"
@@ -275,7 +263,7 @@
                                             >
                                                 Редактировать свидетельство о рождении
                                             </button>
-                                          </template>
+                                        </template>
                                         {{ birthCertificateMap.birthCertificate }}
                                     </li>
                                     <li class="list-group-item">
