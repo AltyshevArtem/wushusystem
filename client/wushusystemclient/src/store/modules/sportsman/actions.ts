@@ -64,7 +64,7 @@ export const actions: ActionTree<ISportsmanState, null> = {
         if (!isEmpty(sportsman.address)) {
             data.append('address', String(sportsman.address));
         }
-        if (!isEmpty(sportsman.confirm_address) && typeof sportsman.confirm_address !== 'string') {
+        if (!isEmpty(sportsman.confirm_address)){
             data.append('confirm_address', sportsman.confirm_address);
         }
         if (!isEmpty(sportsman.rusada)) {

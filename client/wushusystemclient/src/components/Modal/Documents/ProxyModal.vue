@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div>
-                        <h6>Скан фото:</h6>
+                        <h6>Скан доверенности:</h6>
                         <div v-if="proxy.scan">
                             <a :href="proxy.scan" class="card-link">Просмотр</a>
                             <button class="btn btn-danger" @click="proxy.scan = null">
@@ -172,12 +172,10 @@ export default class ProxyModal extends Vue {
             original_birth_certificate: this.fileBirth,
         };
         this.setProxy(proxy);
-
         this.hideDialog();
     }
-    SaveProxy(): void {
+    public SaveProxy(): void {
         this.setProxy(this.proxy);
-
         this.hideDialog();
     }
     public proxyFileUpload(): void {
@@ -188,10 +186,10 @@ export default class ProxyModal extends Vue {
                 : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
-            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = ' ');
+            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = '');
         }
     }
-    proxyPassportUpload(): void {
+    public proxyPassportUpload(): void {
         if (this.mode) {
             const fileList: FileList | null = (this.$refs['passport'] as HTMLInputElement).files;
             fileList?.length !== 0
@@ -199,10 +197,10 @@ export default class ProxyModal extends Vue {
                 : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['passport'] as HTMLInputElement).files;
-            fileList?.length !== 0 ? (this.filePassport = fileList?.item(0)) : (this.file = ' ');
+            fileList?.length !== 0 ? (this.filePassport = fileList?.item(0)) : (this.file = '');
         }
     }
-    proxyBirthUpload(): void {
+    public proxyBirthUpload(): void {
         if (this.mode) {
             const fileList: FileList | null = (this.$refs['birth'] as HTMLInputElement).files;
             fileList?.length !== 0
@@ -210,7 +208,7 @@ export default class ProxyModal extends Vue {
                 : (this.file = '');
         } else {
             const fileList: FileList | null = (this.$refs['birth'] as HTMLInputElement).files;
-            fileList?.length !== 0 ? (this.fileBirth = fileList?.item(0)) : (this.file = ' ');
+            fileList?.length !== 0 ? (this.fileBirth = fileList?.item(0)) : (this.file = '');
         }
     }
 

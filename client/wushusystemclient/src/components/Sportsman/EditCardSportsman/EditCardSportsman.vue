@@ -2,9 +2,6 @@
     <div>
         <div class="container py-4">
             <div>
-                <!--TODO: Сделать кнопку редирект после усешного PUT запроса в модалке Успеха-->
-                <!--TODO: Изменить цвет кнопки редактирования на другой-->
-                <!--TODO: Изменить размер всех кнопок на меньший-->
                 <div class="pb-3 mb-4 d-flex justify-content-between">
                     <span class="fs-4">
                         <strong> Редактирование спортсмена: </strong><span> {{ FullName }}</span>
@@ -923,7 +920,7 @@
                         class="btn btn-success"
                         type="button"
                         :class="{ disabled: !Editable }"
-                        @click="editSportsman"
+                        @click="EditSportsman"
                     >
                         Сохранить
                     </button>
@@ -994,6 +991,9 @@
 </template>
 
 <script lang="ts">
+// TODO: Сделать кнопку редирект после усешного PUT запроса в модалке Успеха
+// TODO: Изменить цвет кнопки редактирования на другой
+// TODO: Изменить размер всех кнопок на меньший
 /* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
@@ -1293,7 +1293,7 @@ export default class EditCardSportsman extends Vue {
             this.cityName = this.sportsmanMap.sportsman.city.name_of_city;
         }
     }
-    public editSportsman(): void {
+    public EditSportsman(): void {
         this.sportsman = {
             id: 0,
             name: '',

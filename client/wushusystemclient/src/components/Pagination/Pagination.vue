@@ -29,9 +29,6 @@
                     <a class="page-link" @click="currentPage(page)">{{ page }}</a>
                 </li>
             </template>
-            <!-- TODO: Если страниц больше limitPage, то мы не видим страницы больше
-                этого значения. Нужно либо использовать скролл,
-                либо при нажатии в списке менять нумерацию -->
             <li class="page-item" :class="{ disabled: sportsmansMap.page === pageCount }">
                 <a class="page-link" @click="nextPage"> Next </a>
             </li>
@@ -39,6 +36,9 @@
     </nav>
 </template>
 <script lang="ts">
+// TODO: Если страниц больше limitPage, то мы не видим страницы больше
+//     этого значения. Нужно либо использовать скролл,
+//     либо при нажатии в списке менять нумерацию
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 
@@ -61,6 +61,7 @@ export default class Pagination extends Vue {
 
     /* COMPUTED */
     get pageCount(): number {
+        if (this.sportsmansMap.pageSize === 0) return 0;
         return Math.ceil(this.sportsmansMap.count / this.sportsmansMap.pageSize);
     }
 
