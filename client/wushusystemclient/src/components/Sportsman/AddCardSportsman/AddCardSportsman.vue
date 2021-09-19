@@ -5,7 +5,7 @@
             <div>
                 <div class="pb-3 mb-4 d-flex justify-content-between">
                     <span class="fs-4">
-                        <strong>Добававление нового спортсмена</strong>
+                        <strong>Добавление нового спортсмена</strong>
                     </span>
                 </div>
             </div>
@@ -15,7 +15,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item list-sportsman">
+                                    <li class="list-group-item">
                                         <div class="row">
                                             <div class="col-md-7">
                                                 <div class="input__wrapper-file upload">
@@ -42,20 +42,11 @@
                                                             Загрузить файл
                                                         </span>
                                                     </label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <div
-                                                    v-if="PhSpImg !== (undefined || null)"
-                                                    class="imagePreviewWrapper PreviewImgSportsman"
-                                                    :style="{
-                                                        'background-image': `url(${PhSpImg})`,
-                                                    }"
-                                                >
                                                     <div
+                                                        v-if="PhSpImg !== (undefined || null)"
                                                         class="
                                                             danger-button__new-file
-                                                            btnDeleteSportsman
+                                                            list-btnDeleteSportsman
                                                         "
                                                     >
                                                         <button
@@ -70,40 +61,50 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="col-md-5">
+                                                <div
+                                                    v-if="PhSpImg !== (undefined || null)"
+                                                    class="imagePreviewWrapper PreviewImgSportsman"
+                                                    :style="{
+                                                        'background-image': `url(${PhSpImg})`,
+                                                    }"
+                                                ></div>
+                                            </div>
                                         </div>
                                     </li>
                                     <li class="list-group-item">
-                                        <div class="form-group">
+                                        <div class="input-group mb-3 upper-input">
                                             <input
                                                 class="form-control"
                                                 placeholder="Фамилия"
                                                 id="surname"
                                                 v-model="sportsman.surname"
                                             />
+                                        </div>
+                                        <div class="input-group mb-3">
                                             <input
                                                 class="form-control"
                                                 placeholder="Имя"
                                                 id="name"
                                                 v-model="sportsman.name"
                                             />
+                                        </div>
+                                        <div class="input-group mb-3">
                                             <input
                                                 class="form-control"
                                                 placeholder="Отчество"
                                                 id="patronymic"
                                                 v-model="sportsman.patronymic"
                                             />
-                                            <div class="form-group">
-                                                <input
-                                                    placeholder="YYYY-MM-DD"
-                                                    class="form-control"
-                                                    v-model="sportsman.date_of_birth"
-                                                />
-                                            </div>
-                                            <SelectGender
-                                                v-model="sportsman.gender"
-                                                mode="single"
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <input
+                                                placeholder="YYYY-MM-DD"
+                                                class="form-control"
+                                                v-model="sportsman.date_of_birth"
                                             />
                                         </div>
+                                        <SelectGender v-model="sportsman.gender" mode="single" />
                                     </li>
                                 </ul>
                             </div>
@@ -113,27 +114,35 @@
                         <div class="card">
                             <div class="card-body">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item second-list">
-                                        <SelectTrainer
-                                            mode="single"
-                                            id="selectTrainer"
-                                            v-model="sportsman.trainer"
-                                        />
-
-                                        <SelectRank
-                                            mode="single"
-                                            id="selectRank"
-                                            v-model="sportsman.rank"
-                                        />
-
-                                        <SelectDuanCzi
-                                            mode="single"
-                                            id="selectDuanCzi"
-                                            v-model="sportsman.duan_czi"
-                                        />
-                                        <SelectCity mode="single" v-model="sportsman.city" />
-                                        <SelectClub mode="single" v-model="sportsman.club" />
-                                        <div class="form-group">
+                                    <li class="list-group-item">
+                                        <div class="selectors__second-list">
+                                            <SelectTrainer
+                                                mode="single"
+                                                id="selectTrainer"
+                                                v-model="sportsman.trainer"
+                                            />
+                                        </div>
+                                        <div class="selectors__second-list">
+                                            <SelectRank
+                                                mode="single"
+                                                id="selectRank"
+                                                v-model="sportsman.rank"
+                                            />
+                                        </div>
+                                        <div class="selectors__second-list">
+                                            <SelectDuanCzi
+                                                mode="single"
+                                                id="selectDuanCzi"
+                                                v-model="sportsman.duan_czi"
+                                            />
+                                        </div>
+                                        <div class="selectors__second-list">
+                                            <SelectCity mode="single" v-model="sportsman.city" />
+                                        </div>
+                                        <div class="selectors__second-list">
+                                            <SelectClub mode="single" v-model="sportsman.club" />
+                                        </div>
+                                        <div class="input-group mb-3">
                                             <input
                                                 placeholder="Адрес"
                                                 class="form-control"
@@ -153,18 +162,20 @@
                                         <template v-if="!passportMap.passport">
                                             <p><strong>Данные паспорта</strong></p>
                                             <span>Добавить данные о паспорте: </span>
-                                            <button
-                                                type="button"
-                                                class="btn btn-dark"
-                                                @click="
-                                                    {
-                                                        isModalPassport = true;
-                                                        isEdit = false;
-                                                    }
-                                                "
-                                            >
-                                                Добавить
-                                            </button>
+                                            <div class="add-button">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-dark"
+                                                    @click="
+                                                        {
+                                                            isModalPassport = true;
+                                                            isEdit = false;
+                                                        }
+                                                    "
+                                                >
+                                                    Добавить
+                                                </button>
+                                            </div>
                                         </template>
                                         <template v-else>
                                             Паспорт:
@@ -187,18 +198,20 @@
                                         <template v-if="!insuranceMap.insurance">
                                             <p><strong>Страховка</strong></p>
                                             <span>Добавить данные о страховке: </span>
-                                            <button
-                                                type="button"
-                                                class="btn btn-dark"
-                                                @click="
-                                                    {
-                                                        isModalInsurance = true;
-                                                        isEdit = false;
-                                                    }
-                                                "
-                                            >
-                                                Добавить
-                                            </button>
+                                            <div class="add-button">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-dark"
+                                                    @click="
+                                                        {
+                                                            isModalInsurance = true;
+                                                            isEdit = false;
+                                                        }
+                                                    "
+                                                >
+                                                    Добавить
+                                                </button>
+                                            </div>
                                         </template>
                                         <template v-else>
                                             Страховой полис:
@@ -220,19 +233,21 @@
                                     <li class="list-group-item">
                                         <template v-if="!birthCertificateMap.birthCertificate">
                                             <p><strong>Свидетельство о рождении</strong></p>
-                                            <span>Добавить данные о сведительстве рождения: </span>
-                                            <button
-                                                type="button"
-                                                class="btn btn-dark"
-                                                @click="
-                                                    {
-                                                        isModalBirthCertificate = true;
-                                                        isEdit = false;
-                                                    }
-                                                "
-                                            >
-                                                Добавить
-                                            </button>
+                                            <span>Добавить данные о свидетельстве рождения: </span>
+                                            <div class="add-button">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-dark"
+                                                    @click="
+                                                        {
+                                                            isModalBirthCertificate = true;
+                                                            isEdit = false;
+                                                        }
+                                                    "
+                                                >
+                                                    Добавить
+                                                </button>
+                                            </div>
                                         </template>
                                         <template v-else>
                                             Свидетельство о рождении:
@@ -255,18 +270,20 @@
                                         <template v-if="!omsMap.oms">
                                             <p><strong>Полис ОМС</strong></p>
                                             <span>Добавить данные о полисе ОМС: </span>
-                                            <button
-                                                type="button"
-                                                class="btn btn-dark"
-                                                @click="
-                                                    {
-                                                        isModalOms = true;
-                                                        isEdit = false;
-                                                    }
-                                                "
-                                            >
-                                                Добавить
-                                            </button>
+                                            <div class="add-button">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-dark"
+                                                    @click="
+                                                        {
+                                                            isModalOms = true;
+                                                            isEdit = false;
+                                                        }
+                                                    "
+                                                >
+                                                    Добавить
+                                                </button>
+                                            </div>
                                         </template>
                                         <template v-else>
                                             Полис ОМС:
@@ -297,18 +314,20 @@
                                                 >Добавить данные о заверенной копии и доверенности
                                                 родителя:
                                             </span>
-                                            <button
-                                                type="button"
-                                                class="btn btn-dark"
-                                                @click="
-                                                    {
-                                                        isModalProxy = true;
-                                                        isEdit = false;
-                                                    }
-                                                "
-                                            >
-                                                Добавить
-                                            </button>
+                                            <div class="add-button">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-dark"
+                                                    @click="
+                                                        {
+                                                            isModalProxy = true;
+                                                            isEdit = false;
+                                                        }
+                                                    "
+                                                >
+                                                    Добавить
+                                                </button>
+                                            </div>
                                         </template>
                                         <template v-else>
                                             Прокси:
@@ -1093,8 +1112,8 @@ export default class AddCardSportsman extends Vue {
 </script>
 
 <style scoped>
-.second-list {
-    height: 290px;
+.selectors__second-list {
+    height: 60px;
 }
 .upload {
     width: 300px;
@@ -1132,5 +1151,14 @@ export default class AddCardSportsman extends Vue {
 }
 .list-sportsman {
     height: 250px;
+}
+.inputs {
+    height: 20px;
+}
+.upper-input {
+    padding-top: 17px;
+}
+.add-button {
+    padding-top: 10px;
 }
 </style>
