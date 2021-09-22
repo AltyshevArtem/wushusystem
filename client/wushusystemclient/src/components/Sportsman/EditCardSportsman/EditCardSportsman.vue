@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <img v-if="!loading" src="@/assets/spin.svg" />
+    <div v-else>
         <div class="container py-4">
             <div>
                 <div class="pb-3 mb-4 d-flex justify-content-between">
@@ -1066,6 +1067,7 @@
 // TODO: Сделать кнопку редирект после усешного PUT запроса в модалке Успеха
 // TODO: Изменить цвет кнопки редактирования на другой
 // TODO: Изменить размер всех кнопок на меньший
+// TODO: Сделать компонент Img для изображений с обработкой незагруженных фоток и валидацией
 /* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
@@ -1158,6 +1160,9 @@ const namespaceTrainer = 'trainer';
     },
 })
 export default class EditCardSportsman extends Vue {
+    /* LOADING */
+    loading = false;
+
     /* DATA */
     sportsman!: {
         id: number | undefined;
@@ -1534,8 +1539,10 @@ export default class EditCardSportsman extends Vue {
     FullName: string | undefined;
 
     mounted(): void {
+        this.loading = false;
         this.getSportsman(this.$route.params.id);
         this.initSelectors();
+        this.loading = true;
     }
 }
 </script>
