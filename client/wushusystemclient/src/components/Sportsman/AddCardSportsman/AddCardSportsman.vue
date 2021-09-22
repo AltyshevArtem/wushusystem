@@ -178,6 +178,12 @@
                                             >
                                                 Редактировать паспорт
                                             </button>
+                                            <button
+                                                class="btn btn-danger"
+                                                @click="passportMap.passport = null"
+                                            >
+                                                Удалить
+                                            </button>
                                         </template>
                                         {{ passportMap.passport }}
                                     </li>
@@ -211,6 +217,12 @@
                                                 "
                                             >
                                                 Редактировать страховой полис
+                                            </button>
+                                            <button
+                                                class="btn btn-danger"
+                                                @click="insuranceMap.insurance = null"
+                                            >
+                                                Удалить
                                             </button>
                                         </template>
                                         {{ insuranceMap.insurance }}
@@ -246,6 +258,12 @@
                                             >
                                                 Редактировать свидетельство о рождении
                                             </button>
+                                            <button
+                                                class="btn btn-danger"
+                                                @click="birthCertificateMap.birthCertificate = null"
+                                            >
+                                                Удалить
+                                            </button>
                                         </template>
                                         {{ birthCertificateMap.birthCertificate }}
                                     </li>
@@ -279,6 +297,12 @@
                                                 "
                                             >
                                                 Редактировать полис ОМС
+                                            </button>
+                                            <button
+                                                class="btn btn-danger"
+                                                @click="omsMap.oms = null"
+                                            >
+                                                Удалить
                                             </button>
                                         </template>
                                         {{ omsMap.oms }}
@@ -321,6 +345,12 @@
                                                 "
                                             >
                                                 Редактировать прокси
+                                            </button>
+                                            <button
+                                                class="btn btn-danger"
+                                                @click="proxyMap.proxy = null"
+                                            >
+                                                Удалить
                                             </button>
                                         </template>
                                         {{ proxyMap.proxy }}

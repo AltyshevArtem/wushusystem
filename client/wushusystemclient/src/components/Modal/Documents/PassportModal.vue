@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade show" @click.stop="hideDialog" tabindex="-1" role="dialog">
+    <div class="modal fade show" tabindex="-1" role="dialog">
         <div class="modal-dialog" @click.stop role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -36,8 +36,9 @@
                         <div v-else>
                             <input
                                 type="file"
-                                id="file"
-                                ref="file"
+                                accept="image/*"
+                                id="scan"
+                                ref="scan"
                                 @change="PassportFileUpload()"
                             />
                         </div>
@@ -64,8 +65,9 @@
                         <h6>Скан фото:</h6>
                         <input
                             type="file"
-                            id="file"
-                            ref="file"
+                            accept="image/*"
+                            id="scan"
+                            ref="scan"
                             @change="PassportFileUpload()"
                             required
                         />
@@ -152,12 +154,12 @@ export default class PassportModal extends Vue {
     }
     public PassportFileUpload(): void {
         if (this.mode) {
-            const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
+            const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
             fileList?.length !== 0
                 ? (this.passport.scan = fileList?.item(0) as File)
                 : (this.file = '');
         } else {
-            const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
+            const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
             fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = '');
         }
     }

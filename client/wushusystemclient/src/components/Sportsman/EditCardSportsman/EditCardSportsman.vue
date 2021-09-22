@@ -216,6 +216,20 @@
                                                 >
                                                     Редактировать
                                                 </button>
+                                                <button
+                                                    v-if="passportMap.passport"
+                                                    class="btn btn-danger"
+                                                    @click="passportMap.passport = null"
+                                                >
+                                                    Удалить
+                                                </button>
+                                                <button
+                                                    v-if="sportsmanMap.sportsman.passport"
+                                                    class="btn btn-danger"
+                                                    @click="sportsmanMap.sportsman.passport = null"
+                                                >
+                                                    Удалить
+                                                </button>
                                             </template>
                                         </span>
                                     </div>
@@ -347,6 +361,22 @@
                                             >
                                                 Редактировать
                                             </button>
+                                            <button
+                                                v-if="birthCertificateMap.birthCertificate"
+                                                class="btn btn-danger"
+                                                @click="birthCertificateMap.birthCertificate = null"
+                                            >
+                                                Удалить
+                                            </button>
+                                            <button
+                                                v-if="sportsmanMap.sportsman.birth_certificate"
+                                                class="btn btn-danger"
+                                                @click="
+                                                    sportsmanMap.sportsman.birth_certificate = null
+                                                "
+                                            >
+                                                Удалить
+                                            </button>
                                         </template>
                                     </div>
                                 </div>
@@ -396,6 +426,20 @@
                                                     "
                                                 >
                                                     Редактировать
+                                                </button>
+                                                <button
+                                                    v-if="sportsmanMap.sportsman.proxy"
+                                                    class="btn btn-danger"
+                                                    @click="sportsmanMap.sportsman.proxy = null"
+                                                >
+                                                    Удалить
+                                                </button>
+                                                <button
+                                                    v-if="proxyMap.proxy"
+                                                    class="btn btn-danger"
+                                                    @click="proxyMap.proxy = null"
+                                                >
+                                                    Удалить
                                                 </button>
                                             </template>
                                         </span>
@@ -849,6 +893,20 @@
                                             >
                                                 Редактировать
                                             </button>
+                                            <button
+                                                v-if="insuranceMap.insurance"
+                                                class="btn btn-danger"
+                                                @click="insuranceMap.insurance = null"
+                                            >
+                                                Удалить
+                                            </button>
+                                            <button
+                                                v-if="sportsmanMap.sportsman.insurance"
+                                                class="btn btn-danger"
+                                                @click="sportsmanMap.sportsman.insurance = null"
+                                            >
+                                                Удалить
+                                            </button>
                                         </template>
                                     </div>
                                 </div>
@@ -883,6 +941,20 @@
                                                 "
                                             >
                                                 Редактировать
+                                            </button>
+                                            <button
+                                                v-if="omsMap.oms"
+                                                class="btn btn-danger"
+                                                @click="omsMap.oms = null"
+                                            >
+                                                Удалить
+                                            </button>
+                                            <button
+                                                v-if="sportsmanMap.sportsman.oms"
+                                                class="btn btn-danger"
+                                                @click="sportsmanMap.sportsman.oms = null"
+                                            >
+                                                Удалить
                                             </button>
                                         </template>
                                     </div>

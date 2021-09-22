@@ -2,9 +2,7 @@
     <nav aria-label="..." v-if="pageCount > 1">
         <ul class="pagination">
             <li class="page-item" :class="{ disabled: sportsmansMap.page === 1 }">
-                <a class="page-link" @click="prevPage" tabindex="-1" aria-disabled="true">
-                    Previous
-                </a>
+                <a class="page-link" @click="prevPage" aria-disabled="true"> Previous </a>
             </li>
             <template v-if="pageCount > limitPage">
                 <li
