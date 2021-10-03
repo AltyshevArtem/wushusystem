@@ -52,11 +52,11 @@ export interface ISportsman {
     address?: string;
     confirm_address: string;
     gender: IGender;
-    insurance: IInsurance | null;
-    birth_certificate: IBirthCertificate | null;
-    passport: IPassport | null;
-    proxy: IProxyDoc | null;
-    oms: IOms | null;
+    insurance: IInsurance;
+    birth_certificate: IBirthCertificate;
+    passport: IPassport;
+    proxy: IProxyDoc;
+    oms: IOms;
     city?: ICity;
     trainer?: ITrainer;
     club?: IClub;
