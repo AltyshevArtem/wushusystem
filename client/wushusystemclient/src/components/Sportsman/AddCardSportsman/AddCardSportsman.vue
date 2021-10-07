@@ -54,6 +54,8 @@
                                                             class="btn btn-danger"
                                                             @click="
                                                                 PhSpImg = null;
+                                                                this.$refs.PhotoSportsman.value =
+                                                                    '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -445,6 +447,8 @@
                                                             class="btn btn-danger"
                                                             @click="
                                                                 ConfAddrImg = null;
+                                                                this.$refs.ConfirmAddress.value =
+                                                                    '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -504,6 +508,7 @@
                                                             class="btn btn-danger"
                                                             @click="
                                                                 RusadaFileImg = null;
+                                                                this.$refs.Rusada.value = '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -563,6 +568,7 @@
                                                             class="btn btn-danger"
                                                             @click="
                                                                 SchoolFileImg = null;
+                                                                this.$refs.School.value = '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -622,6 +628,7 @@
                                                             class="btn btn-danger"
                                                             @click="
                                                                 CovidTestImg = null;
+                                                                this.$refs.CovidTest.value = '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -687,6 +694,7 @@
                                                             class="btn btn-danger"
                                                             @click="
                                                                 CovidContImg = null;
+                                                                this.$refs.CovidContact.value = '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -746,6 +754,7 @@
                                                             class="btn btn-danger"
                                                             @click="
                                                                 ParentDocImg = null;
+                                                                this.$refs.ParentDoc.value = '';
                                                                 Editable = true;
                                                             "
                                                         >
