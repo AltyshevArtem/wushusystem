@@ -9,37 +9,57 @@
         <div class="listSportsman">
             <input placeholder="ФИО Спортсмена..." class="form-control" v-model="search" />
         </div>
-        <div class="select">
-            <div class="row">
-                <div class="col-1">
-                    <SelectGender mode="multiple" v-model="SelectGender" />
-                </div>
-                <div class="col-5">
-                    <SelectRank mode="multiple" v-model="SelectRank" />
-                </div>
-                <div class="col-3">
-                    <SelectDuanCzi mode="multiple" v-model="SelectDuanCzi" />
-                </div>
-                <div class="col-3">
-                    <SelectClub mode="multiple" v-model="SelectClub" />
+        <div class="row">
+            <div class="col-md-6">
+                <div class="leftList">
+                    <div class="leftList__upper-row">
+                        <div class="row">
+                            <div class="col-6">
+                                <SelectGender mode="multiple" v-model="SelectGender" />
+                            </div>
+                            <div class="col-6">
+                                <SelectRank mode="multiple" v-model="SelectRank" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="leftList__middle-row">
+                        <div class="row">
+                            <SelectTrainer mode="multiple" v-model="SelectTrainer" />
+                        </div>
+                    </div>
+                    <div class="leftList__lower-row">
+                        <div class="row">
+                            <div class="col-6">
+                                <SelectDuanCzi mode="multiple" v-model="SelectDuanCzi" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-6">
-                    <SelectCity mode="multiple" v-model="SelectCity" />
-                </div>
-                <div class="col-6">
-                    <SelectTrainer mode="multiple" v-model="SelectTrainer" />
+            <div class="col-md-6">
+                <div class="rightList">
+                    <div class="rightList__upper-row">
+                        <div class="row">
+                            <div class="col-6">
+                                <!-- <SelectCity mode="multiple" v-model="SelectCity" /> -->
+                            </div>
+                            <div class="col-6">
+                                <!-- <SelectRegion mode="multiple" v-model="SelectRegion" /> -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rightList__middle-row">
+                        <div class="row">
+                            <SelectClub mode="multiple" v-model="SelectClub" />
+                        </div>
+                    </div>
+                    <div class="rightList__lower-row">
+                        <div class="col-6">
+                            <!-- <SelectFederalRegion mode="multiple" v-model="SelectFederalRegion" /> -->
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- <div class="row">
-                <div class="col-6">
-                    <SelectFederalRegion mode="multiple" v-model="SelectFederalRegion" />
-                </div>
-                <div class="col-6">
-                    <SelectRegion mode="multiple" v-model="SelectRegion" />
-                </div>
-            </div> -->
         </div>
         <TableSportsman />
         <Pagination />
@@ -198,5 +218,17 @@ table {
 }
 li > a {
     cursor: pointer;
+}
+.leftList__lower-row {
+    padding-top: 15px;
+}
+.leftList__middle-row {
+    padding-top: 15px;
+}
+.rightList__lower-row {
+    padding-top: 15px;
+}
+.rightList__middle-row {
+    padding-top: 15px;
 }
 </style>
