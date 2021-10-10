@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { IRegion } from '@/models/city';
 
 interface IFederation {

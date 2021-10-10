@@ -1,80 +1,75 @@
+/* VUEX */
 import { ActionTree } from 'vuex';
-import axios from 'axios';
+
+/* TYPES */
 import { IProxyDocState } from './types';
+
+/* MODELS */
 import { IProxyDoc } from '@/models/sportsman';
+
+/* HTTP */
+import http from '@/http-common';
 
 export const actions: ActionTree<IProxyDocState, null> = {
     postProxy({ commit }, proxy: IProxyDoc): any {
         const data = new FormData();
         data.append('scan', proxy.scan);
         data.append('date_end', String(proxy.date_end));
-        /* PASSPORT */
         data.append('original_passport', proxy.original_passport);
-        /* BIRTH_CERTIFICATE */
         data.append('original_birth_certificate', proxy.original_birth_certificate);
-        axios
-            .post('/api/proxy/', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.post('/proxy/', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IProxyDoc = response && response.data;
-                commit('postProxy', payload);
+                commit('setProxy', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('postProxyError');
+                commit('errorProxy');
             });
     },
     putProxy({ commit }, proxy: IProxyDoc): any {
         const data = new FormData();
         data.append('date_end', String(proxy.date_end));
-        if (proxy.scan['name'] !== undefined) {
-            data.append('scan', proxy.scan);
-        }
-        if (proxy.original_passport['name'] !== undefined) {
-            data.append('original_passport', proxy.original_passport);
-        }
-        if (proxy.original_birth_certificate['name'] !== undefined) {
-            data.append('original_birth_certificate', proxy.original_birth_certificate);
-        }
-        axios
-            .put(`/api/proxy/${proxy.id}/`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        data.append('scan', proxy.scan);
+        data.append('original_passport', proxy.original_passport);
+        data.append('original_birth_certificate', proxy.original_birth_certificate);
+        http.put(`/proxy/${proxy.id}/`, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IProxyDoc = response && response.data;
-                commit('putProxy', payload);
+                commit('setProxy', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('putProxyError');
+                commit('errorProxy');
             });
     },
     deleteProxy({ commit }, id: number): any {
-        axios
-            .delete(`/api/proxy/${id}`)
-            .then((response) => {
+        http.delete(`/proxy/${id}`)
+            .then(() => {
                 commit('deleteProxy');
             })
             .catch((error) => {
                 console.log(error);
-                commit('deleteProxyError');
+                commit('errorProxy');
             });
     },
     getProxy({ commit }, id: number): any {
-        axios
-            .get(`/api/proxy/${id}`)
+        http.get(`/proxy/${id}`)
             .then((response) => {
                 const payload: IProxyDoc = response && response.data;
-                commit('getProxy', payload);
+                commit('setProxy', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('getProxyError');
+                commit('errorProxy');
             });
     },
 };

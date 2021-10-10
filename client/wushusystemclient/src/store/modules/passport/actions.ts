@@ -1,7 +1,14 @@
+/* VUEX */
 import { ActionTree } from 'vuex';
-import axios from 'axios';
+
+/* TYPES */
 import { IPassportState } from './types';
+
+/* MODELS */
 import { IPassport } from '@/models/sportsman';
+
+/* HTTP */
+import http from '@/http-common';
 
 export const actions: ActionTree<IPassportState, null> = {
     postPassport({ commit }, passport: IPassport): any {
@@ -11,73 +18,60 @@ export const actions: ActionTree<IPassportState, null> = {
         data.append('date_start', String(passport.date_start));
         data.append('issue', String(passport.issue));
         data.append('code', String(passport.code));
-        axios
-            .post('/api/passport/', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.post('/passport/', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IPassport = response && response.data;
-                commit('postPassport', payload);
+                commit('setPassport', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('postPassportError');
+                commit('errorPassport');
             });
     },
     putPassport({ commit }, passport: IPassport): any {
         const data = new FormData();
-
         data.append('number', String(passport.number));
-        if (passport.scan['name'] !== undefined) {
-            data.append('scan', passport.scan);
-        }
-        if (passport.date_start !== undefined){
-            data.append('date_start', String(passport.date_start));
-        }
-        if (passport.issue !== undefined){
-            data.append('issue', String(passport.issue));
-        }
-        if (passport.code !== undefined){
-                data.append('code', String(passport.code));
-        }
-        axios
-            .put(`/api/passport/${passport.id}/`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        data.append('scan', passport.scan);
+        data.append('date_start', String(passport.date_start));
+        data.append('issue', String(passport.issue));
+        data.append('code', String(passport.code));
+        http.put(`/passport/${passport.id}/`, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IPassport = response && response.data;
-                commit('putPassport', payload);
+                commit('setPassport', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('putPassportError');
+                commit('errorPassport');
             });
     },
     deletePassport({ commit }, id: number): any {
-        axios
-            .delete(`/api/passport/${id}`)
-            .then((response) => {
+        http.delete(`/passport/${id}`)
+            .then(() => {
                 commit('deletePassport');
             })
             .catch((error) => {
                 console.log(error);
-                commit('deletePassportError');
+                commit('errorPassport');
             });
     },
     getPassport({ commit }, id: number): any {
-        axios
-            .get(`/api/passport/${id}`)
+        http.get(`/passport/${id}`)
             .then((response) => {
                 const payload: IPassport = response && response.data;
-                commit('getPassport', payload);
+                commit('setPassport', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('getPassportError');
+                commit('errorPassport');
             });
     },
 };

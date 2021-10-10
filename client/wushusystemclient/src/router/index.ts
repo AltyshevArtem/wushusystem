@@ -4,19 +4,28 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/sportsmans',
         name: 'Sportsmans',
-        component: () => import('../views/TableSportsman.vue'),
+        component: () => import('@/components/Sportsman/Sportsman.vue'),
     },
     {
-        //TODO: Если спортсмена по такому ID не существует делать редирект
         path: '/sportsman/:id',
         name: 'Sportsman',
-        component: () => import('../views/CardSportsman.vue'),
+        component: () => import('@/components/Sportsman/CardSportsman/CardSportsman.vue'),
     },
     {
-        //TODO: Сделать так, чтобы на домашней странице не было 404
+        path: '/sportsmans/new',
+        name: 'CreateSportsman',
+        component: () => import('@/components/Sportsman/AddCardSportsman/AddCardSportsman.vue'),
+    },
+    {
+        path: '/sportsman/edit/:id',
+        name: 'EditSportsman',
+        component: () => import('@/components/Sportsman/EditCardSportsman/EditCardSportsman.vue'),
+    },
+    {
+        //TODO: Сделать так, чтобы на домашней странице не было 404(добавь главную страницу лол)
         path: '/:NotFound(.*)*',
         name: 'NotFound',
-        component: () => import('../components/NotFound/PageNotFound.vue'),
+        component: () => import('@/components/NotFound/PageNotFound.vue'),
     },
 ];
 

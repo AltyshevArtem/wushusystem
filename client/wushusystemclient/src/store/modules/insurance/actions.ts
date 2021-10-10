@@ -1,7 +1,14 @@
+/* VUEX */
 import { ActionTree } from 'vuex';
-import axios from 'axios';
+
+/* TYPES */
 import { IInsuranceState } from './types';
+
+/* MODELS */
 import { IInsurance } from '@/models/sportsman';
+
+/* HTTP */
+import http from '@/http-common';
 
 export const actions: ActionTree<IInsuranceState, null> = {
     postInsurance({ commit }, insurance: IInsurance): any {
@@ -9,64 +16,58 @@ export const actions: ActionTree<IInsuranceState, null> = {
         data.append('date_start', String(insurance.date_start));
         data.append('date_end', String(insurance.date_end));
         data.append('file_insurance', insurance.file_insurance);
-        axios
-            .post('/api/insurance/', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.post('/insurance/', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IInsurance = response && response.data;
-                commit('postInsurance', payload);
+                commit('setInsurance', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('postInsuranceError');
+                commit('errorInsurance');
             });
     },
     putInsurance({ commit }, insurance: IInsurance): any {
         const data = new FormData();
         data.append('date_start', String(insurance.date_start));
         data.append('date_end', String(insurance.date_end));
-        if (insurance.file_insurance['name'] !== undefined) {
-            data.append('file_insurance', insurance.file_insurance);
-        }
-        axios
-            .put(`/api/insurance/${insurance.id}/`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        data.append('file_insurance', insurance.file_insurance);
+        http.put(`/insurance/${insurance.id}/`, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IInsurance = response && response.data;
-                commit('putInsurance', payload);
+                commit('setInsurance', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('putInsuranceError');
+                commit('errorInsurance');
             });
     },
     deleteInsurance({ commit }, id: number): any {
-        axios
-            .delete(`/api/insurance/${id}`)
-            .then((response) => {
+        http.delete(`/insurance/${id}`)
+            .then(() => {
                 commit('deleteInsurance');
             })
             .catch((error) => {
                 console.log(error);
-                commit('deleteInsuranceError');
+                commit('errorInsurance');
             });
     },
     getInsurance({ commit }, id: number): any {
-        axios
-            .get(`/api/insurance/${id}`)
+        http.get(`/insurance/${id}`)
             .then((response) => {
                 const payload: IInsurance = response && response.data;
-                commit('getInsurance', payload);
+                commit('setInsurance', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('getInsuranceError');
+                commit('errorInsurance');
             });
     },
 };

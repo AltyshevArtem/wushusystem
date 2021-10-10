@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 export interface IFederalRegion {
     id: number;
     name_of_federal_region: string;

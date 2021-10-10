@@ -1,18 +1,22 @@
+/* VUEX */
 import { ActionTree } from 'vuex';
-import axios from 'axios';
+
+/* TYPES */
 import { ICityState } from './types';
+
+/* HTTP */
+import http from '@/http-common';
 
 export const actions: ActionTree<ICityState, null> = {
     getCityList({ commit }): any {
-        axios
-            .get('/api/city/')
+        http.get('/city/')
             .then((response) => {
                 const payload: ICityState = response && response.data;
-                commit('getCity', payload);
+                commit('setCity', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('getCityError');
+                commit('errorCity');
             });
     },
 };

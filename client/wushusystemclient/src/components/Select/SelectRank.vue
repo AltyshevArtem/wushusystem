@@ -23,7 +23,7 @@ import { Prop } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
 
 /* STATE */
-import { IRankState } from '../../store/modules/rank/types';
+import { IRankState } from '@/store/modules/rank/types';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';

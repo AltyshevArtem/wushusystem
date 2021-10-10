@@ -1,4 +1,7 @@
+/* VUEX */
 import { GetterTree } from 'vuex';
+
+/* TYPES */
 import { IRankState } from './types';
 
 export const getters: GetterTree<IRankState, null> = {

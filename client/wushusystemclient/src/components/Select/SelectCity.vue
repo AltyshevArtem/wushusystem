@@ -23,7 +23,7 @@ import { Prop } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
 
 /* STATE */
-import { ICityState } from '../../store/modules/city/types';
+import { ICityState } from '@/store/modules/city/types';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';
@@ -38,6 +38,7 @@ const namespace = 'city';
     },
 })
 export default class SelectCity extends Vue {
+    // TODO: Убрать скролл в компоненте, если элементов мало
     /* PROP */
     @Prop({ type: String, default: 'multiple' }) mode!: string;
 

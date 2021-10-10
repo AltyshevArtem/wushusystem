@@ -1,18 +1,22 @@
+/* VUEX */
 import { ActionTree } from 'vuex';
-import axios from 'axios';
+
+/* TYPES */
 import { ITrainerState } from './types';
+
+/* HTTP */
+import http from '@/http-common';
 
 export const actions: ActionTree<ITrainerState, null> = {
     getTrainerList({ commit }): any {
-        axios
-            .get('/api/trainer/')
+        http.get('/trainer/')
             .then((response) => {
                 const payload: ITrainerState = response && response.data;
-                commit('getTrainer', payload);
+                commit('setTrainer', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('getTrainerError');
+                commit('errorTrainer');
             });
     },
 };

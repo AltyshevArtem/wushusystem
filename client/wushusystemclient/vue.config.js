@@ -14,6 +14,11 @@ const conf = {
                 ws: true,
                 changeOrigin: true,
             },
+            '^/static': {
+                target: 'http://localhost:8000',
+                ws: true,
+                changeOrigin: true,
+            },
             '^/media': {
                 target: 'http://localhost:8000',
                 ws: true,

@@ -1,3 +1,4 @@
+/* MODELS */
 import { IClub } from '@/models/club';
 
 export interface IClubState {

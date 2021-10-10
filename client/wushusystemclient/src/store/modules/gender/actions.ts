@@ -1,18 +1,22 @@
+/* VUEX */
 import { ActionTree } from 'vuex';
-import axios from 'axios';
+
+/* TYPES */
 import { IGenderState } from './types';
+
+/* HTTP */
+import http from '@/http-common';
 
 export const actions: ActionTree<IGenderState, null> = {
     getGenderList({ commit }): any {
-        axios
-            .get('/api/gender/')
+        http.get('/gender/')
             .then((response) => {
                 const payload: IGenderState = response && response.data;
-                commit('getGender', payload);
+                commit('setGender', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('getGenderError');
+                commit('errorGender');
             });
     },
 };

@@ -14,7 +14,7 @@ module.exports = {
         ecmaVersion: 2020,
     },
     rules: {
-        'max-len': ['error', { code: 100 }],
+        'max-len': ['error', { code: 110 }],
         'prefer-promise-reject-errors': ['off'],
         'no-return-assign': ['off'],
         camelcase: 'warn',

@@ -1,70 +1,73 @@
+/* VUEX */
 import { ActionTree } from 'vuex';
-import axios from 'axios';
+
+/* TYPES */
 import { IBirthCertificateState } from './types';
+
+/* MODELS */
 import { IBirthCertificate } from '@/models/sportsman';
+
+/* HTTP */
+import http from '@/http-common';
 
 export const actions: ActionTree<IBirthCertificateState, null> = {
     postBirthCertificate({ commit }, birthCertificate: IBirthCertificate): any {
         const data = new FormData();
         data.append('number', String(birthCertificate.number));
-        data.append('scan', birthCertificate.scan);
-        axios
-            .post('/api/birth_certificate/', data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        data.append('scan', String(birthCertificate.scan));
+        http.post('/birth_certificate/', data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IBirthCertificate = response && response.data;
-                commit('postBirthCertificate', payload);
+                commit('setBirthCertificate', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('postBirthCertificateError');
+                commit('errorBirthCertificate');
             });
     },
     putBirthCertificate({ commit }, birthCertificate: IBirthCertificate): any {
         const data = new FormData();
         data.append('number', String(birthCertificate.number));
-        if (birthCertificate.scan['name'] !== undefined) {
-            data.append('scan', birthCertificate.scan);
+        if (typeof birthCertificate.scan !== 'string') {
+            data.append('scan', String(birthCertificate.scan));
         }
-        axios
-            .put(`/api/birth_certificate/${birthCertificate.id}/`, data, {
-                headers: {
-                    'Content-Type': 'multipart/form-data; boundary=----something',
-                },
-            })
+        http.put(`/birth_certificate/${birthCertificate.id}/`, data, {
+            headers: {
+                'Content-Type': 'multipart/form-data; boundary=----something',
+            },
+        })
             .then((response) => {
                 const payload: IBirthCertificate = response && response.data;
-                commit('putBirthCertificate', payload);
+                commit('setBirthCertificate', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('putBirthCertificateError');
+                commit('errorBirthCertificate');
             });
     },
     deleteBirthCertificate({ commit }, id: number): any {
-        axios
-            .delete(`/api/birth_certificate/${id}`)
-            .then((response) => {
+        http.delete(`/birth_certificate/${id}`)
+            .then(() => {
                 commit('deleteBirthCertificate');
             })
             .catch((error) => {
                 console.log(error);
-                commit('deleteBirthCertificateError');
+                commit('errorBirthCertificate');
             });
     },
     getBirthCertificate({ commit }, id: number): any {
-        axios
-            .get(`/api/birth_certificate/${id}`)
+        http.get(`/birth_certificate/${id}`)
             .then((response) => {
                 const payload: IBirthCertificate = response && response.data;
-                commit('getBirthCertificate', payload);
+                commit('setBirthCertificate', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('getBirthCertificateError');
+                commit('errorBirthCertificate');
             });
     },
 };

@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { IGender } from '@/models/gender';
 export interface ITrainer {
     id: number;

@@ -1,4 +1,8 @@
+/* eslint-disable camelcase */
+/* VUEX */
 import { GetterTree } from 'vuex';
+
+/* TYPES */
 import { IDuanCziState } from './types';
 
 export const getters: GetterTree<IDuanCziState, null> = {

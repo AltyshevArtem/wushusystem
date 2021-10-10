@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { createStore } from 'vuex';
 import { sportsmans } from './modules/sportsmans/index';
 import { sportsman } from './modules/sportsman/index';

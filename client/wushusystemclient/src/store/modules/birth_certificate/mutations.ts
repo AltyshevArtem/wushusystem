@@ -1,41 +1,23 @@
+/* VUEX */
 import { MutationTree } from 'vuex';
+
+/* TYPES */
 import { IBirthCertificateState } from './types';
+
+/* MODELS */
 import { IBirthCertificate } from '@/models/sportsman';
 
 export const mutations: MutationTree<IBirthCertificateState> = {
-    /* POST */
-    postBirthCertificate(state, payload: IBirthCertificate) {
+    setBirthCertificate(state, payload: IBirthCertificate) {
         state.birthCertificate = payload;
         state.error = false;
     },
-    postBirthCertificateError(state) {
+    errorBirthCertificate(state) {
         state.birthCertificate = undefined;
         state.error = true;
     },
-    /* PUT */
-    putBirthCertificate(state, payload: IBirthCertificate) {
-        state.birthCertificate = payload;
-        state.error = false;
-    },
-    putBirthCertificateError(state) {
-        state.birthCertificate = undefined;
-        state.error = true;
-    },
-    /* DELETE */
     deleteBirthCertificate(state) {
         state.birthCertificate = undefined;
         state.error = false;
-    },
-    deleteBirthCertificateError(state) {
-        state.error = true;
-    },
-    /* GET */
-    getBirthCertificate(state, payload: IBirthCertificate) {
-        state.birthCertificate = payload;
-        state.error = false;
-    },
-    getBirthCertificateError(state) {
-        state.birthCertificate = undefined;
-        state.error = true;
     },
 };

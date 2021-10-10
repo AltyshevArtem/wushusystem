@@ -23,7 +23,7 @@ import { Prop } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
 
 /* STATE */
-import { IFederalRegionState } from '../../store/modules/federal_region/types';
+import { IFederalRegionState } from '@/store/modules/federal_region/types';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';

@@ -23,7 +23,7 @@ import { Prop } from 'vue-property-decorator';
 import { State, Action, Getter } from 'vuex-class';
 
 /* STATE */
-import { ITrainerState } from '../../store/modules/trainer/types';
+import { ITrainerState } from '@/store/modules/trainer/types';
 
 /* VUE FORM */
 import Multiselect from '@vueform/multiselect';
@@ -42,7 +42,7 @@ export default class SelectRank extends Vue {
     @Prop({ type: String, default: 'multiple' }) mode!: string;
 
     /* STATE */
-    @State('rank')
+    @State('trainer')
     listTrainerMap!: ITrainerState;
 
     /* ACTION */

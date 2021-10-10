@@ -1,3 +1,4 @@
+/* MODELS */
 import { IBirthCertificate } from '@/models/sportsman';
 
 export interface IBirthCertificateState {

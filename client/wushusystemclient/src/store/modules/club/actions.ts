@@ -1,18 +1,22 @@
+/* VUEX */
 import { ActionTree } from 'vuex';
-import axios from 'axios';
+
+/* TYPES */
 import { IClubState } from './types';
+
+/* HTTP */
+import http from '@/http-common';
 
 export const actions: ActionTree<IClubState, null> = {
     getClubList({ commit }): any {
-        axios
-            .get('/api/club/')
+        http.get('/club/')
             .then((response) => {
                 const payload: IClubState = response && response.data;
-                commit('getClub', payload);
+                commit('setClub', payload);
             })
             .catch((error) => {
                 console.log(error);
-                commit('getClubError');
+                commit('errorClub');
             });
     },
 };

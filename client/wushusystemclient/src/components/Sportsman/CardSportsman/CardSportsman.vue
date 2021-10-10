@@ -1,12 +1,7 @@
-<!-- TODO: Перенести из папки views в компоненты всё-->
 <template>
     <div>
-        <!-- TODO: сделать ездящую шапку при скроле страницы вверх и вниз-->
-        <!-- TODO: Сделать кнопку перехода назад к предыдущей странице -->
-        <!--  -->
-        <!-- TODO: Для полей без фоток прописать условие, а то ссылки есть, а фоток нет -->
         <div v-if="this.sportsmanMap.error === false">
-            <div v-if="isEditable === false" class="container py-4">
+            <div class="container py-4">
                 <div>
                     <div class="pb-3 mb-4 d-flex justify-content-between">
                         <span class="fs-4">
@@ -14,14 +9,16 @@
                                 {{ FullName }}
                             </strong>
                         </span>
-                        <div class="pb-3 mb-3">
-                            <button
-                                type="button"
-                                @click="isEditable = true"
-                                class="btn btn-primary"
-                            >
-                                Редактировать
-                            </button>
+                        <div class="pb-3 mb-3 buttons__delete-edit">
+                            <router-link :to="'/sportsman/' + 'edit/' + this.$route.params.id">
+                                <button
+                                    type="button"
+                                    @click="isEditable = true"
+                                    class="btn btn-secondary edit-button"
+                                >
+                                    Редактировать
+                                </button>
+                            </router-link>
                             <button
                                 type="button"
                                 @click="isConfirmModalVisible = true"
@@ -35,9 +32,9 @@
                 <div class="p-5 mb-4 bg-light rounded-3">
                     <div class="card mb-3">
                         <div class="row g-0">
+                            <h5 class="card-header cardHeader">Информация о спортсмене:</h5>
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">Информация о спортсмене:</h5>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
                                             ФИО: <strong>{{ FullName }}</strong>
@@ -120,8 +117,8 @@
                         </div>
                     </div>
                     <div class="card mb-3">
+                        <h5 class="card-header cardHeader">Принадлежность:</h5>
                         <div class="card-body">
-                            <h5 class="card-title">Принадлежность:</h5>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <span>Страна: </span>
@@ -207,8 +204,8 @@
                         </div>
                     </div>
                     <div class="card mb-3">
+                        <h5 class="card-header cardHeader">Документы:</h5>
                         <div class="card-body">
-                            <h5 class="card-title">Документы:</h5>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <div class="row g-0">
@@ -343,7 +340,7 @@
                                         <div class="col-md-4">
                                             <div
                                                 class="documents__scan-photo"
-                                                v-if="ConfirmAddress"
+                                                v-if="BirthCertificateDoc"
                                             >
                                                 <img
                                                     class="documents"
@@ -554,7 +551,10 @@
                                     <div class="row g-0">
                                         <div class="col-md-8">
                                             <p>
-                                                <strong>Согласие родителя</strong>
+                                                <strong
+                                                    >Согласие родителя на заселение в
+                                                    гостиницу</strong
+                                                >
                                             </p>
                                         </div>
                                         <div class="col-md-4">
@@ -701,12 +701,14 @@
                         </div>
                     </div>
                     <div class="card mb-3">
+                        <h5 class="card-header cardHeader">Информация о тренере спортсмена:</h5>
                         <div class="row g-0">
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">Информация о тренере спортсмена:</h5>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
+                                            <!-- TODO: Подумать над условиями для
+                                            необятельных полей ФИО тренера -->
                                             <p>
                                                 <span>Фамилия: </span>
                                                 <span v-if="TrainerSurname"
@@ -801,8 +803,8 @@
                         </div>
                     </div>
                     <div class="card mb-3">
+                        <h5 class="card-header cardHeader">Информация о клубе:</h5>
                         <div class="card-body">
-                            <h5 class="card-title">Информация о клубе:</h5>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <span>Название: </span>
@@ -870,32 +872,30 @@
                                     >
                                 </li>
                                 <li class="list-group-item">
-                                    <p>
-                                        <span>Федеральный округ: </span>
-                                        <span v-if="ClubFederalRegion">
-                                            <strong>{{ ClubFederalRegion }}</strong></span
-                                        >
-                                        <span
-                                            v-else
-                                            class="alert alert-danger nodata-message"
-                                            role="alert"
-                                        >
-                                            Информация отсутствует</span
-                                        >
-                                    </p>
-                                    <p>
-                                        <span>Аббревиатура ФО: </span>
-                                        <span v-if="ClubAbbrFederalRegion">
-                                            <strong> {{ ClubAbbrFederalRegion }}</strong></span
-                                        >
-                                        <span
-                                            v-else
-                                            class="alert alert-danger nodata-message"
-                                            role="alert"
-                                        >
-                                            Информация отсутствует</span
-                                        >
-                                    </p>
+                                    <span>Федеральный округ: </span>
+                                    <span v-if="ClubFederalRegion">
+                                        <strong>{{ ClubFederalRegion }}</strong></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
+                                    >
+                                </li>
+                                <li class="list-group-item">
+                                    <span>Аббревиатура ФО: </span>
+                                    <span v-if="ClubAbbrFederalRegion">
+                                        <strong> {{ ClubAbbrFederalRegion }}</strong></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
+                                    >
                                 </li>
                                 <li class="list-group-item">
                                     <span>Страна: </span>
@@ -915,9 +915,6 @@
                     </div>
                 </div>
             </div>
-            <div v-else>
-                <EditCardSportsman />
-            </div>
         </div>
         <div v-else>
             <PageNotFound />
@@ -925,14 +922,16 @@
     </div>
     <ConfirmationModal
         v-if="isConfirmModalVisible"
-        @closeModal="isConfirmModalVisible = false"
-        @confirmModal="deleteSportsmanMethod"
+        v-model:show="isConfirmModalVisible"
+        @confirmModal="DeleteSportsmanMethod"
     >
         <span> Вы уверены, что собираетесь удалить спортсмена?</span>
     </ConfirmationModal>
 </template>
 
 <script lang="ts">
+//TODO: сделать ездящую шапку при скроле страницы вверх и вниз
+//TODO: Сделать кнопку перехода назад к предыдущей странице
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 
@@ -940,13 +939,17 @@ import { Vue, Options } from 'vue-class-component';
 import { State, Action, Getter } from 'vuex-class';
 
 /* STATE */
-import { ISportsmanState } from '../store/modules/sportsman/types';
+import { ISportsmanState } from '@/store/modules/sportsman/types';
 
 /* COMPONENTS */
-import ConfirmationModal from '../components/Modal/ConfirmationModal.vue';
-import EditCardSportsman from '../components/EditCardSportsman/EditCardSportsman.vue';
-import PageNotFound from '../components/NotFound/PageNotFound.vue';
+import ConfirmationModal from '@/components/Modal/ConfirmationModal.vue';
+import EditCardSportsman from '@/components/Sportsman/EditCardSportsman/EditCardSportsman.vue';
+import PageNotFound from '@/components/NotFound/PageNotFound.vue';
+
+/* NAMESPACE */
 const namespace = 'sportsman';
+
+/* OPTIONS */
 @Options({
     name: 'CardSportsman',
     components: {
@@ -954,20 +957,22 @@ const namespace = 'sportsman';
         EditCardSportsman,
         PageNotFound,
     },
-    methods: {},
 })
-export default class Sportsman extends Vue {
+
+/* CLASS */
+export default class CardSportsman extends Vue {
     isConfirmModalVisible = false;
-    isEditable = false;
+
     /* STATE */
     @State('sportsman')
     sportsmanMap!: ISportsmanState;
+
     /* ACTION */
     @Action('getSportsman', { namespace })
     getSportsman: any;
     @Action('deleteSportsman', { namespace })
     deleteSportsman: any;
-    // TODO: Вынести GETTTER-ы, если это возможно
+
     /* GETTER */
     @Getter('FullName', { namespace })
     FullName: string | undefined;
@@ -1065,19 +1070,18 @@ export default class Sportsman extends Vue {
     ClubAbbrFederalRegion: string | undefined;
     @Getter('ClubNameOfCountry', { namespace })
     ClubNameOfCountry: string | undefined;
+
     mounted(): void {
         this.getSportsman(this.$route.params.id);
-        // if (this.sportsmanMap.error === true) this.$router.push('/:NotFound(.*)*');
     }
-    deleteSportsmanMethod(): void {
+
+    public DeleteSportsmanMethod(): void {
         this.deleteSportsman(this.$route.params.id);
         this.isConfirmModalVisible = false;
-        // TODO: нужно перерендерить таблицу спортсменов после редиректа
-        this.$router.push('/sportsmans');
     }
 }
 </script>
-
+<!--TODO: исправить разворачивание фоток по любому клику -->
 <style>
 img[tabindex='0'] {
     cursor: pointer;
@@ -1135,6 +1139,7 @@ img[tabindex='0']:focus ~ * {
     height: 250px;
     padding-left: 25px;
     padding-top: 5px;
+    overflow: hidden;
 }
 .personal__trainer-photo {
     position: relative;
@@ -1179,5 +1184,11 @@ span.danger-message__no-photo {
     text-align: center;
     position: absolute;
     padding: 35px 70px 60px 17px;
+}
+.buttons__delete-edit {
+    width: 250px;
+}
+.edit-button {
+    margin-right: 5px;
 }
 </style>

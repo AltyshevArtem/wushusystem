@@ -1,11 +1,11 @@
 <template>
-    <div class="modal fade show" @click.self="closeModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade show" tabindex="-1" role="dialog">
+        <div class="modal-dialog" @click.stop role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Паспорт</h5>
-                    <button type="button" class="close close_btn" @click="closeModal">
-                        <img src="../../../assets/x.svg" alt="close" />
+                    <button type="button" class="close close_btn" @click.stop="hideDialog">
+                        <img src="@/assets/x.svg" alt="close" />
                     </button>
                 </div>
                 <div class="modal-body" v-if="mode">
@@ -29,13 +29,16 @@
                         <h6>Скан фото:</h6>
                         <div v-if="passport.scan">
                             <a :href="passport.scan" class="card-link">Просмотр</a>
-                            <button @click="passport.scan = null">Удалить</button>
+                            <button class="btn btn-danger" @click="passport.scan = null">
+                                Удалить
+                            </button>
                         </div>
                         <div v-else>
                             <input
                                 type="file"
-                                id="file"
-                                ref="file"
+                                accept="image/*"
+                                id="scan"
+                                ref="scan"
                                 @change="PassportFileUpload()"
                             />
                         </div>
@@ -48,7 +51,7 @@
                     </div>
                     <div>
                         <h6>Дата выдачи паспорта</h6>
-                        <input placeholder="YYYY-MM-DD" v-model="DateStart" required />
+                        <input placeholder="YYYY-MM-DD" v-model="dateStart" required />
                     </div>
                     <div>
                         <h6>Кем выдан паспорт</h6>
@@ -62,8 +65,9 @@
                         <h6>Скан фото:</h6>
                         <input
                             type="file"
-                            id="file"
-                            ref="file"
+                            accept="image/*"
+                            id="scan"
+                            ref="scan"
                             @change="PassportFileUpload()"
                             required
                         />
@@ -72,7 +76,7 @@
                 <div class="modal-footer">
                     <button
                         type="button"
-                        @click="closeModal"
+                        @click.stop="hideDialog"
                         class="btn btn-secondary"
                         data-dismiss="modal"
                     >
@@ -96,16 +100,12 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
+import { Prop, Emit } from 'vue-property-decorator';
 
 /* VUEX */
-import { State, Action } from 'vuex-class';
-
-/* STATE */
-import { IPassportState } from '@/store/modules/passport/types';
+import { Mutation } from 'vuex-class';
 
 /* MODELS */
 import { IPassport } from '@/models/sportsman';
@@ -115,55 +115,58 @@ const namespace = 'passport';
 
 @Options({
     name: 'PassportModal',
-    components: {},
-    data() {
-        return {
-            number: '',
-            File: '',
-            DateStart: '',
-            issue: '',
-            code: '',
-        };
-    },
-    methods: {
-        closeModal() {
-            this.$emit('closeModal');
-        },
-        AddPassport() {
-            const passport = {
-                number: this.number,
-                scan: this.File,
-                date_start: this.DateStart,
-                issue: this.issue,
-                code: this.code,
-            };
-            this.postPassport(passport);
-
-            this.closeModal();
-        },
-        SavePassport() {
-            this.putPassport(this.passport);
-
-            this.closeModal();
-        },
-        PassportFileUpload() {
-            if (this.mode) {
-                this.passport.scan = this.$refs.file.files[0];
-            } else {
-                this.File = this.$refs.file.files[0];
-            }
-        },
-    },
 })
 export default class PassportModal extends Vue {
+    /* PROP */
     @Prop({ default: undefined }) passport!: IPassport;
     @Prop({ default: true }) mode!: boolean;
+    @Prop({ default: false }) show!: boolean;
+
+    /* EMIT */
+    @Emit('update:show')
+    hideDialog(): boolean {
+        return false;
+    }
+
+    /* DATA */
+    number: string | number | null = '';
+    file: string | File | null | undefined = '';
+    dateStart: string | number | null = '';
+    issue: string | number | null = '';
+    code: string | number | null = '';
+
+    /* METHOD */
+    public AddPassport(): void {
+        const passport = {
+            number: this.number,
+            scan: this.file,
+            // eslint-disable-next-line camelcase
+            date_start: this.dateStart,
+            issue: this.issue,
+            code: this.code,
+        };
+        this.setPassport(passport);
+        this.hideDialog();
+    }
+    public SavePassport(): void {
+        this.setPassport(this.passport);
+        this.hideDialog();
+    }
+    public PassportFileUpload(): void {
+        if (this.mode) {
+            const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
+            fileList?.length !== 0
+                ? (this.passport.scan = fileList?.item(0) as File)
+                : (this.file = '');
+        } else {
+            const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
+            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = '');
+        }
+    }
 
     /* ACTION */
-    @Action('postPassport', { namespace })
-    postPassport: any;
-    @Action('putPassport', { namespace })
-    putPassport: any;
+    @Mutation('setPassport', { namespace })
+    setPassport: any;
 }
 </script>
 

@@ -1,4 +1,7 @@
+/* VUEX */
 import { GetterTree } from 'vuex';
+
+/* TYPES */
 import { ICityState } from './types';
 
 export const getters: GetterTree<ICityState, null> = {

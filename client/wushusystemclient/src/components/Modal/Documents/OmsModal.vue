@@ -1,11 +1,11 @@
 <template>
-    <div class="modal fade show" @click.self="closeModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
+    <div class="modal fade show" tabindex="-1" role="dialog">
+        <div class="modal-dialog" @click.stop role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Полис ОМС</h5>
-                    <button type="button" class="close close_btn" @click="closeModal">
-                        <img src="../../../assets/x.svg" alt="close" />
+                    <button type="button" class="close close_btn" @click.stop="hideDialog">
+                        <img src="@/assets/x.svg" alt="close" />
                     </button>
                 </div>
                 <div class="modal-body" v-if="mode">
@@ -17,10 +17,16 @@
                         <h6>Скан фото:</h6>
                         <div v-if="oms.scan">
                             <a :href="oms.scan" class="card-link">Просмотр</a>
-                            <button @click="oms.scan = null">Удалить</button>
+                            <button class="btn btn-danger" @click="oms.scan = null">Удалить</button>
                         </div>
                         <div v-else>
-                            <input type="file" id="file" ref="file" @change="OmsFileUpload()" />
+                            <input
+                                type="file"
+                                accept="image/*"
+                                id="scan"
+                                ref="scan"
+                                @change="OmsFileUpload()"
+                            />
                         </div>
                     </div>
                 </div>
@@ -33,8 +39,9 @@
                         <h6>Скан фото:</h6>
                         <input
                             type="file"
-                            id="file"
-                            ref="file"
+                            accept="image/*"
+                            id="scan"
+                            ref="scan"
                             @change="OmsFileUpload()"
                             required
                         />
@@ -43,7 +50,7 @@
                 <div class="modal-footer">
                     <button
                         type="button"
-                        @click="closeModal"
+                        @click.stop="hideDialog"
                         class="btn btn-secondary"
                         data-dismiss="modal"
                     >
@@ -67,16 +74,12 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
-import { Prop } from 'vue-property-decorator';
+import { Prop, Emit } from 'vue-property-decorator';
 
 /* VUEX */
-import { State, Action } from 'vuex-class';
-
-/* STATE */
-import { IOmsState } from '@/store/modules/oms/types';
+import { Mutation } from 'vuex-class';
 
 /* MODELS */
 import { IOms } from '@/models/sportsman';
@@ -86,49 +89,49 @@ const namespace = 'oms';
 
 @Options({
     name: 'OmsModal',
-    components: {},
-    data() {
-        return {
-            number: '',
-            File: '',
-        };
-    },
-    methods: {
-        closeModal() {
-            this.$emit('closeModal');
-        },
-        AddOms() {
-            const oms = {
-                number: this.number,
-                scan: this.File,
-            };
-            this.postOMS(oms);
-
-            this.closeModal();
-        },
-        SaveOms() {
-            this.putOMS(this.oms);
-
-            this.closeModal();
-        },
-        OmsFileUpload() {
-            if (this.mode) {
-                this.oms.scan = this.$refs.file.files[0];
-            } else {
-                this.File = this.$refs.file.files[0];
-            }
-        },
-    },
 })
 export default class OmsModal extends Vue {
+    /* PROP */
     @Prop({ default: undefined }) oms!: IOms;
     @Prop({ default: true }) mode!: boolean;
+    @Prop({ default: false }) show!: boolean;
 
-    /* ACTION */
-    @Action('postOMS', { namespace })
-    postOMS: any;
-    @Action('putOMS', { namespace })
-    putOMS: any;
+    /* EMIT */
+    @Emit('update:show')
+    hideDialog(): boolean {
+        return false;
+    }
+
+    /* DATA */
+    number: string | number | null = '';
+    file: string | File | null | undefined = '';
+
+    /* METHOD */
+    public AddOms(): void {
+        const oms = {
+            number: this.number,
+            scan: this.file,
+        };
+        this.setOMS(oms);
+        this.hideDialog();
+    }
+    public SaveOms(): void {
+        this.setOMS(this.oms);
+        this.hideDialog();
+    }
+    public OmsFileUpload(): void {
+        if (this.mode) {
+            const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
+            fileList?.length !== 0 ? (this.oms.scan = fileList?.item(0) as File) : (this.file = '');
+        } else {
+            const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
+            fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = '');
+        }
+    }
+
+    /* MUTATION */
+    @Mutation('setOMS', { namespace })
+    setOMS: any;
 }
 </script>
 

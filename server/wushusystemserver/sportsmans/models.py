@@ -39,7 +39,6 @@ class Federal_Region(models.Model):
 class Region(models.Model):
     name_of_region = models.TextField(
         blank = True, 
-        primary_key=True,
         verbose_name="Название округа/области/края/республики"
     )
     name_of_federal_region = models.ForeignKey(
@@ -64,7 +63,6 @@ class Region(models.Model):
 class City (models.Model):
     name_of_city = models.TextField(
         blank=True,
-        primary_key=True, 
         verbose_name="Наименование города"
     )
     name_of_region = models.ForeignKey(
@@ -176,6 +174,7 @@ class Insurance(models.Model):
         blank = True, 
         verbose_name="Дата окончания страхования"
     )
+    # TODO: А если сканов несколько?
     file_insurance = models.FileField(
         upload_to='insurance_files_pdf/',
         blank = True, 
@@ -224,7 +223,7 @@ class Passport(models.Model):
     number = models.TextField(
         blank = True, 
         verbose_name="Серия и номер паспорта"
-    ) #TODO: в бд для хранения ПДн использовать солевые хэши
+    ) #TODO: Спроектировать защиту информационной системы с использование шифрование ПДн
     scan = models.FileField(
         upload_to='passport_files/',
         blank = True,
@@ -307,49 +306,46 @@ class Proxy_doc(models.Model):
 
 
 class Sportsman(models.Model):
-    name = models.TextField(blank=False, verbose_name="Имя спортсмена")
-    surname = models.TextField(blank=False, verbose_name="Фамилия спортсмена")
-    patronymic = models.TextField(
-        blank = True, 
-        verbose_name="Отчество спортсмена"
-    )
+    name = models.TextField(verbose_name="Имя спортсмена")
+    surname = models.TextField(verbose_name="Фамилия спортсмена")
+    patronymic = models.TextField(verbose_name="Отчество спортсмена")
     photo = models.ImageField(
         upload_to='sportsman_photo/', 
         blank = True,
+        null = True,
         verbose_name="Фотография спортсмена"
     )
-    date_of_birth = models.DateField(
-        blank= True,
-        null = True, 
-        verbose_name="Дата рождения"
-    )
+    date_of_birth = models.DateField(verbose_name="Дата рождения")
     address = models.TextField(
-        blank = True, 
+        blank = True,
+        null = True, 
         verbose_name="Адрес прописки"
     )
     confirm_address = models.FileField(
         upload_to="confirm_address_files/",
         blank = True,
+        null = True,
         verbose_name="Документ с подтверждением прописки"
-    )  # нужно для детей до 14 лет
+    )
     gender = models.ForeignKey(
         Gender, 
-        blank = False, 
         on_delete = models.CASCADE,
-        verbose_name = "Наименование пола",
+        blank = True,
+        null = True,
+        verbose_name = "Наименование пола"
     )
     passport = models.ForeignKey(
         Passport, 
+        on_delete = models.CASCADE, 
         blank = True,
         null = True,
-        on_delete = models.CASCADE, 
         verbose_name = "Паспорт"
     )
     birth_certificate = models.ForeignKey(
         Birth_Certificate, 
+        on_delete = models.CASCADE, 
         blank = True,
         null = True, 
-        on_delete = models.CASCADE, 
         verbose_name = "Свидетельство о рождении"
     )
     proxy = models.ForeignKey(
@@ -369,68 +365,79 @@ class Sportsman(models.Model):
     city = models.ForeignKey(
         City,
         on_delete = models.CASCADE, 
-        null = True,
-        blank = True, 
         verbose_name = "Название города"
     )
     trainer = models.ForeignKey(
         Trainer, 
         on_delete=models.CASCADE, 
-        null = True,
         blank = True, 
+        null = True,
         verbose_name="Тренер спортсмена"
     )
     club = models.ForeignKey(
         Club,
         on_delete=models.CASCADE, 
-        null = True, 
         blank = True, 
+        null = True, 
         verbose_name="Наименование клуба"
     )
     insurance = models.ForeignKey(
         Insurance, 
-        blank = True, 
         on_delete=models.CASCADE, 
+        blank = True,
+        null = True, 
         verbose_name="Страховка"
     )
     rank = models.ForeignKey(
         Rank, 
-        blank = True, 
         on_delete=models.CASCADE, 
+        blank = True, 
+        null = True,
         verbose_name="Наименование ранга"
     )
     rusada = models.FileField(
         upload_to='rusada_files_pdf/', 
         blank = True,
+        null = True,
         verbose_name="Изображение антидопингового сертификата"
     )
     covid_test = models.FileField(
         upload_to = "covid_test_files/", 
         blank = True,
+        null = True,
         verbose_name = "Тест ковид"
     )
     covid_contact = models.FileField(
         upload_to = "covid_contact_files/",
         blank = True,
+        null = True,
         verbose_name = "Справка об отсутствии контактов с инфекционными больными"
     )
     parent_doc = models.FileField(
         upload_to = "parent_doc_files/",
         blank = True,
+        null = True,
         verbose_name = "Доверенность от родителей на заселение в гостиницу"
     )
     school_doc = models.FileField( 
-        blank = True,
         upload_to = "school_doc/", 
+        blank = True,
+        null = True,
         verbose_name = "Справка об обучении в школе"
     )
     duan_czi = models.ForeignKey(
         Duan_Czi,
+        on_delete = models.CASCADE, 
         blank = True,
         null = True, 
-        on_delete = models.CASCADE, 
         verbose_name="Ранг Дуань Цзи"
     )
+
+    def get_region_name(self):
+        return self.city.name_of_region.name_of_region
+
+    def get_federal_region_name(self):
+        return self.city.name_of_region.name_of_federal_region.abbr_of_federal_region
 
     class Meta():
         verbose_name = "Спортсмен"
