@@ -41,10 +41,10 @@
                     <div class="rightList__upper-row">
                         <div class="row">
                             <div class="col-6">
-                                <SelectCity mode="multiple" v-model="SelectCity" />
+                                <!-- <SelectCity mode="multiple" v-model="SelectCity" /> -->
                             </div>
                             <div class="col-6">
-                                <SelectRegion mode="multiple" v-model="SelectRegion" />
+                                <!-- <SelectRegion mode="multiple" v-model="SelectRegion" /> -->
                             </div>
                         </div>
                     </div>
@@ -55,11 +55,11 @@
                     </div>
                     <div class="rightList__lower-row">
                         <div class="col-6">
-                            <SelectFederalRegion mode="multiple" v-model="SelectFederalRegion" />
+                            <!-- <SelectFederalRegion mode="multiple" v-model="SelectFederalRegion" /> -->
                         </div>
                     </div>
                 </div>
-            </div> -->
+            </div>
         </div>
         <TableSportsman />
         <Pagination />
