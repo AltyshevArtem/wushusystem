@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="this.sportsmanMap.error === false">
-            <div v-if="isEditable === false" class="container py-4">
+            <div class="container py-4">
                 <div>
                     <div class="pb-3 mb-4 d-flex justify-content-between">
                         <span class="fs-4">
@@ -915,9 +915,6 @@
                     </div>
                 </div>
             </div>
-            <div v-else>
-                <EditCardSportsman />
-            </div>
         </div>
         <div v-else>
             <PageNotFound />
@@ -965,7 +962,6 @@ const namespace = 'sportsman';
 /* CLASS */
 export default class CardSportsman extends Vue {
     isConfirmModalVisible = false;
-    isEditable = false;
 
     /* STATE */
     @State('sportsman')

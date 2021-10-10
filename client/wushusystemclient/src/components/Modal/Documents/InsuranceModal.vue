@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade show" @click.stop="hideDialog" tabindex="-1" role="dialog">
+    <div class="modal fade show" tabindex="-1" role="dialog">
         <div class="modal-dialog" @click.stop role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -28,8 +28,9 @@
                         <div v-else>
                             <input
                                 type="file"
-                                id="file"
-                                ref="file"
+                                accept="image/*"
+                                id="scan"
+                                ref="scan"
                                 @change="InsuranseFileUpload()"
                             />
                         </div>
@@ -46,7 +47,13 @@
                     </div>
                     <div>
                         <h6>Скан фото:</h6>
-                        <input type="file" id="file" ref="file" @change="InsuranseFileUpload()" />
+                        <input
+                            type="file"
+                            accept="image/*"
+                            id="scan"
+                            ref="scan"
+                            @change="InsuranseFileUpload()"
+                        />
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -129,12 +136,12 @@ export default class InsuranceModal extends Vue {
     }
     public InsuranseFileUpload(): void {
         if (this.mode) {
-            const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
+            const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
             fileList?.length !== 0
                 ? (this.insurance.file_insurance = fileList?.item(0) as File)
                 : (this.file = '');
         } else {
-            const fileList: FileList | null = (this.$refs['file'] as HTMLInputElement).files;
+            const fileList: FileList | null = (this.$refs['scan'] as HTMLInputElement).files;
             fileList?.length !== 0 ? (this.file = fileList?.item(0)) : (this.file = '');
         }
     }

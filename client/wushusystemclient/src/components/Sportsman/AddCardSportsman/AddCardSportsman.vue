@@ -20,6 +20,7 @@
                                             <div class="col-md-7">
                                                 <div class="input__wrapper-file upload">
                                                     <input
+                                                        @change="Editable = true"
                                                         type="file"
                                                         name="file"
                                                         id="PhotoSportsman"
@@ -55,6 +56,8 @@
                                                             class="btn btn-danger"
                                                             @click="
                                                                 PhSpImg = null;
+                                                                this.$refs.PhotoSportsman.value =
+                                                                    '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -77,6 +80,7 @@
                                     <li class="list-group-item">
                                         <div class="input-group mb-3 upper-input">
                                             <input
+                                                @change="Editable = true"
                                                 class="form-control"
                                                 placeholder="Фамилия"
                                                 id="surname"
@@ -85,6 +89,7 @@
                                         </div>
                                         <div class="input-group mb-3">
                                             <input
+                                                @change="Editable = true"
                                                 class="form-control"
                                                 placeholder="Имя"
                                                 id="name"
@@ -93,6 +98,7 @@
                                         </div>
                                         <div class="input-group mb-3">
                                             <input
+                                                @change="Editable = true"
                                                 class="form-control"
                                                 placeholder="Отчество"
                                                 id="patronymic"
@@ -101,12 +107,17 @@
                                         </div>
                                         <div class="input-group mb-3">
                                             <input
+                                                @change="Editable = true"
                                                 placeholder="YYYY-MM-DD"
                                                 class="form-control"
                                                 v-model="sportsman.date_of_birth"
                                             />
                                         </div>
-                                        <SelectGender v-model="sportsman.gender" mode="single" />
+                                        <SelectGender
+                                            @change="Editable = true"
+                                            v-model="sportsman.gender"
+                                            mode="single"
+                                        />
                                     </li>
                                 </ul>
                             </div>
@@ -119,6 +130,7 @@
                                     <li class="list-group-item">
                                         <div class="selectors__second-list">
                                             <SelectTrainer
+                                                @change="Editable = true"
                                                 mode="single"
                                                 id="selectTrainer"
                                                 v-model="sportsman.trainer"
@@ -126,6 +138,7 @@
                                         </div>
                                         <div class="selectors__second-list">
                                             <SelectRank
+                                                @change="Editable = true"
                                                 mode="single"
                                                 id="selectRank"
                                                 v-model="sportsman.rank"
@@ -133,19 +146,29 @@
                                         </div>
                                         <div class="selectors__second-list">
                                             <SelectDuanCzi
+                                                @change="Editable = true"
                                                 mode="single"
                                                 id="selectDuanCzi"
                                                 v-model="sportsman.duan_czi"
                                             />
                                         </div>
                                         <div class="selectors__second-list">
-                                            <SelectCity mode="single" v-model="sportsman.city" />
+                                            <SelectCity
+                                                @change="Editable = true"
+                                                mode="single"
+                                                v-model="sportsman.city"
+                                            />
                                         </div>
                                         <div class="selectors__second-list">
-                                            <SelectClub mode="single" v-model="sportsman.club" />
+                                            <SelectClub
+                                                @change="Editable = true"
+                                                mode="single"
+                                                v-model="sportsman.club"
+                                            />
                                         </div>
                                         <div class="input-group mb-3">
                                             <input
+                                                @change="Editable = true"
                                                 placeholder="Адрес"
                                                 class="form-control"
                                                 v-model="sportsman.address"
@@ -196,6 +219,12 @@
                                                     Редактировать
                                                 </button>
                                             </div>
+                                            <button
+                                                class="btn btn-danger"
+                                                @click="passportMap.passport = null"
+                                            >
+                                                Удалить
+                                            </button>
                                         </template>
                                     </li>
                                     <li class="list-group-item">
@@ -234,6 +263,12 @@
                                                     Редактировать
                                                 </button>
                                             </div>
+                                            <button
+                                                class="btn btn-danger"
+                                                @click="insuranceMap.insurance = null"
+                                            >
+                                                Удалить
+                                            </button>
                                         </template>
                                     </li>
                                     <li class="list-group-item">
@@ -270,6 +305,12 @@
                                                 "
                                             >
                                                 Редактировать
+                                            </button>
+                                            <button
+                                                class="btn btn-danger"
+                                                @click="birthCertificateMap.birthCertificate = null"
+                                            >
+                                                Удалить
                                             </button>
                                         </template>
                                     </li>
@@ -309,6 +350,12 @@
                                                     Редактировать
                                                 </button>
                                             </div>
+                                            <button
+                                                class="btn btn-danger"
+                                                @click="omsMap.oms = null"
+                                            >
+                                                Удалить
+                                            </button>
                                         </template>
                                     </li>
                                     <li class="list-group-item">
@@ -362,6 +409,12 @@
                                             >
                                                 Редактировать
                                             </button>
+                                            <button
+                                                class="btn btn-danger"
+                                                @click="proxyMap.proxy = null"
+                                            >
+                                                Удалить
+                                            </button>
                                         </template>
                                     </li>
                                 </ul>
@@ -378,6 +431,7 @@
                                             <div class="col-md-7">
                                                 <div class="input__wrapper-file upload">
                                                     <input
+                                                        @change="Editable = true"
                                                         type="file"
                                                         name="file"
                                                         id="ConfirmAddress"
@@ -411,6 +465,8 @@
                                                             class="btn btn-danger"
                                                             @click="
                                                                 ConfAddrImg = null;
+                                                                this.$refs.ConfirmAddress.value =
+                                                                    '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -436,6 +492,7 @@
                                             <div class="col-md-7">
                                                 <div class="input__wrapper-file upload">
                                                     <input
+                                                        @change="Editable = true"
                                                         type="file"
                                                         name="file"
                                                         id="Rusada"
@@ -469,6 +526,7 @@
                                                             class="btn btn-danger"
                                                             @click="
                                                                 RusadaFileImg = null;
+                                                                this.$refs.Rusada.value = '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -494,6 +552,7 @@
                                             <div class="col-md-7">
                                                 <div class="input__wrapper-file upload">
                                                     <input
+                                                        @change="Editable = true"
                                                         type="file"
                                                         name="file"
                                                         id="School"
@@ -527,6 +586,7 @@
                                                             class="btn btn-danger"
                                                             @click="
                                                                 SchoolFileImg = null;
+                                                                this.$refs.School.value = '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -552,6 +612,7 @@
                                             <div class="col-md-7">
                                                 <div class="input__wrapper-file upload">
                                                     <input
+                                                        @change="Editable = true"
                                                         type="file"
                                                         name="file"
                                                         id="CovidTest"
@@ -585,6 +646,7 @@
                                                             class="btn btn-danger"
                                                             @click="
                                                                 CovidTestImg = null;
+                                                                this.$refs.CovidTest.value = '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -615,6 +677,7 @@
                                             <div class="col-md-7">
                                                 <div class="input__wrapper-file upload">
                                                     <input
+                                                        @change="Editable = true"
                                                         type="file"
                                                         name="file"
                                                         id="CovidContact"
@@ -649,6 +712,7 @@
                                                             class="btn btn-danger"
                                                             @click="
                                                                 CovidContImg = null;
+                                                                this.$refs.CovidContact.value = '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -674,6 +738,7 @@
                                             <div class="col-md-7">
                                                 <div class="input__wrapper-file upload">
                                                     <input
+                                                        @change="Editable = true"
                                                         type="file"
                                                         name="file"
                                                         id="ParentDoc"
@@ -707,6 +772,7 @@
                                                             class="btn btn-danger"
                                                             @click="
                                                                 ParentDocImg = null;
+                                                                this.$refs.ParentDoc.value = '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -779,6 +845,9 @@ import { Vue, Options } from 'vue-class-component';
 /* VUEX */
 import { State, Action, Getter } from 'vuex-class';
 
+/* SWAL */
+import Swal from 'sweetalert2';
+
 /* SELECT */
 import SelectGender from '@/components/Select/SelectGender.vue';
 import SelectRank from '@/components/Select/SelectRank.vue';
@@ -822,6 +891,29 @@ const namespaceTrainer = 'trainer';
 
 @Options({
     name: 'AddCardSportsman',
+    beforeRouteLeave(to, from, next) {
+        if (this.Editable === true) {
+            Swal.fire({
+                title: 'Вы действительно хотите покинуть страницу?',
+                text: 'У вас есть несохраненные данные!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Да, покинуть страницу!',
+                cancelButtonText: 'Отмена',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.Editable = true;
+                    next();
+                } else {
+                    next(false);
+                }
+            });
+        } else {
+            next();
+        }
+    },
     components: {
         SelectGender,
         SelectRank,
@@ -890,6 +982,7 @@ export default class AddCardSportsman extends Vue {
     isModalOms = false;
     isModalPassport = false;
     isModalProxy = false;
+    Editable = false;
 
     /* METHOD */
     public PhotoSportsmanUpload(): void {
@@ -1013,12 +1106,35 @@ export default class AddCardSportsman extends Vue {
     }
     //TODO: Сделать нормальную валидацию формы, используя сторонние библиотеки
     private validateForm(): boolean {
-        if (!this.sportsman.name) return false;
-        if (!this.sportsman.surname) return false;
-        if (!this.sportsman.patronymic) return false;
-        if (!this.sportsman.date_of_birth) return false;
-        if (!this.sportsman.city) return false;
-        return true;
+        let strErrors: string;
+        strErrors = '';
+        if (!this.sportsman.name) {
+            strErrors += '\n * Отсутствует имя у спортсмена';
+        }
+        if (!this.sportsman.surname) {
+            strErrors += '\n * Отсутствует фамилия у спортсмена';
+        }
+        if (!this.sportsman.patronymic) {
+            strErrors += '\n * Отсутствует отчество у спортсмена';
+        }
+        if (!this.sportsman.date_of_birth) {
+            strErrors += '\n * Отсутствует дата рождения у спортсмена';
+        }
+        if (!this.sportsman.city) {
+            strErrors += '\n * Отсутствует город у спортсмена';
+        }
+
+        if (strErrors) {
+            Swal.fire({
+                title: 'Ошибка!',
+                text: strErrors,
+                icon: 'error',
+                confirmButtonText: 'Продолжить',
+            });
+            return false;
+        } else {
+            return true;
+        }
     }
     public AddNewSportsman(): void {
         if (this.validateForm()) {
@@ -1058,8 +1174,6 @@ export default class AddCardSportsman extends Vue {
             this.sportsman.city = oldCity;
             this.sportsman.club = oldClub;
             this.sportsman.trainer = oldTrainer;
-        } else {
-            console.log('Не все поля заполнены');
         }
     }
 

@@ -7,7 +7,7 @@
             <button type="button" class="btn btn-dark">Добавить нового</button>
         </router-link>
         <div class="listSportsman">
-            <input placeholder="Поиск" class="form-control" v-model="search" />
+            <input placeholder="ФИО Спортсмена..." class="form-control" v-model="search" />
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -59,7 +59,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
         <TableSportsman />
         <Pagination />
@@ -67,6 +67,7 @@
 </template>
 
 <script lang="ts">
+// TODO: Сделать фильтрацию по ФО и по Региону
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 import { Watch } from 'vue-property-decorator';

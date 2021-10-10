@@ -38,6 +38,7 @@ const namespace = 'city';
     },
 })
 export default class SelectCity extends Vue {
+    // TODO: Убрать скролл в компоненте, если элементов мало
     /* PROP */
     @Prop({ type: String, default: 'multiple' }) mode!: string;
 

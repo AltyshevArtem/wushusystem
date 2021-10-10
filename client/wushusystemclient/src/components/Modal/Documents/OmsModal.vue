@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade show" @click.stop="hideDialog" tabindex="-1" role="dialog">
+    <div class="modal fade show" tabindex="-1" role="dialog">
         <div class="modal-dialog" @click.stop role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -20,7 +20,13 @@
                             <button class="btn btn-danger" @click="oms.scan = null">Удалить</button>
                         </div>
                         <div v-else>
-                            <input type="file" id="scan" ref="scan" @change="OmsFileUpload()" />
+                            <input
+                                type="file"
+                                accept="image/*"
+                                id="scan"
+                                ref="scan"
+                                @change="OmsFileUpload()"
+                            />
                         </div>
                     </div>
                 </div>
@@ -33,6 +39,7 @@
                         <h6>Скан фото:</h6>
                         <input
                             type="file"
+                            accept="image/*"
                             id="scan"
                             ref="scan"
                             @change="OmsFileUpload()"

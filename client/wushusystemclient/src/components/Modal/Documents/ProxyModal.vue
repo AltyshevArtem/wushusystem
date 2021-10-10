@@ -1,5 +1,5 @@
 <template>
-    <div class="modal fade show" @click.stop="hideDialog" tabindex="-1" role="dialog">
+    <div class="modal fade show" tabindex="-1" role="dialog">
         <div class="modal-dialog" @click.stop role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -24,6 +24,7 @@
                         <div v-else>
                             <input
                                 type="file"
+                                accept="image/*"
                                 id="passport"
                                 ref="passport"
                                 @change="proxyPassportUpload()"
@@ -46,6 +47,7 @@
                         <div v-else>
                             <input
                                 type="file"
+                                accept="image/*"
                                 id="birth"
                                 ref="birth"
                                 @change="proxyBirthUpload()"
@@ -61,7 +63,13 @@
                             </button>
                         </div>
                         <div v-else>
-                            <input type="file" id="scan" ref="scan" @change="proxyFileUpload()" />
+                            <input
+                                type="file"
+                                accept="image/*"
+                                id="scan"
+                                ref="scan"
+                                @change="proxyFileUpload()"
+                            />
                         </div>
                     </div>
                 </div>
@@ -70,6 +78,7 @@
                         <h6>Скан оригинального паспорта:</h6>
                         <input
                             type="file"
+                            accept="image/*"
                             id="passport"
                             ref="passport"
                             @change="proxyPassportUpload()"
@@ -80,6 +89,7 @@
                         <h6>Скан оригинального свидетельства о рождении:</h6>
                         <input
                             type="file"
+                            accept="image/*"
                             id="birth"
                             ref="birth"
                             @change="proxyBirthUpload()"
@@ -90,6 +100,7 @@
                         <h6>Скан доверенности:</h6>
                         <input
                             type="file"
+                            accept="image/*"
                             id="scan"
                             ref="scan"
                             @change="proxyFileUpload()"
@@ -128,6 +139,7 @@
 </template>
 
 <script lang="ts">
+//TODO: Валидация в модалках
 /* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';

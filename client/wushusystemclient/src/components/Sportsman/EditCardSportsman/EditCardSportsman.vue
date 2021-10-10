@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <img v-if="!loading" src="@/assets/spin.svg" />
+    <div v-else>
         <div class="container py-4">
             <div>
                 <div class="pb-3 mb-4 d-flex justify-content-between">
@@ -131,13 +132,13 @@
                                     :style="{
                                         'background-image': `url(${PhotoSportsmanImg})`,
                                     }"
-                                    @click="selectImage"
                                 >
                                     <div class="danger-button__new-file btnDeleteSportsman">
                                         <button
                                             class="btn btn-danger"
                                             @click="
                                                 PhotoSportsmanImg = null;
+                                                this.$refs.PhotoSportsman.value = '';
                                                 Editable = true;
                                             "
                                         >
@@ -207,6 +208,7 @@
                                             </template>
                                             <template v-else>
                                                 <span>Редактировать данные о паспорте: </span>
+
                                                 <div class="edit-button">
                                                     <button
                                                         class="btn btn-primary"
@@ -220,6 +222,20 @@
                                                         Редактировать
                                                     </button>
                                                 </div>
+                                                <button
+                                                    v-if="passportMap.passport"
+                                                    class="btn btn-danger"
+                                                    @click="passportMap.passport = null"
+                                                >
+                                                    Удалить
+                                                </button>
+                                                <button
+                                                    v-if="sportsmanMap.sportsman.passport"
+                                                    class="btn btn-danger"
+                                                    @click="sportsmanMap.sportsman.passport = null"
+                                                >
+                                                    Удалить
+                                                </button>
                                             </template>
                                         </span>
                                     </div>
@@ -292,13 +308,14 @@
                                                         :style="{
                                                             'background-image': `url(${CAImg})`,
                                                         }"
-                                                        @click="selectImage"
                                                     >
                                                         <div class="danger-button__new-file">
                                                             <button
                                                                 class="btn btn-danger"
                                                                 @click="
                                                                     CAImg = null;
+                                                                    this.$refs.ConfirmAddress.value =
+                                                                        '';
                                                                     Editable = true;
                                                                 "
                                                             >
@@ -354,6 +371,22 @@
                                                     Редактировать
                                                 </button>
                                             </div>
+                                            <button
+                                                v-if="birthCertificateMap.birthCertificate"
+                                                class="btn btn-danger"
+                                                @click="birthCertificateMap.birthCertificate = null"
+                                            >
+                                                Удалить
+                                            </button>
+                                            <button
+                                                v-if="sportsmanMap.sportsman.birth_certificate"
+                                                class="btn btn-danger"
+                                                @click="
+                                                    sportsmanMap.sportsman.birth_certificate = null
+                                                "
+                                            >
+                                                Удалить
+                                            </button>
                                         </template>
                                     </div>
                                 </div>
@@ -408,6 +441,20 @@
                                                         Редактировать
                                                     </button>
                                                 </div>
+                                                <button
+                                                    v-if="sportsmanMap.sportsman.proxy"
+                                                    class="btn btn-danger"
+                                                    @click="sportsmanMap.sportsman.proxy = null"
+                                                >
+                                                    Удалить
+                                                </button>
+                                                <button
+                                                    v-if="proxyMap.proxy"
+                                                    class="btn btn-danger"
+                                                    @click="proxyMap.proxy = null"
+                                                >
+                                                    Удалить
+                                                </button>
                                             </template>
                                         </span>
                                     </div>
@@ -480,13 +527,13 @@
                                                         :style="{
                                                             'background-image': `url(${ParDocImg})`,
                                                         }"
-                                                        @click="selectImage"
                                                     >
                                                         <div class="danger-button__new-file">
                                                             <button
                                                                 class="btn btn-danger"
                                                                 @click="
                                                                     ParDocImg = null;
+                                                                    this.$refs.ParentDoc.value = '';
                                                                     Editable = true;
                                                                 "
                                                             >
@@ -563,13 +610,13 @@
                                                     :style="{
                                                         'background-image': `url(${RusadaFileImg})`,
                                                     }"
-                                                    @click="selectImage"
                                                 >
                                                     <div class="danger-button__new-file">
                                                         <button
                                                             class="btn btn-danger"
                                                             @click="
                                                                 RusadaFileImg = null;
+                                                                this.$refs.Rusada.value = '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -652,13 +699,13 @@
                                                     :style="{
                                                         'background-image': `url(${CovidImg})`,
                                                     }"
-                                                    @click="selectImage"
                                                 >
                                                     <div class="danger-button__new-file">
                                                         <button
                                                             class="btn btn-danger"
                                                             @click="
                                                                 CovidImg = null;
+                                                                this.$refs.CovidContact.value = '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -735,13 +782,13 @@
                                                     :style="{
                                                         'background-image': `url(${CovidTestImg})`,
                                                     }"
-                                                    @click="selectImage"
                                                 >
                                                     <div class="danger-button__new-file">
                                                         <button
                                                             class="btn btn-danger"
                                                             @click="
                                                                 CovidTestImg = null;
+                                                                this.$refs.CovidTest.value = '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -815,13 +862,13 @@
                                                     :style="{
                                                         'background-image': `url(${SchoolFileImg})`,
                                                     }"
-                                                    @click="selectImage"
                                                 >
                                                     <div class="danger-button__new-file">
                                                         <button
                                                             class="btn btn-danger"
                                                             @click="
                                                                 SchoolFileImg = null;
+                                                                this.$refs.School.value = '';
                                                                 Editable = true;
                                                             "
                                                         >
@@ -874,6 +921,20 @@
                                                     Редактировать
                                                 </button>
                                             </div>
+                                            <button
+                                                v-if="insuranceMap.insurance"
+                                                class="btn btn-danger"
+                                                @click="insuranceMap.insurance = null"
+                                            >
+                                                Удалить
+                                            </button>
+                                            <button
+                                                v-if="sportsmanMap.sportsman.insurance"
+                                                class="btn btn-danger"
+                                                @click="sportsmanMap.sportsman.insurance = null"
+                                            >
+                                                Удалить
+                                            </button>
                                         </template>
                                     </div>
                                 </div>
@@ -913,6 +974,20 @@
                                                     Редактировать
                                                 </button>
                                             </div>
+                                            <button
+                                                v-if="omsMap.oms"
+                                                class="btn btn-danger"
+                                                @click="omsMap.oms = null"
+                                            >
+                                                Удалить
+                                            </button>
+                                            <button
+                                                v-if="sportsmanMap.sportsman.oms"
+                                                class="btn btn-danger"
+                                                @click="sportsmanMap.sportsman.oms = null"
+                                            >
+                                                Удалить
+                                            </button>
                                         </template>
                                     </div>
                                 </div>
@@ -1023,6 +1098,7 @@
 // TODO: Сделать кнопку редирект после усешного PUT запроса в модалке Успеха
 // TODO: Изменить цвет кнопки редактирования на другой
 // TODO: Изменить размер всех кнопок на меньший
+// TODO: Сделать компонент Img для изображений с обработкой незагруженных фоток и валидацией
 /* eslint-disable camelcase */
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
@@ -1115,6 +1191,9 @@ const namespaceTrainer = 'trainer';
     },
 })
 export default class EditCardSportsman extends Vue {
+    /* LOADING */
+    loading = false;
+
     /* DATA */
     sportsman!: {
         id: number | undefined;
@@ -1491,8 +1570,10 @@ export default class EditCardSportsman extends Vue {
     FullName: string | undefined;
 
     mounted(): void {
+        this.loading = false;
         this.getSportsman(this.$route.params.id);
         this.initSelectors();
+        this.loading = true;
     }
 }
 </script>
