@@ -1137,7 +1137,6 @@ const namespaceTrainer = 'trainer';
                 cancelButtonText: 'Отмена',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    this.Editable = true;
                     next();
                 } else {
                     next(false);
