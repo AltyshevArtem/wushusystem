@@ -32,7 +32,7 @@
                 <div class="p-5 mb-4 bg-light rounded-3">
                     <div class="card mb-3">
                         <div class="row g-0">
-                            <h5 class="card-header">Информация о спортсмене:</h5>
+                            <h5 class="card-header cardHeader">Информация о спортсмене:</h5>
                             <div class="col-md-8">
                                 <div class="card-body">
                                     <ul class="list-group list-group-flush">
@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     <div class="card mb-3">
-                        <h5 class="card-header">Принадлежность:</h5>
+                        <h5 class="card-header cardHeader">Принадлежность:</h5>
                         <div class="card-body">
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
@@ -204,8 +204,8 @@
                         </div>
                     </div>
                     <div class="card mb-3">
+                        <h5 class="card-header cardHeader">Документы:</h5>
                         <div class="card-body">
-                            <h5 class="card-title">Документы:</h5>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <div class="row g-0">
@@ -701,12 +701,14 @@
                         </div>
                     </div>
                     <div class="card mb-3">
+                        <h5 class="card-header cardHeader">Информация о тренере спортсмена:</h5>
                         <div class="row g-0">
                             <div class="col-md-8">
                                 <div class="card-body">
-                                    <h5 class="card-title">Информация о тренере спортсмена:</h5>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">
+                                            <!-- TODO: Подумать над условиями для
+                                            необятельных полей ФИО тренера -->
                                             <p>
                                                 <span>Фамилия: </span>
                                                 <span v-if="TrainerSurname"
@@ -801,8 +803,8 @@
                         </div>
                     </div>
                     <div class="card mb-3">
+                        <h5 class="card-header cardHeader">Информация о клубе:</h5>
                         <div class="card-body">
-                            <h5 class="card-title">Информация о клубе:</h5>
                             <ul class="list-group list-group-flush">
                                 <li class="list-group-item">
                                     <span>Название: </span>
@@ -870,32 +872,30 @@
                                     >
                                 </li>
                                 <li class="list-group-item">
-                                    <p>
-                                        <span>Федеральный округ: </span>
-                                        <span v-if="ClubFederalRegion">
-                                            <strong>{{ ClubFederalRegion }}</strong></span
-                                        >
-                                        <span
-                                            v-else
-                                            class="alert alert-danger nodata-message"
-                                            role="alert"
-                                        >
-                                            Информация отсутствует</span
-                                        >
-                                    </p>
-                                    <p>
-                                        <span>Аббревиатура ФО: </span>
-                                        <span v-if="ClubAbbrFederalRegion">
-                                            <strong> {{ ClubAbbrFederalRegion }}</strong></span
-                                        >
-                                        <span
-                                            v-else
-                                            class="alert alert-danger nodata-message"
-                                            role="alert"
-                                        >
-                                            Информация отсутствует</span
-                                        >
-                                    </p>
+                                    <span>Федеральный округ: </span>
+                                    <span v-if="ClubFederalRegion">
+                                        <strong>{{ ClubFederalRegion }}</strong></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
+                                    >
+                                </li>
+                                <li class="list-group-item">
+                                    <span>Аббревиатура ФО: </span>
+                                    <span v-if="ClubAbbrFederalRegion">
+                                        <strong> {{ ClubAbbrFederalRegion }}</strong></span
+                                    >
+                                    <span
+                                        v-else
+                                        class="alert alert-danger nodata-message"
+                                        role="alert"
+                                    >
+                                        Информация отсутствует</span
+                                    >
                                 </li>
                                 <li class="list-group-item">
                                     <span>Страна: </span>
@@ -1081,7 +1081,7 @@ export default class CardSportsman extends Vue {
     }
 }
 </script>
-
+<!--TODO: исправить разворачивание фоток по любому клику -->
 <style>
 img[tabindex='0'] {
     cursor: pointer;
