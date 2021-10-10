@@ -31,6 +31,8 @@
                                                         class="input__file-button load-file"
                                                         for="PhotoSportsman"
                                                     >
+                                                        <!--TODO: сделать красивое отображение
+                                                        фото спортсмена -->
                                                         <span class="input__file-icon-wrapper"
                                                             ><img
                                                                 class="input__file-icon"
@@ -178,21 +180,23 @@
                                             </div>
                                         </template>
                                         <template v-else>
-                                            Паспорт:
-                                            <button
-                                                type="button"
-                                                class="btn btn-primary"
-                                                @click="
-                                                    {
-                                                        isModalPassport = true;
-                                                        isEdit = true;
-                                                    }
-                                                "
-                                            >
-                                                Редактировать паспорт
-                                            </button>
+                                            <p><strong>Паспорт</strong></p>
+                                            <span>Редактировать данные паспорта:</span>
+                                            <div class="remark-button">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-primary"
+                                                    @click="
+                                                        {
+                                                            isModalPassport = true;
+                                                            isEdit = true;
+                                                        }
+                                                    "
+                                                >
+                                                    Редактировать
+                                                </button>
+                                            </div>
                                         </template>
-                                        {{ passportMap.passport }}
                                     </li>
                                     <li class="list-group-item">
                                         <template v-if="!insuranceMap.insurance">
@@ -214,26 +218,28 @@
                                             </div>
                                         </template>
                                         <template v-else>
-                                            Страховой полис:
-                                            <button
-                                                type="button"
-                                                class="btn btn-primary"
-                                                @click="
-                                                    {
-                                                        isModalInsurance = true;
-                                                        isEdit = true;
-                                                    }
-                                                "
-                                            >
-                                                Редактировать страховой полис
-                                            </button>
+                                            <p><strong>Страховка</strong></p>
+                                            <span>Редактировать данные страховки:</span>
+                                            <div class="remark-button">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-primary"
+                                                    @click="
+                                                        {
+                                                            isModalInsurance = true;
+                                                            isEdit = true;
+                                                        }
+                                                    "
+                                                >
+                                                    Редактировать
+                                                </button>
+                                            </div>
                                         </template>
-                                        {{ insuranceMap.insurance }}
                                     </li>
                                     <li class="list-group-item">
                                         <template v-if="!birthCertificateMap.birthCertificate">
                                             <p><strong>Свидетельство о рождении</strong></p>
-                                            <span>Добавить данные о свидетельстве рождения: </span>
+                                            <span>Добавить данные о свидетельстве рождения:</span>
                                             <div class="add-button">
                                                 <button
                                                     type="button"
@@ -250,7 +256,9 @@
                                             </div>
                                         </template>
                                         <template v-else>
-                                            Свидетельство о рождении:
+                                            <p><strong>Свидетельство о рождении</strong></p>
+                                            <span>Редактировать свидетельство о рождении:</span>
+                                            <div class="remark-button"></div>
                                             <button
                                                 type="button"
                                                 class="btn btn-primary"
@@ -261,10 +269,9 @@
                                                     }
                                                 "
                                             >
-                                                Редактировать свидетельство о рождении
+                                                Редактировать
                                             </button>
                                         </template>
-                                        {{ birthCertificateMap.birthCertificate }}
                                     </li>
                                     <li class="list-group-item">
                                         <template v-if="!omsMap.oms">
@@ -286,21 +293,23 @@
                                             </div>
                                         </template>
                                         <template v-else>
-                                            Полис ОМС:
-                                            <button
-                                                type="button"
-                                                class="btn btn-dark"
-                                                @click="
-                                                    {
-                                                        isModalOms = true;
-                                                        isEdit = true;
-                                                    }
-                                                "
-                                            >
-                                                Редактировать полис ОМС
-                                            </button>
+                                            <p><strong>Полис ОМС</strong></p>
+                                            <span>Редактировать данные о полисе ОМС: </span>
+                                            <div class="remark-button">
+                                                <button
+                                                    type="button"
+                                                    class="btn btn-primary"
+                                                    @click="
+                                                        {
+                                                            isModalOms = true;
+                                                            isEdit = true;
+                                                        }
+                                                    "
+                                                >
+                                                    Редактировать
+                                                </button>
+                                            </div>
                                         </template>
-                                        {{ omsMap.oms }}
                                     </li>
                                     <li class="list-group-item">
                                         <template v-if="!proxyMap.proxy">
@@ -330,7 +339,17 @@
                                             </div>
                                         </template>
                                         <template v-else>
-                                            Прокси:
+                                            <p>
+                                                <strong
+                                                    >Заверенные копии и доверенность
+                                                    родителя</strong
+                                                >
+                                            </p>
+                                            <span
+                                                >Редактировать данные о заверенной копии и
+                                                доверенности родителя:
+                                            </span>
+                                            <div class="remark-button"></div>
                                             <button
                                                 type="button"
                                                 class="btn btn-primary"
@@ -341,10 +360,9 @@
                                                     }
                                                 "
                                             >
-                                                Редактировать прокси
+                                                Редактировать
                                             </button>
                                         </template>
-                                        {{ proxyMap.proxy }}
                                     </li>
                                 </ul>
                             </div>
@@ -1112,6 +1130,7 @@ export default class AddCardSportsman extends Vue {
 <style scoped>
 .selectors__second-list {
     height: 60px;
+    margin-left: 1px;
 }
 .upload {
     width: 300px;
@@ -1147,9 +1166,6 @@ export default class AddCardSportsman extends Vue {
     padding-top: 160px;
     margin-left: 15px;
 }
-.list-sportsman {
-    height: 250px;
-}
 .inputs {
     height: 20px;
 }
@@ -1157,6 +1173,9 @@ export default class AddCardSportsman extends Vue {
     padding-top: 17px;
 }
 .add-button {
+    padding: 18px 0px 8px 0px;
+}
+.remark-button {
     padding-top: 10px;
 }
 </style>

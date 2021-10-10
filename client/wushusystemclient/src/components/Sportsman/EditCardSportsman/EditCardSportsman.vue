@@ -10,10 +10,10 @@
             </div>
             <div class="p-5 mb-4 bg-light rounded-3">
                 <div class="card mb-3">
+                    <h5 class="card-header">Информация о спортсмене:</h5>
                     <div class="row g-0">
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">Информация о спортсмене:</h5>
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item">
                                         <span>Фамилия:</span>
@@ -106,7 +106,7 @@
                                     </button>
                                 </div>
                             </div>
-                            <div v-else class="input__wrapper-file">
+                            <div v-else class="input__wrapper-file sportsman-upload">
                                 <input
                                     type="file"
                                     name="file"
@@ -150,8 +150,8 @@
                     </div>
                 </div>
                 <div class="card mb-3">
+                    <h5 class="card-header">Принадлежность:</h5>
                     <div class="card-body">
-                        <h5 class="card-title">Принадлежность:</h5>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <span>Город: </span>
@@ -176,8 +176,8 @@
                     </div>
                 </div>
                 <div class="card mb-3">
+                    <h5 class="card-header">Документы:</h5>
                     <div class="card-body">
-                        <h5 class="card-title">Документы:</h5>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">
                                 <div class="row g-0">
@@ -191,44 +191,46 @@
                                                 "
                                             >
                                                 <span>Добавить данные о паспорте: </span>
-                                                <button
-                                                    class="btn btn-dark"
-                                                    @click="
-                                                        {
-                                                            isModalPassport = true;
-                                                            isEdit = false;
-                                                        }
-                                                    "
-                                                >
-                                                    Добавить
-                                                </button>
+                                                <div class="add-button">
+                                                    <button
+                                                        class="btn btn-dark"
+                                                        @click="
+                                                            {
+                                                                isModalPassport = true;
+                                                                isEdit = false;
+                                                            }
+                                                        "
+                                                    >
+                                                        Добавить
+                                                    </button>
+                                                </div>
                                             </template>
                                             <template v-else>
                                                 <span>Редактировать данные о паспорте: </span>
-                                                <button
-                                                    class="btn btn-secondary"
-                                                    @click="
-                                                        {
-                                                            isModalPassport = true;
-                                                            isEdit = true;
-                                                        }
-                                                    "
-                                                >
-                                                    Редактировать
-                                                </button>
+                                                <div class="edit-button">
+                                                    <button
+                                                        class="btn btn-primary"
+                                                        @click="
+                                                            {
+                                                                isModalPassport = true;
+                                                                isEdit = true;
+                                                            }
+                                                        "
+                                                    >
+                                                        Редактировать
+                                                    </button>
+                                                </div>
                                             </template>
                                         </span>
                                     </div>
                                 </div>
                             </li>
                             <li class="list-group-item">
+                                <span>
+                                    <strong>Справка о регистрации по месту жительства </strong>
+                                </span>
                                 <div class="row g-0">
                                     <div class="col-md-8">
-                                        <p>
-                                            <strong
-                                                >Справка о регистрации по месту жительства
-                                            </strong>
-                                        </p>
                                         <div class="documents-scan__container">
                                             <div class="documents-scan__files">
                                                 <div
@@ -248,6 +250,7 @@
                                                             tabindex="0"
                                                         />
                                                     </div>
+
                                                     <button
                                                         class="btn btn-danger"
                                                         @click="
@@ -320,33 +323,37 @@
                                             "
                                         >
                                             <span>Добавить данные о свидетельстве рождения: </span>
-                                            <button
-                                                class="btn btn-dark"
-                                                @click="
-                                                    {
-                                                        isModalBirthCertificate = true;
-                                                        isEdit = false;
-                                                    }
-                                                "
-                                            >
-                                                Добавить
-                                            </button>
+                                            <div class="add-button">
+                                                <button
+                                                    class="btn btn-dark"
+                                                    @click="
+                                                        {
+                                                            isModalBirthCertificate = true;
+                                                            isEdit = false;
+                                                        }
+                                                    "
+                                                >
+                                                    Добавить
+                                                </button>
+                                            </div>
                                         </template>
                                         <template v-else>
                                             <span
                                                 >Редактировать данные о свидетельстве рождения:
                                             </span>
-                                            <button
-                                                class="btn btn-secondary"
-                                                @click="
-                                                    {
-                                                        isModalBirthCertificate = true;
-                                                        isEdit = true;
-                                                    }
-                                                "
-                                            >
-                                                Редактировать
-                                            </button>
+                                            <div class="edit-button">
+                                                <button
+                                                    class="btn btn-primary"
+                                                    @click="
+                                                        {
+                                                            isModalBirthCertificate = true;
+                                                            isEdit = true;
+                                                        }
+                                                    "
+                                                >
+                                                    Редактировать
+                                                </button>
+                                            </div>
                                         </template>
                                     </div>
                                 </div>
@@ -369,34 +376,38 @@
                                                     >Добавить данные о заверенной копии и
                                                     доверенности родителя:
                                                 </span>
-                                                <button
-                                                    class="btn btn-dark"
-                                                    @click="
-                                                        {
-                                                            isModalProxy = true;
-                                                            isEdit = false;
-                                                        }
-                                                    "
-                                                >
-                                                    Добавить
-                                                </button>
+                                                <div class="add-button">
+                                                    <button
+                                                        class="btn btn-dark"
+                                                        @click="
+                                                            {
+                                                                isModalProxy = true;
+                                                                isEdit = false;
+                                                            }
+                                                        "
+                                                    >
+                                                        Добавить
+                                                    </button>
+                                                </div>
                                             </template>
                                             <template v-else>
                                                 <span
                                                     >Редактировать заверенные копии и доверенность
                                                     родителя:
                                                 </span>
-                                                <button
-                                                    class="btn btn-secondary"
-                                                    @click="
-                                                        {
-                                                            isModalProxy = true;
-                                                            isEdit = true;
-                                                        }
-                                                    "
-                                                >
-                                                    Редактировать
-                                                </button>
+                                                <div class="edit-button">
+                                                    <button
+                                                        class="btn btn-primary"
+                                                        @click="
+                                                            {
+                                                                isModalProxy = true;
+                                                                isEdit = true;
+                                                            }
+                                                        "
+                                                    >
+                                                        Редактировать
+                                                    </button>
+                                                </div>
                                             </template>
                                         </span>
                                     </div>
@@ -405,14 +416,14 @@
                             <li class="list-group-item">
                                 <div class="row g-0">
                                     <div class="col-md-8">
-                                        <p>
-                                            <strong
+                                        <span
+                                            ><strong
                                                 >Согласие родителя на заселение в гостиницу</strong
-                                            >
-                                        </p>
+                                            ></span
+                                        >
                                         <div class="documents-scan__container">
                                             <div class="documents-scan__files">
-                                                <div
+                                                <span
                                                     v-if="
                                                         sportsmanMap.sportsman.parent_doc !==
                                                         (undefined || null)
@@ -426,17 +437,19 @@
                                                             tabindex="0"
                                                         />
                                                     </div>
-                                                    <button
-                                                        class="btn btn-danger"
-                                                        @click="
-                                                            sportsmanMap.sportsman.parent_doc =
-                                                                null;
-                                                            Editable = true;
-                                                        "
-                                                    >
-                                                        Удалить
-                                                    </button>
-                                                </div>
+                                                    <div class="btn-danger-edit">
+                                                        <button
+                                                            class="btn btn-danger"
+                                                            @click="
+                                                                sportsmanMap.sportsman.parent_doc =
+                                                                    null;
+                                                                Editable = true;
+                                                            "
+                                                        >
+                                                            Удалить
+                                                        </button>
+                                                    </div>
+                                                </span>
                                                 <div v-else class="input__wrapper-file upload">
                                                     <input
                                                         type="file"
@@ -490,7 +503,7 @@
                             <li class="list-group-item">
                                 <div class="row g-0">
                                     <div class="col-md-8">
-                                        <p><strong>Сертификат РУСАДА</strong></p>
+                                        <span><strong>Сертификат РУСАДА</strong></span>
                                     </div>
                                     <div class="documents-scan__container">
                                         <div class="documents-scan__files">
@@ -508,15 +521,17 @@
                                                         tabindex="0"
                                                     />
                                                 </div>
-                                                <button
-                                                    class="btn btn-danger"
-                                                    @click="
-                                                        sportsmanMap.sportsman.rusada = null;
-                                                        Editable = true;
-                                                    "
-                                                >
-                                                    Удалить
-                                                </button>
+                                                <div class="btn-danger-edit">
+                                                    <button
+                                                        class="btn btn-danger"
+                                                        @click="
+                                                            sportsmanMap.sportsman.rusada = null;
+                                                            Editable = true;
+                                                        "
+                                                    >
+                                                        Удалить
+                                                    </button>
+                                                </div>
                                             </span>
                                             <div v-else class="input__wrapper-file upload">
                                                 <input
@@ -570,12 +585,12 @@
                             <li class="list-group-item">
                                 <div class="row g-0">
                                     <div class="col-md-8">
-                                        <p>
+                                        <span>
                                             <strong
                                                 >Справка об отсутствии контактов с инфекционными
                                                 больными</strong
                                             >
-                                        </p>
+                                        </span>
                                     </div>
                                     <div class="documents-scan__container">
                                         <div class="documents-scan__files">
@@ -593,15 +608,18 @@
                                                         tabindex="0"
                                                     />
                                                 </div>
-                                                <button
-                                                    class="btn btn-danger"
-                                                    @click="
-                                                        sportsmanMap.sportsman.covid_contact = null;
-                                                        Editable = true;
-                                                    "
-                                                >
-                                                    Удалить
-                                                </button>
+                                                <div class="btn-danger-edit">
+                                                    <button
+                                                        class="btn btn-danger"
+                                                        @click="
+                                                            sportsmanMap.sportsman.covid_contact =
+                                                                null;
+                                                            Editable = true;
+                                                        "
+                                                    >
+                                                        Удалить
+                                                    </button>
+                                                </div>
                                             </span>
                                             <div v-else class="input__wrapper-file upload">
                                                 <input
@@ -656,7 +674,7 @@
                             <li class="list-group-item">
                                 <div class="row g-0">
                                     <div class="col-md-8">
-                                        <p><strong>ПЦР-тест COVID-19</strong></p>
+                                        <span><strong>ПЦР-тест COVID-19</strong></span>
                                     </div>
                                     <div class="documents-scan__container">
                                         <div class="documents-scan__files">
@@ -668,21 +686,24 @@
                                             >
                                                 <div class="documents__scan-photo-edit-card">
                                                     <img
-                                                        class="photo"
+                                                        class="documents"
                                                         :src="sportsmanMap.sportsman.covid_test"
                                                         alt="CovidTestFile"
                                                         tabindex="0"
                                                     />
                                                 </div>
-                                                <button
-                                                    class="btn btn-danger"
-                                                    @click="
-                                                        sportsmanMap.sportsman.covid_test = null;
-                                                        Editable = true;
-                                                    "
-                                                >
-                                                    Удалить
-                                                </button>
+                                                <div class="btn-danger-edit">
+                                                    <button
+                                                        class="btn btn-danger"
+                                                        @click="
+                                                            sportsmanMap.sportsman.covid_test =
+                                                                null;
+                                                            Editable = true;
+                                                        "
+                                                    >
+                                                        Удалить
+                                                    </button>
+                                                </div>
                                             </span>
                                             <div v-else class="input__wrapper-file upload">
                                                 <input
@@ -736,7 +757,7 @@
                             <li class="list-group-item">
                                 <div class="row g-0">
                                     <div class="col-md-8">
-                                        <p><strong>Справка об обучении в школе</strong></p>
+                                        <span><strong>Справка об обучении в школе</strong></span>
                                     </div>
                                     <div class="documents-scan__container">
                                         <div class="documents-scan__files">
@@ -824,31 +845,35 @@
                                             "
                                         >
                                             <span>Добавить данные о страховке: </span>
-                                            <button
-                                                class="btn btn-dark"
-                                                @click="
-                                                    {
-                                                        isModalInsurance = true;
-                                                        isEdit = false;
-                                                    }
-                                                "
-                                            >
-                                                Добавить
-                                            </button>
+                                            <div class="add-button">
+                                                <button
+                                                    class="btn btn-dark"
+                                                    @click="
+                                                        {
+                                                            isModalInsurance = true;
+                                                            isEdit = false;
+                                                        }
+                                                    "
+                                                >
+                                                    Добавить
+                                                </button>
+                                            </div>
                                         </template>
                                         <template v-else>
                                             <span>Редактировать страховку: </span>
-                                            <button
-                                                class="btn btn-secondary"
-                                                @click="
-                                                    {
-                                                        isModalInsurance = true;
-                                                        isEdit = true;
-                                                    }
-                                                "
-                                            >
-                                                Редактировать
-                                            </button>
+                                            <div class="edit-button">
+                                                <button
+                                                    class="btn btn-primary"
+                                                    @click="
+                                                        {
+                                                            isModalInsurance = true;
+                                                            isEdit = true;
+                                                        }
+                                                    "
+                                                >
+                                                    Редактировать
+                                                </button>
+                                            </div>
                                         </template>
                                     </div>
                                 </div>
@@ -859,31 +884,35 @@
                                         <p><strong>Полис ОМС</strong></p>
                                         <template v-if="!omsMap.oms && !sportsmanMap.sportsman.oms">
                                             <span>Добавить данные о полисе ОМС: </span>
-                                            <button
-                                                class="btn btn-dark"
-                                                @click="
-                                                    {
-                                                        isModalOms = true;
-                                                        isEdit = false;
-                                                    }
-                                                "
-                                            >
-                                                Добавить
-                                            </button>
+                                            <div class="add-button">
+                                                <button
+                                                    class="btn btn-dark"
+                                                    @click="
+                                                        {
+                                                            isModalOms = true;
+                                                            isEdit = false;
+                                                        }
+                                                    "
+                                                >
+                                                    Добавить
+                                                </button>
+                                            </div>
                                         </template>
                                         <template v-else>
                                             <span>Редактировать полис ОМС: </span>
-                                            <button
-                                                class="btn btn-secondary"
-                                                @click="
-                                                    {
-                                                        isModalOms = true;
-                                                        isEdit = true;
-                                                    }
-                                                "
-                                            >
-                                                Редактировать
-                                            </button>
+                                            <div class="edit-button">
+                                                <button
+                                                    class="btn btn-primary"
+                                                    @click="
+                                                        {
+                                                            isModalOms = true;
+                                                            isEdit = true;
+                                                        }
+                                                    "
+                                                >
+                                                    Редактировать
+                                                </button>
+                                            </div>
                                         </template>
                                     </div>
                                 </div>
@@ -1165,7 +1194,7 @@ export default class EditCardSportsman extends Vue {
         this.Editable = true;
     }
     public ConfirmAddressFileUpload(): void {
-        const fileList: FileList | null = (this.$refs['PhotoSportsman'] as HTMLInputElement).files;
+        const fileList: FileList | null = (this.$refs['ConfirmAddress'] as HTMLInputElement).files;
         const file: File = fileList?.item(0) as File;
         if (fileList && file) {
             const reader = new FileReader();
@@ -1476,7 +1505,7 @@ export default class EditCardSportsman extends Vue {
 .documents__scan-photo-edit-card {
     position: relative;
     width: 150px;
-    height: 150px;
+    height: 100px;
 }
 .documents-scan__files {
     display: flex;
@@ -1509,7 +1538,6 @@ export default class EditCardSportsman extends Vue {
     height: 340px;
 }
 .upload {
-    height: 210px;
     width: 300px;
 }
 img[tabindex='0'] {
@@ -1559,17 +1587,18 @@ img[tabindex='0']:focus ~ * {
 }
 .imagePreviewWrapper {
     margin-top: 10px;
+    margin-right: 40px;
     background-repeat: no-repeat;
-    width: 120px;
-    height: 120px;
+    width: 130px;
+    height: 140px;
     display: block;
     cursor: pointer;
+    margin-left: 0px;
     background-size: contain;
-    background-position: center center;
 }
 .danger-button__new-file {
-    padding-right: 15px;
-    padding-top: 130px;
+    padding-left: 120px;
+    padding-top: 100px;
 }
 .PreviewImgSportsman {
     width: 220px;
@@ -1580,5 +1609,22 @@ img[tabindex='0']:focus ~ * {
 .btnDeleteSportsman {
     padding-top: 230px;
     padding-right: 90px;
+}
+.add-button {
+    padding: 18px 0px 8px 0px;
+}
+.edit-button {
+    margin-top: 10px;
+}
+.btn-danger-edit {
+    margin-left: 120px;
+    margin-bottom: 15px;
+    padding-top: 5px;
+}
+.sportsman-upload {
+    width: 75%;
+    position: relative;
+    margin: 15px 0;
+    text-align: center;
 }
 </style>
