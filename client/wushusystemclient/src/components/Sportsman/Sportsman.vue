@@ -9,6 +9,7 @@
         <div class="listSportsman">
             <input placeholder="ФИО Спортсмена..." class="form-control" v-model="search" />
         </div>
+        <!--TODO: Исправить положение селекторов в таблице-->
         <div class="row">
             <div class="col-md-6">
                 <div class="leftList">

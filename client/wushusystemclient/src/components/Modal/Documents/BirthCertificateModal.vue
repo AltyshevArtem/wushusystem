@@ -78,6 +78,7 @@
 
 <script lang="ts">
 //TODO: Сделать просмотр только что добавленной картинки(во всех модалках)
+//TODO: Сделать отступы в модалках (добавленных) + кнопку просмотра в раску (все модалки)
 /* VUE */
 import { Vue, Options } from 'vue-class-component';
 import { Prop, Emit } from 'vue-property-decorator';
