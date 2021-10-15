@@ -1,5 +1,6 @@
+<!-- TODO: Научиться правильно использовать svg icon -->
+<!--TODO: Исправить положение селекторов в таблице-->
 <template>
-    <!-- TODO: Научиться правильно использовать svg icon -->
     <img v-if="!loading" src="@/assets/spin.svg" />
     <div v-else class="container-sm">
         <br />
@@ -9,7 +10,6 @@
         <div class="listSportsman">
             <input placeholder="ФИО Спортсмена..." class="form-control" v-model="search" />
         </div>
-        <!--TODO: Исправить положение селекторов в таблице-->
         <div class="row">
             <div class="col-md-6">
                 <div class="leftList">
