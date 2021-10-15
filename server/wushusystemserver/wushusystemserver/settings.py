@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'sportsmans',
     'rest_framework',
     'django_filters',
-    'competitions',
 ]
 
 MIDDLEWARE = [
