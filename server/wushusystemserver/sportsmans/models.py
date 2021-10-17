@@ -122,8 +122,9 @@ class JudjeTrainer(models.Model):
     )
     category = models.ForeignKey(
         JudjeCategory, 
-        blank = True,  
-        on_delete=models.CASCADE, 
+        on_delete=models.CASCADE,
+        blank = True,
+        null = True, 
         verbose_name="Судейская категория"
     )
     def __str__(self):
