@@ -1,60 +1,104 @@
 from django.db import models
 from django.db.models.fields import TextField
 from django.db.models.fields.related import ForeignKey
-from sportsmans.models import Trainer, Region 
+from sportsmans.models import JudjeTrainer, Region, Gender, Sportsman 
 
-from sportsmans.models import Trainer
 
 # Create your models here.
 
-class CompetitionName(models.Model):
+class Category(models.Model):
+    category_name = models.TextField(
+        blank=True,
+        verbose_name="Вид выступления"
+        #Даошу
+    )
+    age_category = models.TextField(
+        blank=True,
+        verbose_name="Возрастной диапазон"
+        #Юниоры (15-17 лет)
+    )
+
+    def __str__(self):
+        return "%s, %s" % (self.category_name, self.age_category)
+
+    class Meta:
+        verbose_name = "Соревновательная категория"
+        verbose_name_plural = "Соревновательные категории"
+
+
+class Discipline(models.Model):
+    discipline_name = models.TextField(
+        blank=True,
+        verbose_name="Дисциплина соревнований"
+    )
+
+    def __str__(self):
+        return "%s" % self.discipline_name
+    class Meta:
+        verbose_name = "Дисплина соревнований"
+        verbose_name_plural = "Дисплина соревнований"
+
+class CompetitionGroup(models.Model):
+    category = models.ForeignKey(
+        Category,
+        blank=True,
+        on_delete=models.CASCADE,
+        verbose_name="Соревновательная категория"
+    )
+    gender = models.ForeignKey(
+        Gender,
+        blank=True,
+        on_delete=models.CASCADE,
+        verbose_name="Пол"
+    )
+    discipline = models.ForeignKey(
+        Discipline,
+        blank=True,
+        on_delete=models.CASCADE,
+        verbose_name="Дисциплина"
+    )
+    duration = models.IntegerField(
+        blank=True,
+        verbose_name="Длительность выступления одного человека"
+    )
+    judjes = models.ForeignKey(
+        JudjeTrainer,
+        blank=True,
+        on_delete=models.CASCADE,
+        verbose_name="Судьи обсуживающие соревновательную группу"
+    )
+    sportsmans = models.ForeignKey(
+        Sportsman,
+        blank=True,
+        on_delete=models.CASCADE,
+        verbose_name="Список спортсменов учствующих в группе"
+    )
+
+    def __str__(self):
+        return "%s" % self.category
+
+    class Meta:
+        verbose_name = "Соревновательная группа"
+        verbose_name_plural = "Соревновательные группы"
+
+class Competiton(models.Model):
     name_of_competition = models.TextField(
        blank=False,
        verbose_name="Название соревнования" 
     )
-
-    def __str__(self):
-        return "%s" % (self.name_of_competition)
-
-    class Meta():
-        verbose_name = "Список соревнований"
-        verbose_name_plural = "Список соревнований"
-
-
-class CompetitionDescription(models.Model):
     description_of_competition = models.TextField(
         blank=True,
         verbose_name="Описание соревнования"
     )
-
-    def __str__(self):
-        return "%s" % (self.description_of_competition)
-
-    class Meta():
-         verbose_name = "Описание соревнования"
-         verbose_name_plural = "Описание соревнований"
-
-
-class CompetitionVenue(models.Model):
     venue_of_competition = models.TextField(
         blank=False,
         verbose_name="Место проведения соревнования"
     )
-
-    def __str__(self):
-        return "%s" % (self.venue_of_competition)
-
-    class Meta():
-         verbose_name = "Место проведения соревнования"
-         verbose_name_plural = "Место проведения соревнований"
-
-
-class CompetitionPeriod(models.Model):
-    date_start = models.DateField(
+    competition_date_start = models.DateField(
         blank=True,
         verbose_name="Дата начала соревнования"
     )
-    date_end = models.DateField(
+    competition_date_end = models.DateField(
         blank=True,
         verbose_name="Дата конца соревнований"
     )
@@ -62,74 +106,74 @@ class CompetitionPeriod(models.Model):
         blank=True,
         verbose_name="Соревновательные дни"
     )
-
-    def __str__(self):
-        return "%s" % (self.competition_days)    
-
-    class Meta():
-        verbose_name = "Дата проведения соревнований"
-        verbose_name_plural = "Даты проведения соревнований"
-
-
-class RegistrationDate(models.Model):
-    date_time_start = models.DateTimeField(
+    #Дата начала + дата конца
+    registration_start = models.DateTimeField(
         blank=True,
-        verbose_name="Датаа начала регистрации"
+        verbose_name="Дата начала регистрации"
     )
-    date_time_end = models.DateTimeField(
+    registration_end = models.DateTimeField(
         blank=True,
         verbose_name="Дата конца регистрации"
     )
-
-    def __str__(self):
-        return "%s, %s" % (self.date_time_start, self.date_time_end)    
-
-    class Meta():
-        verbose_name = "Дата начала и конца регистрации"
-        verbose_name_plural = "Даты начала и конца регистрации"
-
-
-class NumberOfCompetitionAreas(models.Model):
     number_of_competition_areas = models.IntegerField(
         blank=True,
         verbose_name="Количество ковров"
     )
-
-    def __str__(self):
-        return "%s" % (self.number_of_competition_areas)    
-
-    class Meta():
-        verbose_name = "Число соревновательных площадок"
-        verbose_name_plural = "Число соревновательных площадок"
-
-
-class MainJudje(models.Model):
     main_judje = models.ForeignKey(
-        Trainer,
+        JudjeTrainer,
         blank=True,
         on_delete=models.CASCADE,
         verbose_name="Главный судья соревнований"
     )
-
-    def __str__(self):
-        return "%s" % (self.main_judje)    
-
-    class Meta():
-        verbose_name = "Главный судья соревнований"
-        verbose_name_plural = "Главный судья соревнований"
-
-
-class CompetitionRegion(models.Model):
     competition_region = models.ForeignKey(
         Region,
         blank=True,
         on_delete=models.CASCADE,
         verbose_name="Регионы участвующие на соревнованиях"
     )
+    group = models.ForeignKey(
+        CompetitionGroup,
+        blank=False,
+        on_delete=models.CASCADE,
+        verbose_name="Выбор соревновательных групп"
+    )
 
     def __str__(self):
-        return "%s" % (self.competition_region)
+        return "%s, %s" % (self.name_of_competition, self.competition_days)
 
-    class Meta():
-        verbose_name = "Регионы участвующие на соревнованиях"
-        verbose_name_plural = "Регионы участвующие на соревнованиях"
+    class Meta:
+        verbose_name = "Соревнования"
+        verbose_name_plural = "Соревнования"
+
+class Schedule(models.Model):
+    competition = models.OneToOneField(
+        Competiton,
+        blank=False,
+        on_delete = models.CASCADE,
+        verbose_name="Соревнование"
+    )
+    group = models.OneToOneField(
+        CompetitionGroup,
+        blank=False,
+        on_delete=models.CASCADE,
+        verbose_name="Соревновательная группа"
+    )
+    competition_area = models.IntegerField(
+        blank=False,
+        verbose_name="Ковёр"
+    )
+    time_start = models.TimeField(
+        blank=False,
+        verbose_name="Время начала"
+    )
+    time_end = models.TimeField(
+        blank=False,
+        verbose_name="Время окончания"
+    )
+
+    def __str__(self):
+        return "%s, %s" % (self.competition, self.group)
+
+    class Meta:
+        verbose_name = "Расписание"
+        verbose_name_plural = "Расписание"

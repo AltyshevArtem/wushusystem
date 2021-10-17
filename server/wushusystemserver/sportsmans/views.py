@@ -33,7 +33,7 @@ class CityViewSet(viewsets.ModelViewSet):
 
 
 class TrainerViewSet(viewsets.ModelViewSet):
-    queryset = Trainer.objects.all()
+    queryset = JudjeTrainer.objects.all()
     serializer_class = TrainerSerialize
 
 

@@ -43,14 +43,14 @@ class CityAdmin(admin.ModelAdmin):
 admin.site.register(City, CityAdmin)
 
 
-class TrainerAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in Trainer._meta.fields]
+class JudjeTrainerAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in JudjeTrainer._meta.fields]
 
     class Meta:
-        model = Trainer
+        model = JudjeTrainer
 
 
-admin.site.register(Trainer, TrainerAdmin)
+admin.site.register(JudjeTrainer, JudjeTrainerAdmin)
 
 
 class FederationAdmin(admin.ModelAdmin):

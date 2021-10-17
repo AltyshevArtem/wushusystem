@@ -80,7 +80,7 @@ class City (models.Model):
         verbose_name_plural = "Список городов"
 
 
-class Trainer(models.Model):
+class JudjeTrainer(models.Model):
     name = models.TextField(
         blank=True, 
         verbose_name="Имя тренера"
@@ -368,7 +368,7 @@ class Sportsman(models.Model):
         verbose_name = "Название города"
     )
     trainer = models.ForeignKey(
-        Trainer, 
+        JudjeTrainer, 
         on_delete=models.CASCADE, 
         blank = True, 
         null = True,
@@ -462,7 +462,7 @@ class Trainer_history(models.Model):
     sportsman = models.ForeignKey(
         Sportsman, on_delete=models.CASCADE, blank=False, verbose_name="Спортсмены")
     new_trainer = models.ForeignKey(
-        Trainer, blank=False, on_delete=models.CASCADE, verbose_name="Новый тренер")
+        JudjeTrainer, blank=False, on_delete=models.CASCADE, verbose_name="Новый тренер")
     date = models.DateField(blank=False, verbose_name="Дата смены тренера")
 
     class Meta():
