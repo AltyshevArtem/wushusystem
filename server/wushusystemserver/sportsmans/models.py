@@ -18,6 +18,21 @@ class Gender(models.Model):
         verbose_name_plural = "Список доступных полов"
 
 
+class JudjeCategory(models.Model):
+    category = models.TextField(
+        primary_key=True, 
+        blank=False, 
+        verbose_name="Судейская категория"
+    )
+
+    def __str__(self):
+        return "%s" % (self.category)
+
+    class Meta():
+        verbose_name = "Список судейских категорий"
+        verbose_name_plural = "Список судейских категорий"
+
+
 class Federal_Region(models.Model):
     name_of_federal_region = models.TextField(
         blank = True,
@@ -78,8 +93,6 @@ class City (models.Model):
     class Meta():
         verbose_name = "Список городов"
         verbose_name_plural = "Список городов"
-
-
 class JudjeTrainer(models.Model):
     name = models.TextField(
         blank=True, 
@@ -107,7 +120,12 @@ class JudjeTrainer(models.Model):
         blank = True, 
         verbose_name="Дата рождения тренера"
     )
-
+    category = models.ForeignKey(
+        JudjeCategory, 
+        blank = True,  
+        on_delete=models.CASCADE, 
+        verbose_name="Судейская категория"
+    )
     def __str__(self):
         return "%s %s %s" % (self.surname, self.name, self.patronymic)
 

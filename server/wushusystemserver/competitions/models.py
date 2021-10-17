@@ -61,16 +61,14 @@ class CompetitionGroup(models.Model):
         blank=True,
         verbose_name="Длительность выступления одного человека"
     )
-    judjes = models.ForeignKey(
+    judjes = models.ManyToManyField(
         JudjeTrainer,
         blank=True,
-        on_delete=models.CASCADE,
         verbose_name="Судьи обсуживающие соревновательную группу"
     )
-    sportsmans = models.ForeignKey(
+    sportsmans = models.ManyToManyField(
         Sportsman,
         blank=True,
-        on_delete=models.CASCADE,
         verbose_name="Список спортсменов учствующих в группе"
     )
 
@@ -102,11 +100,6 @@ class Competiton(models.Model):
         blank=True,
         verbose_name="Дата конца соревнований"
     )
-    competition_days = models.DateField(
-        blank=True,
-        verbose_name="Соревновательные дни"
-    )
-    #Дата начала + дата конца
     registration_start = models.DateTimeField(
         blank=True,
         verbose_name="Дата начала регистрации"
@@ -125,16 +118,15 @@ class Competiton(models.Model):
         on_delete=models.CASCADE,
         verbose_name="Главный судья соревнований"
     )
-    competition_region = models.ForeignKey(
+    competition_region = models.ManyToManyField(
         Region,
         blank=True,
-        on_delete=models.CASCADE,
         verbose_name="Регионы участвующие на соревнованиях"
     )
-    group = models.ForeignKey(
+
+    group = models.ManyToManyField(
         CompetitionGroup,
         blank=False,
-        on_delete=models.CASCADE,
         verbose_name="Выбор соревновательных групп"
     )
 
@@ -154,7 +146,8 @@ class Schedule(models.Model):
     )
     group = models.OneToOneField(
         CompetitionGroup,
-        blank=False,
+        blank=True,
+        null=True,
         on_delete=models.CASCADE,
         verbose_name="Соревновательная группа"
     )

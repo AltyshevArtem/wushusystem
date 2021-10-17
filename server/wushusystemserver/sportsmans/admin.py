@@ -13,6 +13,15 @@ class GenderAdmin(admin.ModelAdmin):
 admin.site.register(Gender, GenderAdmin)
 
 
+class JudjeCategoryAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in JudjeCategory._meta.fields]
+
+    class Meta:
+        model = JudjeCategory
+
+
+admin.site.register(JudjeCategory, JudjeCategoryAdmin)
+
 class FederalRegionAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Federal_Region._meta.fields]
 
