@@ -4,13 +4,13 @@ from . models import *
 
 
 class CompetitionAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in Competiton._meta.fields]
+    list_display = [field.name for field in Competition._meta.fields]
 
     class Meta:
-        model = Competiton
+        model = Competition
 
 
-admin.site.register(Competiton, CompetitionAdmin)
+admin.site.register(Competition, CompetitionAdmin)
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Category._meta.fields]
@@ -38,12 +38,3 @@ class CompetitionGroupAdmin(admin.ModelAdmin):
 
 
 admin.site.register(CompetitionGroup, CompetitionGroupAdmin)
-
-class ScheduleAdmin(admin.ModelAdmin):
-    list_display = [field.name for field in Schedule._meta.fields]
-
-    class Meta:
-        model = Schedule
-
-
-admin.site.register(Schedule, ScheduleAdmin)

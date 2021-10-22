@@ -458,6 +458,9 @@ class Sportsman(models.Model):
     def get_federal_region_name(self):
         return self.city.name_of_region.name_of_federal_region.abbr_of_federal_region
 
+    def __str__(self):
+        return "%s %s %s" % (self.surname, self.name, self.patronymic)
+
     class Meta():
         verbose_name = "Спортсмен"
         verbose_name_plural = "Спортсмены"
