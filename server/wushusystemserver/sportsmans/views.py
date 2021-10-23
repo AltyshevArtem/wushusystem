@@ -85,7 +85,7 @@ class SportsmanViewSet(viewsets.ModelViewSet):
     queryset = Sportsman.objects.all()
     model = Sportsman
     serializer_class = SportsmanSerialize
-    pagination_class = PaginatorSportsman
+    # pagination_class = PaginatorSportsman
 
     # параметры фильтрации
     filter_backends = (DjangoFilterBackend, OrderingFilter)
