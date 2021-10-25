@@ -102,7 +102,7 @@ class Competition(models.Model):
 
     class Meta:
         verbose_name = "Соревнование"
-        verbose_name_plural = "соревнования"
+        verbose_name_plural = "Cоревнования"
 
 
 class CompetitionGroup(models.Model):
@@ -160,7 +160,7 @@ class CompetitionGroup(models.Model):
     judjes = models.ManyToManyField(
         JudjeTrainer,
         blank=True,
-        verbose_name="Судьи обсуживающие соревновательную группу"
+        verbose_name="Судьи обслуживающие соревновательную группу"
     )
     sportsmans = models.ManyToManyField(
         Sportsman,
