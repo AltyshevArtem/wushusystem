@@ -102,7 +102,7 @@ class Competition(models.Model):
 
     class Meta:
         verbose_name = "Соревнование"
-        verbose_name_plural = "Cоревнования"
+        verbose_name_plural = "Соревнования"
 
 
 class CompetitionGroup(models.Model):
