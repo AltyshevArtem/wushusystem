@@ -39,7 +39,7 @@ class TrainerSerialize(serializers.ModelSerializer):
     id = serializers.IntegerField()
 
     class Meta:
-        model = Trainer
+        model = JudjeTrainer
         fields = "__all__"
 
 
@@ -143,7 +143,7 @@ class SportsmanSerialize(serializers.ModelSerializer):
 
         if(validated_data.get('trainer') is not None):
             trainer_data = validated_data.pop('trainer')
-            trainer = Trainer.objects.get(id=trainer_data['id'])
+            trainer = JudjeTrainer.objects.get(id=trainer_data['id'])
         else:
             trainer = None
 
@@ -227,7 +227,7 @@ class SportsmanSerialize(serializers.ModelSerializer):
 
         if(validated_data.get('trainer') is not None):
             trainer_data = validated_data.pop('trainer')
-            trainer = Trainer.objects.get(id=trainer_data['id'])
+            trainer = JudjeTrainer.objects.get(id=trainer_data['id'])
             instance.trainer = trainer
             instance.trainer.save()
 

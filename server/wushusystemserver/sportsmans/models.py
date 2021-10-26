@@ -18,6 +18,21 @@ class Gender(models.Model):
         verbose_name_plural = "Список доступных полов"
 
 
+class JudjeCategory(models.Model):
+    category = models.TextField(
+        primary_key=True, 
+        blank=False, 
+        verbose_name="Судейская категория"
+    )
+
+    def __str__(self):
+        return "%s" % (self.category)
+
+    class Meta():
+        verbose_name = "Список судейских категорий"
+        verbose_name_plural = "Список судейских категорий"
+
+
 class Federal_Region(models.Model):
     name_of_federal_region = models.TextField(
         blank = True,
@@ -78,9 +93,7 @@ class City (models.Model):
     class Meta():
         verbose_name = "Список городов"
         verbose_name_plural = "Список городов"
-
-
-class Trainer(models.Model):
+class JudjeTrainer(models.Model):
     name = models.TextField(
         blank=True, 
         verbose_name="Имя тренера"
@@ -107,7 +120,13 @@ class Trainer(models.Model):
         blank = True, 
         verbose_name="Дата рождения тренера"
     )
-
+    category = models.ForeignKey(
+        JudjeCategory, 
+        on_delete=models.CASCADE,
+        blank = True,
+        null = True, 
+        verbose_name="Судейская категория"
+    )
     def __str__(self):
         return "%s %s %s" % (self.surname, self.name, self.patronymic)
 
@@ -368,7 +387,7 @@ class Sportsman(models.Model):
         verbose_name = "Название города"
     )
     trainer = models.ForeignKey(
-        Trainer, 
+        JudjeTrainer, 
         on_delete=models.CASCADE, 
         blank = True, 
         null = True,
@@ -439,6 +458,9 @@ class Sportsman(models.Model):
     def get_federal_region_name(self):
         return self.city.name_of_region.name_of_federal_region.abbr_of_federal_region
 
+    def __str__(self):
+        return "%s %s %s" % (self.surname, self.name, self.patronymic)
+
     class Meta():
         verbose_name = "Спортсмен"
         verbose_name_plural = "Спортсмены"
@@ -462,7 +484,7 @@ class Trainer_history(models.Model):
     sportsman = models.ForeignKey(
         Sportsman, on_delete=models.CASCADE, blank=False, verbose_name="Спортсмены")
     new_trainer = models.ForeignKey(
-        Trainer, blank=False, on_delete=models.CASCADE, verbose_name="Новый тренер")
+        JudjeTrainer, blank=False, on_delete=models.CASCADE, verbose_name="Новый тренер")
     date = models.DateField(blank=False, verbose_name="Дата смены тренера")
 
     class Meta():
