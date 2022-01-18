@@ -14,8 +14,8 @@ class SportsmanSetFilter(FilterSet):
     rank = CharFilter(method="get_rank")
     duan_czi = CharFilter(method="get_duan_czi")
     # TODO: Сделать фильтрацию по полям федеральный округ и регион на сервере
-    get_federal_region_name = CharFilter(field_name='federal_region', method="get_federal_region")
-    get_region_name = CharFilter(field_name='region', method="get_region")
+    # get_federal_region_name = CharFilter(field_name='federal_region', method="get_federal_region")
+    # get_region_name = CharFilter(field_name='region', method="get_region")
 
     def get_name(self, queryset, name, value):
         if value:
