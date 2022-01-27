@@ -1,5 +1,6 @@
 <!-- TODO: Научиться правильно использовать svg icon -->
 <!--TODO: Исправить положение селекторов в таблице-->
+<!--TODO: Исправить положение селекторов в таблице-->
 <template>
     <img v-if="!loading" src="@/assets/spin.svg" />
     <div v-else class="container-sm">
