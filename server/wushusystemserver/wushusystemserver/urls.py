@@ -3,6 +3,7 @@ from django.urls import path
 from django.conf.urls import url, include
 from rest_framework import routers
 from sportsmans.views import *
+from competitions.views import *
 
 router = routers.DefaultRouter()
 router.register(r'gender', GenderViewSet)
@@ -21,6 +22,12 @@ router.register(r'birth_certificate', Birth_CertificateViewSet)
 router.register(r'oms', OMSViewSet)
 router.register(r'passport', PassportViewSet)
 router.register(r'proxy', Proxy_docViewSet)
+
+router.register(r'category', CategoryViewSet)
+router.register(r'discipline', DisciplineViewSet)
+router.register(r'competition', CompetitonViewSet)
+router.register(r'competition_group', CompetitionGroupViewSet)
+
 #router.register(r'rank_history', Rank_historyViewSet)
 #router.register(r'trainer_history', Trainer_historyViewSet)
 #router.register(r'duan_czi_history', Duan_Czi_historyViewSet)
