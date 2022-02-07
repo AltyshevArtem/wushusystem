@@ -25,7 +25,7 @@ router.register(r'proxy', Proxy_docViewSet)
 
 router.register(r'category', CategoryViewSet)
 router.register(r'discipline', DisciplineViewSet)
-router.register(r'competition', CompetitonViewSet)
+router.register(r'competitions', CompetitonViewSet)
 router.register(r'competition_group', CompetitionGroupViewSet)
 
 #router.register(r'rank_history', Rank_historyViewSet)

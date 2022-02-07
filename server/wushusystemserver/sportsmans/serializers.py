@@ -267,7 +267,8 @@ class SportsmanSerialize(serializers.ModelSerializer):
             else:
                 Birth_Certificate.objects.filter(
                     id=birth_certificate_data['id']).update(**birth_certificate_data)
-                birth_certificate = Birth_Certificate.objects.get(id=birth_certificate_data['id'])
+                birth_certificate = Birth_Certificate.objects.get(
+                    id=birth_certificate_data['id'])
             instance.birth_certificate = birth_certificate
             instance.birth_certificate.save()
 

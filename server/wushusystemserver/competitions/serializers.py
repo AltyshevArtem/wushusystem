@@ -19,7 +19,7 @@ class DisciplineSerialize(serializers.ModelSerializer):
 
 class CompetitonSerialize(serializers.ModelSerializer):
     main_judje = TrainerSerialize(required=False)
-    competition_region = RegionSerialize(required=False)
+    competition_region = RegionSerialize(required=False, many=True)
 
     class Meta:
         model = Competition
@@ -30,8 +30,8 @@ class CompetitionGroupSerialize(serializers.ModelSerializer):
     competition = CompetitonSerialize(required=False)
     category = CategorySerialize(required=False)
     discipline = DisciplineSerialize(required=False)
-    judjes = TrainerSerialize(required=False)
-    sportsmans = SportsmanSerialize(required=False)
+    judjes = TrainerSerialize(required=False, many=True)
+    sportsmans = SportsmanSerialize(required=False, many=True)
 
     class Meta:
         model = CompetitionGroup
