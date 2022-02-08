@@ -18,6 +18,7 @@ class DisciplineSerialize(serializers.ModelSerializer):
 
 
 class CompetitonSerialize(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
     main_judje = TrainerSerialize(required=False)
     competition_region = RegionSerialize(required=False, many=True)
 
@@ -27,6 +28,7 @@ class CompetitonSerialize(serializers.ModelSerializer):
 
 
 class CompetitionGroupSerialize(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
     competition = CompetitonSerialize(required=False)
     category = CategorySerialize(required=False)
     discipline = DisciplineSerialize(required=False)
