@@ -22,6 +22,18 @@ class CompetitonSerialize(serializers.ModelSerializer):
     main_judje = TrainerSerialize(required=False)
     competition_region = RegionSerialize(required=False, many=True)
 
+    def create(self, validated_data):
+        if(validated_data.get('main_judje') is not None):
+            trainer_data = validated_data.pop('main_judje')
+            trainer = JudjeTrainer.objects.get(id=trainer_data['id'])
+        else:
+            trainer = None
+
+        competition = Competition.objects.create(
+            main_judje=trainer, **validated_data)
+
+        return competition
+
     def update(self, instance, validated_data):
         instance.name_of_competition = validated_data.get(
             'name_of_competition', instance.name_of_competition)
@@ -41,8 +53,6 @@ class CompetitonSerialize(serializers.ModelSerializer):
             'competition_days', instance.competition_days)
         instance.competition_areas = validated_data.get(
             'competition_areas', instance.competition_areas)
-
-
 
         if(validated_data.get('main_judje') is not None):
             trainer_data = validated_data.pop('main_judje')
