@@ -1,3 +1,6 @@
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib.staticfiles.urls import static
+from . import settings
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url, include
@@ -27,15 +30,12 @@ router.register(r'category', CategoryViewSet)
 router.register(r'discipline', DisciplineViewSet)
 router.register(r'competitions', CompetitonViewSet)
 router.register(r'competition_group', CompetitionGroupViewSet)
-
+router.register(r'command', CommandViewSet)
 #router.register(r'rank_history', Rank_historyViewSet)
 #router.register(r'trainer_history', Trainer_historyViewSet)
 #router.register(r'duan_czi_history', Duan_Czi_historyViewSet)
 #router.register(r'club_history', Club_historyViewSet)
 
-from . import settings
-from django.contrib.staticfiles.urls import static
-from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     url(r'api/', include(router.urls)),

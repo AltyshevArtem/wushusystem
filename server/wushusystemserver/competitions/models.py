@@ -2,7 +2,7 @@ from django.db import models
 from django.db.models.deletion import CASCADE
 from django.db.models.fields import TextField
 from django.db.models.fields.related import ForeignKey
-from sportsmans.models import JudjeTrainer, Region, Gender, Sportsman
+from sportsmans.models import Federal_Region, JudjeTrainer, Region, Gender, Sportsman
 
 
 # Create your models here.
@@ -39,6 +39,27 @@ class Discipline(models.Model):
     class Meta:
         verbose_name = "Дисциплина соревнований"
         verbose_name_plural = "Дисциплины соревнований"
+
+
+class Command(models.Model):
+    name_of_command = models.TextField(
+        blank=False, verbose_name="Название команды")
+    date_of_create = models.DateField(blank=True,
+                                      null=True,
+                                      verbose_name="Дата создания соревнования")
+    sportsmans = models.ManyToManyField(Sportsman,
+                                        blank=True,
+                                        verbose_name="Список спортсменов в команде")
+
+    def size(self):
+        self.sportsmans.length
+
+    def __str__(self):
+        return "%s" % self.name_of_command
+
+    class Meta:
+        verbose_name = "Команда"
+        verbose_name_plural = "Команды"
 
 
 class Competition(models.Model):
@@ -92,9 +113,14 @@ class Competition(models.Model):
         verbose_name="Главный судья соревнований"
     )
     competition_region = models.ManyToManyField(
-        Region,
+        Federal_Region,
         blank=True,
-        verbose_name="Регионы участвующие на соревнованиях"
+        verbose_name="Федеральные регионы участвующие на соревнованиях"
+    )
+    commands = models.ManyToManyField(
+        Command,
+        blank=True,
+        verbose_name="Список команд"
     )
 
     def __str__(self):

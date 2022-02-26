@@ -2,10 +2,12 @@ from typing_extensions import Required
 from django.db.models import fields
 from rest_framework import serializers
 from competitions.models import *
-from sportsmans.serializers import TrainerSerialize, RegionSerialize, SportsmanSerialize
+from sportsmans.serializers import FederalRegionSerialize, TrainerSerialize, RegionSerialize, SportsmanSerialize
 
 
 class CategorySerialize(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+
     class Meta:
         model = Category
         fields = "__all__"
@@ -17,10 +19,20 @@ class DisciplineSerialize(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class CommandSerialize(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+    sportsmans = SportsmanSerialize(required=False, many=True)
+
+    class Meta:
+        model = Command
+        fields = "__all__"
+
+
 class CompetitonSerialize(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
     main_judje = TrainerSerialize(required=False)
-    competition_region = RegionSerialize(required=False, many=True)
+    competition_region = FederalRegionSerialize(required=False, many=True)
+    commands = CommandSerialize(required=False, many=True)
 
     def create(self, validated_data):
         if(validated_data.get('main_judje') is not None):
@@ -76,6 +88,24 @@ class CompetitionGroupSerialize(serializers.ModelSerializer):
     discipline = DisciplineSerialize(required=False)
     judjes = TrainerSerialize(required=False, many=True)
     sportsmans = SportsmanSerialize(required=False, many=True)
+
+    def create(self, validated_data):
+        if(validated_data.get('category') is not None):
+            category_data = validated_data.pop('category')
+            category = Category.objects.get(id=category_data['id'])
+        else:
+            category = None
+
+        if(validated_data.get('competition') is not None):
+            competition_data = validated_data.pop('competition')
+            competition = Competition.objects.get(id=competition_data['id'])
+        else:
+            competition = None
+
+        competition_group = CompetitionGroup.objects.create(
+            category=category, competition=competition, **validated_data)
+
+        return competition_group
 
     class Meta:
         model = CompetitionGroup

@@ -21,6 +21,15 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 
+class CommandAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in Command._meta.fields]
+
+    class Meta:
+        model = Command
+
+
+admin.site.register(Command, CommandAdmin)
+
 class DisciplineAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Discipline._meta.fields]
 
