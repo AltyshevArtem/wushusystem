@@ -1,12 +1,32 @@
 from typing_extensions import Required
+from attr import validate
 from django.db.models import fields
 from rest_framework import serializers
 from competitions.models import *
 from sportsmans.serializers import FederalRegionSerialize, TrainerSerialize, RegionSerialize, SportsmanSerialize
 
 
+class AgeCategorySerialize(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+
+    class Meta:
+        model = AgeCategory
+        fields = "__all__"
+
+
+class NameCategorySerialize(serializers.PrimaryKeyRelatedField, serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+
+    class Meta:
+        model = NameCategory
+        fields = "__all__"
+
+
 class CategorySerialize(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
+    category_age = AgeCategorySerialize(required=False, many=True)
+    category_name = NameCategorySerialize(
+        queryset=NameCategory.objects.all(), many=True)
 
     class Meta:
         model = Category
@@ -19,20 +39,63 @@ class DisciplineSerialize(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class CommandSerialize(serializers.ModelSerializer):
+class CommandSerializeGet(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
-    sportsmans = SportsmanSerialize(required=False, many=True)
+    sportsmans = SportsmanSerialize(many=True)
 
     class Meta:
         model = Command
         fields = "__all__"
 
 
+class CommandSerialize(serializers.PrimaryKeyRelatedField):
+    id = serializers.IntegerField(required=False)
+    sportsmans = SportsmanSerialize(many=True)
+
+    class Meta:
+        model = Command
+        fields = "__all__"
+
+
+class CompetitionGroupSerialize(serializers.PrimaryKeyRelatedField, serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+    category = CategorySerialize(required=False)
+    discipline = DisciplineSerialize(required=False)
+    judjes = TrainerSerialize(required=False, many=True)
+    sportsmans = SportsmanSerialize(required=False, many=True)
+
+    def create(self, validated_data):
+        if(validated_data.get('category') is not None):
+            category_data = validated_data.pop('category')
+            category = Category.objects.get(id=category_data['id'])
+        else:
+            category = None
+
+        if(validated_data.get('competition') is not None):
+            competition_data = validated_data.pop('competition')
+            competition = Competition.objects.get(id=competition_data['id'])
+        else:
+            competition = None
+
+        competition_group = CompetitionGroup.objects.create(
+            category=category, competition=competition, **validated_data)
+
+        return competition_group
+
+    class Meta:
+        model = CompetitionGroup
+        fields = "__all__"
+
+
 class CompetitonSerialize(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
     main_judje = TrainerSerialize(required=False)
-    competition_region = FederalRegionSerialize(required=False, many=True)
-    commands = CommandSerialize(required=False, many=True)
+    name_category = NameCategorySerialize(
+        required=False, many=True, queryset=NameCategory.objects.all())
+    commands = CommandSerialize(
+        required=False, many=True, queryset=Command.objects.all())
+    competition_group = CompetitionGroupSerialize(
+        required=False, many=True, queryset=CompetitionGroup.objects.all())
 
     def create(self, validated_data):
         if(validated_data.get('main_judje') is not None):
@@ -41,8 +104,29 @@ class CompetitonSerialize(serializers.ModelSerializer):
         else:
             trainer = None
 
+        if (validated_data.get('name_category') is not None):
+            name_category_data = validated_data.pop('name_category')
+
+        if (validated_data.get('commands') is not None):
+            commands_data = validated_data.pop('commands')
+
+        if (validated_data.get('competition_group') is not None):
+            validated_data.pop('competition_group')
+
         competition = Competition.objects.create(
             main_judje=trainer, **validated_data)
+
+        for command in commands_data:
+            competition.commands.add(
+                Command.objects.get(name_of_command=command))
+
+        for name in name_category_data:
+            competition.name_category.add(
+                NameCategory.objects.get(name_category=name))
+            for category in Category.objects.filter(category_name=name):
+                competition_group_data = CompetitionGroup.objects.create(
+                    category=category)
+                competition.competition_group.add(competition_group_data)
 
         return competition
 
@@ -81,32 +165,43 @@ class CompetitonSerialize(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class CompetitionGroupSerialize(serializers.ModelSerializer):
+class NameCategorySerializeGet(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
-    competition = CompetitonSerialize(required=False)
-    category = CategorySerialize(required=False)
+
+    class Meta:
+        model = NameCategory
+        fields = "__all__"
+
+
+class CategorySerializeGet(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+    category_age = AgeCategorySerialize(required=False)
+    category_name = NameCategorySerializeGet(required=False)
+
+    class Meta:
+        model = Category
+        fields = "__all__"
+
+
+class CompetitionGroupSerializeGet(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+    category = CategorySerializeGet(required=False)
     discipline = DisciplineSerialize(required=False)
     judjes = TrainerSerialize(required=False, many=True)
     sportsmans = SportsmanSerialize(required=False, many=True)
 
-    def create(self, validated_data):
-        if(validated_data.get('category') is not None):
-            category_data = validated_data.pop('category')
-            category = Category.objects.get(id=category_data['id'])
-        else:
-            category = None
-
-        if(validated_data.get('competition') is not None):
-            competition_data = validated_data.pop('competition')
-            competition = Competition.objects.get(id=competition_data['id'])
-        else:
-            competition = None
-
-        competition_group = CompetitionGroup.objects.create(
-            category=category, competition=competition, **validated_data)
-
-        return competition_group
-
     class Meta:
         model = CompetitionGroup
+        fields = "__all__"
+
+
+class CompetitonSerializeGet(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+    main_judje = TrainerSerialize(required=False)
+    name_category = NameCategorySerializeGet(required=False, many=True)
+    commands = CommandSerializeGet(required=False, many=True)
+    competition_group = CompetitionGroupSerializeGet(required=False, many=True)
+
+    class Meta:
+        model = Competition
         fields = "__all__"

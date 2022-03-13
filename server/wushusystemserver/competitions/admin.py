@@ -12,6 +12,24 @@ class CompetitionAdmin(admin.ModelAdmin):
 
 admin.site.register(Competition, CompetitionAdmin)
 
+
+class AgeCategoryAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in AgeCategory._meta.fields]
+
+    class Meta:
+        model = AgeCategory
+
+admin.site.register(AgeCategory, AgeCategoryAdmin)
+
+
+class NameCategoryAdmin(admin.ModelAdmin):
+    list_display = [field.name for field in NameCategory._meta.fields]
+
+    class Meta:
+        model = NameCategory
+
+admin.site.register(NameCategory, NameCategoryAdmin)
+
 class CategoryAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Category._meta.fields]
 
@@ -20,6 +38,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Category, CategoryAdmin)
+
 
 class CommandAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Command._meta.fields]
@@ -30,6 +49,7 @@ class CommandAdmin(admin.ModelAdmin):
 
 admin.site.register(Command, CommandAdmin)
 
+
 class DisciplineAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Discipline._meta.fields]
 
@@ -38,6 +58,7 @@ class DisciplineAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Discipline, DisciplineAdmin)
+
 
 class CompetitionGroupAdmin(admin.ModelAdmin):
     list_display = [field.name for field in CompetitionGroup._meta.fields]
