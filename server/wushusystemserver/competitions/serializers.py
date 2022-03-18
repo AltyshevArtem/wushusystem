@@ -156,6 +156,13 @@ class CompetitonSerialize(serializers.ModelSerializer):
             instance.main_judje = trainer
             instance.main_judje.save()
 
+        if (validated_data.get('commands') is not None):
+            commands_data = validated_data.pop('commands')
+            instance.commands.clear()
+            for command in commands_data:
+                instance.commands.add(
+                    Command.objects.get(name_of_command=command))
+
         instance.save()
 
         return instance

@@ -5,6 +5,7 @@ from sportsmans.models import *
 # DJANGO_FILTERS
 from django_filters import FilterSet, CharFilter
 
+
 class SportsmanSetFilter(FilterSet):
     name = CharFilter(method="get_name")
     gender = CharFilter(method="get_gender")
@@ -67,7 +68,7 @@ class SportsmanSetFilter(FilterSet):
 
     def get_trainer(self, queryset, name,  value):
         if value:
-            print(value)
+
             value_list = value.replace('[', "").replace(']', "").replace(
                 "'", "").split(',')
             querysetresult = Sportsman.objects.none()
@@ -114,7 +115,7 @@ class SportsmanSetFilter(FilterSet):
                 "'", "").split(',')
             querysetresult = Sportsman.objects.none()
             for value in value_list:
-                print(value)
+
                 temp_query = queryset.filter(
                     Q(city__name_of_region__name_of_federal_region__name_of_federal_region__iexact=value)
                 )
@@ -128,7 +129,7 @@ class SportsmanSetFilter(FilterSet):
                 "'", "").split(',')
             querysetresult = Sportsman.objects.none()
             for value in value_list:
-                print(value)
+
                 temp_query = queryset.filter(
                     Q(city__name_of_region__name_of_region__iexact=value)
                 )

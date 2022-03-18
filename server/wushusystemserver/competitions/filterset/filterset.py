@@ -21,7 +21,20 @@ class CategorySetFilter(FilterSet):
 
 class CompetitionsSetFilter(FilterSet):
     name_of_competition = CharFilter(method="get_competitions")
-    commands = CharFilter(method="get_commands")
+    competition_group_day = CharFilter(method="get_competitiongroup_day")
+    competition_group_area = CharFilter(method="get_competitiongroup_area")
+
+    def get_competitiongroup_day(self, queryset, name, value):
+        if value:
+            queryset = queryset.filter(
+                Q(competition_group__day__icontains=value)
+            )
+
+    def get_competitiongroup_day(self, queryset, name, value):
+        if value:
+            queryset = queryset.filter(
+                Q(competition_group__area__icontains=value)
+            )
 
     def get_competitions(self, queryset, name, value):
         if value:
