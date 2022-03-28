@@ -121,6 +121,7 @@ class SportsmanSerialize(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
     get_region_name = serializers.CharField(read_only=True)
     get_federal_region_name = serializers.CharField(read_only=True)
+    age = serializers.CharField(read_only=True)
     city = CitySerialize(required=False)
     trainer = TrainerSerialize(required=False)
     club = ClubSerialize(required=False)

@@ -1,12 +1,13 @@
 from django.db import models
 from django.db.models.fields import TextField
 from django.db.models.fields.related import ForeignKey
+from datetime import date
 
 
 class Gender(models.Model):
     name_of_gender = models.TextField(
-        primary_key=True, 
-        blank=False, 
+        primary_key=True,
+        blank=False,
         verbose_name="Наименование пола"
     )
 
@@ -20,8 +21,8 @@ class Gender(models.Model):
 
 class JudjeCategory(models.Model):
     category = models.TextField(
-        primary_key=True, 
-        blank=False, 
+        primary_key=True,
+        blank=False,
         verbose_name="Судейская категория"
     )
 
@@ -35,11 +36,11 @@ class JudjeCategory(models.Model):
 
 class Federal_Region(models.Model):
     name_of_federal_region = models.TextField(
-        blank = True,
+        blank=True,
         verbose_name="Название федерального округа"
     )
     abbr_of_federal_region = models.TextField(
-        blank = True, 
+        blank=True,
         verbose_name="Аббревиатура федерального округа"
     )
 
@@ -53,17 +54,17 @@ class Federal_Region(models.Model):
 
 class Region(models.Model):
     name_of_region = models.TextField(
-        blank = True, 
+        blank=True,
         verbose_name="Название округа/области/края/республики"
     )
     name_of_federal_region = models.ForeignKey(
-        Federal_Region, 
+        Federal_Region,
         on_delete=models.CASCADE,
-        blank = True,
+        blank=True,
         verbose_name="Название федерального округа"
     )
     name_of_country = models.TextField(
-        blank = True, 
+        blank=True,
         verbose_name="Название страны"
     )
 
@@ -81,9 +82,9 @@ class City (models.Model):
         verbose_name="Наименование города"
     )
     name_of_region = models.ForeignKey(
-        Region, 
-        blank=False, 
-        on_delete=models.CASCADE, 
+        Region,
+        blank=False,
+        on_delete=models.CASCADE,
         verbose_name="Название округа/области/края/республики"
     )
 
@@ -93,40 +94,43 @@ class City (models.Model):
     class Meta():
         verbose_name = "Список городов"
         verbose_name_plural = "Список городов"
+
+
 class JudjeTrainer(models.Model):
     name = models.TextField(
-        blank=True, 
+        blank=True,
         verbose_name="Имя тренера"
     )
     surname = models.TextField(
-        blank=True,  
+        blank=True,
         verbose_name="Фамилия тренера"
     )
     patronymic = models.TextField(
-        blank = True, 
+        blank=True,
         verbose_name="Отчество тренера"
     )
     photo = models.ImageField(
-        blank = True, 
+        blank=True,
         verbose_name="Фотография тренера"
     )
     gender = models.ForeignKey(
-        Gender, 
-        blank = True,  
-        on_delete=models.CASCADE, 
+        Gender,
+        blank=True,
+        on_delete=models.CASCADE,
         verbose_name="Наименование пола"
     )
     date_of_birth = models.DateField(
-        blank = True, 
+        blank=True,
         verbose_name="Дата рождения тренера"
     )
     category = models.ForeignKey(
-        JudjeCategory, 
+        JudjeCategory,
         on_delete=models.CASCADE,
-        blank = True,
-        null = True, 
+        blank=True,
+        null=True,
         verbose_name="Судейская категория"
     )
+
     def __str__(self):
         return "%s %s %s" % (self.surname, self.name, self.patronymic)
 
@@ -137,14 +141,14 @@ class JudjeTrainer(models.Model):
 
 class Federation(models.Model):
     name_of_federation = models.TextField(
-        primary_key=True, 
-        blank = True, 
+        primary_key=True,
+        blank=True,
         verbose_name="Название федерации"
     )
     name_of_region = models.ForeignKey(
         Region,
-        blank = True, 
-        on_delete=models.CASCADE, 
+        blank=True,
+        on_delete=models.CASCADE,
         verbose_name="Название округа/области/края/республики в которой находится федерация"
     )
 
@@ -158,21 +162,21 @@ class Federation(models.Model):
 
 class Club(models.Model):
     name_of_club = models.TextField(
-        blank = True, 
+        blank=True,
         verbose_name="Наименование клуба"
     )
     name_of_owner = models.TextField(
-        blank = True, 
+        blank=True,
         verbose_name="ФИО владельца клуба"
     )
     address = models.TextField(
-        blank = True, 
+        blank=True,
         verbose_name="Адрес регистрации клуба"
     )
     federation = models.ForeignKey(
         Federation,
-        blank = True, 
-        on_delete=models.CASCADE, 
+        blank=True,
+        on_delete=models.CASCADE,
         verbose_name="Федерация, к которой привязан клуб"
     )
 
@@ -186,17 +190,17 @@ class Club(models.Model):
 
 class Insurance(models.Model):
     date_start = models.DateField(
-        blank = True, 
+        blank=True,
         verbose_name="Дата начала страхования"
     )
     date_end = models.DateField(
-        blank = True, 
+        blank=True,
         verbose_name="Дата окончания страхования"
     )
     # TODO: А если сканов несколько?
     file_insurance = models.FileField(
         upload_to='insurance_files_pdf/',
-        blank = True, 
+        blank=True,
         verbose_name="Фотография страховки"
     )
 
@@ -210,8 +214,8 @@ class Insurance(models.Model):
 
 class Rank(models.Model):
     name_of_rank = models.TextField(
-        blank=False, 
-        primary_key=True, 
+        blank=False,
+        primary_key=True,
         verbose_name="Имя ранга"
     )
 
@@ -225,8 +229,8 @@ class Rank(models.Model):
 
 class Duan_Czi(models.Model):
     name_of_rank = models.TextField(
-        blank=False, 
-        primary_key=True, 
+        blank=False,
+        primary_key=True,
         verbose_name="Название степени сертификата"
     )
 
@@ -240,24 +244,24 @@ class Duan_Czi(models.Model):
 
 class Passport(models.Model):
     number = models.TextField(
-        blank = True, 
+        blank=True,
         verbose_name="Серия и номер паспорта"
-    ) #TODO: Спроектировать защиту информационной системы с использование шифрование ПДн
+    )  # TODO: Спроектировать защиту информационной системы с использование шифрование ПДн
     scan = models.FileField(
         upload_to='passport_files/',
-        blank = True,
+        blank=True,
         verbose_name="Скан паспорта"
     )
     date_start = models.DateField(
-        blank = True, 
+        blank=True,
         verbose_name="Дата выдачи паспорта"
     )
     issue = models.TextField(
-        blank = True,
+        blank=True,
         verbose_name="Кем выдан паспорт"
     )
     code = models.TextField(
-        blank = True,
+        blank=True,
         verbose_name="Код подразделения"
     )
 
@@ -268,12 +272,12 @@ class Passport(models.Model):
 
 class Birth_Certificate(models.Model):
     number = models.TextField(
-        blank = True,
+        blank=True,
         verbose_name="Номер свидетельства о рождении"
     )
     scan = models.FileField(
         upload_to='birth_certificate_files/',
-        blank = True,
+        blank=True,
         verbose_name="Скан свидетельства о рождении"
     )
 
@@ -284,12 +288,12 @@ class Birth_Certificate(models.Model):
 
 class OMS(models.Model):
     number = models.TextField(
-        blank = True, 
+        blank=True,
         verbose_name="Номер полиса ОМС"
     )
     scan = models.FileField(
-        upload_to="oms_files/", 
-        blank = True,
+        upload_to="oms_files/",
+        blank=True,
         verbose_name="Скан полиса ОМС"
     )
 
@@ -301,21 +305,21 @@ class OMS(models.Model):
 class Proxy_doc(models.Model):
     scan = models.FileField(
         upload_to="proxy_files/",
-        blank = True,
+        blank=True,
         verbose_name="Скан доверенности"
     )
     original_passport = models.FileField(
         upload_to="original_passport/",
-        blank = True,
+        blank=True,
         verbose_name="Оригинал паспорта"
     )
     original_birth_certificate = models.FileField(
         upload_to="original_birth_certificate/",
-        blank = True,
+        blank=True,
         verbose_name="Оригинал свидетельства о рождении"
     )
     date_end = models.DateField(
-        blank = True,
+        blank=True,
         verbose_name="Дата окончания доверенности"
     )
 
@@ -325,132 +329,135 @@ class Proxy_doc(models.Model):
 
 
 class Sportsman(models.Model):
-    name = models.TextField(verbose_name="Имя спортсмена")
-    surname = models.TextField(verbose_name="Фамилия спортсмена")
+    name = models.TextField(blank=False, verbose_name="Имя спортсмена")
+    surname = models.TextField(blank=False, verbose_name="Фамилия спортсмена")
     patronymic = models.TextField(verbose_name="Отчество спортсмена")
     photo = models.ImageField(
-        upload_to='sportsman_photo/', 
-        blank = True,
-        null = True,
+        upload_to='sportsman_photo/',
+        blank=True,
+        null=True,
         verbose_name="Фотография спортсмена"
     )
-    date_of_birth = models.DateField(verbose_name="Дата рождения")
+    date_of_birth = models.DateField(blank=False, verbose_name="Дата рождения")
     address = models.TextField(
-        blank = True,
-        null = True, 
+        blank=True,
+        null=True,
         verbose_name="Адрес прописки"
     )
     confirm_address = models.FileField(
         upload_to="confirm_address_files/",
-        blank = True,
-        null = True,
+        blank=True,
+        null=True,
         verbose_name="Документ с подтверждением прописки"
     )
     gender = models.ForeignKey(
-        Gender, 
-        on_delete = models.CASCADE,
-        blank = True,
-        null = True,
-        verbose_name = "Наименование пола"
+        Gender,
+        on_delete=models.CASCADE,
+        blank=False,
+        verbose_name="Наименование пола"
     )
     passport = models.ForeignKey(
-        Passport, 
-        on_delete = models.CASCADE, 
-        blank = True,
-        null = True,
-        verbose_name = "Паспорт"
+        Passport,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name="Паспорт"
     )
     birth_certificate = models.ForeignKey(
-        Birth_Certificate, 
-        on_delete = models.CASCADE, 
-        blank = True,
-        null = True, 
-        verbose_name = "Свидетельство о рождении"
+        Birth_Certificate,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name="Свидетельство о рождении"
     )
     proxy = models.ForeignKey(
-        Proxy_doc, 
-        on_delete = models.CASCADE, 
-        blank = True,
-        null = True,
-        verbose_name = "Доверенность на паспорт/свидетельство о рождении"
+        Proxy_doc,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name="Доверенность на паспорт/свидетельство о рождении"
     )
     oms = models.ForeignKey(
         OMS,
-        on_delete = models.CASCADE, 
-        blank = True,
-        null = True, 
-        verbose_name = "Полис ОМС"
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
+        verbose_name="Полис ОМС"
     )
     city = models.ForeignKey(
         City,
-        on_delete = models.CASCADE, 
-        verbose_name = "Название города"
+        on_delete=models.CASCADE,
+        verbose_name="Название города"
     )
     trainer = models.ForeignKey(
-        JudjeTrainer, 
-        on_delete=models.CASCADE, 
-        blank = True, 
-        null = True,
+        JudjeTrainer,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
         verbose_name="Тренер спортсмена"
     )
     club = models.ForeignKey(
         Club,
-        on_delete=models.CASCADE, 
-        blank = True, 
-        null = True, 
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
         verbose_name="Наименование клуба"
     )
     insurance = models.ForeignKey(
-        Insurance, 
-        on_delete=models.CASCADE, 
-        blank = True,
-        null = True, 
+        Insurance,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
         verbose_name="Страховка"
     )
     rank = models.ForeignKey(
-        Rank, 
-        on_delete=models.CASCADE, 
-        blank = True, 
-        null = True,
+        Rank,
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
         verbose_name="Наименование ранга"
     )
     rusada = models.FileField(
-        upload_to='rusada_files_pdf/', 
-        blank = True,
-        null = True,
+        upload_to='rusada_files_pdf/',
+        blank=True,
+        null=True,
         verbose_name="Изображение антидопингового сертификата"
     )
     covid_test = models.FileField(
-        upload_to = "covid_test_files/", 
-        blank = True,
-        null = True,
-        verbose_name = "Тест ковид"
+        upload_to="covid_test_files/",
+        blank=True,
+        null=True,
+        verbose_name="Тест ковид"
     )
     covid_contact = models.FileField(
-        upload_to = "covid_contact_files/",
-        blank = True,
-        null = True,
-        verbose_name = "Справка об отсутствии контактов с инфекционными больными"
+        upload_to="covid_contact_files/",
+        blank=True,
+        null=True,
+        verbose_name="Справка об отсутствии контактов с инфекционными больными"
     )
     parent_doc = models.FileField(
-        upload_to = "parent_doc_files/",
-        blank = True,
-        null = True,
-        verbose_name = "Доверенность от родителей на заселение в гостиницу"
+        upload_to="parent_doc_files/",
+        blank=True,
+        null=True,
+        verbose_name="Доверенность от родителей на заселение в гостиницу"
     )
-    school_doc = models.FileField( 
-        upload_to = "school_doc/", 
-        blank = True,
-        null = True,
-        verbose_name = "Справка об обучении в школе"
+    school_doc = models.FileField(
+        upload_to="school_doc/",
+        blank=True,
+        null=True,
+        verbose_name="Справка об обучении в школе"
     )
     duan_czi = models.ForeignKey(
         Duan_Czi,
-        on_delete = models.CASCADE, 
-        blank = True,
-        null = True, 
+        on_delete=models.CASCADE,
+        blank=True,
+        null=True,
         verbose_name="Ранг Дуань Цзи"
     )
+
+    def age(self):
+        today = date.today()
+        return today.year - self.date_of_birth.year - ((today.month, today.day) < (self.date_of_birth.month, self.date_of_birth.day))
 
     def get_region_name(self):
         return self.city.name_of_region.name_of_region

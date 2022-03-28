@@ -50,10 +50,8 @@ class CommandSerializeSet(serializers.ModelSerializer):
         instance.date_of_create = validated_data.get(
             'date_of_create', instance.date_of_create)
 
-        print(validated_data)
         if (validated_data.get('sportsmans') is not None):
             sportsmans_data = validated_data.pop('sportsmans')
-            print(sportsmans_data)
             instance.sportsmans.clear()
             for sportsman in sportsmans_data:
                 instance.sportsmans.add(
@@ -145,16 +143,34 @@ class CompetitonSerialize(serializers.ModelSerializer):
         competition = Competition.objects.create(
             main_judje=trainer, **validated_data)
 
+        # Общий список спортсменов из всех команд
+        listSportsmans = []
+
         for command in commands_data:
-            competition.commands.add(
-                Command.objects.get(name_of_command=command))
+            command_data = Command.objects.get(id=command.id)
+            competition.commands.add(command_data)
+            for sportsman in command.sportsmans.all():
+                if sportsman not in listSportsmans:
+                    listSportsmans.append(sportsman)
 
         for name in name_category_data:
             competition.name_category.add(
                 NameCategory.objects.get(name_category=name))
+
             for category in Category.objects.filter(category_name=name):
                 competition_group_data = CompetitionGroup.objects.create(
                     category=category)
+
+                gender = category.gender.name_of_gender
+                from_age = category.category_age.from_age
+                on_age = category.category_age.on_age
+
+                for sportsman in listSportsmans:
+                    if sportsman.gender.name_of_gender == gender:
+                        if from_age <= sportsman.age() < on_age:
+                            competition_group_data.sportsmans.add(
+                                sportsman)
+
                 competition.competition_group.add(competition_group_data)
 
         return competition
