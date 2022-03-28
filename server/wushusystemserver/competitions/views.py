@@ -44,17 +44,20 @@ class CommandViewSet(viewsets.ModelViewSet):
     model = Command
     serializer_class = CommandSerialize
 
-    filter_backends = (DjangoFilterBackend, OrderingFilter)
-    filterset_class = CommandSetFilter
 
-
-class CommandSerializeGet(viewsets.ModelViewSet):
+class CommandViewSetGet(viewsets.ModelViewSet):
     queryset = Command.objects.all()
     model = Command
     serializer_class = CommandSerializeGet
 
     filter_backends = (DjangoFilterBackend, OrderingFilter)
     filterset_class = CommandSetFilter
+
+class CommandViewSetEdit(viewsets.ModelViewSet):
+    queryset = Command.objects.all()
+    model = Command
+    serializer_class = CommandSerializeSet
+    
 
 
 class CompetitionViewSetGet(viewsets.ModelViewSet):
@@ -72,6 +75,8 @@ class CompetitonViewSet(viewsets.ModelViewSet):
     serializer_class = CompetitonSerialize
 
 
+
+
 class CompetitionGroupViewSet(viewsets.ModelViewSet):
     queryset = CompetitionGroup.objects.all()
     model = CompetitionGroup
@@ -79,4 +84,3 @@ class CompetitionGroupViewSet(viewsets.ModelViewSet):
 
     filter_backends = (DjangoFilterBackend, OrderingFilter)
     filterset_class = CompetitionGroupSetFilter
-

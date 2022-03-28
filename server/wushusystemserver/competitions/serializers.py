@@ -39,9 +39,38 @@ class DisciplineSerialize(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class CommandSerializeSet(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
+    sportsmans = serializers.PrimaryKeyRelatedField(
+        required=False, many=True, queryset=Sportsman.objects.all())
+
+    def update(self, instance, validated_data):
+        instance.name_of_command = validated_data.get(
+            'name_of_command', instance.name_of_command)
+        instance.date_of_create = validated_data.get(
+            'date_of_create', instance.date_of_create)
+
+        print(validated_data)
+        if (validated_data.get('sportsmans') is not None):
+            sportsmans_data = validated_data.pop('sportsmans')
+            print(sportsmans_data)
+            instance.sportsmans.clear()
+            for sportsman in sportsmans_data:
+                instance.sportsmans.add(
+                    Sportsman.objects.get(id=sportsman.id))
+
+        instance.save()
+
+        return instance
+
+    class Meta:
+        model = Command
+        fields = "__all__"
+
+
 class CommandSerializeGet(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
-    sportsmans = SportsmanSerialize(many=True)
+    sportsmans = SportsmanSerialize(required=False, many=True)
 
     class Meta:
         model = Command

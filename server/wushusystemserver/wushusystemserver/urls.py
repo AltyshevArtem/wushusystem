@@ -32,7 +32,12 @@ router.register(r'competitions', CompetitonViewSet)
 router.register(r'competitions_get', CompetitionViewSetGet)
 
 router.register(r'competition_group', CompetitionGroupViewSet)
-router.register(r'command', CommandSerializeGet)
+
+router.register(r'command', CommandViewSet)
+router.register(r'command_get', CommandViewSetGet)
+router.register(r'command_set', CommandViewSetEdit)
+
+
 router.register(r'age_category', AgeCategoryViewSet)
 router.register(r'name_category', NameCategoryViewGet)
 #router.register(r'rank_history', Rank_historyViewSet)
