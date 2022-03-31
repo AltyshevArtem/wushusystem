@@ -29,13 +29,10 @@ router.register(r'proxy', Proxy_docViewSet)
 router.register(r'category', CategoryViewSet)
 router.register(r'discipline', DisciplineViewSet)
 router.register(r'competitions', CompetitonViewSet)
-router.register(r'competitions_get', CompetitionViewSetGet)
 
 router.register(r'competition_group', CompetitionGroupViewSet)
 
-router.register(r'command', CommandViewSet)
-router.register(r'command_get', CommandViewSetGet)
-router.register(r'command_set', CommandViewSetEdit)
+router.register(r'commands', CommandViewSet)
 
 
 router.register(r'age_category', AgeCategoryViewSet)

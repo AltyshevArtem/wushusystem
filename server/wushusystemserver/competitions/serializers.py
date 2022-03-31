@@ -1,9 +1,6 @@
-from typing_extensions import Required
-from attr import validate
-from django.db.models import fields
 from rest_framework import serializers
 from competitions.models import *
-from sportsmans.serializers import FederalRegionSerialize, TrainerSerialize, RegionSerialize, SportsmanSerialize
+from sportsmans.serializers import TrainerSerialize, SportsmanSerialize
 
 
 class AgeCategorySerialize(serializers.ModelSerializer):
@@ -39,45 +36,10 @@ class DisciplineSerialize(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class CommandSerializeSet(serializers.ModelSerializer):
+class CommandSerialize(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
     sportsmans = serializers.PrimaryKeyRelatedField(
         required=False, many=True, queryset=Sportsman.objects.all())
-
-    def update(self, instance, validated_data):
-        instance.name_of_command = validated_data.get(
-            'name_of_command', instance.name_of_command)
-        instance.date_of_create = validated_data.get(
-            'date_of_create', instance.date_of_create)
-
-        if (validated_data.get('sportsmans') is not None):
-            sportsmans_data = validated_data.pop('sportsmans')
-            instance.sportsmans.clear()
-            for sportsman in sportsmans_data:
-                instance.sportsmans.add(
-                    Sportsman.objects.get(id=sportsman.id))
-
-        instance.save()
-
-        return instance
-
-    class Meta:
-        model = Command
-        fields = "__all__"
-
-
-class CommandSerializeGet(serializers.ModelSerializer):
-    id = serializers.IntegerField(required=False)
-    sportsmans = SportsmanSerialize(required=False, many=True)
-
-    class Meta:
-        model = Command
-        fields = "__all__"
-
-
-class CommandSerialize(serializers.PrimaryKeyRelatedField):
-    id = serializers.IntegerField(required=False)
-    sportsmans = SportsmanSerialize(many=True)
 
     class Meta:
         model = Command
@@ -117,9 +79,9 @@ class CompetitionGroupSerialize(serializers.PrimaryKeyRelatedField, serializers.
 class CompetitonSerialize(serializers.ModelSerializer):
     id = serializers.IntegerField(required=False)
     main_judje = TrainerSerialize(required=False)
-    name_category = NameCategorySerialize(
+    name_category = serializers.PrimaryKeyRelatedField(
         required=False, many=True, queryset=NameCategory.objects.all())
-    commands = CommandSerialize(
+    commands = serializers.PrimaryKeyRelatedField(
         required=False, many=True, queryset=Command.objects.all())
     competition_group = CompetitionGroupSerialize(
         required=False, many=True, queryset=CompetitionGroup.objects.all())
@@ -175,43 +137,6 @@ class CompetitonSerialize(serializers.ModelSerializer):
 
         return competition
 
-    def update(self, instance, validated_data):
-        instance.name_of_competition = validated_data.get(
-            'name_of_competition', instance.name_of_competition)
-        instance.description_of_competition = validated_data.get(
-            'description_of_competition', instance.description_of_competition)
-        instance.venue_of_competition = validated_data.get(
-            'venue_of_competition', instance.venue_of_competition)
-        instance.competition_date_start = validated_data.get(
-            'competition_date_start', instance.competition_date_start)
-        instance.competition_date_end = validated_data.get(
-            'competition_date_end', instance.competition_date_end)
-        instance.registration_start = validated_data.get(
-            'registration_start', instance.registration_start)
-        instance.registration_end = validated_data.get(
-            'registration_end', instance.registration_end)
-        instance.competition_days = validated_data.get(
-            'competition_days', instance.competition_days)
-        instance.competition_areas = validated_data.get(
-            'competition_areas', instance.competition_areas)
-
-        if(validated_data.get('main_judje') is not None):
-            trainer_data = validated_data.pop('main_judje')
-            trainer = JudjeTrainer.objects.get(id=trainer_data['id'])
-            instance.main_judje = trainer
-            instance.main_judje.save()
-
-        if (validated_data.get('commands') is not None):
-            commands_data = validated_data.pop('commands')
-            instance.commands.clear()
-            for command in commands_data:
-                instance.commands.add(
-                    Command.objects.get(name_of_command=command))
-
-        instance.save()
-
-        return instance
-
     class Meta:
         model = Competition
         fields = "__all__"
@@ -244,16 +169,4 @@ class CompetitionGroupSerializeGet(serializers.ModelSerializer):
 
     class Meta:
         model = CompetitionGroup
-        fields = "__all__"
-
-
-class CompetitonSerializeGet(serializers.ModelSerializer):
-    id = serializers.IntegerField(required=False)
-    main_judje = TrainerSerialize(required=False)
-    name_category = NameCategorySerializeGet(required=False, many=True)
-    commands = CommandSerializeGet(required=False, many=True)
-    competition_group = CompetitionGroupSerializeGet(required=False, many=True)
-
-    class Meta:
-        model = Competition
         fields = "__all__"
