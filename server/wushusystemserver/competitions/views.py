@@ -161,6 +161,72 @@ class CompetitonViewSet(viewsets.ModelViewSet):
         serializer = CompetitonSerializeGet(competition)
         return Response(serializer.data)
 
+    def create(self, request, *args, **kwargs):
+        competition_data = request.data
+        if(competition_data.get('main_judje.id') is not None):
+            trainer = JudjeTrainer.objects.get(
+                id=request.data.get('main_judje.id'))
+        else:
+            trainer = None
+
+        if(competition_data.getlist('commands') != []):
+            commands = competition_data.getlist('commands')
+        else:
+            commands = None
+
+        if(competition_data.getlist('name_category') != []):
+            list_nameCategory = competition_data.getlist('name_category')
+        else:
+            list_nameCategory = None
+
+        competition = Competition.objects.create(
+            name_of_competition=competition_data.get('name_of_competition'),
+            description_of_competition=competition_data.get(
+                'description_of_competition'),
+            venue_of_competition=competition_data.get('venue_of_competition'),
+            competition_date_start=competition_data.get(
+                'competition_date_start'),
+            competition_date_end=competition_data.get('competition_date_end'),
+            registration_start=competition_data.get('registration_start'),
+            registration_end=competition_data.get('registration_end'),
+            competition_days=competition_data.get('competition_days'),
+            competition_areas=competition_data.get('competition_areas'),
+            main_judje=trainer)
+
+        # Общий список спортсменов из всех команд
+        listSportsmans = []
+
+        for command in commands:
+            command_data = Command.objects.get(id=command)
+            competition.commands.add(command_data)
+            for sportsman in command_data.sportsmans.all():
+                if sportsman not in listSportsmans:
+                    listSportsmans.append(sportsman)
+
+        for name in list_nameCategory:
+            competition.name_category.add(
+                NameCategory.objects.get(id=name))
+
+            for category in Category.objects.filter(category_name=name):
+                competition_group_data = CompetitionGroup.objects.create(
+                    category=category)
+
+                gender = category.gender.name_of_gender
+                from_age = category.category_age.from_age
+                on_age = category.category_age.on_age
+
+                for sportsman in listSportsmans:
+                    if sportsman.gender.name_of_gender == gender:
+                        if from_age <= sportsman.age() < on_age:
+                            competition_group_data.sportsmans.add(
+                                sportsman)
+
+                competition.competition_group.add(competition_group_data)
+
+        competition.save()
+        serializer = CompetitonSerializeGet(competition)
+        return Response(serializer.data)
+
     filter_backends = (DjangoFilterBackend, OrderingFilter)
     filterset_class = CompetitionsSetFilter
 

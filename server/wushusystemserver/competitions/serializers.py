@@ -86,57 +86,6 @@ class CompetitonSerialize(serializers.ModelSerializer):
     competition_group = CompetitionGroupSerialize(
         required=False, many=True, queryset=CompetitionGroup.objects.all())
 
-    def create(self, validated_data):
-        if(validated_data.get('main_judje') is not None):
-            trainer_data = validated_data.pop('main_judje')
-            trainer = JudjeTrainer.objects.get(id=trainer_data['id'])
-        else:
-            trainer = None
-
-        if (validated_data.get('name_category') is not None):
-            name_category_data = validated_data.pop('name_category')
-
-        if (validated_data.get('commands') is not None):
-            commands_data = validated_data.pop('commands')
-
-        if (validated_data.get('competition_group') is not None):
-            validated_data.pop('competition_group')
-
-        competition = Competition.objects.create(
-            main_judje=trainer, **validated_data)
-
-        # Общий список спортсменов из всех команд
-        listSportsmans = []
-
-        for command in commands_data:
-            command_data = Command.objects.get(id=command.id)
-            competition.commands.add(command_data)
-            for sportsman in command.sportsmans.all():
-                if sportsman not in listSportsmans:
-                    listSportsmans.append(sportsman)
-
-        for name in name_category_data:
-            competition.name_category.add(
-                NameCategory.objects.get(name_category=name))
-
-            for category in Category.objects.filter(category_name=name):
-                competition_group_data = CompetitionGroup.objects.create(
-                    category=category)
-
-                gender = category.gender.name_of_gender
-                from_age = category.category_age.from_age
-                on_age = category.category_age.on_age
-
-                for sportsman in listSportsmans:
-                    if sportsman.gender.name_of_gender == gender:
-                        if from_age <= sportsman.age() < on_age:
-                            competition_group_data.sportsmans.add(
-                                sportsman)
-
-                competition.competition_group.add(competition_group_data)
-
-        return competition
-
     class Meta:
         model = Competition
         fields = "__all__"
