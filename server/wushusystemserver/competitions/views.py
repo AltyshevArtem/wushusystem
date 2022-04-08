@@ -234,7 +234,74 @@ class CompetitonViewSet(viewsets.ModelViewSet):
 class CompetitionGroupViewSet(viewsets.ModelViewSet):
     queryset = CompetitionGroup.objects.all()
     model = CompetitionGroup
-    serializer_class = CompetitionGroupSerializeGet
+    serializer_class = CompetitionGroupSerialize
+
+    def list(self, request):
+        queryset = CompetitionGroup.objects.all()
+        serializer = CompetitionGroupSerializeGet(queryset, many=True)
+        return Response(serializer.data)
+
+    def retrieve(self, request, pk=None):
+        queryset = CompetitionGroup.objects.all()
+        competition_group = get_object_or_404(queryset, pk=pk)
+        serializer = CompetitionGroupSerializeGet(competition_group)
+        return Response(serializer.data)
+
+    def update(self, request, pk=None):
+        queryset = CompetitionGroup.objects.all()
+        competition_group = get_object_or_404(queryset, pk=pk)
+
+        if (request.data.get('category.id') is not None):
+            category = Category.objects.get(
+                id=request.data.get('category.id'))
+            competition_group.category = category
+            competition_group.category.save()
+
+        if (request.data.get('competition_area') is not None):
+            competition_group.competition_area = request.data.get(
+                'competition_area')
+
+        if (request.data.get('competition_day') is not None):
+            competition_group.competition_day = request.data.get(
+                'competition_day')
+
+        if (request.data.get('duration') is not None):
+            competition_group.duration = request.data.get(
+                'duration')
+
+        if (request.data.get('time_start') is not None):
+            competition_group.time_start = request.data.get(
+                'time_start')
+
+        if (request.data.get('time_end') is not None):
+            competition_group.time_end = request.data.get(
+                'time_end')
+
+        if (request.data.get('performance_number') is not None):
+            competition_group.performance_number = request.data.get(
+                'performance_number')
+
+        if (request.data.get('discipline.id') is not None):
+            discipline = Discipline.objects.get(
+                id=request.data.get('category.id'))
+            competition_group.discipline = discipline
+            competition_group.discipline.save()
+
+        if (request.data.getlist('judjes') != []):
+            competition_group.judjes.clear()
+            for judje in request.data.getlist('judjes'):
+                competition_group.judjes.add(
+                    JudjeTrainer.objects.get(id=judje))
+
+        if (request.data.getlist('sportsmans') != []):
+            competition_group.sportsmans.clear()
+            for sportsman in request.data.getlist('sportsmans'):
+                competition_group.sportsmans.add(
+                    Sportsman.objects.get(id=sportsman))
+
+        competition_group.save()
+        serializer = CompetitionGroupSerializeGet(competition_group)
+        return Response(serializer.data)
 
     filter_backends = (DjangoFilterBackend, OrderingFilter)
     filterset_class = CompetitionGroupSetFilter
